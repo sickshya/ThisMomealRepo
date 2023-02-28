@@ -8,6 +8,7 @@ public interface UserService {
 	// 유저
 	int insertUserInfo(UsersVO vo); // 유저정보 추가/삽입
 
+	// 마이페이지
 	int updateUserInfo(UsersVO vo); // 회원정보 수정
 
 	int updateWithdraw(UsersVO vo); // 회원탈퇴 업데이트
