@@ -66,4 +66,50 @@
 		WHERE U.USER_ID = 'user1' AND I.board_type='groupBuying' AND
 		P.NO = 1
 	</select>
+	
+	
+	<!-- +++++++++++++++++관리자+++++++++++++++++++++++++++++++ -->
+	<!-- 관리자 -공동구매 물품 리스트 -->
+	<sql id="creiteria">
+		<where>
+			<if test="userId != null and userId != '' ">
+				user_id = #{userId}
+			</if>
+			<if test="grade != null and grade != '' ">
+				AND grade = #{grade}
+			</if>
+		</where>
+	</sql>
+
+
+	<select id="getCountTotal"
+		parameterType="co.doeat.management.service.GroupPurchaseListVO"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM GROUP_PURCHASE_LISTS
+		<include refid="creiteria"></include>
+	</select>
+
+	<select id="getAdminGroupPurchaseList"
+		parameterType="co.doeat.management.service.GroupPurchaseListVO"
+		resultType="co.doeat.management.service.GroupPurchaseListVO">
+
+		select * from( select rownum rn, a.* from(
+		<![CDATA[
+		select no,name,co_name,
+        case when grp_start_date <=trunc(current_date) And grp_end_date <= trunc(current_date) THEN '완료'
+            when trunc(grp_start_date) <= trunc(current_date) And trunc(current_date) <= grp_end_date Then '진행중' 
+            Else '진행전'  
+              END as gpstatus
+              ]]>
+		FROM GROUP_PURCHASE_LISTS;
+
+		<include refid="creiteria"></include>
+		order by no
+<![CDATA[
+		 )a where rownum <= #{last}) b where rn  >= #{first}
+	
+]]>
+	</select>
+	
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import co.doeat.management.mapper.GroupPurchaseMapper;
 import co.doeat.management.service.GroupPurchaseListVO;
+import co.doeat.management.service.GroupPurchaseSearchVO;
 import co.doeat.management.service.GroupPurchaseService;
 import co.doeat.management.service.GroupPurchaseSettlementVO;
 
@@ -39,6 +40,19 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 	@Override
 	public GroupPurchaseSettlementVO purchaseSelect(String userId) {
 		return groupPurchaseMapper.purchaseSelect(userId);
+	}
+	
+	
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++과리자
+	@Override
+	public List<GroupPurchaseListVO> getAdminGroupPurchaseList(GroupPurchaseSearchVO svo) {
+		return groupPurchaseMapper.getAdminGroupPurchaseList(svo);
+	}
+
+	@Override
+	public int getCountTotal(GroupPurchaseSearchVO svo) {
+		return groupPurchaseMapper.getCountTotal(svo);
 	}
 
 }

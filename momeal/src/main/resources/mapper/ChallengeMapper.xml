@@ -57,5 +57,11 @@
 											ON(P.NO = I.POST_NO)
 		WHERE P.USER_ID = 'user3' AND P.NO = #{no} AND I.BOARD_TYPE = 'CT01'
 	</select>
+	
+	<!--  관리자 챌린지 리스트 -->
+	<select id="adminChalList" resultType="ChallengeVO">
+		SELECT * FROM CHALLENGES 
+		
+	</select>
 
 </mapper>

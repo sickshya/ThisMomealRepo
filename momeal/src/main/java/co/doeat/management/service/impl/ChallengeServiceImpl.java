@@ -49,6 +49,13 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return map.getMyChall(no);
 	}
 
+	
+	// ▶ 관리자
+	@Override
+	public List<ChallengeVO> adminChalList() {
+		return map.adminChalList();
+	}
+
 
 
 }
