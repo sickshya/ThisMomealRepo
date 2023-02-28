@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import co.doeat.Paging;
+import co.doeat.management.service.GroupPurchaseSearchVO;
 import co.doeat.management.service.GroupPurchaseService;
 
 @Controller
@@ -90,6 +93,23 @@ public class GroupPurchaseController {
 	public String myPurchaseSelect(Model model, @PathVariable String id) {
 		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(id));
 		return "myPages/myPurchaseSelect";
+	}
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
+	//페이징
+	@RequestMapping("/adminGroupPurchase")
+	public String adminGroupPurchase(Model model, @ModelAttribute("esvo") GroupPurchaseSearchVO svo,Paging paging) {
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		paging.setTotalRecord(groupPurchaseService.getCountTotal(svo));
+		model.addAttribute("getAdminGroupPurchaseList", groupPurchaseService.getAdminGroupPurchaseList(svo));
+		return "admin/adminGroupPurchase";
+	}
+	
+	//공동구매등록
+	@RequestMapping("/adminGPInsert.do")
+	public String adminGPInsert() {
+		return "admin/adminGPInsert";
 	}
 
 }

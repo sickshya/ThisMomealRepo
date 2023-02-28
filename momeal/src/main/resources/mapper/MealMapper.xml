@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.activity.mapper.MealMapper">
 
-<insert id="insertMeal" parameterType="MealVO">
-	insert into Meals(
+	<insert id="insertMeal" parameterType="MealVO">
+		insert into Meals(
 		no,
 		user_id,
 		subject,
@@ -14,34 +14,33 @@
 		meal_time,
 		meal_amount,
 		post_date
-	)values (
+		)values (
 		#{no},
 		#{userId},
 		#{subject},
-	 	#{img},
-	 	#{fileDir},
-	 	#{mealScore},
-	 	#{typeCode},
-	 	#{mealTime},
-	 	#{mealAmount},
-	 	sysdate	
-	)
-</insert>
+		#{img},
+		#{fileDir},
+		#{mealScore},
+		#{typeCode},
+		#{mealTime},
+		#{mealAmount},
+		sysdate
+		)
+	</insert>
 
-<select id="myFeedList"
-	resultType = "co.doeat.activity.service.MealVO"
-	parameterType ="String">
-	SELECT * FROM MEALS	
-	where trunc(post_date) = to_date(#{postDate},'yyyyMMdd')
-</select>
+	<select id="myFeedList"
+		resultType="co.doeat.activity.service.MealVO" parameterType="String">
+		SELECT * FROM MEALS
+		where trunc(post_date) = to_date(#{postDate},'yyyyMMdd')
+	</select>
 
 
-<select id="mealSelect"
+	<select id="mealSelect"
 		resultType="co.doeat.activity.service.MealVO">
 		SELECT * FROM MEALS
 		WHERE NO = #{no}
 	</select>
-	
-	
+
+
 
 </mapper>

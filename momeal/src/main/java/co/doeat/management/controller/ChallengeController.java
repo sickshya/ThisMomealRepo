@@ -69,7 +69,7 @@ public class ChallengeController {
 
 	}
 	
-
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
 	// 챌린지 관리자
 	@RequestMapping("/adminChallenge")
 	public String adminChallenge() {

@@ -24,9 +24,40 @@
 <!-- App CSS -->
 <link rel="stylesheet" href="css/app-light.css" id="lightTheme">
 <link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
+
+<style>
+.pagination {
+	display: inline-block;
+}
+
+.pagination a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+}
+
+.pagination a.active {
+	background-color: #4CAF50;
+	color: white;
+}
+
+.pagination a:hover:not(.active) {
+	background-color: #ddd;
+}
+</style>
+
 </head>
 <body class="vertical  light  ">
 	<div layout:fragment="content">
+		<script>
+			function gopage(page) {
+				location.href = "adminUser?page=" + page;
+				frmSearch.page.value = page;
+				frmSearch.submit();
+			}
+		</script>
+
 		<div class="wrapper">
 
 			<main role="main" class="main-content">
@@ -36,42 +67,43 @@
 							<div class="row">
 
 
-								<!-- 챌린지리스트 -->
-								<!-- 표 시작 Striped rows -->
+								<!-- 회원리스트 -->
 
+
+
+
+								<!-- 표 시작 Striped rows -->
 								<div class="col-md-20 my-4">
 									<div class="card shadow">
 										<div class="card-body">
-											<h5 class="card-title">챌린지리스트</h5>
+											<h5 class="card-title">공동구매</h5>
 											<p class="card-text">
 												<input type="button" value="등록하기"
-													onclick="location.href='adminChalInsert.do'">
+													onclick="location.href='adminGPInsert.do'">
 											</p>
 											<table class="table table-striped table-hover">
 												<thead>
 													<tr>
 														<th><input type="checkbox"></th>
 														<th>순번</th>
-														<th>챌린지명</th>
-														<th>챌린지포인트</th>
+														<th>회사명</th>
+														<th>제품명</th>
 														<th>시작일</th>
 														<th>종료일</th>
-														<th>현황</th>
+														<th>상태</th>
 														<th>Action</th>
 													</tr>
 												</thead>
 												<tbody>
 
-													<tr th:each="chal : ${challenge}">
+													<tr th:each="gp : ${getAdminGroupPurchaseList}">
 														<td><input type="checkbox"></td>
-														<td th:text="${chal.no}"></td>
-														<td th:text="${chal.title}"></td>
-														<td th:text="${chal.savePoint}"></td>
-														<td
-															th:text="${chal.chalStartDate}"></td>
-														<td
-															th:text="${#dates.format(chal.chalEndDate, 'yyyy-MM-dd')}"></td>
-														<td>진행중</td>
+														<td th:text="${gp.no}"></td>
+														<td th:text="${gp.coName}"></td>
+														<td th:text="${gp.name}"></td>
+														<td th:text="${gp.grpStartDate}"></td>
+														<td th:text="${gp.grpEndDate}"></td>
+														<td th:text="${gp.gpstatus}"></td>
 														<td>
 															<div class="dropdown">
 																<button class="btn btn-sm dropdown-toggle" type="button"
@@ -81,9 +113,9 @@
 																</button>
 																<div class="dropdown-menu dropdown-menu-right"
 																	aria-labelledby="dr2">
-																	<a class="dropdown-item" href="#">재등록</a> <a
-																		class="dropdown-item" href="#">수정</a> <a
-																		class="dropdown-item" href="#">삭제</a>
+																	<a class="dropdown-item" href="#">Edit</a> <a
+																		class="dropdown-item" href="#">Remove</a> <a
+																		class="dropdown-item" href="#">Assign</a>
 																</div>
 															</div>
 														</td>
@@ -93,66 +125,22 @@
 
 												</tbody>
 											</table>
+
+
+											<div class="pagination">
+												<a href="#">&laquo;</a> <a
+													th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}"
+													th:href="|javascript:gopage(${num})|"
+													th:class="${paging.page}==${num} ? 'active'">[[${num}]]
+												</a> <a href="#">&raquo;</a>
+											</div>
+
+
+
 										</div>
 									</div>
 								</div>
 								<!-- Striped rows -->
-								<br>
-
-
-
-
-								<!-- 챌린지 상세 -->
-								<!-- 챌린지리스트 -->
-								<!-- 표 시작 Striped rows -->
-								<br> <br>
-
-								<div class="col-md-20 my-4">
-									<div class="card shadow">
-										<div class="card-body">
-											<h5 class="card-title">챌린지상세</h5>
-											<p class="card-text">With supporting text below as a
-												natural lead-in to additional content.</p>
-											<table class="table table-striped table-hover">
-												<thead>
-													<tr>
-														<th><input type="checkbox"></th>
-														<th>순번</th>
-														<th>챌린지명</th>
-														<th>챌린지포인트</th>
-														<th>참여회원</th>
-														<th>상태</th>
-														<th>획득포인트</th>
-
-													</tr>
-												</thead>
-												<tbody>
-
-													<tr>
-														<td><input type="checkbox"></td>
-														<td>2786</td>
-														<td>Leblanc, Yoshio V.</td>
-														<td>287-8300 Nisl. St.</td>
-														<td>(899) 881-3833</td>
-														<td>04/05/2019</td>
-														<td>포인트</td>
-													</tr>
-
-
-
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-								<!-- Striped rows -->
-
-
-
-
-
-
-
 
 
 							</div>
