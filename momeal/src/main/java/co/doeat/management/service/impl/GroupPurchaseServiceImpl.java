@@ -16,19 +16,26 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 	@Autowired
 	private GroupPurchaseMapper groupPurchaseMapper;
 
-	// 전체 공동구매 리스트
+	// 전체보기
 	@Override
 	public List<GroupPurchaseListVO> getPurList() {
 
 		return groupPurchaseMapper.getPurList();
 	}
 
-	// 진행중인 공동구매 - 단건조회
+	//진행중
+	@Override
+	public List<GroupPurchaseListVO> getPurchasingList() {
+		
+		return groupPurchaseMapper.getPurchasingList();
+	}
+	
+	// 단건조회
 	@Override
 	public GroupPurchaseListVO getPurOne(int no) {
 		return groupPurchaseMapper.getPurOne(no);
 	}
-
+	
 	// +++++++++++++++++++++++++++마이페이지
 
 	@Override
