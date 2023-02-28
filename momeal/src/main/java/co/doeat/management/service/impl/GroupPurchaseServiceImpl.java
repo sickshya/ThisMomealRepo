@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import co.doeat.management.mapper.GroupPurchaseMapper;
 import co.doeat.management.service.GroupPurchaseListVO;
 import co.doeat.management.service.GroupPurchaseService;
-import co.doeat.management.service.GroupPurchaseVO;
 import co.doeat.management.service.GroupPurchaseSettlementVO;
 
 @Service
@@ -22,16 +21,6 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 	public List<GroupPurchaseListVO> getPurList() {
 
 		return groupPurchaseMapper.getPurList();
-	}
-
-	@Override
-	public List<GroupPurchaseVO> getDetailList() {
-		return null;
-	}
-
-	@Override
-	public GroupPurchaseListVO getPurCount(String sttlSt) {
-		return null;
 	}
 
 	// 진행중인 공동구매 - 단건조회
