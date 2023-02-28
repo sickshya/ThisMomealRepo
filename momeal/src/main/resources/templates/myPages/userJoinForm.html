@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Insert title here</title>
+        <link rel="stylesheet" type="text/css" href="/assets/css/userJoinForm.css">
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <div class="form-container">
+            <div>
+                <h3>회원 가입</h3>
+                <p>양식에 맞추어 회원 정보를 입력해주세요.</p>
+            </div>
+            <div>
+                <form id="frm" action="userJoin.do" onsubmit="return formCheck()" method="post">
+                    <div class="form-group">
+                        <input
+                            width="360"
+                            type="text"
+                            class="form-control"
+                            id="userId"
+                            name="userId"
+                            required="required">
+                        <span>아이디</span>
+                        <span class="border"></span>
+                        <button type="button" onclick="idChk()" id="btnId" value="No">중복체크</button>
+                    </div>
+                    <div class="form-group">
+                        <input
+                            width="400"
+                            type="text"
+                            class="form-control"
+                            id="userName"
+                            name="userName"
+                            required="required">
+                        <span>이름</span>
+                        <span class="border"></span>
+                    </div>
+                    <div class="form-group">
+                        <input
+                            width="400"
+                            type="text"
+                            class="form-control"
+                            id="nickName"
+                            name="nickName"
+                            required="required">
+                        <span>닉네임</span>
+                        <span class="border"></span>
+                    </div>
+                    <div class="form-group">
+                        <input
+                            width="400"
+                            type="password"
+                            class="form-control"
+                            id="pwd"
+                            name="pwd"
+                            required="required">
+                        <span>비밀번호</span>
+                        <span class="border"></span>
+                    </div>
+                    <div class="form-group">
+                        <input
+                            width="400"
+                            type="password"
+                            class="form-control"
+                            id="pwdChk"
+                            required="required">
+                        <span>비밀번호확인</span>
+                        <span class="border"></span>
+                    </div>
+                    <div class="form-group">
+                        <input
+                            width="400"
+                            type="tel"
+                            class="form-control"
+                            id="tel"
+                            name="tel">
+                        <span>연락처</span>
+                        <span class="border"></span>
+                    </div>
+                    <div class="form-group">
+                        <input
+                            width="400"
+                            type="address"
+                            class="form-control"
+                            id="addr"
+                            name="addr">
+                        <span>주소</span>
+                        <span class="border"></span>
+                    </div>
+
+                    <br>
+                    <button type="submit">신청하기</button>&nbsp;&nbsp;
+                    <button type="reset" value="">취소</button>&nbsp;&nbsp;
+                    <button type="button" onclick="location.href='main.do'" value="">홈가기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+        <script type="text/javascript">
+            function formCheck() { //아이디 중복체크 및 패스워드 동일성 확인
+                let pass1 = document
+                    .getElementById("pwd")
+                    .value;
+                let pass2 = document
+                    .getElementById("pwdChk")
+                    .value;
+                let checkId = document
+                    .getElementById("btnId")
+                    .value;
+
+                if (checkId == "No") {
+                    alert("아이디 중복체크를 하세요!!");
+                    return false;
+                }
+
+                if (pass1 != pass2) {
+                    alert("패스워드가 일치하지 않습니다.!!!");
+                    document
+                        .getElementById("pwd")
+                        .value = "";
+                    document
+                        .getElementById("pwdChk")
+                        .value = "";
+                    document
+                        .getElementById("pwd")
+                        .focus();
+                    return false;
+                }
+
+                return true;
+            }
+
+            function idChk() { //아이디 중복체크 Ajax로 비교
+                let id = document
+                    .getElementById("userId")
+                    .value;
+                let url = '/idDuplicateCheck.do?id=' + id;
+                fetch(url)
+                    .then((response) => response.text())
+                    .then((data) => idCheck(data));
+            }
+
+            function idCheck(str) {
+                if (str == '1') {
+                    alert("사용할 수 있는 아이디 입니다. !!");
+                    document
+                        .getElementById("btnId")
+                        .value = 'Yes';
+                    document
+                        .getElementById("btnId")
+                        .disabled = true; //버튼 비활성화
+                } else {
+                    alert("이미 사용하는 아이디 입니다. 다시 입력하세요.");
+                    document
+                        .getElementById("userId")
+                        .value = "";
+                    document
+                        .getElementById("userId")
+                        .focus();
+                }
+            }
+        </script>
+    </body>
+
+</html>

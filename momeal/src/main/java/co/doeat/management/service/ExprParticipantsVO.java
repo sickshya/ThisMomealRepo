@@ -1,0 +1,18 @@
+package co.doeat.management.service;
+
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.Data;
+
+@Data
+public class ExprParticipantsVO {
+
+	Integer no; //체험단 등록순번
+	String userId; //아이디
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	Date aplDate; //신청일자
+	String addr; //배송받을 주소
+	
+}

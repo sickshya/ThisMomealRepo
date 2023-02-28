@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.doeat.management.mapper.ChallengeMapper">
+
+	<!-- 챌린지 전체조회 -->
+	<select id="getChallList" resultType="ChallengeVO">
+		SELECT *
+		FROM CHALLENGES C LEFT JOIN IMAGES I
+                               		  ON (C.NO = I.POST_NO)
+                  		  LEFT JOIN LIKES L
+                                	  ON (C.NO = L.NO)
+                          WHERE I.BOARD_TYPE='CT01'
+                          ORDER BY C.NO
+	</select>
+	
+	<!-- 챌린지단건조회 -->
+	<select id="getChallenge" resultType="co.doeat.management.service.ChallengeVO">
+        SELECT C.*, I.*, (C.PARTICIR * C.SAVE_POINT) AS TOTAL_POINT, (C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY
+		FROM CHALLENGES C RIGHT JOIN IMAGES I
+		ON (C.NO = I.POST_NO)
+		WHERE I.POST_NO = #{no} AND I.BOARD_TYPE='CT01'
+		ORDER BY C.NO
+	</select>
+	
+	<!-- 챌린지 등록 -->
+	<insert id="challInsert">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+	    	SELECT seq_board.NEXTVAL AS NO FROM DUAL
+		</selectKey>
+		insert into challenges
+		values(#{no}, #{title}, #{subject}, #{chalStartDate}, #{chalEndDate}, #{round}, 
+			   #{particir}, #{sumParticir}, #{savePoint}, #{vldStartTime}, #{vldEndTime}, #{vldPosbDate})
+	</insert>
+	
+	
+	<!-- ▶ 나의 챌린지 -->
+	<!-- 참여중인 챌린지 전체조회. 로그인 되면 user3 부분 {}로 고치기. order by 추가하기 -->
+	<select id="getMyChallList" resultType="map">
+		SELECT *
+		FROM CHALLENGE_PARTICIPATION P LEFT JOIN CHALLENGES C
+												ON(P.NO = C.NO)
+									   LEFT JOIN USERS U
+												ON(P.USER_ID = U.USER_ID)
+									   LEFT JOIN IMAGES I
+												ON(P.NO = I.POST_NO)
+		WHERE P.USER_ID = 'user3' AND P.CODE_ID IS NULL
+	</select>
+	
+	<!-- 참여중인 챌린지 단건조회 -->
+	<select id="getMyChall" resultType="map">
+		SELECT *
+		FROM CHALLENGE_PARTICIPATION P LEFT JOIN CHALLENGES C
+											ON(P.NO = C.NO)
+								   LEFT JOIN USERS U
+											ON(P.USER_ID = U.USER_ID)
+								   LEFT JOIN IMAGES I
+											ON(P.NO = I.POST_NO)
+		WHERE P.USER_ID = 'user3' AND P.NO = #{no} AND I.BOARD_TYPE = 'CT01'
+	</select>
+
+</mapper>

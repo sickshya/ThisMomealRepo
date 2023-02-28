@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>groupBuying</title>
+<meta name="author" content="">
+<meta name="description" content="">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="assets/css/style_grp.css">
+<link rel="stylesheet" href="assets/css/style_grpD.css">
+<link rel="stylesheet" href="assets/css/common.css">
+<link rel="stylesheet" href="assets/css/bootstrap.min_grp.css">
+<link rel="stylesheet" href="assets/css/all.min.css">
+<link rel="stylesheet" href="assets//themify-icons/themify-icons.css">
+<link rel="stylesheet" href="assets/css/nice-select/nice-select.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min_grp.css">
+<link rel="stylesheet"
+	href="assets/css/owl-carousel/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="assets/css/owl-carousel/owl.carousel.min.css">
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<style>
+.tag {
+	align-items: center;
+}
+</style>
+</head>
+<body>
+
+	<!--  공동구매 진행 여부 버튼 -->
+	<div layout:fragment="content">
+		<div align="center">
+			<a href="#" class="btn btn-success btn-lg hover:shadow-lg hover:text-white">
+				전체보기 </a>&nbsp;&nbsp;&nbsp;<a href="#"
+				class="btn btn-success btn-lg hover:shadow-lg hover:text-white"> 진행 중 </a>
+		</div>
+
+		<!--  태그 -->
+		<div class="container m-auto">
+			<div class="lg:overflow-hidden" align="center">
+				<a href="#" class="bg-white py-2 px-4 inline-block font-bold "
+					style="color: black;"> #닭가슴살</a> <a href="#"
+					class="bg-white py-2 px-4 inline-block font-bold "
+					style="color: black;"> #단백질셰이크 </a> <a href="#"
+					class="bg-white py-2 px-4 inline-block font-bold "
+					style="color: black;"> #맛있는쿠키 </a> <a href="#"
+					class="bg-white py-2 px-4 inline-block font-bold "
+					style="color: black;"> #선식 </a>
+				<!-- 				<a href="#" class="bg-white py-2 px-4 inline-block font-bold shadow" -->
+				<!-- 					style="color: black;"> #두부과자 </a> -->
+			</div>
+		</div>
+
+		<!--  썸네일-->
+		<section class="section-margin calc-60px">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-lg-4 col-xl-3">
+						<div class="card text-center card-product">
+							<div class="card-product__img">
+								<img class="card-img" src="/assets/images/groupBying/01.png"
+									alt="">
+								<!--  썸네일(상세보기,좋아요) -->
+								<ul class="card-product__imgOverlay">
+									<li><button onclick="location.href='groupDetail.do'">
+											<i class="ti-search"></i>
+										</button></li>
+									<li><button>
+											<i class="ti-heart"></i>
+										</button></li>
+								</ul>
+							</div>
+
+							<!--  썸네일 하단설명, 가격, 주문사항 -->
+							<div class="card-body">
+								<p>달콤하게 즐기는 고단백 현미시리얼</p>
+								<h4 class="card-product__title">
+									<a href="groupDetail.do" >프로틴 브라운라이스소울</a>
+								</h4>
+								<span style="text-decoration: line-through; color: #999999;">10,000</span>
+								→ 2,500
+								<p style="color: red;">5 명이 주문 중</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-4 col-xl-3">
+						<div class="card text-center card-product">
+							<div class="card-product__img">
+								<img class="card-img" src="/assets/images/groupBying/02.png"
+									alt="">
+								<ul class="card-product__imgOverlay">
+									<li><button onclick="location.href='groupDetail.do'">
+											<i class="ti-search"></i>
+										</button></li>
+									<li><button>
+											<i class="ti-heart"></i>
+										</button></li>
+								</ul>
+							</div>
+							<div class="card-body">
+								<p>탄수화물을 낮춘 도시락</p>
+								<h4 class="card-product__title">
+									<a href="single-product.html">저당 곤약 도시락</a>
+								</h4>
+								<span style="text-decoration: line-through; color: #999999;">40,000</span>
+								→ 31,500
+								<p style="color: red;">5 명이 주문 중</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-4 col-xl-3">
+						<div class="card text-center card-product">
+							<div class="card-product__img">
+								<img class="card-img" src="/assets/images/groupBying/03.png"
+									alt="">
+								<ul class="card-product__imgOverlay">
+									<li><button>
+											<i class="ti-search"></i>
+										</button></li>
+									<li><button>
+											<i class="ti-heart"></i>
+										</button></li>
+								</ul>
+							</div>
+							<div class="card-body">
+								<p>칼로리 걱정없이 즐기는 무설탕 초코볼</p>
+								<h4 class="card-product__title">
+									<a href="single-product.html">프로틴초코볼</a>
+								</h4>
+								<span style="text-decoration: line-through; color: #999999;">10,000</span>
+								→ 9,500
+								<p style="color: red;">5 명이 주문 중</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-4 col-xl-3">
+						<div class="card text-center card-product">
+							<div class="card-product__img">
+								<img class="card-img" src="/assets/images/groupBying/04.png"
+									alt="">
+								<ul class="card-product__imgOverlay">
+									<li><button>
+											<i class="ti-search"></i>
+										</button></li>
+									<li><button>
+											<i class="ti-heart"></i>
+										</button></li>
+								</ul>
+							</div>
+							<div class="card-body">
+								<p>먹을수록 빠져드는 고소한 단백질 선식</p>
+								<h4 class="card-product__title">
+									<a href="single-product.html">단백질 쉐이크</a>
+								</h4>
+								<span style="text-decoration: line-through; color: #999999;">5,000</span>
+								→ 2,800
+								<p style="color: red;">5 명이 주문 중</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	<!-- Scripts -->
+	<script src="assets/js/tippy.all.min.js"></script>
+<!-- 	<script src="assets/js/jquery-3.3.1.min.js"></script> -->
+	<script src="assets/js/uikit.js"></script>
+	<script src="assets/js/simplebar.min.js"></script>
+	<script src="assets/js/custom.js"></script>
+	<script src="assets/js/bootstrap-select.min.js"></script>
+
+<!-- 	<script src="assets/js/jquery/jquery-3.2.1.min.js"></script> -->
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/skrollr.min.js"></script>
+	<script src="assets/js/owl.carousel.min.js"></script>
+	<script src="assets/js/jquery.nice-select.min.js"></script>
+	<script src="assets/js/jquery.ajaxchimp.min.js"></script>
+	<script src="assets/js/mail-script.js"></script>
+	<script src="assets/js/main.js"></script>
+	</div>
+</body>
+</html>

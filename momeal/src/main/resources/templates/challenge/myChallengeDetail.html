@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="Ogani Template">
+<meta name="keywords" content="Ogani, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>My challenge</title>
+
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+	rel="stylesheet">
+
+<!-- Css Styles -->
+<link rel="stylesheet" href="/second-template/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/second-template/css/font-awesome.min.css"
+	type="text/css">
+<!-- <link rel="stylesheet" href="/ogani-master/css/elegant-icons.css" -->
+<!-- 	type="text/css"> -->
+<!-- <link rel="stylesheet" href="/ogani-master/css/nice-select.css" -->
+<!-- 	type="text/css"> -->
+<!-- <link rel="stylesheet" href="/ogani-master/css/jquery-ui.min.css" -->
+<!-- 	type="text/css"> -->
+<!-- <link rel="stylesheet" href="/ogani-master/css/owl.carousel.min.css" -->
+<!-- 	type="text/css"> -->
+<!-- <link rel="stylesheet" href="/ogani-master/css/slicknav.min.css" -->
+<!-- 	type="text/css"> -->
+<link rel="stylesheet" href="/second-template/css/style.css"
+	type="text/css">
+
+<!-- 리뷰 탭 -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/assets/css/bootstrap.min_grp.css">
+<link rel="stylesheet" href="/assets/css/style_grp.css">
+
+<!-- 인증 모달 -->
+<link href="/modal-template/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<!-- Product Details Section Begin -->
+<!-- 		<section class="product-details spad"> -->
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-6">
+						<div class="product__details__pic">
+							<div class="product__details__pic__item">
+								<img class="product__details__pic__item--large"
+									th:src="${chall.ATCH_PATH}" alt="">
+							</div>
+
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<div class="product__details__text">
+							<h3>[[ ${chall.TITLE} ]]</h3>
+							<p>챌린지 조건 있어야함!!(매일, 2주동안 이런거)</p>
+							<!-- 							<div class="product__details__price">오늘부터 시작</div> -->
+							<p>[[ ${#dates.format(chall.CHAL_START_DATE, 'MM-dd')} ]]([[
+								${#dates.dayOfWeekName(chall.CHAL_START_DATE)} ]]) ~ [[
+								${#dates.format(chall.CHAL_END_DATE, 'MM-dd')} ]]([[
+								${#dates.dayOfWeekName(chall.CHAL_END_DATE)} ]])</p>
+							<p>인증시간.. 필요한가....</p>
+
+							<a href="#" class="heart-icon" data-toggle="modal"
+								data-target="#Modal-1">인증방법</a> <a href="#" class="primary-btn"
+								data-toggle="modal" data-target="#Modal-2">인증하기</a>
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="product__details__tab">
+							<ul class="nav nav-tabs" role="tablist">
+								<li class="nav-item"><a class="nav-link active"
+									data-toggle="tab" href="#myAuthentication" role="tab"
+									aria-selected="true">나의 인증 현황</a></li>
+								<li class="nav-item"><a class="nav-link" data-toggle="tab"
+									href="#authentication" role="tab" aria-selected="false">참가자
+										인증 현황</a></li>
+
+							</ul>
+
+							<!-- 탭 내용들 -->
+							<div class="tab-content">
+								<!-- 상세 탭 시작 -->
+								<div class="tab-pane active" id="myAuthentication"
+									role="tabpanel">
+									<div class="product__details__tab__desc">
+										<p>달성률</p>
+										<h4>
+											<b>달성률 계산해서 쿼리문에 넣어야할듯 미쳤나 ㅠ</b>
+										</h4>
+										<br>
+										<div class="row">
+											<div class="text-center"></div>
+											<div class="col-md-8">
+												<!-- skill bar item -->
+												<div class="skillbar-item">
+													<div class="skillbar" data-percent="90%">
+														<!-- 여기... 달성률 %로 해야해.. -->
+														<h3>Web design</h3>
+														<div class="skillbar-bar">
+															<div class="skillbar-percent" style="width: 90%;">
+																<!-- 여기... 달성률 %로 해야해.. -->
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<br>
+										<div>
+											<table>
+												<thead>
+													<tr align="center">
+														<th style="padding-right: 30px">인증성공</th>
+														<th style="padding-right: 30px;">인증실패</th>
+														<th>남은 인증 횟수</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><h4>
+																<b>1회</b>
+															</h4></td>
+														<td><h4>
+																<b>1회</b>
+															</h4></td>
+														<td><h4>
+																<b>1회</b>
+															</h4></td>
+													<tr>
+												</tbody>
+											</table>
+										</div>
+										<br> <br> <br>
+										<div>
+											<h4>
+												<b>나의 인증샷</b>
+											</h4>
+
+											<!-- 인증샷 반복문 돌리기 -->
+											<div class="row row-0-gutter">
+												<div class="col-md-3 col-0-gutter text-center">
+													<div class="mz-module-about">
+														<img th:src="${chall.ATCH_PATH}"
+															style="width: 200px; height: 200px;">
+													</div>
+												</div>
+												<div class="col-md-3 col-0-gutter text-center">
+													<div class="mz-module-about">
+														<img th:src="${chall.ATCH_PATH}"
+															style="width: 200px; height: 200px;">
+													</div>
+												</div>
+												<div class="col-md-3 col-0-gutter text-center">
+													<div class="mz-module-about">
+														<img th:src="${chall.ATCH_PATH}"
+															style="width: 200px; height: 200px;">
+													</div>
+												</div>
+												<div class="col-md-3 col-0-gutter text-center">
+													<div class="mz-module-about">
+														<img th:src="${chall.ATCH_PATH}"
+															style="width: 200px; height: 200px;">
+													</div>
+												</div>
+												<div class="col-md-3 col-0-gutter text-center">
+													<div class="mz-module-about">
+														<img th:src="${chall.ATCH_PATH}"
+															style="width: 200px; height: 200px;">
+													</div>
+												</div>
+											</div>
+											<!-- 인증샷 반복문 돌리기 끝 -->
+
+										</div>
+									</div>
+								</div>
+								<!-- 상세 탭 끝 -->
+
+								<!-- 후기 탭 시작 -->
+								<div class="tab-pane" id="authentication" role="tabpanel">
+									<section id="about" class="mz-module">
+										<div class="row">
+											<div class="col-md-6">
+												<div>
+													<table>
+
+														<tr>
+															<th>현재 참가자 수</th>
+														</tr>
+														<tr>
+															<td><h4>
+																	<b>[[ ${chall.PARTICIR} ]]명</b>
+																</h4></td>
+														<tr>
+														<tr>
+															<td><br></td>
+														</tr>
+														<tr>
+															<th>누적 참가자 수</th>
+														</tr>
+														<tr>
+															<td><h4>
+																	<b>[[ ${chall.SUM_PARTICIR} ]]명</b>
+																</h4></td>
+														<tr>
+													</table>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<p style="color: gray;">
+													<b>평균 예상 달성률</b>
+												</p>
+												<h4>
+													<b>원형 그래프가 낫나..?</b>
+												</h4>
+												<br>
+												<!-- skill bar item -->
+												<div class="skillbar-item">
+													<div class="skillbar" data-percent="70%">
+														<h3>Marketing</h3>
+														<div class="skillbar-bar">
+															<div class="skillbar-percent" style="width: 70%;">
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<br>
+										<br>
+										<br>
+										<div>
+											<h4>
+												<b>참가자 인증샷</b>
+											</h4>
+
+											<!-- 인증샷 반복문 돌리기 -->
+											<div class="row row-0-gutter">
+												<div class="col-md-3 col-0-gutter text-center">
+													<div class="mz-module-about">
+														<img th:src="${chall.ATCH_PATH}"
+															style="width: 200px; height: 200px;">
+													</div>
+												</div>
+												<div class="col-md-3 col-0-gutter text-center">
+													<div class="mz-module-about">
+														<img th:src="${chall.ATCH_PATH}"
+															style="width: 200px; height: 200px;">
+													</div>
+												</div>
+												<div class="col-md-3 col-0-gutter text-center">
+													<div class="mz-module-about">
+														<img th:src="${chall.ATCH_PATH}"
+															style="width: 200px; height: 200px;">
+													</div>
+												</div>
+												<div class="col-md-3 col-0-gutter text-center">
+													<div class="mz-module-about">
+														<img th:src="${chall.ATCH_PATH}"
+															style="width: 200px; height: 200px;">
+													</div>
+												</div>
+												<div class="col-md-3 col-0-gutter text-center">
+													<div class="mz-module-about">
+														<img th:src="${chall.ATCH_PATH}"
+															style="width: 200px; height: 200px;">
+													</div>
+												</div>
+											</div>
+											<!-- 인증샷 반복문 돌리기 끝 -->
+
+										</div>
+									</section>
+								</div>
+								<!-- 후기 탭 끝 -->
+							</div>
+
+							<!-- 인증방법 모달 -->
+							<div class="modal fade" id="Modal-1" tabindex="-1" role="dialog"
+								aria-labelledby="Modal-label-1">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="Modal-label-1">챌린지 인증방법</h4>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<p>인증방법 컬럼이 있어야 할 거 같은데........?</p>
+											<br>
+											<p>
+												<b>✅ 이렇게 찍어주세요</b>
+											</p>
+											<div align="center">
+												<img th:src="${chall.ATCH_PATH}" alt="img01"
+													class="img-responsive" style="width: 300px; height: 300px;" />
+											</div>
+											<p>요렇게 찍어달라는 인증방법 컬럼도 있어야 할 것 같은데..?🤦‍</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 인증방법 모달 끝 -->
+
+							<!-- 인증창 모달 -->
+							<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog"
+								aria-labelledby="Modal-label-1">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="Modal-label-1">인증하기</h4>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<img th:src="${chall.ATCH_PATH}" alt="img01"
+												class="img-responsive" style="width: 500px; height: 500px;" />
+											<div class="modal-works" align="right">
+												<span>인증사진 올리기</span>
+											</div>
+											<p>인증사진을 올려주세여</p>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default">등록</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 인증창 모달 끝 -->
+						</div>
+					</div>
+				</div>
+			</div>
+<!-- 		</section> -->
+
+
+		<!-- Js Plugins -->
+<!-- 		<script src="/ogani-master/js/jquery-3.3.1.min.js"></script> -->
+		<script src="/second-template/js/bootstrap.min.js"></script>
+<!-- 		<script src="/ogani-master/js/jquery.nice-select.min.js"></script> -->
+<!-- 		<script src="/ogani-master/js/jquery-ui.min.js"></script> -->
+<!-- 		<script src="/ogani-master/js/jquery.slicknav.js"></script> -->
+<!-- 		<script src="/ogani-master/js/mixitup.min.js"></script> -->
+<!-- 		<script src="/ogani-master/js/owl.carousel.min.js"></script> -->
+<!-- 		<script src="/ogani-master/js/main.js"></script> -->
+	</div>
+</body>
+
+</html>

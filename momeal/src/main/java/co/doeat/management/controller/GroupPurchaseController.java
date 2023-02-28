@@ -1,0 +1,95 @@
+package co.doeat.management.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import co.doeat.management.service.GroupPurchaseService;
+
+@Controller
+public class GroupPurchaseController {
+
+	@Autowired
+	private GroupPurchaseService groupPurchaseService;
+
+	// 공동구매
+	@RequestMapping("/groupBuying")
+	public String groupBuying(Model model) {
+		model.addAttribute("getPurList", groupPurchaseService.getPurList());
+		System.out.println(groupPurchaseService.getPurList());
+		return "groupPurchase/groupBuying";
+	}
+
+	// 공동구매단건조회
+	@GetMapping("/groupBuying/{no}")
+	public String groupBuying(Model model, @PathVariable int no) {
+		model.addAttribute("getPurOne", groupPurchaseService.getPurOne(no));
+		System.out.println(groupPurchaseService.getPurOne(no));
+		return "groupPurchase/groupBuying";
+	}
+
+	// 공동구매(상세)
+	@GetMapping("/groupDetail.do")
+	public String groupDetail(Model model) {
+//		model.addAttribute("getDetail",groupPurchaseService.getDetailList());
+		return "groupPurchase/groupDetail";
+	}
+
+	// 공동구매 배송지
+	@GetMapping("/groupPurchase.do")
+	public String groupPurchase() {
+		return "groupPurchase/groupPurchase";
+	}
+
+	// 공동구매(배송지목록)
+	@GetMapping("/groupPurchaseList.do")
+	public String groupPurchaseList() {
+		return "groupPurchase/groupPurchaseList";
+	}
+
+	// 공동구매(배송지직접입력)
+	@GetMapping("/groupPurchaseInput.do")
+	public String groupPurchaseInput() {
+		return "groupPurchase/groupPurchaseInput";
+	}
+
+//	//공동구매 찜하기 버튼
+//	@Transactional(rollbackFor = Exception.class)
+//	@PostMapping("/like/{post_no}")
+//	public ModelAndView 
+//	
+
+//	//groupDetail.do 요청시 주문자 수 카운트
+//	@GetMapping("/groupDetail.do")
+//	public String groupDetail(String sttlSt, Model model) {
+//		System.out.println("주문자수 실행");
+//		GroupPurchaseMapper.count(sttlSt);
+//		GroupPurchaseListVO vo = groupPurchaseMapper.groupDetail(sttlSt);
+//		
+//		//vo를 모델에 담아 객체 바인딩 
+//		model.addAttribute("vo",vo);
+//		
+//		return "groupDetail.do";
+//		
+//	}
+
+	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
+	// 마이페이지 공동구매내역 리스트
+	@RequestMapping("/myPurchaseList")
+	public String myPurchaseList(Model model) {
+		// 전체조회
+		model.addAttribute("myPrList", groupPurchaseService.getPurchaseList());
+		return "myPages/myPurchaseList";
+	}
+
+	// 마이페이지 공동구매상세내역
+	@RequestMapping("/myPurchaseSelect/{id}")
+	public String myPurchaseSelect(Model model, @PathVariable String id) {
+		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(id));
+		return "myPages/myPurchaseSelect";
+	}
+
+}

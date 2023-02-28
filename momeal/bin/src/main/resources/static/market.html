@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link href="assets/images/favicon.png" rel="icon" type="image/png">
+
+    <!-- Basic Page Needs
+        ================================================== -->
+    <title>Instello Sharing Photos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Instello - Sharing Photos platform HTML Template">
+
+    <!-- icons
+        ================================================== -->
+    <link rel="stylesheet" href="assets/css/icons.css">
+
+    <!-- CSS 
+        ================================================== -->
+    <link rel="stylesheet" href="assets/css/uikit.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/tailwind-dark.css">
+
+    <style>
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 950px !important;
+                padding-top: 30px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="wrapper">
+
+            <div class="container m-auto">
+           
+                <h1 class="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-2"> Market </h1>
+
+                <div class="lg:m-0 -mx-5 flex justify-between py-4 relative space-x-3 uk-sticky dark-tabs" uk-sticky="cls-active: bg-gray-100 bg-opacity-95" style="">
+                    <div class="flex overflow-x-scroll lg:overflow-hidden lg:pl-0 pl-5 space-x-3">
+                        <a href="#" class="bg-white py-2 px-4 rounded inline-block font-bold shadow"> Shop</a>
+                        <a href="#" class="bg-white py-2 px-4 rounded inline-block font-bold shadow"> headphones  </a>
+                        <a href="#" class="bg-white py-2 px-4 rounded inline-block font-bold shadow"> Parfums </a>
+                        <a href="#" class="bg-white py-2 px-4 rounded inline-block font-bold shadow"> Fruits </a>
+                        <a href="#" class="bg-white py-2 px-4 rounded inline-block font-bold shadow"> Mobiles  </a>
+                        <a href="#" class="bg-white py-2 px-4 rounded inline-block font-bold shadow"> Laptops </a>
+                    </div>
+                   
+                </div>
+
+            </div>
+
+
+
+    </div>
+ 
+    
+
+
+
+
+
+    <script>
+        
+        (function (window, document, undefined) {
+            'use strict';
+            if (!('localStorage' in window)) return;
+            var nightMode = localStorage.getItem('gmtNightMode');
+            if (nightMode) {
+                document.documentElement.className += ' dark';
+            }
+        })(window, document);
+    
+    
+        (function (window, document, undefined) {
+    
+            'use strict';
+    
+            // Feature test
+            if (!('localStorage' in window)) return;
+    
+            // Get our newly insert toggle
+            var nightMode = document.querySelector('#night-mode');
+            if (!nightMode) return;
+    
+            // When clicked, toggle night mode on or off
+            nightMode.addEventListener('click', function (event) {
+                event.preventDefault();
+                document.documentElement.classList.toggle('dark');
+                if (document.documentElement.classList.contains('dark')) {
+                    localStorage.setItem('gmtNightMode', true);
+                    return;
+                }
+                localStorage.removeItem('gmtNightMode');
+            }, false);
+    
+        })(window, document);
+    </script>
+
+ <!-- Scripts
+    ================================================== -->
+    <script src="assets/js/tippy.all.min.js"></script>  
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/uikit.js"></script>
+    <script src="assets/js/simplebar.js"></script>
+    <script src="assets/js/custom.js"></script>
+
+
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+</body>
+
+</html>

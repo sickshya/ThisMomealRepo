@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.doeat.activity.mapper.MealMapper">
+
+<insert id="insertMeal" parameterType="MealVO">
+	insert into Meals(
+		no,
+		user_id,
+		subject,
+		img,
+		file_dir
+		meal_score,
+		type_code,
+		meal_time,
+		meal_amount,
+		post_date
+	)values (
+		#{no},
+		#{userId},
+		#{subject},
+	 	#{img},
+	 	#{fileDir},
+	 	#{mealScore},
+	 	#{typeCode},
+	 	#{mealTime},
+	 	#{mealAmount},
+	 	sysdate	
+	)
+</insert>
+
+<select id="myFeedList"
+	resultType = "co.doeat.activity.service.MealVO">
+	SELECT * FROM MEALS	
+</select>
+
+
+<select id="mealSelect"
+		resultType="co.doeat.activity.service.MealVO">
+		SELECT * FROM MEALS
+		WHERE NO = #{no}
+	</select>
+	
+	
+
+</mapper>

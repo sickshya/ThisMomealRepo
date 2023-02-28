@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<!-- Favicon -->
+<link href="assets/images/favicon.png" rel="icon" type="image/png">
+
+<!-- Basic Page Needs
+    ================================================== -->
+<title>Purchase</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description"
+	content="Instello - Sharing Photos platform HTML Template">
+
+<!-- icons
+    ================================================== -->
+<link rel="stylesheet" href="assets/css/icons.css">
+
+<!-- CSS 
+    ================================================== -->
+<link rel="stylesheet" href="assets/css/uikit.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/tailwind-dark.css">
+</head>
+<body>
+	<!-- 마이페이지 공동구매 상세내역 -->
+	<div layout:fragment="content" align="center">
+		<h1>공동구매</h1>
+		<br><br>
+		<form id="frm" action="myPurchaseList" method="post">
+			<div>
+				<div class="col-lg-7">
+					<br>
+					<div style="border: 1px solid #ccc" class="block flex items-center py-3 px-4 space-x-3">
+						<br>
+						<div class="w-13 h-13 rounded-full relative flex-shrink-0">
+							<img src="" alt="" style="width: 100px; height: 110px;">
+						</div>
+						<div class="flex-1 min-w-0 relative text-gray-500" align="left">
+							<h4 class="text-black font-semibold dark:text-white">[[${myPurchase.name}]]</h4>
+							<span class="absolute right-0 top-1 text-xs">[[${myPurchase.coName}]]</span>
+							<p class="truncate">[[${myPurchase.subject}]]</p>
+							<p class="text-black font-semibold dark:text-white">[[${myPurchase.price}]]</p>
+							<p class="truncate">[[${myPurchase.totalGd;}]]</p>
+						</div>
+					</div>
+					<br><br>
+					<h3 align="left">배송정보</h3>
+						<div style="border: 1px solid #ccc">
+						<br>
+						<div class="flex-1 min-w-0 relative text-gray-500" align="left">
+							<p class="truncate">[[${myPurchase.userName}]]</p>
+							<p class="truncate">[[${myPurchase.addr}]]</p>
+							<p class="truncate">[[${myPurchase.tel}]]</p>
+						</div>
+					</div>
+					<br>
+					<h3 align="left">결제금액</h3>
+					<div style="border: 1px solid #ccc">
+						<div class="flex-1 min-w-0 relative text-gray-500" align="left">
+							<p class="truncate">[[${myPurchase.price}]]</p>
+							<!-- <p class="truncate">배송비</p> -->
+							<hr>
+							<p class="truncate">총금액 계산해서 넣기</p>
+						</div>
+					</div>
+					<br><br>
+						<button type="submit" class="button bg-blue-700">목록으로</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
