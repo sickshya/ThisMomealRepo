@@ -9,10 +9,17 @@
 		USERS U LEFT JOIN LIKES L ON (U.USER_ID = L.USER_ID)
 		LEFT JOIN MEALS M
 		ON (L.USER_ID = M.USER_ID)
-		WHERE U.USER_ID = 'user1'
+		WHERE U.USER_ID = 'user3'
 	</select>
 
+	<delete id="myLikeDel"
+		parameterType="co.doeat.management.service.LikesVO">
+		DELETE FROM LIKES
+		WHERE no = #{no}
+	</delete>
+
+
 	<select id="mylikeSelect" resultType="map">
-	
+
 	</select>
 </mapper>
