@@ -49,36 +49,36 @@
 
 				</ul>
 
-
-				<!--  태그 -->
-				<!-- 		<div class="container m-auto"> -->
-				<!-- 			<div class="lg:overflow-hidden" align="center"> -->
-				<!-- 				<a href="#" class="bg-white py-2 px-4 inline-block font-bold " -->
-				<!-- 					style="color: black;"> #닭가슴살</a> <a href="#" -->
-				<!-- 					class="bg-white py-2 px-4 inline-block font-bold " -->
-				<!-- 					style="color: black;"> #단백질셰이크 </a> <a href="#" -->
-				<!-- 					class="bg-white py-2 px-4 inline-block font-bold " -->
-				<!-- 					style="color: black;"> #맛있는쿠키 </a> <a href="#" -->
-				<!-- 					class="bg-white py-2 px-4 inline-block font-bold " -->
-				<!-- 					style="color: black;"> #선식 </a> -->
-				<!-- 			</div> -->
-				<!-- 		</div> -->
+<!-- 				 태그 -->
+<!-- 						<div class="container m-auto"> -->
+<!-- 							<div class="lg:overflow-hidden" align="center"> -->
+<!-- 								<a href="#" class="bg-white py-2 px-4 inline-block font-bold " -->
+<!-- 									style="color: black;"> #닭가슴살</a> <a href="#" -->
+<!-- 									class="bg-white py-2 px-4 inline-block font-bold " -->
+<!-- 									style="color: black;"> #단백질셰이크 </a> <a href="#" -->
+<!-- 									class="bg-white py-2 px-4 inline-block font-bold " -->
+<!-- 									style="color: black;"> #맛있는쿠키 </a> <a href="#" -->
+<!-- 									class="bg-white py-2 px-4 inline-block font-bold " -->
+<!-- 									style="color: black;"> #선식 </a> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 
 				<!--  공동구매(전체) -->
+				
 				<div class="tab-content">
 					<div class="tab-pane active" id="PurchaseAll" role="tabpanel">
 						<div class="product__details__tab__desc">
 							<section class="section-margin calc-60px">
 								<div class="container">
 									<div class="row">
-										<div class="col-md-6 col-lg-4 col-xl-3"
+										<div class="col-md-6 col-lg-5 col-xl-3"
 											th:each="getPur:${PurList}">
 											<div class="card text-center card-product">
-												<div class="card-product__img">
+												<div class="card-product__img" >
 													<img class="card-img" th:src="${getPur.atchPath}">
 													<!--  썸네일(상세보기,좋아요) -->
 													<ul class="card-product__imgOverlay">
-														<li><button onclick="location.href='groupDetail.do'">
+														<li><button th:onclick="'location.href=\''+ @{/groupBuying/{no}(no = ${getPur.no})} + '\''">
 																<i class="ti-search"></i>
 															</button></li>
 														<li><button>
@@ -116,7 +116,7 @@
 											<img class="card-img" th:src="${getPur.atchPath}">
 											<!--  썸네일(상세보기,좋아요) -->
 											<ul class="card-product__imgOverlay">
-												<li><button onclick="location.href='groupDetail.do'">
+												<li><button th:onclick="'location.href=\''+ @{/groupBuying/{no}(no = ${getPur.no})} + '\''">
 														<i class="ti-search"></i>
 													</button></li>
 												<li><button>
