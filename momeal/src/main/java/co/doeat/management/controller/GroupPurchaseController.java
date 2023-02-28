@@ -18,7 +18,8 @@ public class GroupPurchaseController {
 	// 공동구매
 	@RequestMapping("/groupBuying")
 	public String groupBuying(Model model) {
-		model.addAttribute("getPurList", groupPurchaseService.getPurList());
+		model.addAttribute("PurList", groupPurchaseService.getPurList()); // 전체
+		model.addAttribute("PurchsingList", groupPurchaseService.getPurchasingList()); // 진행
 		System.out.println(groupPurchaseService.getPurList());
 		return "groupPurchase/groupBuying";
 	}
