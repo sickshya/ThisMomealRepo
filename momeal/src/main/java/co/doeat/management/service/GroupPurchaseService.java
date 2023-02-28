@@ -8,9 +8,7 @@ public interface GroupPurchaseService {
 
 	GroupPurchaseListVO getPurOne(int no); // 메인_단건조회
 
-	List<GroupPurchaseVO> getDetailList();// 상세_전체조회
-
-	GroupPurchaseListVO getPurCount(String sttlSt); // 주문자 수 카운트
+	// GroupPurchaseListVO getPurCount(String sttlSt); // 주문자 수 카운트
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
 	// 마이페이지 - 공동구매
