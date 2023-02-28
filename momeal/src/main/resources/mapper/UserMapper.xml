@@ -10,7 +10,7 @@
 		VALUES(#{userId},
 		#{userName}, #{nickName}, #{pwd})
 	</insert>
-	
+
 	<!-- id 중복체크 -->
 	<select id="isIdCheck" resultType="boolean">
 		SELECT CASE WHEN
@@ -19,7 +19,7 @@
 		WHERE USER_ID =
 		#{userId}
 	</select>
-	
+
 	<!-- 회원정보수정 -->
 	<update id="updateUserInfo"
 		parameterType="co.doeat.community.service.UsersVO">

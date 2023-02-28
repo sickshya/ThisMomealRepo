@@ -86,11 +86,11 @@
 	<!-- 관리자 -공동구매 물품 리스트 -->
 	<sql id="creiteria">
 		<where>
-			<if test="userId != null and userId != '' ">
-				user_id = #{userId}
+			<if test="grpStartDate != null and grpStartDate != '' ">
+				grp_start_date = #{grpStartDate}
 			</if>
-			<if test="grade != null and grade != '' ">
-				AND grade = #{grade}
+			<if test="grpEndDate != null and grpEndDate != '' ">
+				AND grp_end_date = #{grpEndDate}
 			</if>
 		</where>
 	</sql>
@@ -107,16 +107,18 @@
 	<select id="getAdminGroupPurchaseList"
 		parameterType="co.doeat.management.service.GroupPurchaseListVO"
 		resultType="co.doeat.management.service.GroupPurchaseListVO">
-
-		select * from( select rownum rn, a.* from(
-		<![CDATA[
-		select no,name,co_name,
-        case when grp_start_date <=trunc(current_date) And grp_end_date <= trunc(current_date) THEN '완료'
-            when trunc(grp_start_date) <= trunc(current_date) And trunc(current_date) <= grp_end_date Then '진행중' 
-            Else '진행전'  
-              END as gpstatus
-              ]]>
-		FROM GROUP_PURCHASE_LISTS;
+	
+		SELECT * FROM( SELECT rownum rn, a.*
+						from(
+		
+						SELECT no,name,co_name,grp_start_date,grp_end_date,
+						<![CDATA[
+					        CASE WHEN grp_start_date <=trunc(current_date) AND grp_end_date <= trunc(current_date) THEN '완료'
+					            WHEN TRUNC(grp_start_date) <= TRUNC(current_date) And trunc(current_date) <= grp_end_date Then '진행중' 
+					            Else '진행전'  
+					              END as gpstatus
+				 		]]>
+							FROM GROUP_PURCHASE_LISTS 
 
 		<include refid="creiteria"></include>
 		order by no
