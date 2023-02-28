@@ -29,7 +29,7 @@ public class GroupPurchaseController {
 	public String groupBuying(Model model, @PathVariable int no) {
 		model.addAttribute("getPurOne", groupPurchaseService.getPurOne(no));
 		System.out.println(groupPurchaseService.getPurOne(no));
-		return "groupPurchase/groupBuying";
+		return "groupPurchase/groupDetail";
 	}
 
 	// 공동구매(상세)
