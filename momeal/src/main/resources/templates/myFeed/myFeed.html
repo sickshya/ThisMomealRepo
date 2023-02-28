@@ -227,21 +227,7 @@
                 	<td style="width:100px"></td>
                 </tr>
             </thead>
-            <tbody>
-            	<tr th:each="m :${meal}">
-            		<td colspan="6">
-            	    <div class="card" >
-        				<a href="#story-modal" uk-toggle>
-        				<img th:src="${m.fileDir}" alt="Avatar" style="width:100%">
-        				</a>
-        				<div class="Cardcontainer">
-				          	<div th:text="${m.typeCode}"><b></b></div> 
-				          	<div th:text="${m.mealAmount}">식사량</div> 
-				          	<div th:text="${m.subject}"></div> 
-				        </div>
-				      </div>  
-            	</td>
-            	</tr>  
+            <tbody id="tbd">
             </tbody>
             
             
@@ -412,14 +398,49 @@ function buildCalendar() {
     document.getElementById("calMonth").innerText = leftPad(today.getMonth() + 1);
     document.getElementById("calDate").innerText = leftPad(today.getDate()); 
 	
-    let year =document.getElementById("calYear").innerText
-    let month =document.getElementById("calMonth").innerText
-    let date =document.getElementById("calDate").innerText
-    let totalday = year + '/' + month + '/' + date
-    console.log(totalday)
+   	let year =document.getElementById("calYear").innerText
+     let month =document.getElementById("calMonth").innerText
+     let date =document.getElementById("calDate").innerText
+     let thisDay = year +  month + date
+     console.log(thisDay)
    
+     $.ajax({
+    	url:"/myFeed/"+thisDay,
+
+    	success:function(res){
+    		$('#tbd').empty()
+			//console.log(res[0].typeCode)
+			$(res).each(function(i, res){
+				console.log(res)
+				
+			let tr = `
+			<tr>
+        		<td colspan="6">
+        	    <div class="card" >
+    				<a href="#story-modal" uk-toggle>
+    				<img src="${res.fileDir}" alt="Avatar" style="width:100%">
+    				</a>
+    				<div class="Cardcontainer">
+			          	<div>${res.typeCode}<b></b></div> 
+  			          	<div>${res.mealAmount}식사량</div> 
+ 			          	<div>${res.subject}</div> 
+			        </div>
+			      </div>  
+        	</tr>
+			`
+				
+			$('#tbd').append(tr)
+			})
+			
+    		
+    		
+    	}
+     })
+     
   
 }
+
+
 
 
 

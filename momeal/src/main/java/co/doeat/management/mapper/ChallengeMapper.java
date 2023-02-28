@@ -16,4 +16,8 @@ public interface ChallengeMapper {
 	public List<Map<String, Object>> getMyChallList(); // 전체조회. getMyChallList() 여기에 userId 들어가야할거같음
 	public Map<String, Object> getMyChall(int no); // 단건조회. 매개변수로 userId도 들어가야함!!!
 
+	///===================관리자===========================
+			List<ChallengeVO> adminChalList();//관리자 챌린지리스트
+			
+
 }

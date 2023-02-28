@@ -11,11 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.doeat.activity.service.MealService;
 import co.doeat.activity.service.MealVO;
@@ -31,10 +27,10 @@ public class MealController {
 	MealService mealService;
 	
 	
-//	@GetMapping("/myFeed")
-//	public String myFeed() {
-//		return "myFeed/myFeed";
-//	}
+	@GetMapping("/myFeed")
+	public String myFeed() {
+		return "myFeed/myFeed";
+	}
 	
 
 
@@ -72,19 +68,8 @@ public class MealController {
 		return "redirect:myFeed.do";
 	}
 	
-	@RequestMapping("/myFeed")
-	public String myFeedList(Model model) {
-		model.addAttribute("meal", mealService.myFeedList());
-		return "myFeed/myFeed";
-		
-	}
+
 	
-//	//단건조회
-//	@GetMapping("/myFeed/{no}")
-//	@ResponseBody
-//	public MealVO mealSelect(Model model, @PathVariable int no) {
-//		return mealService.mealSelect(no);
-//	}
-//	
+
 	
 }
