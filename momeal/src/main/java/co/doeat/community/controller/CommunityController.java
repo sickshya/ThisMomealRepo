@@ -32,7 +32,7 @@ public class CommunityController {
 	
 	
 	// 단건조회(ajax)
-	@GetMapping("/community{no}")
+	@GetMapping("/community/{no}")
 	@ResponseBody // ajax 처리할때 필요
 	public MealVO challengeOne(@PathVariable int no) {
 		

@@ -5,9 +5,10 @@ import java.util.Map;
 
 public interface ChallengeService {
 	// ▶ 챌린지
-	public List<ChallengeVO> getChallList(); // 전체조회
+	public List<Map<String, Object>> getChallList(); // 전체조회
 	public ChallengeVO getChallenge(int no); // 단건조회
 	public int challInsert(ChallengeVO vo); // 챌린지 등록
+	public int attendChall(ChallengeParticipationVO vo); // 챌린지 참여신청
 	
 	// ▶ 나의 챌린지
 	// 1. 진행중인 챌린지

@@ -50,12 +50,13 @@
 		<!-- Product Details Section Begin -->
 <!-- 		<section class="product-details spad"> -->
 			<div class="container">
+			<form id="attendfrm" th:action="@{/attendChallenge}" method="post">
 				<div class="row">
 					<div class="col-lg-6 col-md-6">
 						<div class="product__details__pic">
 							<div class="product__details__pic__item">
 								<img class="product__details__pic__item--large"
-									th:src="${chall.atchPath}" alt="">
+									th:src="${chall.atchPath}" alt="" style="width:465px; height:465px;">
 							</div>
 
 						</div>
@@ -70,24 +71,21 @@
 							</div>
 							<p th:if="${chall.startDay == '0'}" style="color:red;">오늘부터 시작</p>
 							<p th:unless="${chall.startDay == '0'}" style="color:red;">[[ ${chall.startDay} ]]일 뒤 시작</p>
-<!-- 							<div class="product__details__price">오늘부터 시작</div> -->
 							<p>[[${#dates.format(chall.chalStartDate, 'MM-dd')}]]([[${#dates.dayOfWeekName(chall.chalStartDate)}]])
 							 ~ [[${#dates.format(chall.chalEndDate, 'MM-dd')}]]([[${#dates.dayOfWeekName(chall.chalEndDate)}]])</p>
-
-							
 							<ul>
-								<li><b>참가인원</b> <span>[[${chall.particir}]]명</span></li>
-								<li><b>참가비</b> <span>총 [[${chall.totalPoint}]]포인트 <samp>Free
-											pickup today</samp></span></li> <!-- 쿼리를 총 포인트가 나올 수 있도록 고쳐야함! -->
-								<li><span>100% 성공시 </span><b> 전액 페이백 + 상금</b></li>
-								<li><span>85% 이상 성공시 </span><b> 전액 페이백 + 상금</b></li>
+								<li><b>참여비</b> <span><samp><b>[[${chall.deductPoint}]]포인트</b></samp></span></li>
+								<br>
+								<li><b>참여인원</b> <span>[[${chall.particir}]]명</span></li>
+								<li><b>현재까지 모인 참여비</b> <span>총 [[${chall.sumPoint}]]포인트 </span></li>
+								<br>
+								<li><span>80% 이상 성공시 </span><b> 참여비 페이백 + 상금</b></li>
 <!-- 									<div class="share"> -->
 <!-- 										<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i -->
 <!-- 											class="fa fa-twitter"></i></a> <a href="#"><i -->
 <!-- 											class="fa fa-instagram"></i></a> <a href="#"><i -->
 <!-- 											class="fa fa-pinterest"></i></a> -->
 <!-- 									</div> -->
-								<li><span>80% 미만 성공시 </span><b> 50% 페이백</b></li>
 							</ul>
 							<br><br>
 							<a href="#" class="primary-btn" data-toggle="modal" data-target="#Modal-2">참여하기</a> <a href="#"
@@ -166,12 +164,18 @@
 <!-- 											<img src="" alt="img01" -->
 <!-- 												class="img-responsive" style="width: 500px; height: 500px;" /> -->
 											<div class="modal-works" align="right">
-												<span>인증사진 올리기</span>
 											</div>
-											<p>인증사진을 올려주세여</p>
+											<br>
+											<p><b>[[${chall.deductPoint}]]포인트</b>를 지불하고 챌린지에 참여하시겠습니까?</p>
+											<p>참여 신청시 취소가 불가능합니다.</p>
+											<br>
 										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-default">등록</button>
+											
+												<button type="button" onclick="attedChall()" class="btn btn-default" id="attend">참여하기</button>
+												<input type="hidden" th:value="${chall.no}" name="no">
+												<input type="hidden" th:value="${chall.round}" name="round">
+												<input type="hidden" value="user3" name="userId">
 										</div>
 									</div>
 								</div>
@@ -180,7 +184,21 @@
 						</div>
 					</div>
 				</div>
+				</form>
 			</div>
+			
+		<script>
+			function attedChall() {
+				console.log("챌린지 참가용");
+				
+				$('#attendfrm').submit();
+				
+// 				// 모달창 닫기
+// 				$('#attend').attr('data-dismiss', 'modal');
+			}
+			
+			
+		</script>
 <!-- 		</section> -->
 
 
