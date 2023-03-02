@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{myPageayout}">
+	layout:decorate="~{myPageLayout}">
 <head>
 <!-- Favicon -->
 <link href="assets/images/favicon.png" rel="icon" type="image/png">
@@ -28,46 +28,49 @@
 	<!-- 마이페이지 공동구매 상세내역 -->
 	<div layout:fragment="content" align="center">
 		<h1>공동구매</h1>
-		<br><br>
-		<form id="frm" action="myPurchaseList" method="post">
+		<br>
+		<br>
+		<form id="frm" action="/myPurchaseList" method="post">
 			<div>
 				<div class="col-lg-7">
 					<br>
-					<div style="border: 1px solid #ccc" class="block flex items-center py-3 px-4 space-x-3">
+					<div style="border: 1px solid #ccc"
+						class="block flex items-center py-3 px-4 space-x-3">
 						<br>
 						<div class="w-13 h-13 rounded-full relative flex-shrink-0">
-							<img src="" alt="" style="width: 100px; height: 110px;">
+							<img th:src="${myPurchase.THUMBNAIL_IMG_PATH}" alt=""
+								style="width: 100px; height: 110px;">
 						</div>
 						<div class="flex-1 min-w-0 relative text-gray-500" align="left">
-							<h4 class="text-black font-semibold dark:text-white">[[${myPurchase.name}]]</h4>
-							<span class="absolute right-0 top-1 text-xs">[[${myPurchase.coName}]]</span>
-							<p class="truncate">[[${myPurchase.subject}]]</p>
-							<p class="text-black font-semibold dark:text-white">[[${myPurchase.price}]]</p>
-							<p class="truncate">[[${myPurchase.totalGd;}]]</p>
+							<h4 class="text-black font-semibold dark:text-white">[[${myPurchase.NAME}]]</h4>
+							<span class="absolute right-0 top-1 text-xs">[[${myPurchase.CO_NAME}]]</span>
+							<p class="truncate">[[${myPurchase.SUBJECT}]]</p>
+							<p class="text-black font-semibold dark:text-white">[[${myPurchase.PRICE}]]</p>
+							<p class="truncate">[[${myPurchase.TOTAL_GD}]]</p>
 						</div>
 					</div>
-					<br><br>
+					<br>
+					<br>
 					<h3 align="left">배송정보</h3>
-						<div style="border: 1px solid #ccc">
+					<div style="border: 1px solid #ccc">
 						<br>
 						<div class="flex-1 min-w-0 relative text-gray-500" align="left">
-							<p class="truncate">[[${myPurchase.userName}]]</p>
-							<p class="truncate">[[${myPurchase.addr}]]</p>
-							<p class="truncate">[[${myPurchase.tel}]]</p>
+							<p class="truncate">[[${myPurchase.USER_NAME}]]</p>
+							<p class="truncate">[[${myPurchase.ADDR}]]</p>
+							<p class="truncate">[[${myPurchase.TEL}]]</p>
 						</div>
 					</div>
 					<br>
 					<h3 align="left">결제금액</h3>
 					<div style="border: 1px solid #ccc">
 						<div class="flex-1 min-w-0 relative text-gray-500" align="left">
-							<p class="truncate">[[${myPurchase.price}]]</p>
-							<!-- <p class="truncate">배송비</p> -->
 							<hr>
 							<p class="truncate">총금액 계산해서 넣기</p>
 						</div>
 					</div>
-					<br><br>
-						<button type="submit" class="button bg-blue-700">목록으로</button>
+					<br>
+					<br>
+					<button type="submit" class="button bg-blue-700">목록으로</button>
 				</div>
 			</div>
 		</form>

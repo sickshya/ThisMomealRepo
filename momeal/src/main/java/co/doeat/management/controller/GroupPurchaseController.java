@@ -1,5 +1,10 @@
 package co.doeat.management.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import co.doeat.Paging;
 import co.doeat.management.service.GroupPurchaseSearchVO;
 import co.doeat.management.service.GroupPurchaseService;
+import co.doeat.management.service.GroupPurchaseSettlementVO;
 
 @Controller
 public class GroupPurchaseController {
@@ -83,17 +89,23 @@ public class GroupPurchaseController {
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
 	// 마이페이지 공동구매내역 리스트
 	@RequestMapping("/myPurchaseList")
-	public String myPurchaseList(Model model) {
-		// 전체조회
+	public String myPurchaseList(Model model, HttpSession session, HttpServletRequest request) {
+		session = request.getSession();
+		session.setAttribute("userId", "user1");
+		
 		model.addAttribute("myPrList", groupPurchaseService.getPurchaseList());
 		return "myPages/myPurchaseList";
 	}
 
 	// 마이페이지 공동구매상세내역
-	@RequestMapping("/myPurchaseSelect/{id}")
-	public String myPurchaseSelect(Model model, @PathVariable String id) {
-		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(id));
-		return "myPages/myPurchaseSelect";
+	@RequestMapping("/myPurchaseSelect/{prdtNo}")
+	public String myPurchaseSelect(Model model, @PathVariable int prdtNo, HttpSession session, HttpServletRequest request) {
+		session = request.getSession();
+		session.setAttribute("userId", "user1");
+		
+		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(prdtNo));
+		System.out.println("결과 ==========" + groupPurchaseService.purchaseSelect(prdtNo));
+		return "myPages/myPurchaseSelect";  
 	}
 	
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자

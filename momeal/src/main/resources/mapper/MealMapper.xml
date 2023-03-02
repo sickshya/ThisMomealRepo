@@ -30,7 +30,8 @@
 
 	<select id="myFeedList"
 		resultType="co.doeat.activity.service.MealVO" parameterType="String">
-		SELECT * FROM MEALS
+		SELECT *
+		FROM MEALS
 		where trunc(post_date) = to_date(#{postDate},'yyyyMMdd')
 	</select>
 
