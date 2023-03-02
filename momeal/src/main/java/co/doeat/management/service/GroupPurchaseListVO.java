@@ -28,7 +28,7 @@ public class GroupPurchaseListVO {
 	private String thumbnailImgPath; // 이미지 경로
 	
 	//결제자수 카운트
-	private String sttlSt; //결제여부 /주문자 수 카운트.
+	private int totalGd; // 구매수량
 	
 	//날짜에 따른 공동구매 진행상태
 	private String gpstatus;

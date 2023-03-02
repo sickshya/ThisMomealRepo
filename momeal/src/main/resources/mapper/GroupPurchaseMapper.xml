@@ -5,44 +5,35 @@
 
 	<!-- 전체조회 -->
 	<select id="getPurList" resultType="GroupPurchaseListVO">
-
 		SELECT *
-		FROM
-		GROUP_PURCHASE_LISTS g left JOIN IMAGES i
-		ON (G.NO = i.post_no)
-		WHERE
-		i.board_type='groupBuying'
-
+		FROM GROUP_PURCHASE_LISTS
 	</select>
 
 	<!-- 현재 진행 조회 -->
 	<select id="getPurchasingList" resultType="GroupPurchaseListVO">
-
+		
 		SELECT *
 		FROM group_purchase_lists g RIGHT JOIN IMAGES i
 		ON (g.NO =
 		i.POST_NO)
 		<![CDATA[
-		WHERE TRUNC(grp_start_date) <= sysdate AND sysdate < g.grp_end_date AND I.BOARD_TYPE='groupBuying'
+		WHERE TRUNC(grp_start_date) <= sysdate AND sysdate < grp_end_date
 		]]>
-		ORDER BY g.NO
-
+		ORDER BY NO
+		
 	</select>
 
 	<!-- 단건조회 -->
 	<select id="getPurOne" resultType="GroupPurchaseListVO">
-
-		SELECT *
-		FROM
-		GROUP_PURCHASE_LISTS g RIGHT JOIN IMAGES I
-		ON (G.NO = I.POST_NO)
-		WHERE
-		I.POST_NO= #{no}
-		AND I.BOARD_TYPE='groupBuying'
+		SELECT g.*, i.*
+		FROM GROUP_PURCHASE_LISTS g LEFT JOIN IMAGES i
+		ON (g.NO = i.POST_NO)
+		WHERE i.POST_NO = #{atchNo} AND i.board_code='CT03'
 		ORDER BY g.NO
-
 	</select>
-
+	
+ 	<!-- 배송정보 입력 --> 
+<!-- 	<insert id=""></insert> -->
 
 	<!-- <select id="count" parameterType="String" resultType="Group"> -->
 	<!-- SELECT no, -->
@@ -126,5 +117,4 @@
 	
 ]]>
 	</select>
-
 </mapper>
