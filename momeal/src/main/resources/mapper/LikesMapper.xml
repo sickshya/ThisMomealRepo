@@ -18,7 +18,7 @@
 		LEFT JOIN LIKES L ON (U.USER_ID = L.USER_ID)
 		LEFT JOIN MEALS M
 		ON (L.POST_NO = M.NO)
-		WHERE U.USER_ID = #{userId} AND L.TYPE = 'CT04'
+		WHERE U.USER_ID = #{userId} AND L.BOARD_CODE = 'CT04'
 	</select>
 
 	<!-- 마이페이지 - 식단 좋아요 상세 -->
@@ -27,7 +27,7 @@
 		FROM
 		USERS U LEFT JOIN MEALS M ON (U.USER_ID = M.USER_ID)
 		LEFT JOIN LIKES L
-		ON (L.POST_NO = M.NO AND L.TYPE = 'CT04')
+		ON (L.POST_NO = M.NO AND L.BOARD_CODE = 'CT04')
 		WHERE L.USER_ID = #{userId}
 		AND
 		L.POST_NO = #{postNo}
