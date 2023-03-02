@@ -16,8 +16,7 @@ $(function() {
 		console.log(no);
 
 		$.ajax({
-			url: "/community"+no
-			
+			url: "/community/"+no
 		})
 		.then(obj => { // 넘어오는 결과값 자체가 json 타입
 			console.log(obj);
