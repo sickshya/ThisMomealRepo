@@ -26,39 +26,43 @@
 </head>
 
 <body>
-<!-- 마이페이지 비밀번호 입력창 -->
+	<!-- 마이페이지 비밀번호 입력창 -->
 	<div layout:fragment="content" align="center">
-	
-	<!-- Scripts
+
+		<!-- Scripts
     ================================================== -->
-	<script src="assets/js/tippy.all.min.js"></script>
-	<script src="assets/js/jquery-3.3.1.min.js"></script>
-	<script src="assets/js/uikit.js"></script>
-	<script src="assets/js/simplebar.js"></script>
-	<script src="assets/js/custom.js"></script>
+		<script src="assets/js/tippy.all.min.js"></script>
+		<script src="assets/js/jquery-3.3.1.min.js"></script>
+		<script src="assets/js/uikit.js"></script>
+		<script src="assets/js/simplebar.js"></script>
+		<script src="assets/js/custom.js"></script>
 
 
-	<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-	
-		<br><br>
+		<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+		<br>
+		<br>
 		<h1>회원정보수정</h1>
 		<div id="wrapper" class="col-lg-5">
-			<form class="bg-white rounded-md lg:shadow-lg " id="frm" action="userEditForm" method="post" onsubmit="return formCheck()">
+			<form class="bg-white rounded-md lg:shadow-lg " id="frm"
+				action="userEditForm" method="post" onsubmit="return formCheck()">
 				<div>
+					<br>
+					<div class="grid grid-cols-1 gap-2 lg:p-5 p-5">
+						<h3>비밀번호를 입력하세요</h3>
 						<br>
-						<div class="grid grid-cols-1 gap-2 lg:p-5 p-5">
-								<h3>비밀번호를 입력하세요</h3>
-								<br><br> 
-								<input type="password" id="memberpassword" name="memberpassword" placeholder="Password">
-						</div>
-						<div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3" align="center">
-							<button type="submit" class="button bg-blue-700 mempwd">확인</button>
-						</div>
+						<br> <input type="password" id="memberpassword"
+							name="memberpassword" placeholder="Password">
 					</div>
-				</form>	
-			</div>
-			
-	<script type="text/javascript">
+					<div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3"
+						align="center">
+						<button type="submit" class="button bg-blue-700 mempwd">확인</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<script type="text/javascript">
 		function formCheck() {
 			let pwchk = document.getElementById("memberpassword").value;
 			
@@ -89,6 +93,6 @@
 			   });
 			});
 	</script>
-		</div>
+	</div>
 </body>
 </html>

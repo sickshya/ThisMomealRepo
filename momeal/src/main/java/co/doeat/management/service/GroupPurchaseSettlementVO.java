@@ -15,5 +15,4 @@ public class GroupPurchaseSettlementVO {
 	private int totalGd; // 구매수량
 	
 	private Integer price; //제품가격
-	private String atchPath; // 첨부이미지경로 
 }

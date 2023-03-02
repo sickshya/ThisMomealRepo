@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface LikesService {
+	
+	// 커뮤니티 좋아요 추가
+	//public 
 
 	// 마이페이지 - 좋아요 리스트 출력
 	public List<Map<String, Object>> myLikeList();
