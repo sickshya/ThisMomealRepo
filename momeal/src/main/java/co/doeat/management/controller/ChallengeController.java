@@ -29,7 +29,7 @@ public class ChallengeController {
 	public String challengeMain(Model model, HttpServletRequest request) { 
 //		// 임시로 세션에 ID 값 담기
 		HttpSession session = request.getSession();
-		session.setAttribute("userId", "user3");
+//		session.setAttribute("userId", "user3");
 		
 		String id = (String) session.getAttribute("userId");
 		
