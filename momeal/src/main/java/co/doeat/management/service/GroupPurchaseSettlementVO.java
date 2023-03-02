@@ -12,7 +12,7 @@ public class GroupPurchaseSettlementVO {
 	private String sttlMthd; //결제수단
 	private Integer zipCode; //우편번호
 	private String tel; //전화번호
-	private int totalGd; // 구매수량
+	private Integer totalGd; // 구매수량
 	
 	private Integer price; //제품가격
 	private String atchPath; // 첨부이미지경로 

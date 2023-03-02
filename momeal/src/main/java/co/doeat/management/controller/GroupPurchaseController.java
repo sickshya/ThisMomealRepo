@@ -1,13 +1,22 @@
 package co.doeat.management.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.doeat.Paging;
+import co.doeat.community.service.UsersVO;
+import co.doeat.management.service.GroupPurchaseSearchVO;
 import co.doeat.management.service.GroupPurchaseService;
+import co.doeat.management.service.GroupPurchaseSettlementVO;
 
 @Controller
 public class GroupPurchaseController {
@@ -17,18 +26,20 @@ public class GroupPurchaseController {
 
 	// 공동구매
 	@RequestMapping("/groupBuying")
-	public String groupBuying(Model model) {
+	public String groupBuying(Model model, HttpServletRequest request, UsersVO userVO) {
+		HttpSession session = request.getSession();
+		session.setAttribute("userId", "user1");
 		model.addAttribute("PurList", groupPurchaseService.getPurList()); // 전체
 		model.addAttribute("PurchsingList", groupPurchaseService.getPurchasingList()); // 진행
-		System.out.println(groupPurchaseService.getPurList());
+		System.out.println("결과===========" + groupPurchaseService.getPurList());
 		return "groupPurchase/groupBuying";
 	}
 
 	// 공동구매단건조회
 	@GetMapping("/groupBuying/{no}")
 	public String groupBuying(Model model, @PathVariable int no) {
-		model.addAttribute("getPurOne", groupPurchaseService.getPurOne(no));
-		System.out.println(groupPurchaseService.getPurOne(no));
+		model.addAttribute("PurOne", groupPurchaseService.getPurOne(no));
+		System.out.println("결과===========" + groupPurchaseService.getPurOne(no));
 		return "groupPurchase/groupDetail";
 	}
 
@@ -39,6 +50,22 @@ public class GroupPurchaseController {
 		return "groupPurchase/groupDetail";
 	}
 
+	// 공동구매(구매하기 창 list)
+	@RequestMapping("/PurchaseForm")
+	public String PurchaseForm(HttpServletRequest request) {
+//		HttpSession session = request.getSession();
+//		String user1 = (String) session.getAttribute("userId");
+		return "groupPurchase/PurchaseForm";
+	}
+	
+//	// 공동구매(구매하기 신청 form)
+//	@RequestMapping("/PurchaseForm.do")
+//	@ResponseBody
+//	public String PurchasePayment(GroupPurchaseSettlementVO vo) {
+//		groupPurchaseService.payInsert(vo); //db저장루틴
+//			return "groupPurchase/PurchasePayment";
+//		}
+	
 	// 공동구매 배송지
 	@GetMapping("/groupPurchase.do")
 	public String groupPurchase() {
@@ -51,11 +78,6 @@ public class GroupPurchaseController {
 		return "groupPurchase/groupPurchaseList";
 	}
 
-	// 공동구매(배송지직접입력)
-	@GetMapping("/groupPurchaseInput.do")
-	public String groupPurchaseInput() {
-		return "groupPurchase/groupPurchaseInput";
-	}
 
 //	//공동구매 찜하기 버튼
 //	@Transactional(rollbackFor = Exception.class)
@@ -91,6 +113,23 @@ public class GroupPurchaseController {
 	public String myPurchaseSelect(Model model, @PathVariable String id) {
 		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(id));
 		return "myPages/myPurchaseSelect";
+	}
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
+	//페이징
+	@RequestMapping("/adminGroupPurchase")
+	public String adminGroupPurchase(Model model, @ModelAttribute("esvo") GroupPurchaseSearchVO svo,Paging paging) {
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		paging.setTotalRecord(groupPurchaseService.getCountTotal(svo));
+		model.addAttribute("getAdminGroupPurchaseList", groupPurchaseService.getAdminGroupPurchaseList(svo));
+		return "admin/adminGroupPurchase";
+	}
+	
+	//공동구매등록
+	@RequestMapping("/adminGPInsert.do")
+	public String adminGPInsert() {
+		return "admin/adminGPInsert";
 	}
 
 }

@@ -75,7 +75,7 @@
 											th:each="getPur:${PurList}">
 											<div class="card text-center card-product">
 												<div class="card-product__img" >
-													<img class="card-img" th:src="${getPur.atchPath}">
+													<img class="card-img" th:src="${getPur.thumbnailImgPath}">
 													<!--  썸네일(상세보기,좋아요) -->
 													<ul class="card-product__imgOverlay">
 														<li><button th:onclick="'location.href=\''+ @{/groupBuying/{no}(no = ${getPur.no})} + '\''">
@@ -93,7 +93,7 @@
 														<a href="groupDetail.do" th:text="${getPur.name}"></a>
 													</h4>
 													<span th:text="${getPur.price}"></span>
-													<p style="color: red;">[[${getPur.sttlSt}]]명이 주문 중</p>
+													<p style="color: red;">[[${getPur.totalGd}]]명이 주문 중</p>
 												</div>
 											</div>
 										</div>
@@ -113,7 +113,7 @@
 									th:each="getPur:${PurchsingList}">
 									<div class="card text-center card-product">
 										<div class="card-product__img">
-											<img class="card-img" th:src="${getPur.atchPath}">
+											<img class="card-img" th:src="${getPur.thumbnailImgPath}">
 											<!--  썸네일(상세보기,좋아요) -->
 											<ul class="card-product__imgOverlay">
 												<li><button th:onclick="'location.href=\''+ @{/groupBuying/{no}(no = ${getPur.no})} + '\''">
@@ -131,7 +131,7 @@
 												<a href="groupDetail.do" th:text="${getPur.name}"></a>
 											</h4>
 											<span th:text="${getPur.price}"></span>
-											<p style="color: red;">[[${getPur.sttlSt}]]명이 주문 중</p>
+											<p style="color: red;">[[${getPur.totalGd}]]명이 주문 중</p>
 										</div>
 									</div>
 								</div>
@@ -153,7 +153,6 @@
 		<!-- // 			}) -->
 		<!-- // 		}) -->
 
-		<!-- 		</script> -->
 		<!-- Scripts -->
 		<script src="/assets/js/tippy.all.min.js"></script>
 		<script src="/assets/js/uikit.js"></script>
