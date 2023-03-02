@@ -4,11 +4,22 @@
 
 
 	<!-- 식단 좋아요 추가 -->
-	<insert id="insertLikeMeal"
-		parameterType="co.doeat.management.service.LikesVO">
-
+	<insert id="insertLikeMeal" parameterType="co.doeat.management.service.LikesVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT MAX(NO)+1 FROM LIKES
+		</selectKey>
+		INSERT INTO LIKES
+		VALUES(#{no}, #{postNo}, #{userId}, #{boardCode})
 	</insert>
-
+	
+	<!-- 챌린지 좋아요 추가 -->
+<!-- 	<insert id="insertLikeChall" parameterType="co.doeat.management.service.LikesVO"> -->
+<!-- 		<selectKey keyProperty="no" resultType="int" order="BEFORE"> -->
+<!-- 			SELECT MAX(NO)+1 FROM LIKES -->
+<!-- 		</selectKey> -->
+<!-- 		INSERT INTO LIKES -->
+<!-- 		VALUES(#{no}, #{postNo}, #{userId}, #{boardCode}) -->
+<!-- 	</insert> -->
 
 	<!-- 마이페이지 - 식단 좋아요 리스트 출력 -->
 	<select id="myLikeList" resultType="map">
