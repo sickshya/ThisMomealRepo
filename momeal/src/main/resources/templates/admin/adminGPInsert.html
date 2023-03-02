@@ -33,7 +33,7 @@
 				<div class="container-fluid">
 					<div class="row justify-content-center">
 						<div class="col-12">
-							<h2 class="page-title">챌린지 등록</h2>
+							<h2 class="page-title">공동구매 등록</h2>
 							<p class="text-muted">Demo for form control styles, layout
 								options, and custom components for creating a wide variety of
 								forms.</p>
@@ -41,38 +41,52 @@
 
 								<div class="card shadow mb-4">
 									<div class="card-header" style="width: 500px">
-										<strong class="card-title">챌린지 추가하기</strong>
+										<strong class="card-title">공동구매 추가하기</strong>
 									</div>
 									<div class="card-body" style="width: 500px">
 										<form>
 											<div class="form-group row">
-												<label for="inputEmail3" class="col-sm-3 col-form-label">챌린지명</label>
+												<label class="col-sm-3 col-form-label">상품명</label>
 												<div class="col-sm-9">
 													<input type="text" class="form-control" id="inputEmail3"
-														placeholder="Email">
+														>
 												</div>
 											</div>
 											<div class="form-group row">
-												<label for="inputPassword3" class="col-sm-3 col-form-label">진행기간</label>
+												<label class="col-sm-3 col-form-label">업체명</label>
 												<div class="col-sm-9">
-													<input type="date" class="form-control" id="inputPassword3"
-														placeholder="Password">
+													<input type="text" class="form-control" id="inputEmail3"
+														>
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">파일등록</label>
+												<label class="col-sm-3 col-form-label">시작일자</label>
 												<div class="col-sm-9">
-													<input class="form-control" id="disabledInput" type="file">
+													<input type="date" class="form-control" id="inputPassword3">
 												</div>
 											</div>
 											<div class="form-group row">
-												<label for="inputEmail3" class="col-sm-3 col-form-label">포인트</label>
+												<label class="col-sm-3 col-form-label">종료일자</label>
+												<div class="col-sm-9">
+													<input type="date" class="form-control" id="inputPassword3">
+												</div>
+											</div>
+													<div class="form-group row">
+												<label class="col-sm-3 col-form-label">가격</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="inputEmail3">
+												</div>
+											</div>
+											
+											
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">최소주문수량</label>
 												<div class="col-sm-9">
 													<input type="text" class="form-control" id="inputEmail3">
 												</div>
 											</div>
 											<div class="form-group row">
-												<label for="inputEmail3" class="col-sm-3 col-form-label">인증횟수</label>
+												<label class="col-sm-3 col-form-label">공급한계수량</label>
 												<div class="col-sm-9">
 													<input type="text" class="form-control" id="inputEmail3">
 												</div>
@@ -84,6 +98,15 @@
 														id="exampleFormControlTextarea1" rows="2"></textarea>
 												</div>
 											</div>
+											<form action="uploadFormAction" method="post" enctype="multipart/form-data"></form>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">파일등록</label>
+												<div class="col-sm-9">
+													<input class="form-control" id="disabledInput" type="file" name="uploadFile" multiple>
+													
+												</div>
+											</div>
+									
 											<div class="form-group mb-2">
 												<button type="submit" class="btn btn-primary">등록</button>
 											</div>
@@ -109,18 +132,7 @@
 		<script src="js/tinycolor-min.js"></script>
 		<script src="js/config.js"></script>
 		<script src="js/apps.js"></script>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async
-			src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
 
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag('js', new Date());
-			gtag('config', 'UA-56159088-1');
-		</script>
 	</div>
 </body>
 </html>

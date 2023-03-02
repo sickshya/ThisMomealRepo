@@ -18,14 +18,12 @@ public class MealServiceImpl implements MealService{
 
 	@Override
 	public int insertMeal(MealVO vo) {
-		// TODO Auto-generated method stub
 		return mealMapper.insertMeal(vo);
 	}
 
 	@Override
-	public List<MealVO> myFeedList() {
-		// TODO Auto-generated method stub
-		return mealMapper.myFeedList();
+	public List<MealVO> myFeedList(String postDate) {
+		return mealMapper.myFeedList(postDate);
 	}
 
 

@@ -3,23 +3,35 @@
 <mapper namespace="co.doeat.management.mapper.ChallengeMapper">
 
 	<!-- 챌린지 전체조회 -->
-	<select id="getChallList" resultType="ChallengeVO">
-		SELECT *
-		FROM CHALLENGES C LEFT JOIN IMAGES I
-                               		  ON (C.NO = I.POST_NO)
-                  		  LEFT JOIN LIKES L
-                                	  ON (C.NO = L.NO)
-                          WHERE I.BOARD_TYPE='CT01'
-                          ORDER BY C.NO
+	<!-- 로그인 안 했을때는 하트유무를 표시 안 해줘야 함. html에서 처리하면 되나? -->
+	<!-- 쿼리에서는...어쩌지? -->
+	<select id="getChallList" resultType="map">
+		SELECT C.*, (SELECT COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE = 'CT01') AS LIKE_NO 
+		FROM CHALLENGES C
+        ORDER BY C.NO
+	</select>
+	
+	<select id="likeRankChallList" resultType="map">
+		WITH LIKE_COUNT AS (SELECT POST_NO, COUNT(*) CN
+							FROM LIKES
+							GROUP BY POST_NO
+							ORDER BY CN DESC, POST_NO)
+		
+		SELECT C.*, L.*, (SELECT COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE = 'CT01') AS LIKE_NO
+		FROM CHALLENGES C JOIN (SELECT LIKE_RNK.* 
+								FROM (SELECT LIKE_COUNT.*, ROWNUM RWN
+									  FROM LIKE_COUNT) LIKE_RNK
+								WHERE ROWNUM BETWEEN 1 AND 6 ORDER BY ROWNUM) L
+								ON C.NO = L.POST_NO
+								ORDER BY L.RWN
 	</select>
 	
 	<!-- 챌린지단건조회 -->
 	<select id="getChallenge" resultType="co.doeat.management.service.ChallengeVO">
-        SELECT C.*, I.*, (C.PARTICIR * C.SAVE_POINT) AS TOTAL_POINT, (C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY
+        SELECT C.*, I.*, (C.PARTICIR * C.DEDUCT_POINT) AS SUM_POINT, (C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY
 		FROM CHALLENGES C RIGHT JOIN IMAGES I
 		ON (C.NO = I.POST_NO)
-		WHERE I.POST_NO = #{no} AND I.BOARD_TYPE='CT01'
-		ORDER BY C.NO
+		WHERE I.POST_NO = #{no} AND I.BOARD_CODE='CT01'
 	</select>
 	
 	<!-- 챌린지 등록 -->
@@ -29,21 +41,28 @@
 		</selectKey>
 		insert into challenges
 		values(#{no}, #{title}, #{subject}, #{chalStartDate}, #{chalEndDate}, #{round}, 
-			   #{particir}, #{sumParticir}, #{savePoint}, #{vldStartTime}, #{vldEndTime}, #{vldPosbDate})
+			   #{particir}, #{sumParticir}, #{deductPoint}, #{vldStartTime}, #{vldEndTime}, #{vldPosbDate})
 	</insert>
 	
+	<!-- 챌린지 참여 -->
+	<insert id="attendChall" parameterType="co.doeat.management.service.ChallengeParticipationVO">
+		INSERT INTO CHALLENGE_PARTICIPATION
+		VALUES (#{userId}, #{no}, #{round}, null)
+<!-- 		<selectKey keyProperty="USER_ID" resultType="java.util.HashMap" order="AFTER"> -->
+<!-- 			SELECT USER_ID FROM CHALLENGE_PARTICIPATION WHERE NO = #{no} -->
+<!-- 		</selectKey> -->
+	</insert>
 	
 	<!-- ▶ 나의 챌린지 -->
-	<!-- 참여중인 챌린지 전체조회. 로그인 되면 user3 부분 {}로 고치기. order by 추가하기 -->
+	<!-- 참여중인 챌린지 전체조회 -->
 	<select id="getMyChallList" resultType="map">
 		SELECT *
 		FROM CHALLENGE_PARTICIPATION P LEFT JOIN CHALLENGES C
-												ON(P.NO = C.NO)
-									   LEFT JOIN USERS U
-												ON(P.USER_ID = U.USER_ID)
-									   LEFT JOIN IMAGES I
-												ON(P.NO = I.POST_NO)
-		WHERE P.USER_ID = 'user3' AND P.CODE_ID IS NULL
+		                               ON(P.NO = C.NO)
+		                               LEFT JOIN USERS U
+		                               ON(P.USER_ID = U.USER_ID)
+		WHERE P.USER_ID = #{userId} AND P.CODE_ID IS NULL
+		ORDER BY C.CHAL_START_DATE, C.CHAL_END_DATE
 	</select>
 	
 	<!-- 참여중인 챌린지 단건조회 -->
@@ -51,11 +70,15 @@
 		SELECT *
 		FROM CHALLENGE_PARTICIPATION P LEFT JOIN CHALLENGES C
 											ON(P.NO = C.NO)
-								   LEFT JOIN USERS U
+								   	   LEFT JOIN USERS U
 											ON(P.USER_ID = U.USER_ID)
-								   LEFT JOIN IMAGES I
-											ON(P.NO = I.POST_NO)
-		WHERE P.USER_ID = 'user3' AND P.NO = #{no} AND I.BOARD_TYPE = 'CT01'
+		WHERE P.USER_ID = #{userId} AND P.NO = #{no}
+	</select>
+	
+	<!--  관리자 챌린지 리스트 -->
+	<select id="adminChalList" resultType="ChallengeVO">
+		SELECT * FROM CHALLENGES 
+		
 	</select>
 
 </mapper>

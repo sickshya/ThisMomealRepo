@@ -10,7 +10,7 @@
 		VALUES(#{userId},
 		#{userName}, #{nickName}, #{pwd})
 	</insert>
-	
+
 	<!-- id 중복체크 -->
 	<select id="isIdCheck" resultType="boolean">
 		SELECT CASE WHEN
@@ -19,7 +19,7 @@
 		WHERE USER_ID =
 		#{userId}
 	</select>
-	
+
 	<!-- 회원정보수정 -->
 	<update id="updateUserInfo"
 		parameterType="co.doeat.community.service.UsersVO">
@@ -41,7 +41,7 @@
 		UPDATE USERS
 		SET QUIT_REQ = 'Y'
 		WHERE QUIT_REQ = 'N' AND
-		USER_ID = 'user1'
+		USER_ID = #{userId}
 	</update>
 
 	<!-- 로그인 & 회원정보 수정폼호출시 -->

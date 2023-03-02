@@ -1,7 +1,6 @@
 package co.doeat.community.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +31,7 @@ public class CommunityController {
 	
 	
 	// 단건조회(ajax)
-	@GetMapping("/community{no}")
+	@GetMapping("/community/{no}")
 	@ResponseBody // ajax 처리할때 필요
 	public MealVO challengeOne(@PathVariable int no) {
 		
@@ -40,9 +39,7 @@ public class CommunityController {
 		
 		return communityService.getCommunity(no);
 	}
-	
-	
-	
+
 
 	
 	// 커뮤니티 검색결과창

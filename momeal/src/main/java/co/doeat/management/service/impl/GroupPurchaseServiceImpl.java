@@ -1,6 +1,7 @@
 package co.doeat.management.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,10 +59,21 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 	public List<GroupPurchaseListVO> getPurchaseList() {
 		return groupPurchaseMapper.getPurchaseList();
 	}
+	
+	@Override
+	public Map<String, Object> purchaseSelect(int prdtNo) {
+		return groupPurchaseMapper.purchaseSelect(prdtNo);
+	}
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++과리자
+	@Override
+	public List<GroupPurchaseListVO> getAdminGroupPurchaseList(GroupPurchaseSearchVO svo) {
+		return groupPurchaseMapper.getAdminGroupPurchaseList(svo);
+	}
 
 	@Override
-	public GroupPurchaseSettlementVO purchaseSelect(String userId) {
-		return groupPurchaseMapper.purchaseSelect(userId);
+	public int getCountTotal(GroupPurchaseSearchVO svo) {
+		return groupPurchaseMapper.getCountTotal(svo);
 	}
 	
 	

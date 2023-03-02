@@ -1,5 +1,6 @@
 package co.doeat.management.controller;
 
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -102,17 +103,40 @@ public class GroupPurchaseController {
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
 	// 마이페이지 공동구매내역 리스트
 	@RequestMapping("/myPurchaseList")
-	public String myPurchaseList(Model model) {
-		// 전체조회
+	public String myPurchaseList(Model model, HttpSession session, HttpServletRequest request) {
+		session = request.getSession();
+		session.setAttribute("userId", "user1");
+		
 		model.addAttribute("myPrList", groupPurchaseService.getPurchaseList());
 		return "myPages/myPurchaseList";
 	}
 
 	// 마이페이지 공동구매상세내역
-	@RequestMapping("/myPurchaseSelect/{id}")
-	public String myPurchaseSelect(Model model, @PathVariable String id) {
-		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(id));
-		return "myPages/myPurchaseSelect";
+	@RequestMapping("/myPurchaseSelect/{prdtNo}")
+	public String myPurchaseSelect(Model model, @PathVariable int prdtNo, HttpSession session, HttpServletRequest request) {
+		session = request.getSession();
+		session.setAttribute("userId", "user1");
+		
+		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(prdtNo));
+		System.out.println("결과 ==========" + groupPurchaseService.purchaseSelect(prdtNo));
+		return "myPages/myPurchaseSelect";  
+	}
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
+	//페이징
+	@RequestMapping("/adminGroupPurchase")
+	public String adminGroupPurchase(Model model, @ModelAttribute("esvo") GroupPurchaseSearchVO svo,Paging paging) {
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		paging.setTotalRecord(groupPurchaseService.getCountTotal(svo));
+		model.addAttribute("getAdminGroupPurchaseList", groupPurchaseService.getAdminGroupPurchaseList(svo));
+		return "admin/adminGroupPurchase";
+	}
+	
+	//공동구매등록
+	@RequestMapping("/adminGPInsert.do")
+	public String adminGPInsert() {
+		return "admin/adminGPInsert";
 	}
 	
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
