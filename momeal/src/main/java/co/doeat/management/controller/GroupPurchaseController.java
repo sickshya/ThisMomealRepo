@@ -1,20 +1,24 @@
 package co.doeat.management.controller;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.doeat.Paging;
+import co.doeat.common.service.ImageService;
 import co.doeat.common.service.ImageVO;
 import co.doeat.management.service.GroupPurchaseListVO;
 import co.doeat.management.service.GroupPurchaseSearchVO;
@@ -22,13 +26,19 @@ import co.doeat.management.service.GroupPurchaseService;
 
 @Controller
 public class GroupPurchaseController {
-	
+
 	@Autowired
 	ServletContext servletContext;
 
-
 	@Autowired
 	private GroupPurchaseService groupPurchaseService;
+	
+	@Autowired
+	private ImageService imageService;
+	
+	@Value("${momeal.saveImg}")
+	private String saveImg;
+
 
 	// 공동구매
 	@RequestMapping("/groupBuying")
@@ -106,43 +116,51 @@ public class GroupPurchaseController {
 		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(id));
 		return "myPages/myPurchaseSelect";
 	}
-	
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
-	//페이징
+
+	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
+	// 페이징
 	@RequestMapping("/adminGroupPurchase")
-	public String adminGroupPurchase(Model model, @ModelAttribute("esvo") GroupPurchaseSearchVO svo,Paging paging) {
+	public String adminGroupPurchase(Model model, @ModelAttribute("esvo") GroupPurchaseSearchVO svo, Paging paging) {
 		svo.setFirst(paging.getFirst());
 		svo.setLast(paging.getLast());
 		paging.setTotalRecord(groupPurchaseService.getCountTotal(svo));
 		model.addAttribute("getAdminGroupPurchaseList", groupPurchaseService.getAdminGroupPurchaseList(svo));
 		return "admin/adminGroupPurchase";
 	}
-	
-	//공동구매등록
-	@RequestMapping("/adminGPInsert.do")
-	public String adminGPInsert() {
-		return "admin/adminGPInsert";
+
+	// 공동구매등록
+	@RequestMapping("/adminGPInsertFrom")
+	public String adminGPInsertFrom() {
+		return "admin/adminGPInsertFrom";
 	}
-	
-	//공동구매등록
-		@RequestMapping("/adminGPInsert.do")
-		public String adminGPInsert(GroupPurchaseListVO vo, MultipartFile file, ImageVO evo) {
-			String saveFolder = servletContext.getRealPath("/resources/upload/");
-			if (!file.isEmpty()) {// 첨부파일이 존재하면
-				String fileName = UUID.randomUUID().toString();
-				fileName = fileName + file.getOriginalFilename();
-				File uploadFile = new File(saveFolder, fileName);
-				try {
-					file.transferTo(uploadFile); // 파일저장하긴
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				evo.setAtch_img(saveFolder);// 원본파일명
-				evo.setAtch_path(saveFolder + fileName);// 디렉토리 포함 원본파일
-			}
-			//groupPurchaseService.adminGPInsert(vo);//db 저장 루틴 
-			//groupPurchaseService.adminGPImInsert(evo);
-			return "redirect:adminGroupPurchase";
+
+	// 공동구매등록
+	@RequestMapping("/adminGPInsert")
+	@ResponseBody
+	public String adminGPInsert(GroupPurchaseListVO vo, List<MultipartFile> files, MultipartFile file) {
+		if(!file.isEmpty()) {//첨부파일이 존재하면
+			String fileName = UUID.randomUUID().toString();
+			fileName = fileName + file.getOriginalFilename();
+			File uploadFile = new File(saveImg,fileName);
+		try {
+			file.transferTo(uploadFile); //파일저장하긴
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
+		vo.setThumbnailImg(file.getOriginalFilename());//원본파일명
+		vo.setThumbnailImgPath(saveImg +fileName);//디렉토리 포함 원본파일
+		}
+	
+		groupPurchaseService.adminGPInsert(vo);//db 저장 루틴
+
+		int atchNo = imageService.fileUpload(files);
+		
+		if(atchNo > 0) {
+			vo.setAtchNo(atchNo);
+		}
+		
+		return "true";
+	
+	}
 
 }

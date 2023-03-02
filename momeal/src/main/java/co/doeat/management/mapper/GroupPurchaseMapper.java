@@ -27,7 +27,7 @@ public interface GroupPurchaseMapper {
 	List<GroupPurchaseListVO> getAdminGroupPurchaseList(GroupPurchaseSearchVO svo);
 	int getCountTotal(GroupPurchaseSearchVO svo); 
 	//공동구매 물품 등록하기
-		int adminGPInsert(GroupPurchaseListVO vo);
-		int adminGPImInsert(ImageVO evo);
+	int adminGPInsert(GroupPurchaseListVO vo);
+	
 }
 

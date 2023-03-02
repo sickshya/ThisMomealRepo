@@ -121,17 +121,29 @@
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			SELECT MAX (NO)+1 FROM GROUP_PURCHASE_LISTS
 		</selectKey>
-		INSERT INTO GROUP_PURCHASE_LISTS
-		VALUES(#{no},#{name},#{coName},#{price},#{subject},#{minGd},#{splyGd},
-		#{grpStartDate},#{grpEndDate})
-	</insert>
-	
-	<!--이미지등록 -->
-	<insert id="adminGPImInsert">
-	<!-- 어떤식으로 할지 모르겠음... -->
-	INSERT INTO IMAGES
-	VALUES(#{no},#{atchImg},#{postNo},#{boardType},#{atchPath})
-	</insert>
+		INSERT INTO GROUP_PURCHASE_LISTS(NO,
+											NAME,
+											CO_NAME,
+											PRICE,
+											SUBJECT,
+											MIN_GD,
+											SPLY_GD,
+											GRP_START_DATE,
+											GRP_END_DATE,
+											THUMBNAIL_IMG,
+											THUMBNAIL_IMG_PATH)
+		VALUES(#{no},
+				#{name},
+				#{coName},
+				#{price},
+				#{subject},
+				#{minGd},
+				#{splyGd},
+				#{grpStartDate},
+				#{grpEndDate},
+				#{thumbnailImg},
+				#{thumbnailImgPath})
+	</insert>	
 	
 	<!-- 삭제 -->
 	<delete id="admingGPDelete" parameterType="co.doeat.management.service.GroupPurchaseListVO">

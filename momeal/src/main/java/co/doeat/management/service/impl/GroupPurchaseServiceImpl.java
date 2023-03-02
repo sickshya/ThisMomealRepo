@@ -1,9 +1,12 @@
 package co.doeat.management.service.impl;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import co.doeat.common.service.ImageVO;
 import co.doeat.management.mapper.GroupPurchaseMapper;
@@ -62,8 +65,8 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 			return groupPurchaseMapper.adminGPInsert(vo) ;
 		}
 
-		@Override
-		public int adminGPImInsert(ImageVO evo) {
-			return groupPurchaseMapper.adminGPImInsert(evo);
-		}
+		
+
+
+	
 }

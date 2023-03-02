@@ -4,9 +4,14 @@ import lombok.Data;
 
 @Data
 public class ImageVO {
-	private int no;
-	private String atch_img;
-	private int post_no;
-	private String board_type;
-	private String atch_path;
+	private int atchNo;
+	private String atchImg;
+	private int postNo;
+	private String boardCode;
+	private String atchPath;
+	private String atchExtn;
+	private String atchUUID;
+	private long atchSize;
+	
+	
 }
