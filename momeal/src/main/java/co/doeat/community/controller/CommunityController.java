@@ -40,9 +40,7 @@ public class CommunityController {
 		
 		return communityService.getCommunity(no);
 	}
-	
-	
-	
+
 
 	
 	// 커뮤니티 검색결과창

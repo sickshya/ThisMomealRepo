@@ -8,6 +8,4 @@ public class ChallengeParticipationVO {
 	private int no;
 	private int round;
 	private String codeId;
-	
-	private String USER_ID; // selectKey 넘어오는지 테스트중
 }
