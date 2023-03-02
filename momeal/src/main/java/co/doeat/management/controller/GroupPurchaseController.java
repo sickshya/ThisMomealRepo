@@ -1,6 +1,10 @@
 package co.doeat.management.controller;
 
-import java.util.Map;
+import java.io.File;
+import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,12 +17,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import co.doeat.Paging;
+import co.doeat.common.service.ImageService;
 import co.doeat.community.service.UsersVO;
+import co.doeat.management.service.GroupPurchaseListVO;
 import co.doeat.management.service.GroupPurchaseSearchVO;
 import co.doeat.management.service.GroupPurchaseService;
-import co.doeat.management.service.GroupPurchaseSettlementVO;
 
 @Controller
 public class GroupPurchaseController {
@@ -133,67 +139,52 @@ public class GroupPurchaseController {
 		return "myPages/myPurchaseSelect";  
 	}
 	
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
-	//페이징
-	@RequestMapping("/adminGroupPurchase")
-	public String adminGroupPurchase(Model model, @ModelAttribute("esvo") GroupPurchaseSearchVO svo,Paging paging) {
-		svo.setFirst(paging.getFirst());
-		svo.setLast(paging.getLast());
-		paging.setTotalRecord(groupPurchaseService.getCountTotal(svo));
-		model.addAttribute("getAdminGroupPurchaseList", groupPurchaseService.getAdminGroupPurchaseList(svo));
-		return "admin/adminGroupPurchase";
-	}
-	
-	//공동구매등록
-	@RequestMapping("/adminGPInsert.do")
-	public String adminGPInsert() {
-		return "admin/adminGPInsert";
-	}
-
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
-	// 페이징
-	@RequestMapping("/adminGroupPurchase")
-	public String adminGroupPurchase(Model model, @ModelAttribute("esvo") GroupPurchaseSearchVO svo, Paging paging) {
-		svo.setFirst(paging.getFirst());
-		svo.setLast(paging.getLast());
-		paging.setTotalRecord(groupPurchaseService.getCountTotal(svo));
-		model.addAttribute("getAdminGroupPurchaseList", groupPurchaseService.getAdminGroupPurchaseList(svo));
-		return "admin/adminGroupPurchase";
-	}
-
-	// 공동구매등록
-	@RequestMapping("/adminGPInsertFrom")
-	public String adminGPInsertFrom() {
-		return "admin/adminGPInsertFrom";
-	}
-
-	// 공동구매등록
-	@RequestMapping("/adminGPInsert")
-	@ResponseBody
-	public String adminGPInsert(GroupPurchaseListVO vo, List<MultipartFile> files, MultipartFile file) {
-		if(!file.isEmpty()) {//첨부파일이 존재하면
-			String fileName = UUID.randomUUID().toString();
-			fileName = fileName + file.getOriginalFilename();
-			File uploadFile = new File(saveImg,fileName);
-		try {
-			file.transferTo(uploadFile); //파일저장하긴
-		}catch(Exception e) {
-			e.printStackTrace();
+		// 페이징
+		@RequestMapping("/adminGroupPurchase")
+		public String adminGroupPurchase(Model model, @ModelAttribute("esvo") GroupPurchaseSearchVO svo, Paging paging) {
+			svo.setFirst(paging.getFirst());
+			svo.setLast(paging.getLast());
+			paging.setTotalRecord(groupPurchaseService.getCountTotal(svo));
+			model.addAttribute("getAdminGroupPurchaseList", groupPurchaseService.getAdminGroupPurchaseList(svo));
+			return "admin/adminGroupPurchase";
 		}
-		vo.setThumbnailImg(file.getOriginalFilename());//원본파일명
-		vo.setThumbnailImgPath(saveImg +fileName);//디렉토리 포함 원본파일
-		}
-	
-		groupPurchaseService.adminGPInsert(vo);//db 저장 루틴
 
-		int atchNo = imageService.fileUpload(files);
+		// 공동구매등록
+		@RequestMapping("/adminGPInsertFrom")
+		public String adminGPInsertFrom() {
+			return "admin/adminGPInsertFrom";
+		}
+
+		// 공동구매등록
+		@RequestMapping("/adminGPInsert")
+		@ResponseBody
+		public String adminGPInsert(GroupPurchaseListVO vo, List<MultipartFile> files, MultipartFile tfile) {
+			if(!tfile.isEmpty()) {//첨부파일이 존재하면
+				String fileName = UUID.randomUUID().toString();
+				fileName = fileName + tfile.getOriginalFilename();
+				File uploadFile = new File(saveImg,fileName);
+			try {
+				tfile.transferTo(uploadFile); //파일저장하긴
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			vo.setThumbnailImg(tfile.getOriginalFilename());//원본파일명
+			vo.setThumbnailImgPath(saveImg +fileName);//디렉토리 포함 원본파일
+			}
+			
+			groupPurchaseService.adminGPInsert(vo);//db 저장 루틴
+			
+			int atchNo = imageService.fileUpload(files);
+			
+			
+			if(atchNo > 0) {
+				vo.setAtchNo(atchNo);
+			}
+			
+			return "true";
 		
-		if(atchNo > 0) {
-			vo.setAtchNo(atchNo);
 		}
-		
-		return "true";
-	
-	}
+
 
 }
