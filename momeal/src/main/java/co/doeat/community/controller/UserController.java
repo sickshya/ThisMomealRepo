@@ -1,5 +1,6 @@
 package co.doeat.community.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,11 @@ public class UserController {
 
 	// 회원정보 수정시 .. 재확인필요
 	@RequestMapping("/userEdit")
-	public String userEdit(UsersVO vo, Model model, HttpSession session) {
-		String id = "user1";
+	public String userEdit(UsersVO vo, Model model, HttpSession session, HttpServletRequest request) {
+		session = request.getSession();
+		session.setAttribute("userId", "user1");
+
+		String id = (String) session.getAttribute("userId");
 		vo = userService.userSelect(id);
 		if (vo != null) {
 			session.setAttribute("id", vo.getUserId());
@@ -61,7 +65,10 @@ public class UserController {
 
 	// 회원탈퇴신청 동작
 	@RequestMapping("/userWithdraw")
-	public String userWithdraw(UsersVO vo) {
+	public String userWithdraw(UsersVO vo, HttpSession session, HttpServletRequest request) {
+		session = request.getSession();
+		session.setAttribute("userId", "user1");
+
 		userService.updateWithdraw(vo);
 		return "myPages/userWithdraw";
 	}

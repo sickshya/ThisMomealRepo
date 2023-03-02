@@ -70,36 +70,41 @@
 
 <style>
 .sidenav {
-  width: 130px;
-  position: fixed;
-  z-index: 1;
-  top: 20px;
-  left: 10px;
-  overflow-x: hidden;
-  padding: 8px 0;
+	width: 130px;
+	position: fixed;
+	z-index: 1;
+	top: 20px;
+	left: 10px;
+	overflow-x: hidden;
+	padding: 8px 0;
 }
 
 .sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 17px;
-  color: #010800;
-  display: block;
+	padding: 6px 8px 6px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	color: #010800;
+	display: block;
 }
 
 .sidenav a:hover {
-  color: #7cf772;
+	color: #7cf772;
 }
 
 .main {
-  margin-left: 140px; /* Same width as the sidebar + left position in px */
-  font-size: 28px; /* Increased text to enable scrolling */
-  padding: 0px 10px;
+	margin-left: 140px;
+	/* Same width as the sidebar + left position in px */
+	font-size: 28px; /* Increased text to enable scrolling */
+	padding: 0px 10px;
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 15px;}
+	.sidenav {
+		padding-top: 15px;
+	}
+	.sidenav a {
+		font-size: 15px;
+	}
 }
 </style>
 
@@ -316,14 +321,12 @@
 
 
 	<!-- 내용 시작 -->
-	<div  class="lg:py-40 pt-24 pb-12 relative -mt-20 bg-white" id="home" >
+	<div class="lg:py-40 pt-24 pb-12 relative -mt-20 bg-white" id="home">
 		<div class="uk-container" layout:fragment="content"></div>
-		<div class="sidenav" style="margin:40px;">
-  			<br><br><br><br><br><br>
-			<a href="/userpw">내 정보수정</a>
-			<a href="/myPurchaseList">구매내역</a>
-			<a href="/myLike">조아용</a>
-			<a href="#contact">찜꽁</a>
+		<div class="sidenav" style="margin: 40px;">
+			<br> <br> <br> <br> <br> <br> <a
+				href="/userpw">내 정보수정</a> <a href="/myPurchaseList">구매내역</a> <a
+				href="/myLikeList">조아용</a> <a href="#contact">찜꽁</a>
 		</div>
 	</div>
 	<!-- 내용 끝 -->

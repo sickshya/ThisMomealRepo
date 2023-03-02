@@ -41,7 +41,7 @@
 		UPDATE USERS
 		SET QUIT_REQ = 'Y'
 		WHERE QUIT_REQ = 'N' AND
-		USER_ID = 'user1'
+		USER_ID = #{userId}
 	</update>
 
 	<!-- 로그인 & 회원정보 수정폼호출시 -->

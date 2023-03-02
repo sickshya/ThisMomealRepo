@@ -26,14 +26,14 @@ public class GroupPurchaseListVO extends ImageVO {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date grpEndDate; //공동구매완료일자
 	private String prdtCtgryCode; //상품카테고리코드
-	private String thumbnailImg;//이미지
-	private String thumbnailImgPath;//경로
-	
+  
 	//이미지
-	//private String atchPath; //첨부이미지 경로
+	//private String atchPath; // 첨부이미지 경로
+	private String thumbnailImg; // 이미지 이름
+	private String thumbnailImgPath; // 이미지 경로
 	
 	//결제자수 카운트
-	private String sttlSt; //결제여부 /주문자 수 카운트.
+	private int totalGd; // 구매수량
 	
 	//날짜에 따른 공동구매 진행상태
 	private String gpstatus;
