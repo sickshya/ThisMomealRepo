@@ -1,5 +1,13 @@
 package co.doeat.common.mapper;
 
-public interface ImageMapper {
+import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import co.doeat.common.service.ImageVO;
+
+public interface ImageMapper {
+	
+	int fileUpload(ImageVO files);
+	int selectAtchNo();
 }

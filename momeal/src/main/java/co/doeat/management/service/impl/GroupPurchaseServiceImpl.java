@@ -1,11 +1,15 @@
 package co.doeat.management.service.impl;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import co.doeat.common.service.ImageVO;
 import co.doeat.management.mapper.GroupPurchaseMapper;
 import co.doeat.management.service.GroupPurchaseListVO;
 import co.doeat.management.service.GroupPurchaseSearchVO;
@@ -79,15 +83,19 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 	
 	
 	//++++++++++++++++++++++++++++++++++++++++++++++과리자
-	@Override
-	public List<GroupPurchaseListVO> getAdminGroupPurchaseList(GroupPurchaseSearchVO svo) {
-		return groupPurchaseMapper.getAdminGroupPurchaseList(svo);
-	}
+	//++++++++++++++++++++++++++++++++++++++++++++++관리자
+		@Override
+		public List<GroupPurchaseListVO> getAdminGroupPurchaseList(GroupPurchaseSearchVO svo) {
+			return groupPurchaseMapper.getAdminGroupPurchaseList(svo);
+		}
 
-	@Override
-	public int getCountTotal(GroupPurchaseSearchVO svo) {
-		return groupPurchaseMapper.getCountTotal(svo);
-	}
+		@Override
+		public int getCountTotal(GroupPurchaseSearchVO svo) {
+			return groupPurchaseMapper.getCountTotal(svo);
+		}
 
-
+		@Override
+		public int adminGPInsert(GroupPurchaseListVO vo) {
+			return groupPurchaseMapper.adminGPInsert(vo) ;
+		}
 }

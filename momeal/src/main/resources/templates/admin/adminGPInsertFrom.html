@@ -1,0 +1,301 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{adminLayout}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico">
+<title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+<!-- Simple bar CSS -->
+<link rel="stylesheet" href="css/simplebar.css">
+<!-- Fonts CSS -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+	rel="stylesheet">
+<!-- Icons CSS -->
+<link rel="stylesheet" href="css/feather.css">
+<!-- Date Range Picker CSS -->
+<link rel="stylesheet" href="css/daterangepicker.css">
+<!-- App CSS -->
+<link rel="stylesheet" href="css/app-light.css" id="lightTheme">
+<link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
+<style>
+#att_zone{
+	width: 550px;
+	min-height:150px;
+	padding:10px;
+	border:1px dotted #00f;
+}
+#att_zone:empty:before{
+	content : attr(data-placeholder);
+	color : #999;
+	font-size:.9em;
+}
+
+</style>
+</head>
+<body class="vertical  light  ">
+	<div layout:fragment="content">
+		<div class="wrapper">
+
+
+			<main role="main" class="main-content">
+				<div class="container-fluid">
+					<div class="row justify-content-center">
+						<div class="col-12">
+							<h2 class="page-title">공동구매 등록</h2>
+							<p class="text-muted">Demo for form control styles, layout
+								options, and custom components for creating a wide variety of
+								forms.</p>
+							<div class="card-deck" style="width: 600px">
+
+								<div class="card shadow mb-4">
+									<div class="card-header" style="width: 500px">
+										<strong class="card-title">공동구매 추가하기</strong>
+									</div>
+									<div class="card-body" style="width: 500px" id="myForm">
+										
+										<form id="frm" action="adminGPInsert.do" method="post" enctype="multipart/form-data">
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">상품명</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="name"
+														name="name">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">업체명</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="coName"
+														name="coName">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">시작일자</label>
+												<div class="col-sm-9">
+													<input type="date" class="form-control" id="grpStartDate"
+														name="grpStartDate">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">종료일자</label>
+												<div class="col-sm-9">
+													<input type="date" class="form-control" id="grpEndDate"
+														name="grpEndDate">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">가격</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="price"
+														name="price">
+												</div>
+											</div>
+
+
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">최소주문수량</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="minGd"
+														name="minGd">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">공급한계수량</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="splyGd"
+														name="splyGd">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3" for="exampleFormControlTextarea1">상세설명</label>
+												<div class="col-sm-9">
+													<textarea class="form-control" id="subject" name="subject"
+														rows="2"></textarea>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">썸네일 등록</label>
+												<div class="col-sm-9">
+													<input class="form-control" id="file" type="file"
+														name="file">
+
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<div id='image_preview'>
+													<input type='file' id='btnAtt' name="file" multiple='multiple' />
+													<div id='att_zone'
+														data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
+												</div>
+											</div>
+
+											<div class="form-group mb-2">
+												<input type="hidden" name="${images.atchNo}">
+												<input type="hidden" name="${groupPurchaseList.no}">
+												<input type="hidden" name="${images.postNo}" value="${groupPurchaseList.no}">
+												<input type="hidden" name="${images.boardCode}" value="CT03">
+												<button type="button" onclick="GPinsert()" class="btn btn-primary" >등록</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- / .card-desk-->
+			</main>
+			<!-- main -->
+		</div>
+		<!-- .wrapper -->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/moment.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/simplebar.min.js"></script>
+		<script src='js/daterangepicker.js'></script>
+		<script src='js/jquery.stickOnScroll.js'></script>
+		<script src="js/tinycolor-min.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/apps.js"></script>
+
+
+<!-- 다중파일업로드 -->
+<script>
+    var sel_files = [];
+( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
+  imageView = function imageView(att_zone, btn){
+
+    var attZone = document.getElementById(att_zone);
+    var btnAtt = document.getElementById(btn)
+    
+    // 이미지와 체크 박스를 감싸고 있는 div 속성
+    var div_style = 'display:inline-block;position:relative;'
+                  + 'width:150px;height:120px;margin:5px;border:1px solid #00f;z-index:1';
+    // 미리보기 이미지 속성
+    var img_style = 'width:100%;height:100%;z-index:none';
+    // 이미지안에 표시되는 체크박스의 속성
+    var chk_style = 'width:30px;height:30px;position:absolute;font-size:24px;'
+                  + 'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00';
+  
+    btnAtt.onchange = function(e){
+      var files = e.target.files;
+      var fileArr = Array.prototype.slice.call(files)
+      for(f of fileArr){
+        imageLoader(f);
+      }
+    }  
+    
+  
+    // 탐색기에서 드래그앤 드롭 사용
+    attZone.addEventListener('dragenter', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+    }, false)
+    
+    attZone.addEventListener('dragover', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      
+    }, false)
+  
+    attZone.addEventListener('drop', function(e){
+      var files = {};
+      e.preventDefault();
+      e.stopPropagation();
+      var dt = e.dataTransfer;
+      files = dt.files;
+      for(f of files){
+        imageLoader(f);
+      }
+      
+    }, false)
+    
+
+    
+    /*첨부된 이미지를을 배열에 넣고 미리보기 */
+    imageLoader = function(file){
+      sel_files.push(file);
+      var reader = new FileReader();
+      reader.onload = function(ee){
+        let img = document.createElement('img')
+        img.setAttribute('style', img_style)
+        img.src = ee.target.result;
+        attZone.appendChild(makeDiv(img, file));
+      }
+      
+      reader.readAsDataURL(file);
+    }
+    
+    /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
+    makeDiv = function(img, file){
+      var div = document.createElement('div')
+      div.setAttribute('style', div_style)
+      
+      var btn = document.createElement('input')
+      btn.setAttribute('type', 'button')
+      btn.setAttribute('value', 'x')
+      btn.setAttribute('delFile', file.name);
+      btn.setAttribute('style', chk_style);
+      btn.onclick = function(ev){
+        var ele = ev.srcElement;
+        var delFile = ele.getAttribute('delFile');
+        for(var i=0 ;i<sel_files.length; i++){
+          if(delFile== sel_files[i].name){
+            sel_files.splice(i, 1);      
+          }
+        }
+        
+        dt = new DataTransfer();
+        for(f in sel_files) {
+          var file = sel_files[f];
+          dt.items.add(file);
+        }
+        btnAtt.files = dt.files;
+        var p = ele.parentNode;
+        attZone.removeChild(p)
+      }
+      div.appendChild(img)
+      div.appendChild(btn)
+      return div
+    }
+  }
+)('att_zone', 'btnAtt')
+
+
+
+function GPinsert(){
+	var formData = new FormData($('#frm')[0])
+	for(let i=0; i<sel_files.length; i++){
+		formData.append("files", sel_files[i])
+	}
+	$.ajax({
+		url:"/adminGPInsert",
+		type:"post",
+		data:formData,
+		contentType:false,
+		processData:false,
+		success: function(res){
+			console.log(res)
+			alert("등록되었습니다")
+			location.href="/adminGroupPurchase"
+		},
+		error: function(err){
+			console.log(err)
+		}
+		
+	})
+}
+</script>
+
+
+
+	</div>
+</body>
+</html>

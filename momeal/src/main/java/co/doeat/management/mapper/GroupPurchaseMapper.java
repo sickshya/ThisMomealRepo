@@ -3,6 +3,7 @@ package co.doeat.management.mapper;
 import java.util.List;
 import java.util.Map;
 
+import co.doeat.common.service.ImageVO;
 import co.doeat.management.service.GroupPurchaseListVO;
 import co.doeat.management.service.GroupPurchaseSearchVO;
 import co.doeat.management.service.GroupPurchaseSettlementVO;
@@ -34,9 +35,11 @@ public interface GroupPurchaseMapper {
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
 	// 공동구매 물품 리스트
+  
 	List<GroupPurchaseListVO> getAdminGroupPurchaseList(GroupPurchaseSearchVO svo);
-
-	int getCountTotal(GroupPurchaseSearchVO svo);
-
+  
+	//공동구매 물품 등록하기
+  
+	int adminGPInsert(GroupPurchaseListVO vo);
 }
 

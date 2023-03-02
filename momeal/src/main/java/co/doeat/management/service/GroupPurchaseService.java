@@ -3,6 +3,10 @@ package co.doeat.management.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import co.doeat.common.service.ImageVO;
+
 public interface GroupPurchaseService {
 	
 	//공동구매-메인
@@ -30,5 +34,8 @@ public interface GroupPurchaseService {
 	// 공동구매 물품 리스트
 	List<GroupPurchaseListVO> getAdminGroupPurchaseList(GroupPurchaseSearchVO svo);
 
+  //공동구매 물품 등록하기
+  int adminGPInsert(GroupPurchaseListVO vo);
+  
 	int getCountTotal(GroupPurchaseSearchVO svo);
 }
