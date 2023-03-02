@@ -2,6 +2,8 @@ package co.doeat.management.service;
 
 import java.util.List;
 
+import co.doeat.common.service.ImageVO;
+
 public interface GroupPurchaseService {
 
 	List<GroupPurchaseListVO> getPurList(); // 메인_전체조회
@@ -22,4 +24,7 @@ public interface GroupPurchaseService {
 			//공동구매 물품 리스트
 			List<GroupPurchaseListVO> getAdminGroupPurchaseList(GroupPurchaseSearchVO svo);
 			int getCountTotal(GroupPurchaseSearchVO svo); 
+			//공동구매 물품 등록하기
+			int adminGPInsert(GroupPurchaseListVO vo);
+			int adminGPImInsert(ImageVO evo);
 }

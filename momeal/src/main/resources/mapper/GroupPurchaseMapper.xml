@@ -114,4 +114,44 @@
 ]]>
 	</select>
 	
+	
+	
+	<!-- 등록 -->
+	<insert id="adminGPInsert" parameterType="co.doeat.management.service.GroupPurchaseListVO" >
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT MAX (NO)+1 FROM GROUP_PURCHASE_LISTS
+		</selectKey>
+		INSERT INTO GROUP_PURCHASE_LISTS
+		VALUES(#{no},#{name},#{coName},#{price},#{subject},#{minGd},#{splyGd},
+		#{grpStartDate},#{grpEndDate})
+	</insert>
+	
+	<!--이미지등록 -->
+	<insert id="adminGPImInsert">
+	<!-- 어떤식으로 할지 모르겠음... -->
+	INSERT INTO IMAGES
+	VALUES(#{no},#{atchImg},#{postNo},#{boardType},#{atchPath})
+	</insert>
+	
+	<!-- 삭제 -->
+	<delete id="admingGPDelete" parameterType="co.doeat.management.service.GroupPurchaseListVO">
+		DELETE FROM GROUP_PURCHASE_LISTS WHERE NO= #{no}
+	</delete>
+	
+	<!-- 수정 -->
+	<update id="adminGPUpdate">
+		UPDATE GROUP_PURCHASE_LISTS
+		<set>
+			<if test="name != null">name = #{name},</if>
+			<if test="name != null">co_Name = #{coName},</if>
+			<if test="name != null">price = #{price},</if>
+			<if test="name != null">subject = #{subject},</if>
+			<if test="name != null">min_gd = #{minGd},</if>
+			<if test="name != null">sply_gd = #{splyGd},</if>
+			<if test="name != null">grp_start_date = #{grpStartDate},</if>
+			<if test="name != null">grp_end_date = #{grpEndDate}</if>
+		</set>
+		WHERE NO = #{no}
+	</update>
+	
 </mapper>
