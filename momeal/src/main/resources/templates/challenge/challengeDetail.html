@@ -88,7 +88,8 @@
 <!-- 									</div> -->
 							</ul>
 							<br><br>
-							<a href="#" class="primary-btn" data-toggle="modal" data-target="#Modal-2">참여하기</a> <a href="#"
+							<a href="#" class="primary-btn" data-target="#Modal-2" onclick="loginChk()">참여하기</a> <!-- data-toggle="modal" -->
+							<a href="#"
 								class="heart-icon"><span class="icon_heart_alt"></span></a>
 						</div>
 					</div>
@@ -171,11 +172,10 @@
 											<br>
 										</div>
 										<div class="modal-footer">
-											
 												<button type="button" onclick="attedChall()" class="btn btn-default" id="attend">참여하기</button>
-												<input type="hidden" th:value="${chall.no}" name="no">
-												<input type="hidden" th:value="${chall.round}" name="round">
-												<input type="hidden" value="user3" name="userId">
+												<input type="hidden" th:value="${chall.no}" name="no" id="no">
+												<input type="hidden" th:value="${chall.round}" name="round" id="round">
+												<input type="hidden" th:value="${session.userId}" name="userId" id="userId">
 										</div>
 									</div>
 								</div>
@@ -188,14 +188,43 @@
 			</div>
 			
 		<script>
+			// 로그인 유무 & 챌린지 참여 여부 판단 후 모달 띄우기
+			function loginChk() {
+				let userId = $('#userId').val();
+// 				let 
+				 
+				 console.log("유저 아이디 들어오나요 ================ " + userId);
+
+		          if(userId == ""){ 
+		             alert("로그인 한 회원만 신청 가능합니다. \n로그인 후에 다시 시도해주세요."); 
+// 		             $('#attend').attr('data-dismiss', 'modal');
+		             return false;
+		          }
+// 		          else {
+// 		        	  if(){
+		        		  
+// 		        	  }
+// 			          else{
+			        	  
+// 			          }
+// 		          }
+			}
+		
+		
+			// 챌린지 참여신청
 			function attedChall() {
+// 				debugger
+				 
+					$('#attendfrm').submit();
+// 		             location.replace("/user/mypageForm.jsp");
+		          }
+		          
 				console.log("챌린지 참가용");
 				
-				$('#attendfrm').submit();
 				
 // 				// 모달창 닫기
 // 				$('#attend').attr('data-dismiss', 'modal');
-			}
+
 			
 			
 		</script>

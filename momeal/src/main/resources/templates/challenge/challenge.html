@@ -66,7 +66,7 @@
 											<!-- map에 LIKE_NO가 안 담겨... why...... -->
 											
 											<div th:if = "${session.userId != null}">
-											<div th:if = "${rec.LIKE_NO != 0}">
+											<div th:if = "${rec.LIKE_CHK != 0}">
 <!-- 												<a href="#"> class="heart-click heart_icon${rec.LIKE_NO }" -->
 					                                <svg xmlns="http://www.w3.org/2000/svg" width="30"
 														height="30" fill="currentColor"
@@ -76,7 +76,7 @@
 	                            					</svg>
 												</a>
 											</div>
-											<div th:unless = "${rec.LIKE_NO != 0}">
+											<div th:unless = "${rec.LIKE_CHK != 0}">
 												<a href="#"> <!-- class="heart-click heart_icon${rec.LIKE_NO }" -->
 													<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
 							                            fill="currentColor" class="bi bi-suit-heart"
@@ -151,7 +151,7 @@
 									<!-- 로그인 유무에 따라 하트 표시하기(로그인 한 경우만 하트 표시) -->
 									<div th:if = "${session.userId != null}">
 										<!-- 좋아요 한 챌린지는 빨간 하트 -->
-										<div th:if = "${chall.LIKE_NO != 0}">
+										<div th:if = "${chall.LIKE_CHK != 0}">
 <!-- 												<a href="#"> class="heart-click heart_icon${rec.LIKE_NO }" -->
 				                                <svg xmlns="http://www.w3.org/2000/svg" width="30"
 													height="30" fill="currentColor"
@@ -162,7 +162,7 @@
 											</a>
 										</div>
 										<!-- 좋아요 안 한 챌린지는 빨간 하트 -->
-										<div th:unless = "${chall.LIKE_NO != 0}">
+										<div th:unless = "${chall.LIKE_CHK != 0}">
 											<a href="#"> <!-- class="heart-click heart_icon${rec.LIKE_NO }" -->
 												<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
 						                            fill="currentColor" class="bi bi-suit-heart"
