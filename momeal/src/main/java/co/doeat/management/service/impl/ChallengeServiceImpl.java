@@ -32,7 +32,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	// 단건조회
 	@Override
-	public ChallengeVO getChallenge(Map<String, Object>map) {
+	public ChallengeVO getChallenge(Map<String, Object> map) {
 		return challengeMapper.getChallenge(map);
 	}
 

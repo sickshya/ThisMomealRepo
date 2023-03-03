@@ -1,5 +1,6 @@
 package co.doeat.community.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,13 @@ public class UserRestController {
 	// 비밀번호 일치하는지 확인
 	// 수정 예정
 	@GetMapping("/userPwdForm")
-	public boolean userPwdForm(UsersVO vo, Model model, HttpSession session) {
+	public boolean userPwdForm(UsersVO vo, Model model, HttpSession session, HttpServletRequest request) {
 		boolean a = false;
-		String id = (String) session.getAttribute("id");
-		id = "user1";
+		 session = request.getSession();
+		 session.setAttribute("userId", "user1");
+		 
+		String id = (String) session.getAttribute("userId");
+		
 		UsersVO uvo = userService.userSelect(id);
 
 		if (uvo != null) {

@@ -45,19 +45,19 @@ public class ChallengeController {
 		return "challenge/challenge";
 	}
 
-	   // 단건조회
-   @GetMapping("/challenge/{no}")
-   public String challenge(Model model, Map<String, Object>map, HttpServletRequest request, @PathVariable int no) {
-	   	HttpSession session = request.getSession();
+	// 단건조회
+	@GetMapping("/challenge/{no}")
+	public String challenge(Model model, Map<String, Object>map, HttpServletRequest request, @PathVariable int no) {
+		HttpSession session = request.getSession();
 		map.put("userId", session.getAttribute("userId"));
 		map.put("no", no);
 		System.out.println("값 잘 들어갓나요...... " + map);
-  
+		
 		model.addAttribute("chall", challengeService.getChallenge(map));
 		System.out.println("====== 단건조회 ▶ " + challengeService.getChallenge(map));
-  
 		return "challenge/challengeDetail";
-   }
+	}
+
 	
 	// 챌린지 참여하기
 	@PostMapping("/attendChallenge")
@@ -119,7 +119,6 @@ public class ChallengeController {
 		System.out.println("====== 단건조회 ▶ " + challengeService.getMyChall(no));
 
 		return "challenge/myChallengeDetail";
-
 	}
 	
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자

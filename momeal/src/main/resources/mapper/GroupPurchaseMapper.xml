@@ -5,50 +5,42 @@
 
 	<!-- 전체조회 -->
 	<select id="getPurList" resultType="GroupPurchaseListVO">
-
 		SELECT *
-		FROM
-		GROUP_PURCHASE_LISTS g left JOIN IMAGES i
-		ON (G.NO = i.post_no)
-		WHERE
-		i.board_type='groupBuying'
-
+		FROM GROUP_PURCHASE_LISTS
 	</select>
 
 	<!-- 현재 진행 조회 -->
 	<select id="getPurchasingList" resultType="GroupPurchaseListVO">
-
+		
 		SELECT *
 		FROM group_purchase_lists g RIGHT JOIN IMAGES i
-		ON (g.NO = i.POST_NO)
+		ON (g.NO =
+		i.POST_NO)
 		<![CDATA[
-		WHERE TRUNC(grp_start_date) <= sysdate AND sysdate < g.grp_end_date AND I.BOARD_TYPE='groupBuying'
+		WHERE TRUNC(grp_start_date) <= sysdate AND sysdate < grp_end_date
 		]]>
-		ORDER BY g.NO
-
+		ORDER BY NO
+		
 	</select>
-	
+
 	<!-- 단건조회 -->
 	<select id="getPurOne" resultType="GroupPurchaseListVO">
-
-		SELECT *
-		FROM
-		GROUP_PURCHASE_LISTS g RIGHT JOIN IMAGES I
-		ON (G.NO = I.POST_NO)
-		WHERE
-		I.POST_NO= #{no}
-		AND I.BOARD_TYPE='groupBuying'
+		SELECT g.*, i.*
+		FROM GROUP_PURCHASE_LISTS g LEFT JOIN IMAGES i
+		ON (g.NO = i.POST_NO)
+		WHERE i.POST_NO = #{atchNo} AND i.board_code='CT03'
 		ORDER BY g.NO
-
 	</select>
+	
+ 	<!-- 배송정보 입력 --> 
+<!-- 	<insert id=""></insert> -->
 
-
-<!-- 	<select id="count" parameterType="String" resultType="Group"> -->
-<!-- 	SELECT no, -->
-<!-- 	COUNT(*) -->
-<!-- 	FROM GROUP_PURCHASE_SETTLEMENT -->
-<!-- 	GROUP BY no; -->
-<!-- 	</select> -->
+	<!-- <select id="count" parameterType="String" resultType="Group"> -->
+	<!-- SELECT no, -->
+	<!-- COUNT(*) -->
+	<!-- FROM GROUP_PURCHASE_SETTLEMENT -->
+	<!-- GROUP BY no; -->
+	<!-- </select> -->
 
 
 
@@ -56,32 +48,29 @@
 	<!-- 마이페이지 - 공동구매내역 전체리스트 -->
 	<select id="getPurchaseList"
 		resultType="co.doeat.management.service.GroupPurchaseListVO">
-		SELECT U.*, P.*,G.*,I.*
+		SELECT U.*, P.*,G.*
 		FROM USERS U LEFT JOIN
 		GROUP_PURCHASE_SETTLEMENT P ON (U.USER_ID = P.USER_ID)
 		LEFT JOIN
 		GROUP_PURCHASE_LISTS G ON (P.NO = G.NO)
-		LEFT JOIN IMAGES I ON (G.NO =
-		i.post_no)
-		WHERE U.USER_ID = 'user1' AND I.board_type='groupBuying'
+		WHERE U.USER_ID = #{userId}
 	</select>
 
 	<!-- 마이페이지 - 공동구매내역 상세보기 -->
-	<select id="purchaseSelect"
-		resultType="co.doeat.management.service.GroupPurchaseSettlementVO">
-		SELECT U.*, P.*,G.*,I.*
-		FROM USERS U LEFT JOIN
-		GROUP_PURCHASE_SETTLEMENT P ON
-		(U.USER_ID = P.USER_ID)
+	<select id="purchaseSelect" resultType="map">
+		SELECT U.*, P.*,G.*
+		FROM
+		USERS U LEFT JOIN
+		GROUP_PURCHASE_SETTLEMENT P ON (U.USER_ID =
+		P.USER_ID)
 		LEFT JOIN
 		GROUP_PURCHASE_LISTS G ON (P.NO = G.NO)
-		LEFT JOIN IMAGES I ON (G.NO =
-		i.post_no)
-		WHERE U.USER_ID = 'user1' AND I.board_type='groupBuying' AND
-		P.NO = 1
+		WHERE
+		U.USER_ID = '#{userId} AND
+		P.NO = #{no}
 	</select>
-	
-	
+
+
 	<!-- +++++++++++++++++관리자+++++++++++++++++++++++++++++++ -->
 	<!-- 관리자 -공동구매 물품 리스트 -->
 	<sql id="creiteria">
@@ -107,18 +96,19 @@
 	<select id="getAdminGroupPurchaseList"
 		parameterType="co.doeat.management.service.GroupPurchaseListVO"
 		resultType="co.doeat.management.service.GroupPurchaseListVO">
-	
+
 		SELECT * FROM( SELECT rownum rn, a.*
-						from(
-		
-						SELECT no,name,co_name,grp_start_date,grp_end_date,
+		from(
+
+		SELECT
+		no,name,co_name,grp_start_date,grp_end_date,
 						<![CDATA[
 					        CASE WHEN grp_start_date <=trunc(current_date) AND grp_end_date <= trunc(current_date) THEN '완료'
 					            WHEN TRUNC(grp_start_date) <= TRUNC(current_date) And trunc(current_date) <= grp_end_date Then '진행중' 
 					            Else '진행전'  
 					              END as gpstatus
 				 		]]>
-							FROM GROUP_PURCHASE_LISTS 
+		FROM GROUP_PURCHASE_LISTS
 
 		<include refid="creiteria"></include>
 		order by no
@@ -127,5 +117,55 @@
 	
 ]]>
 	</select>
+  
+	<!-- 등록 -->
+	<insert id="adminGPInsert" parameterType="co.doeat.management.service.GroupPurchaseListVO" >
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT MAX (NO)+1 FROM GROUP_PURCHASE_LISTS
+		</selectKey>
+		INSERT INTO GROUP_PURCHASE_LISTS(NO,
+											NAME,
+											CO_NAME,
+											PRICE,
+											SUBJECT,
+											MIN_GD,
+											SPLY_GD,
+											GRP_START_DATE,
+											GRP_END_DATE,
+											THUMBNAIL_IMG,
+											THUMBNAIL_IMG_PATH)
+		VALUES(#{no},
+				#{name},
+				#{coName},
+				#{price},
+				#{subject},
+				#{minGd},
+				#{splyGd},
+				#{grpStartDate},
+				#{grpEndDate},
+				#{thumbnailImg},
+				#{thumbnailImgPath})
+	</insert>	
 	
+	<!-- 삭제 -->
+	<delete id="admingGPDelete" parameterType="co.doeat.management.service.GroupPurchaseListVO">
+		DELETE FROM GROUP_PURCHASE_LISTS WHERE NO= #{no}
+	</delete>
+	
+	<!-- 수정 -->
+	<update id="adminGPUpdate">
+		UPDATE GROUP_PURCHASE_LISTS
+		<set>
+			<if test="name != null">name = #{name},</if>
+			<if test="name != null">co_Name = #{coName},</if>
+			<if test="name != null">price = #{price},</if>
+			<if test="name != null">subject = #{subject},</if>
+			<if test="name != null">min_gd = #{minGd},</if>
+			<if test="name != null">sply_gd = #{splyGd},</if>
+			<if test="name != null">grp_start_date = #{grpStartDate},</if>
+			<if test="name != null">grp_end_date = #{grpEndDate}</if>
+		</set>
+		WHERE NO = #{no}
+	</update>
+
 </mapper>
