@@ -65,9 +65,10 @@
 	</select>
 
 	<!-- 마이페이지 - 식단 좋아요 삭제 -->
-	<delete id="myLikeDel" parameterType="co.doeat.management.service.LikesVO">
+	<delete id="myLikeDel"
+		parameterType="co.doeat.management.service.LikesVO">
 		DELETE FROM LIKES
-		WHERE NO = #{no} 
+		WHERE NO = #{no}
 	</delete>
 
 </mapper>
