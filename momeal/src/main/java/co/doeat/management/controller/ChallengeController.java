@@ -25,13 +25,13 @@ public class ChallengeController {
 	// 전체조회
 	// 세션에 아이디 값도 담아두기(임시)
 	@RequestMapping("/challenge")
-	public String challengeMain(Model model, HttpServletRequest request) {
-//		// 임시로 세션에 ID 값 담기
+	public String challengeMain(Model model, HttpServletRequest request) { 
+  // 임시로 세션에 ID 값 담기
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", "user3");
-
+		
 		String id = (String) session.getAttribute("userId");
-
+		
 		// 전체조회
 		model.addAttribute("challList", challengeService.getChallList(id));
 
@@ -51,7 +51,6 @@ public class ChallengeController {
 		map.put("userId", session.getAttribute("userId"));
 		map.put("no", no);
 		System.out.println("값 잘 들어갓나요...... " + map);
-
 		model.addAttribute("chall", challengeService.getChallenge(map));
 		System.out.println("====== 단건조회 ▶ " + challengeService.getChallenge(map));
 		return "challenge/challengeDetail";
@@ -60,37 +59,30 @@ public class ChallengeController {
 	// 챌린지 참여하기
 	@PostMapping("/attendChallenge")
 	public String attendChallenge(ChallengeParticipationVO vo, HttpServletRequest request) {
-
 		HttpSession session = request.getSession();
-
+		
 		// 세션에 담겨있는 아이디 값을 vo의 userId에 담기. (String) 처리 해줘야함
 		vo.setUserId((String) session.getAttribute("userId"));
 		challengeService.attendChall(vo);
-
+		
 		return "redirect:/myChallengeList";
 	}
-
-//	// 챌린지 검색결과창
-//	@RequestMapping("/challengeSearch")
-//	public String challengeSearch() {
-//		return "challenge/challengeSearch";
-//	}
 
 	// ▶ 나의 챌린지 ◀
 	// 진행중 - 전체조회
 	@RequestMapping("/myChallenge")
-	public String myChallenge(Model model, Map<String, Object> map, HttpServletRequest request) {
+	public String myChallenge(Model model, Map<String, Object>map, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		map.put("userId", session.getAttribute("userId"));
 //		map.put("userId", "user3");
-
+		
 		model.addAttribute("myChall", challengeService.getMyChallList(map));
-
+		
 		System.out.println("====== 결과 ▶ " + challengeService.getMyChallList(map));
-
+		
 		return "challenge/myChallenge";
 	}
-
+	
 	// 진행중 - 전체조회(챌린지 참여신청 후 이동)
 	@RequestMapping("/myChallengeList")
 	public String myChallengeList(Model model, Map<String, Object> map, HttpServletRequest request) {

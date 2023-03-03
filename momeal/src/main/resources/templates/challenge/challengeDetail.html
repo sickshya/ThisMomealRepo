@@ -90,17 +90,17 @@
 							<br><br>
 							<div style="position: relative;">
 							<div style="float: left; transform: translate(0,-50%);">
-							<a href="#" class="primary-btn" data-target="#Modal-2" onclick="loginChk()">참여하기</a>&nbsp;&nbsp;&nbsp; <!-- data-toggle="modal" -->
+							<a href="#" class="primary-btn" data-target="#Modal-2" onclick="loginChk()" id="attendBtn">참여하기</a>&nbsp;&nbsp;&nbsp; <!-- data-toggle="modal" -->
 							</div>&nbsp;&nbsp;
 <!-- 								<a href="#" -->
 <!-- 									class="heart-icon" th:if = "${session.userId != null}"><span class="icon_heart_alt"></span></a> -->
-
+t
 									<!-- 좋아요 처리 -->
 									<!-- 로그인 유무에 따라 하트 표시하기(로그인 한 경우만 하트 표시) -->
 									<div th:if = "${session.userId != null}" style="float: left; transform: translate(0,-50%);">
 										<!-- 좋아요 한 챌린지는 빨간 하트 -->
 										<div th:if = "${chall.likeChk != 0}">
-												<a href="#"> <!-- class="heart-click heart_icon${rec.LIKE_NO }" -->
+<!-- 												<a href="#"> class="heart-click heart_icon${rec.LIKE_NO }" -->
 				                                <svg xmlns="http://www.w3.org/2000/svg" width="30"
 													height="30" fill="currentColor"
 													class="bi bi-suit-heart-fill" viewBox="0 0 16 16"
@@ -232,12 +232,12 @@
 		             return false;
 		          }
 		          else {
-	                   if(attendNo != 0){
-	                      alert("이미 참여중인 챌린지입니다."); 
-	                      return false;
-	                   }
-	                 $('#attendBtn').attr('data-toggle', 'modal');
-	                }
+		        	  if(attendNo != 0){
+		        		  alert("이미 참여중인 챌린지입니다."); 
+		        		  return false;
+		        	  }
+		        	$('#attendBtn').attr('data-toggle', 'modal');
+		          }
 			}
 		
 			// 챌린지 참여신청
@@ -253,7 +253,6 @@
 				
 // 				// 모달창 닫기
 // 				$('#attend').attr('data-dismiss', 'modal');
-			
 		</script>
 <!-- 		</section> -->
 

@@ -1,11 +1,15 @@
 package co.doeat.management.service.impl;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import co.doeat.common.service.ImageVO;
 import co.doeat.management.mapper.GroupPurchaseMapper;
 import co.doeat.management.service.GroupPurchaseListVO;
 import co.doeat.management.service.GroupPurchaseSearchVO;
@@ -25,32 +29,44 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 		return groupPurchaseMapper.getPurList();
 	}
 
-	//진행중
+	// 진행중
 	@Override
 	public List<GroupPurchaseListVO> getPurchasingList() {
-		
+
 		return groupPurchaseMapper.getPurchasingList();
 	}
-	
+
 	// 단건조회
 	@Override
-	public GroupPurchaseListVO getPurOne(int no) {
+	public List<GroupPurchaseListVO> getPurOne(int no) {
 		return groupPurchaseMapper.getPurOne(no);
 	}
-	
+
+	@Override
+	public List<GroupPurchaseSettlementVO> payList() {
+
+		return groupPurchaseMapper.payList();
+	}
+
+	@Override
+	public int payInsert(GroupPurchaseSettlementVO vo) {
+
+		return groupPurchaseMapper.payInsert(vo);
+	}
+
 	// +++++++++++++++++++++++++++마이페이지
 
 	@Override
 	public List<GroupPurchaseListVO> getPurchaseList() {
 		return groupPurchaseMapper.getPurchaseList();
 	}
-	
+
 	@Override
 	public Map<String, Object> purchaseSelect(int prdtNo) {
 		return groupPurchaseMapper.purchaseSelect(prdtNo);
 	}
-	
-	//++++++++++++++++++++++++++++++++++++++++++++++과리자
+
+	// ++++++++++++++++++++++++++++++++++++++++++++++관리자
 	@Override
 	public List<GroupPurchaseListVO> getAdminGroupPurchaseList(GroupPurchaseSearchVO svo) {
 		return groupPurchaseMapper.getAdminGroupPurchaseList(svo);
@@ -59,6 +75,17 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 	@Override
 	public int getCountTotal(GroupPurchaseSearchVO svo) {
 		return groupPurchaseMapper.getCountTotal(svo);
+	}
+
+	@Override
+	public int adminGPInsert(GroupPurchaseListVO vo) {
+		groupPurchaseMapper.adminGPInsert(vo);
+		return vo.getNo();
+	}
+
+	@Override
+	public GroupPurchaseListVO adminGPSelect(int no) {
+		return groupPurchaseMapper.adminGPSelect(no);
 	}
 
 }
