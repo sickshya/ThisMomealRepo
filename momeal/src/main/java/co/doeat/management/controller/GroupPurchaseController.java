@@ -27,6 +27,7 @@ import co.doeat.community.service.UsersVO;
 import co.doeat.management.service.GroupPurchaseListVO;
 import co.doeat.management.service.GroupPurchaseSearchVO;
 import co.doeat.management.service.GroupPurchaseService;
+import co.doeat.management.service.GroupPurchaseSettlementVO;
 
 @Controller
 public class GroupPurchaseController {
