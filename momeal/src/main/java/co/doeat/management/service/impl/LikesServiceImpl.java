@@ -41,8 +41,8 @@ public class LikesServiceImpl implements LikesService {
 		return likesMapper.insertLikeMeal(vo);
 	}
 
-//	@Override
-//	public int insertLikeChall(LikesVO vo) {
-//		return likesMapper.insertLikeChall(vo);
-//	}
+	@Override
+	public int insertLikeChall(LikesVO vo) {
+		return likesMapper.insertLikeChall(vo);
+	}
 }

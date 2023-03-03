@@ -4,22 +4,26 @@
 
 
 	<!-- 식단 좋아요 추가 -->
-	<insert id="insertLikeMeal" parameterType="co.doeat.management.service.LikesVO">
+	<insert id="insertLikeMeal"
+		parameterType="co.doeat.management.service.LikesVO">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-			SELECT MAX(NO)+1 FROM LIKES
+			SELECT
+			MAX(NO)+1 FROM LIKES
 		</selectKey>
 		INSERT INTO LIKES
 		VALUES(#{no}, #{postNo}, #{userId}, #{boardCode})
 	</insert>
-	
+
 	<!-- 챌린지 좋아요 추가 -->
-<!-- 	<insert id="insertLikeChall" parameterType="co.doeat.management.service.LikesVO"> -->
-<!-- 		<selectKey keyProperty="no" resultType="int" order="BEFORE"> -->
-<!-- 			SELECT MAX(NO)+1 FROM LIKES -->
-<!-- 		</selectKey> -->
-<!-- 		INSERT INTO LIKES -->
-<!-- 		VALUES(#{no}, #{postNo}, #{userId}, #{boardCode}) -->
-<!-- 	</insert> -->
+	<insert id="insertLikeChall"
+		parameterType="co.doeat.management.service.LikesVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT
+			MAX(NO)+1 FROM LIKES
+		</selectKey>
+		INSERT INTO LIKES
+		VALUES(#{no}, #{postNo}, #{userId}, #{boardCode})
+	</insert>
 
 	<!-- 마이페이지 - 식단 좋아요 리스트 출력 -->
 	<select id="myLikeList" resultType="map">
@@ -29,7 +33,8 @@
 		LEFT JOIN LIKES L ON (U.USER_ID = L.USER_ID)
 		LEFT JOIN MEALS M
 		ON (L.POST_NO = M.NO)
-		WHERE U.USER_ID = #{userId} AND L.BOARD_CODE = 'CT04'
+		WHERE U.USER_ID = #{userId} AND L.BOARD_CODE =
+		'CT04'
 	</select>
 
 	<!-- 마이페이지 - 식단 좋아요 상세 -->
@@ -39,15 +44,25 @@
 		USERS U LEFT JOIN MEALS M ON (U.USER_ID = M.USER_ID)
 		LEFT JOIN LIKES L
 		ON (L.POST_NO = M.NO AND L.BOARD_CODE = 'CT04')
-		WHERE L.USER_ID = #{userId}
+		WHERE L.USER_ID =
+		#{userId}
 		AND
 		L.POST_NO = #{postNo}
 	</select>
 
 	<!-- 마이페이지 - 챌린지 좋아요 리스트 출력 -->
-
-	<!-- 마이페이지 챌린지 상세 -->
-
+	<select id="myChallList" resultType="map">
+		SELECT U.*, L.*, C.*
+		FROM
+		USERS U
+		LEFT JOIN LIKES L ON (U.USER_ID = L.USER_ID)
+		LEFT JOIN
+		CHALLENGES C
+		ON (L.POST_NO = C.NO)
+		WHERE U.USER_ID = #{user_id}
+		AND
+		L.BOARD_CODE = 'CT01';
+	</select>
 
 	<!-- 마이페이지 - 식단 좋아요 삭제 -->
 	<delete id="myLikeDel"
