@@ -1,7 +1,5 @@
 package co.doeat.management.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -24,19 +22,14 @@ public class LikesController {
 		session = request.getSession();
 		session.setAttribute("userId", "user1");
 
-		model.addAttribute("myPageLike", likesService.myLikeList());
-		System.out.println("=================================" + likesService.myLikeList());
+		String userId = (String) session.getAttribute("userId");
+
+		model.addAttribute("myPageLike", likesService.myLikeList(userId));
+
+		model.addAttribute("challLike", likesService.myChallList(userId));
+
+		System.out.println("=================================" + likesService.myLikeList(userId));
+		System.out.println("===============================" + likesService.myChallList(userId));
 		return "myPages/myLikeList";
-	}
-
-	// 마이페이지 - 챌린지 좋아요 리스트 출력
-	@RequestMapping("/myChallList")
-	public String myChallList(Model model, HttpSession session, HttpServletRequest request) {
-		session = request.getSession();
-		session.setAttribute("userId", "user1");
-
-		model.addAttribute("challLike", likesService.myChallList());
-		System.out.println("===============================" + likesService.myChallList());
-		return "myPages/myChallList";
 	}
 }

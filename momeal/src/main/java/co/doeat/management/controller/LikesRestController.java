@@ -22,12 +22,15 @@ public class LikesRestController {
 
 	// 마이페이지 - 식단 좋아요 상세
 	@GetMapping("/myLikeList/{postNo}")
-	public Map<String, Object> likesSelect(@PathVariable int postNo, HttpSession session, HttpServletRequest request) {
+	public Map<String, Object> likesSelect(LikesVO vo, @PathVariable int postNo, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
 		session.setAttribute("userId", "user1");
 		
-		System.out.println(likesService.mylikeSelect(postNo));
-		return likesService.mylikeSelect(postNo);
+		vo.setUserId((String)session.getAttribute("userId"));
+		vo.setPostNo(postNo);
+		
+		System.out.println(likesService.mylikeSelect(vo));
+		return likesService.mylikeSelect(vo);
 	}
 
 	// 마이페이지 - 좋아요 삭제
@@ -37,8 +40,30 @@ public class LikesRestController {
 		session.setAttribute("userId", "user1");
 		
 		vo.setNo(no);
-		vo.setBoardCode("CT04");
 		return likesService.myLikeDel(vo);
 	}
+	
+	// 마이페이지 - 챌린지 좋아요 추가
+	@PostMapping("/insertLikeChall/{postNo}")
+	public int insertLikeChall(LikesVO vo, @PathVariable int postNo, HttpSession session, HttpServletRequest request) {
+		session = request.getSession();
+		session.setAttribute("userId", "user3");
+
+		vo.setUserId((String)session.getAttribute("userId"));
+		vo.setPostNo(postNo);
+		vo.setBoardCode("CT01");
+		
+		return likesService.insertLikeChall(vo);
+	}
+	
+//	// 마이페이지 - 챌린지 좋아요 취소
+//	@PostMapping("/delLikeChall/{no}")
+//	public int delLikeChall(LikesVO vo, @PathVariable int no, HttpSession session, HttpServletRequest request) {
+//		session = request.getSession();
+//		session.setAttribute("userId", "user1");
+//		
+//		vo.setNo(no);
+//		return likesService.delLikeChall(vo);
+//	}
 
 }
