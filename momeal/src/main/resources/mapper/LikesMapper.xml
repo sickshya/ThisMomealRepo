@@ -61,14 +61,13 @@
 		ON (L.POST_NO = C.NO)
 		WHERE U.USER_ID = #{user_id}
 		AND
-		L.BOARD_CODE = 'CT01';
+		L.BOARD_CODE = 'CT01'
 	</select>
 
 	<!-- 마이페이지 - 식단 좋아요 삭제 -->
-	<delete id="myLikeDel"
-		parameterType="co.doeat.management.service.LikesVO">
+	<delete id="myLikeDel" parameterType="co.doeat.management.service.LikesVO">
 		DELETE FROM LIKES
-		WHERE NO = #{no} AND TYPE = #{type}
+		WHERE NO = #{no} 
 	</delete>
 
 </mapper>

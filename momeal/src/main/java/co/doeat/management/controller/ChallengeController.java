@@ -17,7 +17,7 @@ public class ChallengeController {
 
 	// ▶ 챌린지
 	@RequestMapping("/challenge")
-	public String challengeMain(Model model, ChallengeVO vo) { 
+	public String challengeMain(Model model, ChallengeVO vo) {
 		// 전체조회
 		model.addAttribute("challList", challengeService.getChallList());
 
@@ -45,19 +45,19 @@ public class ChallengeController {
 //	public String challengeSearch() {
 //		return "challenge/challengeSearch";
 //	}
-	
+
 	// ▶ 나의 챌린지
 	// 진행중 - 전체조회
 	@RequestMapping("/myChallenge")
 	public String myChallenge(Model model) {
-		
+
 		model.addAttribute("myChall", challengeService.getMyChallList());
-		
+
 		System.out.println("====== 결과 ▶ " + challengeService.getMyChallList());
-		
+
 		return "challenge/myChallenge";
 	}
-	
+
 	// 진행중 - 단건조회
 	@GetMapping("/myChallenge/{no}")
 	public String myChallengOne(Model model, @PathVariable int no) {
@@ -68,8 +68,8 @@ public class ChallengeController {
 		return "challenge/myChallengeDetail";
 
 	}
-	
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
+
+	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
 	// 챌린지 관리자
 	@RequestMapping("/adminChallenge")
 	public String adminChallenge() {
