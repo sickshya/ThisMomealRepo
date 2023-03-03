@@ -27,14 +27,14 @@
 	</select>
 	
 	<!-- 챌린지단건조회 -->
-	<select id="getChallenge" resultType="co.doeat.management.service.ChallengeVO">
-        SELECT C.*, I.*, (C.PARTICIR * C.DEDUCT_POINT) AS SUM_POINT, (C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY,
-        	   (SELECT COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE = 'CT01') AS LIKE_CHK,
-        	   NVL((SELECT P.NO FROM CHALLENGE_PARTICIPATION P WHERE C.NO = P.NO AND P.USER_ID = #{userId}), 0) AS ATTEND_NO,
-		FROM CHALLENGES C RIGHT JOIN IMAGES I
-		ON (C.NO = I.POST_NO)
-		WHERE I.POST_NO = #{no} AND I.BOARD_CODE='CT01'
-	</select>
+   <select id="getChallenge" resultType="co.doeat.management.service.ChallengeVO">
+      SELECT C.*, I.ATCH_PATH, (C.PARTICIR * C.DEDUCT_POINT) AS SUM_POINT, (C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY,
+             (SELECT COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE = 'CT01') AS LIKE_CHK,
+              NVL((SELECT P.NO FROM CHALLENGE_PARTICIPATION P WHERE C.NO = P.NO AND P.USER_ID = #{userId}), 0) AS ATTEND_NO
+      FROM CHALLENGES C RIGHT JOIN IMAGES I
+      ON (C.NO = I.POST_NO)
+      WHERE I.POST_NO = #{no} AND I.BOARD_CODE='CT01'
+   </select>
 	
 	<!-- 챌린지 등록 -->
 	<insert id="challInsert">

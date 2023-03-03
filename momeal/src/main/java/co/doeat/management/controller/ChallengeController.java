@@ -29,7 +29,7 @@ public class ChallengeController {
 	public String challengeMain(Model model, HttpServletRequest request) { 
 //		// 임시로 세션에 ID 값 담기
 		HttpSession session = request.getSession();
-//		session.setAttribute("userId", "user3");
+		session.setAttribute("userId", "user3");
 		
 		String id = (String) session.getAttribute("userId");
 		
@@ -45,16 +45,19 @@ public class ChallengeController {
 		return "challenge/challenge";
 	}
 
-	// 단건조회
-	@GetMapping("/challenge/{no}")
-	public String challenge(Model model, @PathVariable int no) {
-
-		model.addAttribute("chall", challengeService.getChallenge(no));
-		System.out.println("====== 단건조회 ▶ " + challengeService.getChallenge(no));
-
+	   // 단건조회
+   @GetMapping("/challenge/{no}")
+   public String challenge(Model model, Map<String, Object>map, HttpServletRequest request, @PathVariable int no) {
+	   	HttpSession session = request.getSession();
+		map.put("userId", session.getAttribute("userId"));
+		map.put("no", no);
+		System.out.println("값 잘 들어갓나요...... " + map);
+  
+		model.addAttribute("chall", challengeService.getChallenge(map));
+		System.out.println("====== 단건조회 ▶ " + challengeService.getChallenge(map));
+  
 		return "challenge/challengeDetail";
-
-	}
+   }
 	
 	// 챌린지 참여하기
 	@PostMapping("/attendChallenge")

@@ -32,8 +32,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	// 단건조회
 	@Override
-	public ChallengeVO getChallenge(int no) {
-		return challengeMapper.getChallenge(no);
+	public ChallengeVO getChallenge(Map<String, Object>map) {
+		return challengeMapper.getChallenge(map);
 	}
 
 	// 챌린지 등록

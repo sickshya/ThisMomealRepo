@@ -89,8 +89,10 @@
 							</ul>
 							<br><br>
 							<a href="#" class="primary-btn" data-target="#Modal-2" onclick="loginChk()">참여하기</a> <!-- data-toggle="modal" -->
-							<a href="#"
-								class="heart-icon"><span class="icon_heart_alt"></span></a>
+							<div th:if = "${session.userId != null}">
+								<a href="#"
+									class="heart-icon"><span class="icon_heart_alt"></span></a>
+							</div>
 						</div>
 					</div>
 					<div class="col-lg-12">
@@ -176,6 +178,7 @@
 												<input type="hidden" th:value="${chall.no}" name="no" id="no">
 												<input type="hidden" th:value="${chall.round}" name="round" id="round">
 												<input type="hidden" th:value="${session.userId}" name="userId" id="userId">
+												<input type="hidden" th:value="${chall.attendNo}" name="attendNo" id="attendNo">
 										</div>
 									</div>
 								</div>
@@ -191,23 +194,21 @@
 			// 로그인 유무 & 챌린지 참여 여부 판단 후 모달 띄우기
 			function loginChk() {
 				let userId = $('#userId').val();
-// 				let 
-				 
+				let attendNo = $('#attendNo').val();
+				
 				 console.log("유저 아이디 들어오나요 ================ " + userId);
 
 		          if(userId == ""){ 
-		             alert("로그인 한 회원만 신청 가능합니다. \n로그인 후에 다시 시도해주세요."); 
+	             	alert("로그인 한 회원만 신청 가능합니다. \n로그인 후에 다시 시도해주세요."); 
 // 		             $('#attend').attr('data-dismiss', 'modal');
 		             return false;
 		          }
-// 		          else {
-// 		        	  if(){
-		        		  
-// 		        	  }
-// 			          else{
-			        	  
-// 			          }
-// 		          }
+		          else {
+		        	  if(attendNo != 0){
+		        		  alert("이미 참여중인 챌린지입니다."); 
+		        		  return false;
+		        	  }
+		          }
 			}
 		
 		
