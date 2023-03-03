@@ -24,7 +24,7 @@ public class ImageServiceImpl implements ImageService {
 
 
 	@Override
-	public int fileUpload(List<MultipartFile> files) {
+	public int fileUpload(List<MultipartFile> files, int no, String boardCode) {
 		int n=0;
 		//파일 저장위치 설정
 		//int atchNo = 0;
@@ -52,14 +52,17 @@ public class ImageServiceImpl implements ImageService {
 	            } catch (Exception e) {
 	               e.printStackTrace();
 	            }
+	            
 	            //파일 저장하고 나서 atch 테이블에 insert할 vo에 값 담아주기
 	            //no =>selectkey, board type=hidden으로 줌, 
 	           //image.setAtchNo(atchNo);
 	           image.setAtchImg(file.getOriginalFilename());
-	           image.setAtchPath("/upload/"+fileName);
+	           image.setAtchPath(saveImg +fileName);
 	           image.setAtchExtn("jpg");
 	           image.setAtchUUID(fileName);
 	           image.setAtchSize(file.getSize());
+	           image.setPostNo(no);
+	           image.setBoardCode(boardCode);
 	           n=imageMapper.fileUpload(image);
 	           
 			}

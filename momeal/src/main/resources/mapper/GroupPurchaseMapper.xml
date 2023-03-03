@@ -6,12 +6,13 @@
 	<!-- 전체조회 -->
 	<select id="getPurList" resultType="GroupPurchaseListVO">
 		SELECT *
-		FROM GROUP_PURCHASE_LISTS
+		FROM
+		GROUP_PURCHASE_LISTS
 	</select>
 
 	<!-- 현재 진행 조회 -->
 	<select id="getPurchasingList" resultType="GroupPurchaseListVO">
-		
+
 		SELECT *
 		FROM group_purchase_lists g RIGHT JOIN IMAGES i
 		ON (g.NO =
@@ -20,20 +21,22 @@
 		WHERE TRUNC(grp_start_date) <= sysdate AND sysdate < grp_end_date
 		]]>
 		ORDER BY NO
-		
+
 	</select>
 
 	<!-- 단건조회 -->
 	<select id="getPurOne" resultType="GroupPurchaseListVO">
 		SELECT g.*, i.*
-		FROM GROUP_PURCHASE_LISTS g LEFT JOIN IMAGES i
+		FROM
+		GROUP_PURCHASE_LISTS g LEFT JOIN IMAGES i
 		ON (g.NO = i.POST_NO)
-		WHERE i.POST_NO = #{atchNo} AND i.board_code='CT03'
+		WHERE
+		i.POST_NO = #{atchNo} AND i.board_code='CT03'
 		ORDER BY g.NO
 	</select>
-	
- 	<!-- 배송정보 입력 --> 
-<!-- 	<insert id=""></insert> -->
+
+	<!-- 배송정보 입력 -->
+	<!-- <insert id=""></insert> -->
 
 	<!-- <select id="count" parameterType="String" resultType="Group"> -->
 	<!-- SELECT no, -->
@@ -41,9 +44,7 @@
 	<!-- FROM GROUP_PURCHASE_SETTLEMENT -->
 	<!-- GROUP BY no; -->
 	<!-- </select> -->
-
-
-
+  
 	<!-- +++++++++++++++++마이페이지+++++++++++++++++++++++++++++++ -->
 	<!-- 마이페이지 - 공동구매내역 전체리스트 -->
 	<select id="getPurchaseList"
@@ -69,8 +70,7 @@
 		U.USER_ID = '#{userId} AND
 		P.NO = #{no}
 	</select>
-
-
+ 
 	<!-- +++++++++++++++++관리자+++++++++++++++++++++++++++++++ -->
 	<!-- 관리자 -공동구매 물품 리스트 -->
 	<sql id="creiteria">
@@ -83,8 +83,7 @@
 			</if>
 		</where>
 	</sql>
-
-
+ 
 	<select id="getCountTotal"
 		parameterType="co.doeat.management.service.GroupPurchaseListVO"
 		resultType="int">
@@ -117,41 +116,44 @@
 	
 ]]>
 	</select>
-  
+
 	<!-- 등록 -->
-	<insert id="adminGPInsert" parameterType="co.doeat.management.service.GroupPurchaseListVO" >
+	<insert id="adminGPInsert"
+		parameterType="co.doeat.management.service.GroupPurchaseListVO">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-			SELECT MAX (NO)+1 FROM GROUP_PURCHASE_LISTS
+			SELECT
+			MAX (NO)+1 FROM GROUP_PURCHASE_LISTS
 		</selectKey>
 		INSERT INTO GROUP_PURCHASE_LISTS(NO,
-											NAME,
-											CO_NAME,
-											PRICE,
-											SUBJECT,
-											MIN_GD,
-											SPLY_GD,
-											GRP_START_DATE,
-											GRP_END_DATE,
-											THUMBNAIL_IMG,
-											THUMBNAIL_IMG_PATH)
+		NAME,
+		CO_NAME,
+		PRICE,
+		SUBJECT,
+		MIN_GD,
+		SPLY_GD,
+		GRP_START_DATE,
+		GRP_END_DATE,
+		THUMBNAIL_IMG,
+		THUMBNAIL_IMG_PATH)
 		VALUES(#{no},
-				#{name},
-				#{coName},
-				#{price},
-				#{subject},
-				#{minGd},
-				#{splyGd},
-				#{grpStartDate},
-				#{grpEndDate},
-				#{thumbnailImg},
-				#{thumbnailImgPath})
-	</insert>	
-	
+		#{name},
+		#{coName},
+		#{price},
+		#{subject},
+		#{minGd},
+		#{splyGd},
+		#{grpStartDate},
+		#{grpEndDate},
+		#{thumbnailImg},
+		#{thumbnailImgPath})
+	</insert>
+
 	<!-- 삭제 -->
-	<delete id="admingGPDelete" parameterType="co.doeat.management.service.GroupPurchaseListVO">
+	<delete id="admingGPDelete"
+		parameterType="co.doeat.management.service.GroupPurchaseListVO">
 		DELETE FROM GROUP_PURCHASE_LISTS WHERE NO= #{no}
 	</delete>
-	
+
 	<!-- 수정 -->
 	<update id="adminGPUpdate">
 		UPDATE GROUP_PURCHASE_LISTS
@@ -168,4 +170,37 @@
 		WHERE NO = #{no}
 	</update>
 
+	<!-- 공동구매리스트 맵 -->
+	<resultMap
+		type="co.doeat.management.service.GroupPurchaseListVO" id="gpListMap">
+		<id property="no" column="no" />
+		<result property="no" column="no" />
+		<result property="name" column="name" />
+		<result property="coName" column="co_name" />
+		<result property="price" column="price" />
+		<result property="subject" column="subject" />
+		<result property="minGd" column="min_gd" />
+		<result property="splyGd" column="sply_gd" />
+		<result property="grpStartDate" column="grp_Start_Date" />
+		<result property="grpEndDate" column="grp_End_Date" />
+		<result property="thumbnailImgPath" column="thumbnail_Img_Path" />
+		<collection property="imgPath" resultMap="imgMap"></collection>
+	</resultMap>
+
+	<!-- 공구 단건 이미지이름 맵 -->
+	<resultMap type="co.doeat.common.service.ImageVO" id="imgMap">
+		<result property="postNo" column="post_No" />
+		<result property="boardCode" column="board_Code" />
+		<result property="atchPath" column="atch_Path" />
+	</resultMap>
+
+	<!-- 관리자용 단건조회 (이미지다수, 글 하나) -->
+	<select id="adminGPSelect" parameterType="int"
+		resultMap="gpListMap">
+		SELECT gpl.*, img.*
+		FROM GROUP_PURCHASE_LISTS gpl
+		LEFT OUTER JOIN IMAGES img ON gpl.no = img.post_no
+		WHERE gpl.no = #{no} AND
+		img.board_Code = 'CT03'
+	</select>
 </mapper>
