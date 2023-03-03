@@ -9,21 +9,18 @@ import co.doeat.management.service.GroupPurchaseSettlementVO;
 
 public interface GroupPurchaseMapper {
 
-	//공동구매-메인
+	// 공동구매-메인
 	List<GroupPurchaseListVO> getPurList(); // 전체조회
 
 	List<GroupPurchaseListVO> getPurchasingList(); // 진행중조회
 
-	//공동구매-상세
+	// 공동구매-상세
 	List<GroupPurchaseListVO> getPurOne(int no); // 메인_단건조회
-	
-	//공동구매-주문하기
+
+	// 공동구매-주문하기
 	List<GroupPurchaseSettlementVO> payList(); // 전체조회
-	
+
 	int payInsert(GroupPurchaseSettlementVO vo); // 저장
-	
-	
-	
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
 	// 마이페이지 - 공동구매
@@ -39,4 +36,3 @@ public interface GroupPurchaseMapper {
 	int getCountTotal(GroupPurchaseSearchVO svo);
 
 }
-

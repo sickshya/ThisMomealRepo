@@ -29,16 +29,24 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/assets/css/bootstrap.min_grp.css">
 <link rel="stylesheet" href="/assets/css/style_grp.css">
 
-<!-- <!-- 구매하기 모달 --> -->
+<!-- <!-- 구매하기 모달 -->
 <!-- <link href="/modal-template/css/style.css" rel="stylesheet"> -->
 
 </head>
+<style>
+textarea {
+	width: 100%;
+	height: 6.25em;
+	border: none;
+	resize: none;
+}
+</style>
 
 <body>
 	<div layout:fragment="content">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-6 col-md-6" >
+				<div class="col-lg-6 col-md-6">
 					<div class="product__details__pic">
 						<div class="product__details__pic__item">
 							<img class="product__details__pic__item--large"
@@ -49,23 +57,28 @@
 				<div class="col-lg-6 col-md-6">
 					<div class="product__details__text">
 						<h3>[[ ${PurOne[0].name} ]]</h3>
-						<p th:if="${PurOne[0].grpStartDate == '0'}" style="color: red;">오늘부터
-							시작</p>
-						<p th:unless="${PurOne[0].grpStartDate == '0'}" style="color: red;">[[
-							${PurOne[0].grpStartDate} ]]일 뒤 시작</p>
-						<div class="product__details__price">오늘부터 시작</div>
-						<p>[[${#dates.format(PurOne[0].grpStartDate,
-							'MM-dd')}]]([[${#dates.dayOfWeekName(PurOne[0].grpStartDate)}]]) ~
-							[[${#dates.format(PurOne[0].grpEndDate,
-							'MM-dd')}]]([[${#dates.dayOfWeekName(PurOne[0].grpEndDate)}]])</p>
-
+						<p th:if="${PurOne[0].grpStartDate == '0'}" style="color: red;"></p>
+						<p th:unless="${PurOne[0].grpStartDate == '0'}"
+							style="color: red;">[[ ${PurOne[0].grpStartDate} ]]일 뒤 시작</p>
+						<div class="product__details__price"
+							onkeyup="inputNumberFormat(this)">[[${PurOne[0].price}]]</div>
+						<!-- 						<p>[[${#dates.format(PurOne[0].grpStartDate, -->
+						<!-- 							'MM-dd')}]]([[${#dates.dayOfWeekName(PurOne[0].grpStartDate)}]]) -->
+						<!-- 							~ [[${#dates.format(PurOne[0].grpEndDate, -->
+						<!-- 							'MM-dd')}]]([[${#dates.dayOfWeekName(PurOne[0].grpEndDate)}]])</p> -->
 						<ul>
-							<li><b>주문자수</b> <span>[[${PurOne[0].totalGd}]]명</span></li>
-							<li><b>제한수량</b> <span>총 [[${PurOne[0].splyGd}]]개</span></li>
+							<li><b>주문자 수</b> <span>[[${PurOne[0].ordCnt}]]명</span></li>
+							<li><b>주문 가능수량</b> <span>총 [[${PurOne[0].splyGd}]]개</span></li>
+							<li><b>진행 기간</b> <span>[[${#dates.format(PurOne[0].grpStartDate,
+									'MM-dd')}]]([[${#dates.dayOfWeekName(PurOne[0].grpStartDate)}]])
+									~ [[${#dates.format(PurOne[0].grpEndDate,
+									'MM-dd')}]]([[${#dates.dayOfWeekName(PurOne[0].grpEndDate)}]])</span></li>
 						</ul>
-						<br>
-						<br> <a href="#" class="primary-btn" th:onclick="'location.href=\''+ @{/PurchaseForm/} + '\''">구매하기</a> <a href="#" class="heart-icon"><span
-							class="icon_heart_alt" ></span></a>
+						<br> <br> <a href="#"><input type="number"
+							name="qty" min="1" id="sst" size="2" maxlength="12" value="1"
+							title="totalGd" class="input-text qty"></a>
+						&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="primary-btn"
+							th:onclick="'location.href=\''+ @{/purchaseForm/} + '\''">구매하기</a>
 					</div>
 				</div>
 				<div class="col-lg-12">
@@ -77,85 +90,94 @@
 								href="#review" role="tab" aria-selected="false">문의하기</a></li>
 						</ul>
 
-<!-- 						탭 내용들 -->
+						<!-- 						탭 내용들 -->
 						<div class="tab-content">
-<!-- 							상세 탭 시작 -->
+							<!-- 							상세 탭 시작 -->
 							<div class="tab-pane active" id="detail" role="tabpanel">
 								<div class="product__details__tab__desc">
-									<img class="product__details__pic__item--large"  th:each="puroneImg:${PurOne}" th:src="${puroneImg.atchPath}">
+									<img class="product__details__pic__item--large"
+										th:each="puroneImg:${PurOne}" th:src="${puroneImg.atchPath}">
 								</div>
 							</div>
-<!-- 							상세 탭 끝 후기 탭 시작 -->
+							<!-- 							상세 탭 끝 후기 탭 시작 -->
 							<div class="tab-pane" id="review" role="tabpanel">
+
 								<div class="product__details__tab__desc">
-									<h6>Products Infomation</h6>
+									<!-- 									<h6>문의사항</h6> -->
 									<div class="review_item">
 										<div class="media">
-											<div class="media-body">
-												<h4>닉네임</h4>
-												<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-													class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-													class="fa fa-star"></i>
-											</div>
+											<!-- 											<div class="media-body"> -->
+											<!-- 												<h4>닉네임</h4> -->
+											<!-- 												<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i -->
+											<!-- 													class="fa fa-star"></i> <i class="fa fa-star"></i> <i -->
+											<!-- 													class="fa fa-star"></i> -->
+											<!-- 											</div> -->
+
+											<textarea style="resize: both;" id="about" name="about"
+												rows="3" class="form-control"></textarea>
+											<div class="textarea"></div>
+										</div>
+										<br>
+										<!-- 							후기 탭 끝 -->
+
+
+										<div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
+											<button type="button" class="primary-btn">전송하기</button>
 										</div>
 									</div>
-									<p>문의사항</p>
-								</div>
-								<div class="product__details__tab__desc">
-									<h6>Products Infomation</h6>
-									<div class="review_item">
-										<div class="media">
-											<div class="media-body">
-												<h4>닉네임</h4>
-												<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-													class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-													class="fa fa-star"></i>
-											</div>
-										</div>
-									</div>
-									<p>후기내용 적어여</p>
+
+									<!--						참여하기 모달 -->
+									<!-- 						<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog" -->
+									<!-- 							aria-labelledby="Modal-label-1"> -->
+									<!-- 							<div class="modal-dialog" role="document"> -->
+									<!-- 								<div class="modal-content"> -->
+									<!-- 									<div class="modal-header"> -->
+									<!-- 										<h4 class="modal-title" id="Modal-label-1">주문하기</h4> -->
+									<!-- 										<button type="button" class="close" data-dismiss="modal" -->
+									<!-- 											aria-label="Close"> -->
+									<!-- 											<span aria-hidden="true">&times;</span> -->
+									<!-- 										</button> -->
+									<!-- 									</div> -->
+									<!-- 									<div class="modal-body"> -->
+									<!-- 										<img src="" alt="img01" -->
+									<!-- 										class="img-responsive" style="width: 500px; height: 500px;" /> -->
+									<!-- 										<div class="modal-works" align="right"> -->
+									<!-- 											<span>인증사진 올리기</span> -->
+									<!-- 										</div> -->
+									<!-- 										<p>인증사진을 올려주세여</p> -->
+									<!-- 									</div> -->
+									<!-- 									<div class="modal-footer"> -->
+									<!-- 										<button type="button" class="btn btn-default">등록</button> -->
+									<!-- 									</div> -->
+									<!-- 								</div> -->
+									<!-- 							</div> -->
+									<!-- 						</div> -->
+									<!-- 						참여하기 모달 끝 -->
 								</div>
 							</div>
-<!-- 							후기 탭 끝 -->
 						</div>
-
-<!--						참여하기 모달 -->
-<!-- 						<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog" -->
-<!-- 							aria-labelledby="Modal-label-1"> -->
-<!-- 							<div class="modal-dialog" role="document"> -->
-<!-- 								<div class="modal-content"> -->
-<!-- 									<div class="modal-header"> -->
-<!-- 										<h4 class="modal-title" id="Modal-label-1">주문하기</h4> -->
-<!-- 										<button type="button" class="close" data-dismiss="modal" -->
-<!-- 											aria-label="Close"> -->
-<!-- 											<span aria-hidden="true">&times;</span> -->
-<!-- 										</button> -->
-<!-- 									</div> -->
-<!-- 									<div class="modal-body"> -->
-<!-- 										<img src="" alt="img01" -->
-<!-- 										class="img-responsive" style="width: 500px; height: 500px;" /> -->
-<!-- 										<div class="modal-works" align="right"> -->
-<!-- 											<span>인증사진 올리기</span> -->
-<!-- 										</div> -->
-<!-- 										<p>인증사진을 올려주세여</p> -->
-<!-- 									</div> -->
-<!-- 									<div class="modal-footer"> -->
-<!-- 										<button type="button" class="btn btn-default">등록</button> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 						참여하기 모달 끝 -->
 					</div>
 				</div>
 			</div>
 		</div>
-
-
-
 		<!-- Js Plugins -->
 		<script src="/second-template/js/bootstrap.min.js"></script>
 		<script src="/second-template/js/jquery-ui.min.js"></script>
 	</div>
 </body>
+<script>
+	function inputNumberFormat(obj) {
+		obj.value = comma(uncomma(obj.value));
+	}
+
+	function comma(str) {
+		str = String(str);
+		return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	}
+
+	function uncomma(str) {
+		str = String(str);
+		return str.replace(/[^\d]+/g, '');
+	}
+</script>
 </html>

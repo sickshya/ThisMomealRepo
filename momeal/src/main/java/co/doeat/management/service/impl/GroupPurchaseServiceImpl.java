@@ -18,7 +18,6 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 	@Autowired
 	private GroupPurchaseMapper groupPurchaseMapper;
 
-	
 	// 전체보기
 	@Override
 	public List<GroupPurchaseListVO> getPurList() {
@@ -26,46 +25,44 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 		return groupPurchaseMapper.getPurList();
 	}
 
-	//진행중
+	// 진행중
 	@Override
 	public List<GroupPurchaseListVO> getPurchasingList() {
-		
+
 		return groupPurchaseMapper.getPurchasingList();
 	}
-	
+
 	// 단건조회
 	@Override
 	public List<GroupPurchaseListVO> getPurOne(int no) {
 		return groupPurchaseMapper.getPurOne(no);
 	}
-	
+
 	@Override
 	public List<GroupPurchaseSettlementVO> payList() {
-		
+
 		return groupPurchaseMapper.payList();
 	}
-	
+
 	@Override
 	public int payInsert(GroupPurchaseSettlementVO vo) {
-		
+
 		return groupPurchaseMapper.payInsert(vo);
 	}
-	
-	
-	
+
 	// +++++++++++++++++++++++++++마이페이지
 
 	@Override
 	public List<GroupPurchaseListVO> getPurchaseList() {
 		return groupPurchaseMapper.getPurchaseList();
 	}
-	
+
 	@Override
 	public Map<String, Object> purchaseSelect(int prdtNo) {
 		return groupPurchaseMapper.purchaseSelect(prdtNo);
 	}
-	
-	//++++++++++++++++++++++++++++++++++++++++++++++과리자
+
+	// ++++++++++++++++++++++++++++++++++++++++++++++과리자
 	@Override
 	public List<GroupPurchaseListVO> getAdminGroupPurchaseList(GroupPurchaseSearchVO svo) {
 		return groupPurchaseMapper.getAdminGroupPurchaseList(svo);
@@ -75,19 +72,5 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 	public int getCountTotal(GroupPurchaseSearchVO svo) {
 		return groupPurchaseMapper.getCountTotal(svo);
 	}
-	
-	
-	
-	//++++++++++++++++++++++++++++++++++++++++++++++과리자
-	@Override
-	public List<GroupPurchaseListVO> getAdminGroupPurchaseList(GroupPurchaseSearchVO svo) {
-		return groupPurchaseMapper.getAdminGroupPurchaseList(svo);
-	}
-
-	@Override
-	public int getCountTotal(GroupPurchaseSearchVO svo) {
-		return groupPurchaseMapper.getCountTotal(svo);
-	}
-
 
 }
