@@ -3,30 +3,34 @@
 <mapper namespace="co.doeat.common.mapper.ImageMapper">
 
 
-<select id="selectAtchNo" resultType="int">
-	SELECT CASE WHEN MAX(ATCH_NO) IS NULL
-				THEN 1
-				ELSE MAX(ATCH_NO) +1
-			END AS atchNo
-	FROM IMAGES
-</select>
+	<select id="selectAtchNo" resultType="int">
+		SELECT CASE WHEN MAX(ATCH_NO) IS NULL
+		THEN 1
+		ELSE MAX(ATCH_NO) +1
+		END AS atchNo
+		FROM IMAGES
+	</select>
 
 
-<insert id="fileUpload" parameterType="co.doeat.common.service.ImageVO">
-<selectKey keyProperty="atch_no" resultType="int" order="BEFORE">
-			SELECT MAX (ATCH_NO)+1 FROM IMAGES
+	<insert id="fileUpload"
+		parameterType="co.doeat.common.service.ImageVO">
+		<selectKey keyProperty="atchNo" resultType="int"
+			order="BEFORE">
+			SELECT
+			nvl(max(atch_no),0)+1
+			FROM IMAGES
 		</selectKey>
 		INSERT INTO IMAGES(ATCH_NO,
-							ATCH_IMG,
-							POST_NO,
-							BOARD_CODE,
-							ATCH_PATH,
-							ATCH_EXTN,
-							ATCH_UUID,
-							ATCH_SIZE)		
-				VALUES(#{atchNo},#{atchImg},#{postNo},#{boardCode},#{atchPath},#{atchExtn},#{atchUuid},#{atchSize})			
-		
-</insert>
+		ATCH_IMG,
+		POST_NO,
+		BOARD_CODE,
+		ATCH_PATH,
+		ATCH_EXTN,
+		ATCH_UUID,
+		ATCH_SIZE)
+		VALUES(#{atchNo},#{atchImg},#{postNo},#{boardCode},#{atchPath},#{atchExtn},#{atchUUID},#{atchSize})
+
+	</insert>
 
 
 

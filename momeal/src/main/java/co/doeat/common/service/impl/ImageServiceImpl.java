@@ -25,11 +25,12 @@ public class ImageServiceImpl implements ImageService {
 
 	@Override
 	public int fileUpload(List<MultipartFile> files) {
+		int n=0;
 		//파일 저장위치 설정
-		int atchNo = 0;
+		//int atchNo = 0;
 		//파일 있으면 if문 실행
 		if(files != null && !files.isEmpty()) {
-			atchNo = imageMapper.selectAtchNo();
+			//atchNo = imageMapper.selectAtchNo();
 		//파일 개수만큼 for문
 			for(MultipartFile file: files) {
 				if(file.getSize()==0)
@@ -53,18 +54,19 @@ public class ImageServiceImpl implements ImageService {
 	            }
 	            //파일 저장하고 나서 atch 테이블에 insert할 vo에 값 담아주기
 	            //no =>selectkey, board type=hidden으로 줌, 
-	           image.setAtchNo(atchNo);
+	           //image.setAtchNo(atchNo);
 	           image.setAtchImg(file.getOriginalFilename());
 	           image.setAtchPath("/upload/"+fileName);
 	           image.setAtchExtn("jpg");
 	           image.setAtchUUID(fileName);
 	           image.setAtchSize(file.getSize());
-	           imageMapper.fileUpload(image);
+	           n=imageMapper.fileUpload(image);
+	           
 			}
 			
 		}
 		
-		return atchNo;
+		return n;
 	}
 
 	@Override

@@ -69,33 +69,22 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 		return groupPurchaseMapper.purchaseSelect(prdtNo);
 	}
 	
-	//++++++++++++++++++++++++++++++++++++++++++++++과리자
+	//++++++++++++++++++++++++++++++++++++++++++++++관리자
 	@Override
 	public List<GroupPurchaseListVO> getAdminGroupPurchaseList(GroupPurchaseSearchVO svo) {
-		return groupPurchaseMapper.getAdminGroupPurchaseList(svo);
+	return groupPurchaseMapper.getAdminGroupPurchaseList(svo);
 	}
 
 	@Override
 	public int getCountTotal(GroupPurchaseSearchVO svo) {
-		return groupPurchaseMapper.getCountTotal(svo);
+	return groupPurchaseMapper.getCountTotal(svo);
 	}
-	
-	
-	
-	//++++++++++++++++++++++++++++++++++++++++++++++과리자
-	//++++++++++++++++++++++++++++++++++++++++++++++관리자
-		@Override
-		public List<GroupPurchaseListVO> getAdminGroupPurchaseList(GroupPurchaseSearchVO svo) {
-			return groupPurchaseMapper.getAdminGroupPurchaseList(svo);
-		}
 
-		@Override
-		public int getCountTotal(GroupPurchaseSearchVO svo) {
-			return groupPurchaseMapper.getCountTotal(svo);
-		}
+	@Override
+	public int adminGPInsert(GroupPurchaseListVO vo) {
+	groupPurchaseMapper.adminGPInsert(vo);
+	return vo.getPostNo() ;
+	}
 
-		@Override
-		public int adminGPInsert(GroupPurchaseListVO vo) {
-			return groupPurchaseMapper.adminGPInsert(vo) ;
-		}
+			
 }
