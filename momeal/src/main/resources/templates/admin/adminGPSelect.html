@@ -23,6 +23,20 @@
 <!-- App CSS -->
 <link rel="stylesheet" href="css/app-light.css" id="lightTheme">
 <link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
+<style>
+#att_zone{
+	width: 550px;
+	min-height:150px;
+	padding:10px;
+	border:1px dotted #00f;
+}
+#att_zone:empty:before{
+	content : attr(data-placeholder);
+	color : #999;
+	font-size:.9em;
+}
+
+</style>
 </head>
 <body class="vertical  light  ">
 	<div layout:fragment="content">
@@ -33,7 +47,7 @@
 				<div class="container-fluid">
 					<div class="row justify-content-center">
 						<div class="col-12">
-							<h2 class="page-title">공동구매 등록</h2>
+							<h2 class="page-title">공동구매 상세보기</h2>
 							<p class="text-muted">Demo for form control styles, layout
 								options, and custom components for creating a wide variety of
 								forms.</p>
@@ -41,74 +55,78 @@
 
 								<div class="card shadow mb-4">
 									<div class="card-header" style="width: 500px">
-										<strong class="card-title">공동구매 추가하기</strong>
+										<strong class="card-title">공동구매 상세보기</strong>
 									</div>
-									<div class="card-body" style="width: 500px">
-										<form>
+									<div class="card-body" style="width: 500px" id="myForm">
+										
+										<form id="frm"  method="post" enctype="multipart/form-data">
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">상품명</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="inputEmail3"
-														>
+													[[${selects.name}]]
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">업체명</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="inputEmail3"
-														>
+													[[${selects.coName}]]
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">시작일자</label>
 												<div class="col-sm-9">
-													<input type="date" class="form-control" id="inputPassword3">
+													[[${selects.grpStartDate }]]
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">종료일자</label>
 												<div class="col-sm-9">
-													<input type="date" class="form-control" id="inputPassword3">
+													[[${selects.grpEndDate }]]
 												</div>
 											</div>
-													<div class="form-group row">
+											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">가격</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="inputEmail3">
+													[[${selects.price }]]
 												</div>
 											</div>
-											
-											
+
+
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">최소주문수량</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="inputEmail3">
+													[[${selects.minGd }]]
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">공급한계수량</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="inputEmail3">
+													[[${selects.splyGd }]]
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3" for="exampleFormControlTextarea1">상세설명</label>
 												<div class="col-sm-9">
-													<textarea class="form-control"
-														id="exampleFormControlTextarea1" rows="2"></textarea>
+													[[${selects.subject }]]
 												</div>
 											</div>
-											<form action="uploadFormAction" method="post" enctype="multipart/form-data"></form>
 											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">파일등록</label>
-												<div class="col-sm-9">
-													<input class="form-control" id="disabledInput" type="file" name="uploadFile" multiple>
-													
+												<label class="col-sm-3 col-form-label">썸네일 등록</label>
+												<div class="col-sm-9">=============
+													[[${selects.thumbnailImgPath }]]
+													[[${selects.imgPath }]]
 												</div>
 											</div>
-									
-											<div class="form-group mb-2">
-												<button type="submit" class="btn btn-primary">등록</button>
+
+											<div class="form-group row">
+												<div id='image_preview'>
+													
+													<div id='att_zone'
+														data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
+														</div>
+														<!-- for문 돌려야함 -->
+														
+												</div>
 											</div>
 										</form>
 									</div>
@@ -132,6 +150,11 @@
 		<script src="js/tinycolor-min.js"></script>
 		<script src="js/config.js"></script>
 		<script src="js/apps.js"></script>
+
+
+
+
+
 
 	</div>
 </body>

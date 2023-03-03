@@ -17,13 +17,13 @@ public class LikesServiceImpl implements LikesService {
 	private LikesMapper likesMapper;
 
 	@Override
-	public List<Map<String, Object>> myLikeList() {
-		return likesMapper.myLikeList();
+	public List<Map<String, Object>> myLikeList(String userId) {
+		return likesMapper.myLikeList(userId);
 	}
 
 	@Override
-	public Map<String, Object> mylikeSelect(int postNo) {
-		return likesMapper.mylikeSelect(postNo);
+	public Map<String, Object> mylikeSelect(LikesVO vo) {
+		return likesMapper.mylikeSelect(vo);
 	}
 
 	@Override
@@ -32,7 +32,17 @@ public class LikesServiceImpl implements LikesService {
 	}
 
 	@Override
-	public List<Map<String, Object>> myChallList() {
-		return likesMapper.myChallList();
+	public List<Map<String, Object>> myChallList(String userId) {
+		return likesMapper.myChallList(userId);
+	}
+//
+//	@Override
+//	public int insertLikeMeal(LikesVO vo) {
+//		return likesMapper.insertLikeMeal(vo);
+//	}
+
+	@Override
+	public int insertLikeChall(LikesVO vo) {
+		return likesMapper.insertLikeChall(vo);
 	}
 }
