@@ -32,10 +32,9 @@
 		resultType="co.doeat.activity.service.MealVO" parameterType="String">
 		SELECT *
 		FROM MEALS
-		where trunc(post_date) = to_date(#{postDate},'yyyyMMdd')
+		WHERE TRUNC(post_date) = TO_DATE(#{postDate},'yyyyMMdd')
 	</select>
-
-
+ 
 	<select id="mealSelect"
 		resultType="co.doeat.activity.service.MealVO">
 		SELECT * FROM MEALS

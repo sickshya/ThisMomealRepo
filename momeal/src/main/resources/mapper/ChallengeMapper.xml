@@ -4,7 +4,9 @@
 
 	<!-- 챌린지 전체조회 -->
 	<select id="getChallList" resultType="map">
-		SELECT C.*, (SELECT COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE = 'CT01') AS LIKE_CHK 
+		SELECT C.*, (SELECT
+		COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId}
+		AND L.BOARD_CODE = 'CT01') AS LIKE_CHK
 		FROM CHALLENGES C
 		ORDER BY C.NO
 	</select>
@@ -14,26 +16,39 @@
 		(SELECT POST_NO, COUNT(*) CN
 		FROM LIKES
 		GROUP BY POST_NO
-		ORDER BY CN DESC, POST_NO)
+		ORDER BY CN
+		DESC, POST_NO)
 
 		SELECT C.*, L.*, NVL((SELECT L.NO FROM LIKES L
-		WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE =
+		WHERE
+		L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE =
 		'CT01'),0) AS LIKE_NO
 		FROM CHALLENGES C JOIN (SELECT LIKE_RNK.*
-		FROM (SELECT LIKE_COUNT.*, ROWNUM RWN
+		FROM
+		(SELECT LIKE_COUNT.*, ROWNUM RWN
 		FROM LIKE_COUNT) LIKE_RNK
-		WHERE ROWNUM BETWEEN 1 AND 6 ORDER BY ROWNUM) L
+		WHERE ROWNUM
+		BETWEEN 1 AND 6 ORDER BY ROWNUM) L
 		ON C.NO = L.POST_NO
 		ORDER BY L.RWN
 	</select>
 
 	<!-- 챌린지단건조회 -->
-	<select id="getChallenge" resultType="co.doeat.management.service.ChallengeVO">
-        SELECT C.*, I.*, (C.PARTICIR * C.DEDUCT_POINT) AS SUM_POINT, (C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY,
-        	   (SELECT COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE = 'CT01') AS LIKE_CHK,
-        	   NVL((SELECT P.NO FROM CHALLENGE_PARTICIPATION P WHERE C.NO = P.NO AND P.USER_ID = #{userId}), 0) AS ATTEND_NO
+	<select id="getChallenge"
+		resultType="co.doeat.management.service.ChallengeVO">
+		SELECT C.*, I.*, (C.PARTICIR * C.DEDUCT_POINT) AS
+		SUM_POINT,
+		(C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY,
+		(SELECT
+		COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID =
+		#{userId}
+		AND L.BOARD_CODE = 'CT01') AS LIKE_CHK,
+		NVL((SELECT P.NO FROM
+		CHALLENGE_PARTICIPATION P WHERE C.NO = P.NO AND P.USER_ID =
+		#{userId}), 0) AS ATTEND_NO
 		FROM CHALLENGES C RIGHT JOIN IMAGES I
-		ON (C.NO = I.POST_NO)
+		ON
+		(C.NO = I.POST_NO)
 		WHERE I.POST_NO =
 		#{no} AND
 		I.BOARD_CODE='CT01'
@@ -42,11 +57,15 @@
 	<!-- 챌린지 등록 -->
 	<insert id="challInsert">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-			SELECT seq_board.NEXTVAL AS NO FROM DUAL
+			SELECT
+			seq_board.NEXTVAL AS NO FROM DUAL
 		</selectKey>
 		INSERT INTO CHALLENGES
-		VALUES(#{no}, #{title}, #{subject}, #{chalStartDate}, #{chalEndDate}, #{round}, 
-			   #{particir}, #{sumParticir}, #{deductPoint}, #{vldStartTime}, #{vldEndTime}, #{vldPosbDate})
+		VALUES(#{no}, #{title}, #{subject},
+		#{chalStartDate}, #{chalEndDate}, #{round},
+		#{particir},
+		#{sumParticir}, #{deductPoint}, #{vldStartTime}, #{vldEndTime},
+		#{vldPosbDate})
 	</insert>
 
 	<!-- 챌린지 참여 -->
@@ -118,20 +137,20 @@
 
 		SELECT
 		no,title,deduct_point,chal_start_date,chal_end_date,
-						<![CDATA[
-					        CASE WHEN chal_start_date <=trunc(current_date) AND chal_end_date <= trunc(current_date) THEN '완료'
-					            WHEN TRUNC(chal_start_date) <= TRUNC(current_date) And trunc(current_date) <= chal_end_date Then '진행중' 
-					            Else '진행전'  
-					              END as chstatus
-				 		]]>
+		<![CDATA[
+	        CASE WHEN chal_start_date <=trunc(current_date) 
+	        		AND chal_end_date <= trunc(current_date) THEN '완료'
+	            WHEN TRUNC(chal_start_date) <= TRUNC(current_date) 
+	            	And trunc(current_date) <= chal_end_date Then '진행중' 
+	            Else '진행전' END as chstatus
+ 		]]>
 		FROM CHALLENGES
-
 		<include refid="creiteria"></include>
 		order by no
-<![CDATA[
+		<![CDATA[
 		 )a where rownum <= #{last}) b where rn  >= #{first}
 	
-]]>
+		]]>
 	</select>
 
 	<!-- 관리자 챌린지 등록 -->
@@ -171,11 +190,13 @@
 		#{thumbnailImg},
 		#{thumbnailImgPath})
 	</insert>
+	
 	<!-- 챌린지 삭제 -->
 	<delete id="adminCHDelete"
 		parameterType="co.doeat.management.service.ChallengeVO">
 		DELETE FROM CHALLENGES WHERE NO=#{no}
 	</delete>
+	
 	<!-- 챌린지 맵 -->
 	<resultMap type="co.doeat.management.service.ChallengeVO"
 		id="chListMap">
