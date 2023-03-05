@@ -23,5 +23,8 @@ public class MealVO {
 	@JsonFormat(pattern = "yyyy/MM/dd")
 	private Date postDate;
 	
+	private String nickName; // 회원 닉네임
+	private String profileImgPath; // 회원 프로필 사진 주소
+	
 
 }
