@@ -20,7 +20,7 @@ public class LikesController {
 	@RequestMapping("/myLikeList")
 	public String myLikeList(Model model, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
-		session.setAttribute("userId", "user1");
+		session.setAttribute("userId", "user3");
 		String userId = (String) session.getAttribute("userId");
 
 		model.addAttribute("myPageLike", likesService.myLikeList(userId));

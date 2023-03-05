@@ -4,12 +4,33 @@
 
 	<!-- 그룹 전체리스트 출력 -->
 	<select id="groupsList" resultType="map">
-
+		SELECT U.USER_ID,
+		U.USER_NAME, U.NICK_NAME, U.PROFILE_IMG_PATH, M.*, GM.*,
+		GL.*
+		FROM USERS
+		U LEFT JOIN MEALS M ON(U.USER_ID = M.USER_ID)
+		LEFT JOIN GROUP_MEMBER GM
+		ON (M.USER_ID = GM.USER_ID)
+		LEFT JOIN GROUP_LISTS GL ON (GM.NO = GL.NO)
+		WHERE TRUNC(post_date) =
+		TO_DATE(#{postDate},'yyyyMMdd') AND M.USER_ID
+		=
+		#{userId}
 	</select>
 
 	<!-- 그룹 단건조회 -->
 	<select id="groupsSelect" resultType="map">
-
+		SELECT U.USER_ID,
+		U.USER_NAME, U.NICK_NAME, U.PROFILE_IMG_PATH, M.*, GM.*,
+		GL.*
+		FROM USERS
+		U LEFT JOIN MEALS M ON(U.USER_ID = M.USER_ID)
+		LEFT JOIN GROUP_MEMBER GM
+		ON (M.USER_ID = GM.USER_ID)
+		LEFT JOIN GROUP_LISTS GL ON (GM.NO = GL.NO)
+		WHERE TRUNC(post_date) =
+		TO_DATE(#{postDate},'yyyyMMdd') AND M.USER_ID
+		= #{userId} AND M.NO = #{no}
 	</select>
 
 	<!-- 그룹 즐겨찾기 추가 -->

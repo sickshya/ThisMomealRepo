@@ -28,8 +28,7 @@
 	<!-- 마이페이지 공동구매 상세내역 -->
 	<div layout:fragment="content" align="center">
 		<h1>공동구매</h1>
-		<br>
-		<br>
+		<br> <br>
 		<form id="frm" action="/myPurchaseList" method="post">
 			<div>
 				<div class="col-lg-7">
@@ -49,14 +48,13 @@
 							<p class="truncate">[[${myPurchase.TOTAL_GD}]]</p>
 						</div>
 					</div>
-					<br>
-					<br>
+					<br> <br>
 					<h3 align="left">배송정보</h3>
 					<div style="border: 1px solid #ccc">
 						<br>
 						<div class="flex-1 min-w-0 relative text-gray-500" align="left">
 							<p class="truncate">[[${myPurchase.USER_NAME}]]</p>
-							<p class="truncate">[[${myPurchase.ADDR}]]</p>
+							<p class="truncate">[[${myPurchase.DELIVERY_ADDR}]]</p>
 							<p class="truncate">[[${myPurchase.TEL}]]</p>
 						</div>
 					</div>
@@ -65,11 +63,10 @@
 					<div style="border: 1px solid #ccc">
 						<div class="flex-1 min-w-0 relative text-gray-500" align="left">
 							<hr>
-							<p class="truncate">총금액 계산해서 넣기</p>
+							<p class="truncate">[[${myPurchase.TOTAL_PRICE}]]</p>
 						</div>
 					</div>
-					<br>
-					<br>
+					<br> <br>
 					<button type="submit" class="button bg-blue-700">목록으로</button>
 				</div>
 			</div>

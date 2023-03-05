@@ -9,8 +9,8 @@ public class GroupsVO {
 	private String grpName;
 	private String grpStatus;
 	private String grpCode;
-	
+
 	private String userId;
-	
+
 	private int grpOrder;
 }

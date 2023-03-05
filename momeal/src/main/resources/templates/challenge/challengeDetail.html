@@ -48,15 +48,16 @@
 <body>
 	<div layout:fragment="content">
 		<!-- Product Details Section Begin -->
-<!-- 		<section class="product-details spad"> -->
-			<div class="container">
+		<!-- 		<section class="product-details spad"> -->
+		<div class="container">
 			<form id="attendfrm" th:action="@{/attendChallenge}" method="post">
 				<div class="row">
 					<div class="col-lg-6 col-md-6">
 						<div class="product__details__pic">
 							<div class="product__details__pic__item">
 								<img class="product__details__pic__item--large"
-									th:src="${chall.thumbnailImgPath}" alt="" style="width:465px; height:465px;">
+									th:src="${chall.thumbnailImgPath}" alt=""
+									style="width: 465px; height: 465px;">
 							</div>
 
 						</div>
@@ -69,58 +70,72 @@
 									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 									class="fa fa-star-half-o"></i> <span>(18 reviews)</span>
 							</div>
-							<p th:if="${chall.startDay == '0'}" style="color:red;">오늘부터 시작</p>
-							<p th:unless="${chall.startDay == '0'}" style="color:red;">[[ ${chall.startDay} ]]일 뒤 시작</p>
-							<p>[[${#dates.format(chall.chalStartDate, 'MM-dd')}]]([[${#dates.dayOfWeekName(chall.chalStartDate)}]])
-							 ~ [[${#dates.format(chall.chalEndDate, 'MM-dd')}]]([[${#dates.dayOfWeekName(chall.chalEndDate)}]])</p>
+							<p th:if="${chall.startDay == '0'}" style="color: red;">오늘부터
+								시작</p>
+							<p th:unless="${chall.startDay == '0'}" style="color: red;">[[
+								${chall.startDay} ]]일 뒤 시작</p>
+							<p>[[${#dates.format(chall.chalStartDate,
+								'MM-dd')}]]([[${#dates.dayOfWeekName(chall.chalStartDate)}]]) ~
+								[[${#dates.format(chall.chalEndDate,
+								'MM-dd')}]]([[${#dates.dayOfWeekName(chall.chalEndDate)}]])</p>
 							<ul>
-								<li><b>참여비</b> <span><samp><b>[[${chall.deductPoint}]]포인트</b></samp></span></li>
+								<li><b>참여비</b> <span><samp>
+											<b>[[${chall.deductPoint}]]포인트</b>
+										</samp></span></li>
 								<br>
 								<li><b>참여인원</b> <span>[[${chall.particir}]]명</span></li>
-								<li><b>현재까지 모인 참여비</b> <span>총 [[${chall.sumPoint}]]포인트 </span></li>
+								<li><b>현재까지 모인 참여비</b> <span>총
+										[[${chall.sumPoint}]]포인트 </span></li>
 								<br>
 								<li><span>80% 이상 성공시 </span><b> 참여비 페이백 + 상금</b></li>
-<!-- 									<div class="share"> -->
-<!-- 										<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i -->
-<!-- 											class="fa fa-twitter"></i></a> <a href="#"><i -->
-<!-- 											class="fa fa-instagram"></i></a> <a href="#"><i -->
-<!-- 											class="fa fa-pinterest"></i></a> -->
-<!-- 									</div> -->
+								<!-- 									<div class="share"> -->
+								<!-- 										<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i -->
+								<!-- 											class="fa fa-twitter"></i></a> <a href="#"><i -->
+								<!-- 											class="fa fa-instagram"></i></a> <a href="#"><i -->
+								<!-- 											class="fa fa-pinterest"></i></a> -->
+								<!-- 									</div> -->
 							</ul>
-							<br><br>
+							<br> <br>
 							<div style="position: relative;">
-							<div style="float: left; transform: translate(0,-50%);">
-							<a href="#" class="primary-btn" data-target="#Modal-2" onclick="loginChk()" id="attendBtn">참여하기</a>&nbsp;&nbsp;&nbsp; <!-- data-toggle="modal" -->
-							</div>&nbsp;&nbsp;
-<!-- 								<a href="#" -->
-<!-- 									class="heart-icon" th:if = "${session.userId != null}"><span class="icon_heart_alt"></span></a> -->
-t
-									<!-- 좋아요 처리 -->
-									<!-- 로그인 유무에 따라 하트 표시하기(로그인 한 경우만 하트 표시) -->
-									<div th:if = "${session.userId != null}" style="float: left; transform: translate(0,-50%);">
-										<!-- 좋아요 한 챌린지는 빨간 하트 -->
-										<div th:if = "${chall.likeChk != 0}">
-<!-- 												<a href="#"> class="heart-click heart_icon${rec.LIKE_NO }" -->
-				                                <svg xmlns="http://www.w3.org/2000/svg" width="30"
-													height="30" fill="currentColor"
-													class="bi bi-suit-heart-fill" viewBox="0 0 16 16"
-													style="color: red;">
-                           						<path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z" />
+								<div style="float: left; transform: translate(0, -50%);">
+									<a href="#" class="primary-btn" data-target="#Modal-2"
+										onclick="loginChk()">참여하기</a>&nbsp;&nbsp;&nbsp;
+									<!-- data-toggle="modal" -->
+								</div>
+								&nbsp;&nbsp;
+								<!-- 								<a href="#" -->
+								<!-- 									class="heart-icon" th:if = "${session.userId != null}"><span class="icon_heart_alt"></span></a> -->
+
+								<!-- 좋아요 처리 -->
+								<!-- 로그인 유무에 따라 하트 표시하기(로그인 한 경우만 하트 표시) -->
+								<div th:if="${session.userId != null}"
+									style="float: left; transform: translate(0, -50%);"
+									class="heart" id="heart" th:data-likeno="${chall.likeNo}"
+									th:data-postno="${chall.no}">
+									<!-- 좋아요 한 챌린지는 빨간 하트 -->
+									<th:block th:if="${chall.likeNo != 0}">
+										<a href="#" class="fullHeart"> <svg
+												xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+												fill="currentColor" class="bi bi-suit-heart-fill"
+												viewBox="0 0 16 16" style="color: red;">
+                           						<path
+													d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z" />
                             					</svg>
-											</a>
-										</div>
-										<!-- 좋아요 안 한 챌린지는 빨간 하트 -->
-										<div th:unless = "${chall.likeChk != 0}">
-											<a href="#"> <!-- class="heart-click heart_icon${rec.LIKE_NO }" -->
-												<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-						                            fill="currentColor" class="bi bi-suit-heart"
-						                            viewBox="0 0 16 16" style="color: lightgray;">
-				                                  <path d="M8 6.236l-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+										</a>
+									</th:block>
+									<!-- 좋아요 안 한 챌린지는 빨간 하트 -->
+									<th:block th:unless="${chall.likeNo != 0}">
+										<a href="#" class="emptyHeart"> <!-- class="heart-click heart_icon${rec.LIKE_NO }" -->
+											<svg xmlns="http://www.w3.org/2000/svg" width="30"
+												height="30" fill="currentColor" class="bi bi-suit-heart"
+												viewBox="0 0 16 16" style="color: lightgray;">
+				                                  <path
+													d="M8 6.236l-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
 				                                </svg>
-											</a>
-										</div>
-										</div>
-									</div>
+										</a>
+									</th:block>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="col-lg-12">
@@ -133,7 +148,7 @@ t
 									href="#review" role="tab" aria-selected="false">후기</a></li>
 
 							</ul>
-							
+
 							<!-- 탭 내용들 -->
 							<div class="tab-content">
 								<!-- 상세 탭 시작 -->
@@ -144,7 +159,7 @@ t
 									</div>
 								</div>
 								<!-- 상세 탭 끝 -->
-								
+
 								<!-- 후기 탭 시작 -->
 								<div class="tab-pane" id="review" role="tabpanel">
 									<div class="product__details__tab__desc">
@@ -178,7 +193,7 @@ t
 								</div>
 								<!-- 후기 탭 끝 -->
 							</div>
-							
+
 							<!-- 참여하기 모달 -->
 							<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog"
 								aria-labelledby="Modal-label-1">
@@ -192,21 +207,25 @@ t
 											</button>
 										</div>
 										<div class="modal-body">
-<!-- 											<img src="" alt="img01" -->
-<!-- 												class="img-responsive" style="width: 500px; height: 500px;" /> -->
-											<div class="modal-works" align="right">
-											</div>
+											<!-- 											<img src="" alt="img01" -->
+											<!-- 												class="img-responsive" style="width: 500px; height: 500px;" /> -->
+											<div class="modal-works" align="right"></div>
 											<br>
-											<p><b>[[${chall.deductPoint}]]포인트</b>를 지불하고 챌린지에 참여하시겠습니까?</p>
+											<p>
+												<b>[[${chall.deductPoint}]]포인트</b>를 지불하고 챌린지에 참여하시겠습니까?
+											</p>
 											<p>참여 신청시 취소가 불가능합니다.</p>
 											<br>
 										</div>
 										<div class="modal-footer">
-												<button type="button" onclick="attedChall()" class="btn btn-default" id="attend">참여하기</button>
-												<input type="hidden" th:value="${chall.no}" name="no" id="no">
-												<input type="hidden" th:value="${chall.round}" name="round" id="round">
-												<input type="hidden" th:value="${session.userId}" name="userId" id="userId">
-												<input type="hidden" th:value="${chall.attendNo}" name="attendNo" id="attendNo">
+											<button type="button" onclick="attedChall()"
+												class="btn btn-default" id="attend">참여하기</button>
+											<input type="hidden" th:value="${chall.no}" name="no" id="no">
+											<input type="hidden" th:value="${chall.round}" name="round"
+												id="round"> <input type="hidden"
+												th:value="${session.userId}" name="userId" id="userId">
+											<input type="hidden" th:value="${chall.attendNo}"
+												name="attendNo" id="attendNo">
 										</div>
 									</div>
 								</div>
@@ -215,9 +234,9 @@ t
 						</div>
 					</div>
 				</div>
-				</form>
-			</div>
-			
+			</form>
+		</div>
+
 		<script>
 			// 로그인 유무 & 챌린지 참여 여부 판단 후 모달 띄우기
 			function loginChk() {
@@ -232,12 +251,12 @@ t
 		             return false;
 		          }
 		          else {
-		        	  if(attendNo != 0){
-		        		  alert("이미 참여중인 챌린지입니다."); 
-		        		  return false;
-		        	  }
-		        	$('#attendBtn').attr('data-toggle', 'modal');
-		          }
+	                   if(attendNo != 0){
+	                      alert("이미 참여중인 챌린지입니다."); 
+	                      return false;
+	                   }
+	                 $('#attendBtn').attr('data-toggle', 'modal');
+	                }
 			}
 		
 			// 챌린지 참여신청
@@ -253,19 +272,75 @@ t
 				
 // 				// 모달창 닫기
 // 				$('#attend').attr('data-dismiss', 'modal');
+			
+		
+	$(function(){
+		
+		// 좋아요 인서트
+		$(".heart").on("click", ".emptyHeart", function(){
+			let postNo = $(this).parent(".heart").data("postno")
+			let heart = $(this).parent(".heart")
+			
+			event.preventDefault() // a, submit (페이지 이동 막음)
+			event.stopPropagation()
+			console.log(postNo);
+			
+			$.ajax({
+				type: 'POST',
+				url: "/insertLikeChall/" + postNo,
+			})
+				.then(result => {
+						heart.html(`<a href="#" class="fullHeart">
+								<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16" style="color: red;">
+              						<path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z" />
+               					</svg>
+								</a>`) // 빨간하트
+				
+				});
+			});
+			
+		
+		
+		// 좋아요 삭제
+		$(".heart").on("click", ".fullHeart", function(){
+			let no = $(this).parent(".heart").data("likeno");
+			let heart = $(this).parent(".heart")
+			
+			event.preventDefault()
+			event.stopPropagation()
+			console.log("삭제"+no)
+			
+			$.ajax({
+				type: 'POST',
+				url: "/myLikeDel/" + no,
+			})
+				.then(result => {
+					console.log(result)
+					heart.html(`<a href="#" class="emptyHeart">
+							<svg xmlns="http://www.w3.org/2000/svg" width="30"
+							height="30" fill="currentColor" class="bi bi-suit-heart"
+							viewBox="0 0 16 16" style="color: lightgray;">
+                         <path
+								d="M8 6.236l-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                       </svg>
+					</a>`)// 빈 하트
+				});
+			});
+		});
+			
 		</script>
-<!-- 		</section> -->
+		<!-- 		</section> -->
 
 
 		<!-- Js Plugins -->
-<!-- 		<script src="/ogani-master/js/jquery-3.3.1.min.js"></script> -->
+		<!-- 		<script src="/ogani-master/js/jquery-3.3.1.min.js"></script> -->
 		<script src="/second-template/js/bootstrap.min.js"></script>
-<!-- 		<script src="/ogani-master/js/jquery.nice-select.min.js"></script> -->
+		<!-- 		<script src="/ogani-master/js/jquery.nice-select.min.js"></script> -->
 		<script src="/second-template/js/jquery-ui.min.js"></script>
-<!-- 		<script src="/ogani-master/js/jquery.slicknav.js"></script> -->
-<!-- 		<script src="/ogani-master/js/mixitup.min.js"></script> -->
-<!-- 		<script src="/ogani-master/js/owl.carousel.min.js"></script> -->
-<!-- 		<script src="/ogani-master/js/main.js"></script> -->
+		<!-- 		<script src="/ogani-master/js/jquery.slicknav.js"></script> -->
+		<!-- 		<script src="/ogani-master/js/mixitup.min.js"></script> -->
+		<!-- 		<script src="/ogani-master/js/owl.carousel.min.js"></script> -->
+		<!-- 		<script src="/ogani-master/js/main.js"></script> -->
 
 	</div>
 </body>
