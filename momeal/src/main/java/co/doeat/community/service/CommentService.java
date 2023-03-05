@@ -1,5 +1,7 @@
 package co.doeat.community.service;
 
+import java.util.List;
+
 public interface CommentService {
-	public CommentVO commentsList(CommentVO vo); // 댓글 조회
+	public List<CommentVO> commentsList(CommentVO vo); // 댓글 조회
 }

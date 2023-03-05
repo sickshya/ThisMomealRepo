@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.common.mapper.ImageMapper">
-
-
+ 
 	<select id="selectAtchNo" resultType="int">
-		SELECT CASE WHEN MAX(ATCH_NO) IS NULL
+		SELECT CASE WHEN
+		MAX(ATCH_NO) IS NULL
 		THEN 1
 		ELSE MAX(ATCH_NO) +1
 		END AS atchNo
 		FROM IMAGES
 	</select>
-
-
+ 
 	<insert id="fileUpload"
 		parameterType="co.doeat.common.service.ImageVO">
 		<selectKey keyProperty="atchNo" resultType="int"
@@ -31,6 +30,16 @@
 		VALUES(#{atchNo},#{atchImg},#{postNo},#{boardCode},#{atchPath},#{atchExtn},#{atchUUID},#{atchSize})
 
 	</insert>
+
+	<delete id="adminGPIDelete"
+		parameterType="co.doeat.common.service.ImageVO">
+		DELETE FROM IMAGES where post_no=#{postNo} AND board_code='CT03'
+	</delete>
+
+	<delete id="adminCHIDelete"
+		parameterType="co.doeat.common.service.ImageVO">
+		DELETE FROM IMAGES where post_no=#{postNo} AND board_code='CT01'
+	</delete>
 
 
 

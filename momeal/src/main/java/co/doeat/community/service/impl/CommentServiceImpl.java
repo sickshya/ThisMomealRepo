@@ -1,5 +1,7 @@
 package co.doeat.community.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +14,11 @@ public class CommentServiceImpl implements CommentService{
 	
 	@Autowired
 	CommentMapper commentMapper;
-	
+
 	// 댓글 조회
 	@Override
-	public CommentVO commentsList(CommentVO vo) {
+	public List<CommentVO> commentsList(CommentVO vo) {
 		return commentMapper.commentsList(vo);
 	}
-
+	
 }

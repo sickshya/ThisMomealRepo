@@ -23,4 +23,5 @@ public class CommentVO {
 	private String boardCode; // 게시글 타입 (식단 = CT04, 그룹 = CT05)
 	
 	private String nickName; // 댓글 작성자 닉네임
+	private String profileImgPath; // 댓글 작성자 프로필 사진
 }

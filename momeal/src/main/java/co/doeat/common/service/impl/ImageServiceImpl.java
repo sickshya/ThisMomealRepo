@@ -18,57 +18,57 @@ public class ImageServiceImpl implements ImageService {
 
 	@Autowired
 	private ImageMapper imageMapper;
-	
+
 	@Value("${momeal.saveImg}")
 	private String saveImg;
 
-
 	@Override
 	public int fileUpload(List<MultipartFile> files, int no, String boardCode) {
-		int n=0;
-		//파일 저장위치 설정
-		//int atchNo = 0;
-		//파일 있으면 if문 실행
-		if(files != null && !files.isEmpty()) {
-			//atchNo = imageMapper.selectAtchNo();
-		//파일 개수만큼 for문
-			for(MultipartFile file: files) {
-				if(file.getSize()==0)
+		int n = 0;
+		// 파일 저장위치 설정
+		// int atchNo = 0;
+		// 파일 있으면 if문 실행
+		if (files != null && !files.isEmpty()) {
+			// atchNo = imageMapper.selectAtchNo();
+			// 파일 개수만큼 for문
+			for (MultipartFile file : files) {
+				if (file.getSize() == 0)
 					continue;
-			//insert할 atchVO
+				// insert할 atchVO
 				ImageVO image = new ImageVO();
-				
-				 //파일이름 중복시 덮어쓰기 되는 거 방지하기 위해 uuid 생성
-	            String fileName = UUID.randomUUID().toString();
 
-	            // uuid에 원본파일명 붙이기
-	            fileName = fileName + "_" + file.getOriginalFilename();
+				// 파일이름 중복시 덮어쓰기 되는 거 방지하기 위해 uuid 생성
+				String fileName = UUID.randomUUID().toString();
 
-	            //  파일 실제 저장
-	            File uploadFile = new File(saveImg, fileName);
+				// uuid에 원본파일명 붙이기
+				fileName = fileName + "_" + file.getOriginalFilename();
 
-	            try {
-	               file.transferTo(uploadFile); // 실제파일저장
-	            } catch (Exception e) {
-	               e.printStackTrace();
-	            }
-	            
-	            //파일 저장하고 나서 atch 테이블에 insert할 vo에 값 담아주기
-	            //no =>selectkey, board type=hidden으로 줌, 
-	           //image.setAtchNo(atchNo);
-	           image.setAtchImg(file.getOriginalFilename());
-	           image.setAtchPath(saveImg +fileName);
-	           image.setAtchExtn("jpg");
-	           image.setAtchUUID(fileName);
-	           image.setAtchSize(file.getSize());
-	           image.setPostNo(no);
-	           image.setBoardCode(boardCode);
-	           n=imageMapper.fileUpload(image);
-	           
+				// 파일 실제 저장
+				File uploadFile = new File(saveImg, fileName);
+
+				try {
+					file.transferTo(uploadFile); // 실제파일저장
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				// 파일 저장하고 나서 atch 테이블에 insert할 vo에 값 담아주기
+				// no =>selectkey, board type=hidden으로 줌,
+				// image.setAtchNo(atchNo);
+				image.setAtchImg(file.getOriginalFilename());
+				// image.setAtchPath(saveImg +fileName);
+				image.setAtchPath("/mm_images/" + fileName);
+				image.setAtchExtn("jpg");
+				image.setAtchUUID(fileName);
+				image.setAtchSize(file.getSize());
+				image.setPostNo(no);
+				image.setBoardCode(boardCode);
+				n = imageMapper.fileUpload(image);
+
 			}
-			
+
 		}
-		
+
 		return n;
 	}
 
@@ -76,8 +76,15 @@ public class ImageServiceImpl implements ImageService {
 	public int selectAtchNo() {
 		return 0;
 	}
-	
-	
-	
-	
+
+	@Override
+	public int adminGPIDelete(int postNo, String boardCode) {
+		return imageMapper.adminGPIDelete(postNo, boardCode);
+	}
+
+	@Override
+	public int adminCHIDelete(ImageVO vo) {
+		return imageMapper.adminCHIDelete(vo);
+	}
+
 }

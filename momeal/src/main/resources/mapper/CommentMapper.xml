@@ -4,7 +4,7 @@
 
 	<!-- 댓글 조회 -->
 	<select id="commentsList" resultType="co.doeat.community.service.CommentVO">
-		SELECT C.*, U.NICK_NAME
+		SELECT C.*, U.NICK_NAME, U.PROFILE_IMG_PATH
 		FROM COMMENTS C JOIN USERS U
 		ON C.USER_ID = U.USER_ID
 		WHERE C.POST_NO = #{postNo} AND BOARD_CODE = #{boardCode}

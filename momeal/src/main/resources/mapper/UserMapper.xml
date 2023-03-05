@@ -60,15 +60,14 @@
 	</select>
 
 
-	<!-- 페이징 -->
-
+	<!-- 페이징 --> 
 	<sql id="creiteria">
 		<where>
 			<if test="userId != null and userId != '' ">
-				user_id = #{userId}
+				USER_ID = #{userId}
 			</if>
 			<if test="grade != null and grade != '' ">
-				AND grade = #{grade}
+				AND GRADE = #{grade}
 			</if>
 		</where>
 	</sql>
@@ -76,8 +75,8 @@
 	<!-- 총 회원수 -->
 	<select id="getCountTotal" parameterType="UsersVO"
 		resultType="int">
-		select count(*)
-		from users
+		SELECT COUNT(*)
+		FROM USERS
 		<include refid="creiteria"></include>
 	</select>
 
@@ -85,13 +84,14 @@
 	<select id="getAdminUserList" parameterType="UsersVO"
 		resultType="UsersVO">
 
-		select * from( select rownum rn, a.* from(
+		SELECT * FROM( SELECT ROWNUM RN, A.* FROM(
 
-		select * from users
+		SELECT * FROM USERS
 		<include refid="creiteria"></include>
-		order by user_id
+		ORDER BY USER_ID
+		
 		<![CDATA[
-				 )a where rownum <= #{last}) b where rn  >= #{first}
+ 		)A WHERE ROWNUM <= #{last}) B WHERE RN  >= #{first}
 			
 		]]>
 	</select>
