@@ -12,7 +12,7 @@
 
 <!-- 커뮤니티 피드 단건조회 -->
 <select id="getCommunity" resultType="co.doeat.activity.service.MealVO">
-	SELECT *
+	SELECT U.NICK_NAME, U.PROFILE_IMG_PATH, M.*
 	FROM USERS U LEFT JOIN MEALS M
              	 ON (U.USER_ID = M.USER_ID)
     WHERE M.NO = #{no}

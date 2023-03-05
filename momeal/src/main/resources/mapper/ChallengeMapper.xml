@@ -3,14 +3,25 @@
 <mapper namespace="co.doeat.management.mapper.ChallengeMapper">
 
 	<!-- 챌린지 전체조회 -->
-	<!-- 로그인 안 했을때는 하트유무를 표시 안 해줘야 함. html에서 처리하면 되나? -->
-	<!-- 쿼리에서는...어쩌지? -->
 	<select id="getChallList" resultType="map">
-		SELECT C.*, (SELECT
-		COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId}
-		AND L.BOARD_CODE = 'CT01') AS LIKE_NO
+		SELECT C.*, (SELECT COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE = 'CT01') AS LIKE_CHK 
 		FROM CHALLENGES C
 		ORDER BY C.NO
+	</select>
+
+	<select id="likeRankChallList" resultType="map">
+		WITH LIKE_COUNT AS (SELECT POST_NO, COUNT(*) CN
+							FROM LIKES
+							GROUP BY POST_NO
+							ORDER BY CN DESC, POST_NO)
+		
+		SELECT C.*, L.*, (SELECT COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE = 'CT01') AS LIKE_CHK
+		FROM CHALLENGES C JOIN (SELECT LIKE_RNK.* 
+								FROM (SELECT LIKE_COUNT.*, ROWNUM RWN
+									  FROM LIKE_COUNT) LIKE_RNK
+								WHERE ROWNUM BETWEEN 1 AND 6 ORDER BY ROWNUM) L
+								ON C.NO = L.POST_NO
+								ORDER BY L.RWN
 	</select>
 
 	<select id="likeRankChallList" resultType="map">
@@ -18,33 +29,25 @@
 		(SELECT POST_NO, COUNT(*) CN
 		FROM LIKES
 		GROUP BY POST_NO
-		ORDER BY CN
-		DESC, POST_NO)
+		ORDER BY CN DESC, POST_NO)
 
-		SELECT C.*, L.*, (SELECT COUNT(*) FROM LIKES L WHERE
-		L.POST_NO = C.NO AND
-		L.USER_ID = #{userId} AND L.BOARD_CODE = 'CT01')
-		AS LIKE_NO
-		FROM
-		CHALLENGES C JOIN (SELECT LIKE_RNK.*
-		FROM (SELECT
-		LIKE_COUNT.*, ROWNUM RWN
+		SELECT C.*, L.*, NVL((SELECT L.NO FROM LIKES L
+		WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE =
+		'CT01'),0) AS LIKE_NO
+		FROM CHALLENGES C JOIN (SELECT LIKE_RNK.*
+		FROM (SELECT LIKE_COUNT.*, ROWNUM RWN
 		FROM LIKE_COUNT) LIKE_RNK
-		WHERE ROWNUM BETWEEN
-		1 AND 6 ORDER BY ROWNUM) L
+		WHERE ROWNUM BETWEEN 1 AND 6 ORDER BY ROWNUM) L
 		ON C.NO = L.POST_NO
 		ORDER BY L.RWN
 	</select>
 
 	<!-- 챌린지단건조회 -->
-	<select id="getChallenge"
-		resultType="co.doeat.management.service.ChallengeVO">
-		SELECT C.*, I.*, (C.PARTICIR * C.DEDUCT_POINT) AS
-		SUM_POINT,
-		(C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY
-		FROM
-		CHALLENGES C
-		RIGHT JOIN IMAGES I
+	<select id="getChallenge" resultType="co.doeat.management.service.ChallengeVO">
+        SELECT C.*, I.*, (C.PARTICIR * C.DEDUCT_POINT) AS SUM_POINT, (C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY,
+        	   (SELECT COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE = 'CT01') AS LIKE_CHK,
+        	   NVL((SELECT P.NO FROM CHALLENGE_PARTICIPATION P WHERE C.NO = P.NO AND P.USER_ID = #{userId}), 0) AS ATTEND_NO
+		FROM CHALLENGES C RIGHT JOIN IMAGES I
 		ON (C.NO = I.POST_NO)
 		WHERE I.POST_NO =
 		#{no} AND
@@ -54,15 +57,11 @@
 	<!-- 챌린지 등록 -->
 	<insert id="challInsert">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-			SELECT
-			seq_board.NEXTVAL AS NO FROM DUAL
+			SELECT seq_board.NEXTVAL AS NO FROM DUAL
 		</selectKey>
-		insert into challenges
-		values(#{no}, #{title}, #{subject},
-		#{chalStartDate}, #{chalEndDate}, #{round},
-		#{particir},
-		#{sumParticir}, #{deductPoint}, #{vldStartTime}, #{vldEndTime},
-		#{vldPosbDate})
+		INSERT INTO CHALLENGES
+		VALUES(#{no}, #{title}, #{subject}, #{chalStartDate}, #{chalEndDate}, #{round}, 
+			   #{particir}, #{sumParticir}, #{deductPoint}, #{vldStartTime}, #{vldEndTime}, #{vldPosbDate})
 	</insert>
 
 	<!-- 챌린지 참여 -->
@@ -126,7 +125,6 @@
 		<include refid="creiteria"></include>
 	</select>
 
-
 	<select id="adminChalList"
 		parameterType="co.doeat.management.service.ChallengeVO"
 		resultType="co.doeat.management.service.ChallengeVO">
@@ -149,7 +147,6 @@
 		 )a where rownum <= #{last}) b where rn  >= #{first}
 	
 ]]>
-
 	</select>
 
 	<!-- 관리자 챌린지 등록 -->

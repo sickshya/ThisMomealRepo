@@ -27,6 +27,7 @@ import co.doeat.community.service.UsersVO;
 import co.doeat.management.service.GroupPurchaseListVO;
 import co.doeat.management.service.GroupPurchaseSearchVO;
 import co.doeat.management.service.GroupPurchaseService;
+import co.doeat.management.service.GroupPurchaseSettlementVO;
 
 @Controller
 public class GroupPurchaseController {
@@ -43,22 +44,20 @@ public class GroupPurchaseController {
 	@Value("${momeal.saveImg}")
 	private String saveImg;
 
-	// 공동구매
-	@RequestMapping("/groupBuying")
-	public String groupBuying(Model model, HttpServletRequest request, UsersVO userVO) {
+	// 공동구매 전체리스트
+	@RequestMapping("/purchaseList")
+	public String purchaseList(Model model, HttpServletRequest request, UsersVO userVO) {
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", "user1");
 		model.addAttribute("PurList", groupPurchaseService.getPurList()); // 전체
 		model.addAttribute("PurchsingList", groupPurchaseService.getPurchasingList()); // 진행
-		System.out.println("결과===========" + groupPurchaseService.getPurList());
-		return "groupPurchase/groupBuying";
+		return "groupPurchase/purchaseList";
 	}
 
-	// 공동구매단건조회
-	@GetMapping("/groupBuying/{no}")
-	public String groupBuying(Model model, @PathVariable int no) {
+	// 공동구매 단건조회
+	@GetMapping("/purchaseList/{no}")
+	public String purchaseList(Model model, @PathVariable int no) {
 		model.addAttribute("PurOne", groupPurchaseService.getPurOne(no));
-		System.out.println("결과===========" + groupPurchaseService.getPurOne(no));
 		return "groupPurchase/groupDetail";
 	}
 
@@ -69,15 +68,15 @@ public class GroupPurchaseController {
 		return "groupPurchase/groupDetail";
 	}
 
-	// 공동구매(구매하기 창 list)
-	@RequestMapping("/PurchaseForm")
-	public String PurchaseForm(HttpServletRequest request) {
+	// 공동구매 ( 구매하기 신청 form 호출 )
+	@GetMapping("/purchaseForm")
+	public String purchaseForm() {
 //		HttpSession session = request.getSession();
 //		String user1 = (String) session.getAttribute("userId");
 		return "groupPurchase/PurchaseForm";
 	}
 
-//	// 공동구매(구매하기 신청 form)
+//	// 공동구매 ( 구매하기 신청 form 호출)
 //	@RequestMapping("/PurchaseForm.do")
 //	@ResponseBody
 //	public String PurchasePayment(GroupPurchaseSettlementVO vo) {
@@ -91,11 +90,18 @@ public class GroupPurchaseController {
 		return "groupPurchase/groupPurchase";
 	}
 
-	// 공동구매(배송지목록)
-	@GetMapping("/groupPurchaseList.do")
-	public String groupPurchaseList() {
-		return "groupPurchase/groupPurchaseList";
+	// 공동구매
+	@PostMapping("/purchaseForm.do")
+	public String purchasePayment(GroupPurchaseSettlementVO vo) {
+		groupPurchaseService.payInsert(vo);
+		return "redirect:/orderList";
 	}
+
+//	// 공동구매(배송지목록)
+//	@GetMapping("/PurchaseList.do")
+//	public String groupPurchaseList() {
+//		return "groupPurchase/groupPurchaseList";
+//	}
 
 //	//공동구매 찜하기 버튼
 //	@Transactional(rollbackFor = Exception.class)
@@ -103,7 +109,7 @@ public class GroupPurchaseController {
 //	public ModelAndView 
 //	
 
-//	//groupDetail.do 요청시 주문자 수 카운트
+//	// groupDetail.do 요청시 주문자 수 카운트
 //	@GetMapping("/groupDetail.do")
 //	public String groupDetail(String sttlSt, Model model) {
 //		System.out.println("주문자수 실행");
@@ -123,7 +129,6 @@ public class GroupPurchaseController {
 	public String myPurchaseList(Model model, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
 		session.setAttribute("userId", "user1");
-
 		model.addAttribute("myPrList", groupPurchaseService.getPurchaseList());
 		return "myPages/myPurchaseList";
 	}
@@ -134,9 +139,7 @@ public class GroupPurchaseController {
 			HttpServletRequest request) {
 		session = request.getSession();
 		session.setAttribute("userId", "user1");
-
 		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(prdtNo));
-		System.out.println("결과 ==========" + groupPurchaseService.purchaseSelect(prdtNo));
 		return "myPages/myPurchaseSelect";
 	}
 
@@ -180,11 +183,9 @@ public class GroupPurchaseController {
 
 		if (atchNo > 0) {
 			evo.setAtchNo(atchNo);
-
 		}
 
 		return "true";
-
 	}
 
 	// 관리자 공동구매 select

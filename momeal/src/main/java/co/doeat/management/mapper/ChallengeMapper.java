@@ -12,9 +12,7 @@ public interface ChallengeMapper {
 	public List<Map<String, Object>> getChallList(String id); // 전체조회
 
 	public List<Map<String, Object>> likeRankChallList(String id); // 인기순(좋아요 많은 순) 조회
-
-	public ChallengeVO getChallenge(int no); // 단건조회
-
+	public ChallengeVO getChallenge(Map<String, Object> map); // 단건조회
 	public int challInsert(ChallengeVO vo); // 챌린지 등록
 
 	public int attendChall(ChallengeParticipationVO vo); // 챌린지 참여신청

@@ -36,6 +36,7 @@ public class ChallengeVO {
 	private String thumbnailImgPath; // 썸네일 이미지 주소
 
 	private String atchPath; // 본문 첨부파일 이미지 주소
+  
 	private int totalPoint; // 회원의 현재 포인트
 
 	private int sumPoint; // 챌린지에서 모인 포인트
@@ -44,4 +45,7 @@ public class ChallengeVO {
 	private String chstatus;// 현재날짜 기준 챌린지 진행상태
 
 	private List<ImageVO> imgPath; // 관리자 챌린지 상세조회 시, 이미지 경로값
+	
+	private int likeChk; // 좋아요 유무 체크 (좋아요 한 상태 = 1 / 아니면 = 0)
+	private int attendNo; // 챌린지 참여 유무 체크 (참여한 상태 = 1 / 아니면 = 0)
 }
