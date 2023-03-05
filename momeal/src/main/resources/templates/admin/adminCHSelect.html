@@ -23,6 +23,20 @@
 <!-- App CSS -->
 <link rel="stylesheet" href="css/app-light.css" id="lightTheme">
 <link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
+<style>
+#att_zone{
+	width: 550px;
+	min-height:150px;
+	padding:10px;
+	border:1px dotted #00f;
+}
+#att_zone:empty:before{
+	content : attr(data-placeholder);
+	color : #999;
+	font-size:.9em;
+}
+
+</style>
 </head>
 <body class="vertical  light  ">
 	<div layout:fragment="content">
@@ -33,7 +47,7 @@
 				<div class="container-fluid">
 					<div class="row justify-content-center">
 						<div class="col-12">
-							<h2 class="page-title">챌린지 등록</h2>
+							<h2 class="page-title">공동구매 상세보기</h2>
 							<p class="text-muted">Demo for form control styles, layout
 								options, and custom components for creating a wide variety of
 								forms.</p>
@@ -41,51 +55,81 @@
 
 								<div class="card shadow mb-4">
 									<div class="card-header" style="width: 500px">
-										<strong class="card-title">챌린지 추가하기</strong>
+										<strong class="card-title">챌린지 상세보기</strong>
 									</div>
-									<div class="card-body" style="width: 500px">
-										<form>
+									<div class="card-body" style="width: 500px" id="myForm">
+										
+										<form id="frm"  method="post" enctype="multipart/form-data">
 											<div class="form-group row">
-												<label for="inputEmail3" class="col-sm-3 col-form-label">챌린지명</label>
+												<label class="col-sm-3 col-form-label">챌린지명</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="inputEmail3"
-														placeholder="Email">
+													[[${selects.name}]]
 												</div>
 											</div>
 											<div class="form-group row">
-												<label for="inputPassword3" class="col-sm-3 col-form-label">진행기간</label>
+												<label class="col-sm-3 col-form-label">참여포인트</label>
 												<div class="col-sm-9">
-													<input type="date" class="form-control" id="inputPassword3"
-														placeholder="Password">
+													[[${selects.deductPoint}]]
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">파일등록</label>
+												<label class="col-sm-3 col-form-label">시작일자</label>
 												<div class="col-sm-9">
-													<input class="form-control" id="disabledInput" type="file">
+													[[${selects.chalStartDate }]]
 												</div>
 											</div>
 											<div class="form-group row">
-												<label for="inputEmail3" class="col-sm-3 col-form-label">포인트</label>
+												<label class="col-sm-3 col-form-label">종료일자</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="inputEmail3">
+													[[${selects.chalEndDates }]]
 												</div>
 											</div>
 											<div class="form-group row">
-												<label for="inputEmail3" class="col-sm-3 col-form-label">인증횟수</label>
+												<label class="col-sm-3 col-form-label">인증시작시간</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="inputEmail3">
+													[[${selects.vldStartTime }]]
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">인증종료시간</label>
+												<div class="col-sm-9">
+													[[${selects.vldEndTime }]]
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">인증가능요일</label>
+												<div class="col-sm-9">
+													[[${selects.vldPosbDate }]]
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3" for="exampleFormControlTextarea1">상세설명</label>
 												<div class="col-sm-9">
-													<textarea class="form-control"
-														id="exampleFormControlTextarea1" rows="2"></textarea>
+													[[${selects.subject }]]
 												</div>
 											</div>
-											<div class="form-group mb-2">
-												<button type="submit" class="btn btn-primary">등록</button>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">썸네일 </label>
+												<div class="col-sm-9">
+													[[${selects.thumbnailImgPath }]]
+													<img th:src="${selects.thumbnailImgPath }" >
+													
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<div id='image_preview'>
+													
+													<div id='att_zone'
+														data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
+														<div>[[${selects.imgPath.[2] }]]</div>
+														<div th:each="sel : ${selects}">
+														<img th:src="${sel.imgPath }" >
+														</div>
+														</div>
+														<!-- for문 돌려야함 -->
+														
+												</div>
 											</div>
 										</form>
 									</div>
@@ -109,18 +153,12 @@
 		<script src="js/tinycolor-min.js"></script>
 		<script src="js/config.js"></script>
 		<script src="js/apps.js"></script>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async
-			src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
 
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag('js', new Date());
-			gtag('config', 'UA-56159088-1');
-		</script>
+
+
+
+
+
 	</div>
 </body>
 </html>

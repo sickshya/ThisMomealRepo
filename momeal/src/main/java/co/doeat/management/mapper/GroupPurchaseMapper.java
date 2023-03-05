@@ -43,4 +43,7 @@ public interface GroupPurchaseMapper {
 	// 공동구매 단건조회 select
 	GroupPurchaseListVO adminGPSelect(int no);
 
+	// 공동구매 삭제
+	int adminGPDelete(int no);
+
 }

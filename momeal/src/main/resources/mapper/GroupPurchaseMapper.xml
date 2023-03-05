@@ -44,7 +44,7 @@
 	<!-- FROM GROUP_PURCHASE_SETTLEMENT -->
 	<!-- GROUP BY no; -->
 	<!-- </select> -->
-  
+
 	<!-- +++++++++++++++++마이페이지+++++++++++++++++++++++++++++++ -->
 	<!-- 마이페이지 - 공동구매내역 전체리스트 -->
 	<select id="getPurchaseList"
@@ -70,7 +70,7 @@
 		U.USER_ID = '#{userId} AND
 		P.NO = #{no}
 	</select>
- 
+
 	<!-- +++++++++++++++++관리자+++++++++++++++++++++++++++++++ -->
 	<!-- 관리자 -공동구매 물품 리스트 -->
 	<sql id="creiteria">
@@ -83,7 +83,7 @@
 			</if>
 		</where>
 	</sql>
- 
+
 	<select id="getCountTotal"
 		parameterType="co.doeat.management.service.GroupPurchaseListVO"
 		resultType="int">
@@ -149,7 +149,7 @@
 	</insert>
 
 	<!-- 삭제 -->
-	<delete id="admingGPDelete"
+	<delete id="adminGPDelete"
 		parameterType="co.doeat.management.service.GroupPurchaseListVO">
 		DELETE FROM GROUP_PURCHASE_LISTS WHERE NO= #{no}
 	</delete>
@@ -199,7 +199,8 @@
 		resultMap="gpListMap">
 		SELECT gpl.*, img.*
 		FROM GROUP_PURCHASE_LISTS gpl
-		LEFT OUTER JOIN IMAGES img ON gpl.no = img.post_no
+		LEFT OUTER
+		JOIN IMAGES img ON gpl.no = img.post_no
 		WHERE gpl.no = #{no} AND
 		img.board_Code = 'CT03'
 	</select>
