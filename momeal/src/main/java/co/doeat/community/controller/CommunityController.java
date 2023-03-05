@@ -1,5 +1,7 @@
 package co.doeat.community.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.doeat.activity.service.FollowService;
+import co.doeat.activity.service.FollowVO;
 import co.doeat.activity.service.MealVO;
 import co.doeat.community.service.CommunityService;
 
@@ -17,6 +21,9 @@ public class CommunityController {
 	
 	@Autowired
 	private CommunityService communityService;
+	
+	@Autowired
+	private FollowService followService;
 
 	
 	// 전체조회
@@ -35,6 +42,17 @@ public class CommunityController {
 	@ResponseBody // ajax 처리할때 필요
 	public MealVO challengeOne(@PathVariable int no) {
 		return communityService.getCommunity(no);
+	}
+	
+	// 팔로우 신청(ajax)
+	@PostMapping("/follow/user1")
+	@ResponseBody
+	public String follow(FollowVO vo, HttpSession session) { // @PathVariable String id 피드 작성자 id를 받아와야함
+		String id = "user7";
+		vo.setFollowerId((String)session.getAttribute("userId"));
+		vo.setFolloweeId(id);
+		followService.follow(vo);
+		return "FollowOK";
 	}
 
 
