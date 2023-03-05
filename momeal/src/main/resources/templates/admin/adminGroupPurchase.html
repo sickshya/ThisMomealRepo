@@ -92,6 +92,7 @@
 														<th>종료일</th>
 														<th>상태</th>
 														<th>Action</th>
+
 													</tr>
 												</thead>
 												<tbody>
@@ -104,8 +105,7 @@
 														<td th:text="${gp.grpStartDate}"></td>
 														<td th:text="${gp.grpEndDate}"></td>
 														<td th:text="${gp.gpstatus}"></td>
-														<td>
-															<div class="dropdown">
+														<td><div class="dropdown">
 																<button class="btn btn-sm dropdown-toggle" type="button"
 																	id="dr2" data-toggle="dropdown" aria-haspopup="true"
 																	aria-expanded="false">
@@ -115,17 +115,17 @@
 																	aria-labelledby="dr2">
 																	<a class="dropdown-item" href="#">Edit</a> <a
 																		class="dropdown-item" href="#">Remove</a> <a
-																		class="dropdown-item" href="#">Assign</a>
+																		class="dropdown-item" th:href="|adminGPSelect/${gp.no}|">상세보기</a>
 																</div>
-															</div>
-														</td>
+															</div></td>
 													</tr>
-
-
-
 												</tbody>
 											</table>
-
+											<div>
+												<form id="hiddenFrm" action="adminGPSelect" method="post">
+													<input type="hidden" name="no" id="no">
+												</form>
+											</div>
 
 											<div class="pagination">
 												<a href="#">&laquo;</a> <a
@@ -163,7 +163,6 @@
 		<script src="js/config.js"></script>
 		<script src='js/jquery.dataTables.min.js'></script>
 		<script src='js/dataTables.bootstrap4.min.js'></script>
-
 
 	</div>
 </body>

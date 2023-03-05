@@ -28,12 +28,11 @@ public class CommunityController {
 	
 	// 전체조회
 	@RequestMapping("/community")
-	public String community(Model model) { // getCmniList(여기 받는 값이 없는데 = 리스트 만들수가 없는데) -> community의 매개변수로 modelList<Map<String, Object>> list를 넘기려고 하니까 No primary or single unique constructor found~ 에러가 뜨는거임 ㅠ
-		
+	public String community(Model model) { 
+		// getCmniList(여기 받는 값이 없는데 = 리스트 만들수가 없는데)
+		// -> community의 매개변수로 modelList<Map<String, Object>> list를 넘기려고 하니까
+		// No primary or single unique constructor found~ 에러가 뜨는거임 ㅠ
 		model.addAttribute("cmntList", communityService.getCmntList());
-		
-		System.out.println("====== 결과 ▶ " + communityService.getCmntList());
-		
 		return "community/community";
 	}
 	
@@ -41,10 +40,7 @@ public class CommunityController {
 	// 단건조회(ajax)
 	@GetMapping("/community/{no}")
 	@ResponseBody // ajax 처리할때 필요
-	public MealVO challengeOne(Model model, HttpSession session, @PathVariable int no) {
-		
-		System.out.println(communityService.getCommunity(no));
-		
+	public MealVO challengeOne(@PathVariable int no) {
 		return communityService.getCommunity(no);
 	}
 	

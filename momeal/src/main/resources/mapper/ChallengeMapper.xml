@@ -3,8 +3,6 @@
 <mapper namespace="co.doeat.management.mapper.ChallengeMapper">
 
 	<!-- 챌린지 전체조회 -->
-	<!-- 로그인 안 했을때는 하트유무를 표시 안 해줘야 함. html에서 처리하면 되나? -->
-	<!-- 쿼리에서는...어쩌지? -->
 	<select id="getChallList" resultType="map">
 		SELECT C.*, (SELECT COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE = 'CT01') AS LIKE_CHK 
 		FROM CHALLENGES C
@@ -25,7 +23,25 @@
 								ON C.NO = L.POST_NO
 								ORDER BY L.RWN
 	</select>
-	
+
+	<select id="likeRankChallList" resultType="map">
+		WITH LIKE_COUNT AS
+		(SELECT POST_NO, COUNT(*) CN
+		FROM LIKES
+		GROUP BY POST_NO
+		ORDER BY CN DESC, POST_NO)
+
+		SELECT C.*, L.*, NVL((SELECT L.NO FROM LIKES L
+		WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE =
+		'CT01'),0) AS LIKE_NO
+		FROM CHALLENGES C JOIN (SELECT LIKE_RNK.*
+		FROM (SELECT LIKE_COUNT.*, ROWNUM RWN
+		FROM LIKE_COUNT) LIKE_RNK
+		WHERE ROWNUM BETWEEN 1 AND 6 ORDER BY ROWNUM) L
+		ON C.NO = L.POST_NO
+		ORDER BY L.RWN
+	</select>
+
 	<!-- 챌린지단건조회 -->
 	<select id="getChallenge" resultType="co.doeat.management.service.ChallengeVO">
         SELECT C.*, I.*, (C.PARTICIR * C.DEDUCT_POINT) AS SUM_POINT, (C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY,
@@ -35,11 +51,11 @@
 		ON (C.NO = I.POST_NO)
 		WHERE I.POST_NO = #{no} AND I.BOARD_CODE='CT01'
 	</select>
-	
+
 	<!-- 챌린지 등록 -->
 	<insert id="challInsert">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-	    	SELECT seq_board.NEXTVAL AS NO FROM DUAL
+			SELECT seq_board.NEXTVAL AS NO FROM DUAL
 		</selectKey>
 		INSERT INTO CHALLENGES
 		VALUES(#{no}, #{title}, #{subject}, #{chalStartDate}, #{chalEndDate}, #{round}, 
@@ -66,7 +82,7 @@
 		WHERE P.USER_ID = #{userId} AND P.CODE_ID IS NULL
 		ORDER BY C.CHAL_START_DATE, C.CHAL_END_DATE
 	</select>
-	
+
 	<!-- 참여중인 챌린지 단건조회 -->
 	<select id="getMyChall" resultType="map">
 		SELECT *
@@ -76,11 +92,10 @@
 											ON(P.USER_ID = U.USER_ID)
 		WHERE P.USER_ID = #{userId} AND P.NO = #{no}
 	</select>
-	
-	<!--  관리자 챌린지 리스트 -->
+
+	<!-- 관리자 챌린지 리스트 -->
 	<select id="adminChalList" resultType="ChallengeVO">
-		SELECT * FROM CHALLENGES 
-		
+		SELECT * FROM CHALLENGES
 	</select>
 
 </mapper>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico">
+<title>groupPurchaseInput</title>
+<!-- Simple bar CSS -->
+<link rel="stylesheet" href="/assets/css/simplebar.css">
+<!-- Fonts CSS -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+	rel="stylesheet">
+<!-- Icons CSS -->
+<link rel="stylesheet" href="/assets/css/feather.css">
+<!-- <!-- Date Range Picker CSS -->
+<!-- <link rel="stylesheet" href="/assets/css/daterangepicker.css"> -->
+<!-- <!-- App CSS -->
+<!-- <link rel="stylesheet" href="/assets/css/app-light.css" id="lightTheme"> -->
+<!-- <link rel="stylesheet" href="/assets/css/app-dark.css" id="darkTheme" disabled> -->
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div align="center">
+			<h4>주문정보 입력</h4>
+			<hr>
+		</div>
+		<div>
+			<form id="frm" action="/purchaseForm.do" method="post">
+				<table border="1">
+					<tr>
+						<th>아이디</th>
+						<td><input type="text" id="userId" name="userId" required>
+							<!-- 									<button type="button" id="btn" onclick="idCk()" value="no">중복체크</button> -->
+						</td>
+					</tr>
+					<tr>
+						<th>배송지</th>
+						<td><input type="text" id="deliveryAddr" name="deliveryAddr"></td>
+					</tr>
+					<tr>
+						<th>우편번호</th>
+						<td><input type="text" id="zipcode" name="zipcode"></td>
+					</tr>
+					<tr>
+						<th>연락처</th>
+						<td><input type="text" id="tel" name="tel"></td>
+					</tr>
+					<tr>
+						<th>결제수단</th>
+						<td><input type="radio" id="paymentMthd" name="paymentMthd"
+							value="카드">카드<br> <input type="radio"
+							id="paymentMthd" name="paymentMthd" value="현금">현금</td>
+					</tr>
+					<tr>
+						<th>이용약관</th>
+						<td><input type="checkbox" id="userUse" name="userUse">
+							<label for="userUse">약관에 동의하시겠습니까?</label></td>
+					</tr>
+					<tr>
+						<td><textarea class="form-control" name="message"
+								id="message" rows="1" placeholder="Order Notes"></textarea></td>
+					</tr>
+				</table>
+				<br> <input type="submit" value="구매하기">
+				<!-- 						<input type="button" value="뒤로가기" onclick="location.href='groupBuying'"> -->
+			</form>
+		</div>
+	</div>
+
+
+
+	<!-- Scripts -->
+	<script src="/assets/js/tippy.all.min.js"></script>
+	<script src="/assets/js/uikit.js"></script>
+	<script src="/assets/js/simplebar.js"></script>
+	<script src="/assets/js/custom.js"></script>
+	<!-- 		<script src="/assets/js/bootstrap-select.min.js"></script> -->
+
+
+	<script src="/assets/js/bootstrap.bundle.min.js"></script>
+	<script src="/assets/js/skrollr.min.js"></script>
+	<script src="/assets/js/owl.carousel.min.js"></script>
+	<script src="/assets/js/jquery.nice-select.min.js"></script>
+	<script src="/assets/js/jquery.ajaxchimp.min.js"></script>
+	<script src="/assets/js/mail-script.js"></script>
+	<script src="/assets/js/main.js"></script>
+	<!-- 		<script src="/second-template/js/bootstrap.min.js"></script> -->
+	<script src="/second-template/js/jquery-ui.min.js"></script>
+	</div>
+</body>
+</html>
