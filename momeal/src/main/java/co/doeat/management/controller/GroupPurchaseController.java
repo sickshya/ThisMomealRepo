@@ -194,6 +194,20 @@ public class GroupPurchaseController {
 		model.addAttribute("selects", groupPurchaseService.adminGPSelect(no));
 		return "admin/adminGPSelect";
 	}
-	// 관리자 공동구매 update
+
+	// 관리자 공동구매 delete
+	@RequestMapping("/adminGPDelete/{no}")
+	public String adminGPDelete(@PathVariable int no, Model model, GroupPurchaseListVO vo, ImageVO evo) {
+		String boardCode = "CT03";
+		int postNo = vo.getNo();
+		imageService.adminGPIDelete(postNo, boardCode);
+		groupPurchaseService.adminGPDelete(no);
+//		if(n != 0) {
+//			model.addAttribute("message", "정상적으로 삭제 되었습니다.");
+//		}else {
+//			model.addAttribute("message", "삭제 실패");
+//		}
+		return "redirect:/adminGroupPurchase";
+	}
 
 }
