@@ -7,32 +7,7 @@
 <title>community</title>
 
 <script>
-$(function() {
-	$(".oneCmnt").on("click", function() {
-
-		console.log("왔니...........");
-		console.log($(this));
-		let no = $(this).data("cmntno"); // 대소문자 구분 안됨. cmntno는 변수가 아니니까(?) ""안에 넣어주기
-		console.log(no);
-
-		$.ajax({
-			url: "/community/" + no
-		})
-		.then(obj => { // 넘어오는 결과값 자체가 json 타입
-			console.log(obj);
-			$("#cmntImg").attr("src", obj.fileDir);
-		}); 
-		
-		
-		$.ajax({
-			url: "/comment/" + postNo
-		})
-		.then(result => {
-			console.log("댓글 ======== " + result);
-		})
-
-	});
-});
+// $();
 </script>
 
 </head>
@@ -198,11 +173,11 @@ $(function() {
 							</div>
 
 							<div class="-mt-1 space-y-1" id="reply">
-								<div class="flex flex-1 items-center space-x-2">
+								<!-- <div class="flex flex-1 items-center space-x-2">
 									<img src="assets/images/avatars/avatar-2.jpg"
 										class="rounded-full w-8 h-8">
-									<div class="flex-1 p-2">[[]]</div>
-								</div>
+									<div class="flex-1 p-2">댓글</div>
+								</div> -->
 							</div>
 
 
@@ -227,7 +202,50 @@ $(function() {
 		</div>
 		<!-- 스토리 모달 끝 -->
 	<script>
+		$(".oneCmnt").on("click", function() {
+			console.log("왔니...........");
+			console.log($(this));
+			let no = $(this).data("cmntno"); // 대소문자 구분 안됨. cmntno는 변수가 아니니까(?) ""안에 넣어주기
+			console.log(no);
+
+			$.ajax({
+				url: "/community/" + no
+			})
+			.then(obj => { // 넘어오는 결과값 자체가 json 타입
+				console.log(obj);
+				$("#cmntImg").attr("src", obj.fileDir);
+			});
+			
+			commentList(no);
+			
+		});
 		
+
+		function commentList(postNo) {
+			console.log("글번호 =========" + postNo)
+			$.ajax({
+				url: "/comment/" + postNo,
+				type: 'post',
+				dataType: 'json',   // 데이터 타입을 Json으로 변경
+				contentType: 'application/json',   // Content-Type을 Json으로 변경
+			})
+			.then(data => {
+				console.log("댓글 ======== " + data);
+				
+				$(data).each(function(index, item) {
+					console.log(item.profileImgPath);
+
+					$("#reply").append(
+						`<div class="flex flex-1 items-center space-x-2">
+									<img th:src="${item.profileImgPath}"
+										class="rounded-full w-8 h-8">
+									<div class="flex-1 p-2"><p>${item.subject}</p></div>
+								</div>`
+					)
+				});
+				
+			})
+		}
 	</script>
 	</div>
 </body>
