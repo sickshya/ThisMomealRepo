@@ -48,9 +48,9 @@
 		,COUNT(PST.NO) AS ordCnt
 		FROM GROUP_PURCHASE_LISTS PL
 		JOIN GROUP_PURCHASE_SETTLEMENT PST ON PL.NO = PST.NO
-	<![CDATA[
-	WHERE TRUNC(grp_start_date) <= sysdate AND sysdate < grp_end_date
-	]]>
+		<![CDATA[
+		WHERE TRUNC(grp_start_date) <= sysdate AND sysdate < grp_end_date
+		]]>
 		GROUP BY PL.NO
 		,PL.NAME
 		,PL.CO_NAME
@@ -137,27 +137,27 @@
 
 	<select id="getAdminGroupPurchaseList"
 		parameterType="co.doeat.management.service.GroupPurchaseListVO"
-		resultType="co.doeat.management.service.GroupPurchaseListVO">
-
+		resultType="co.doeat.management.service.GroupPurchaseListVO"> 
 		SELECT * FROM( SELECT rownum rn, a.*
 		from(
 
 		SELECT
 		no,name,co_name,grp_start_date,grp_end_date,
-						<![CDATA[
-					        CASE WHEN grp_start_date <=trunc(current_date) AND grp_end_date <= trunc(current_date) THEN '완료'
-					            WHEN TRUNC(grp_start_date) <= TRUNC(current_date) And trunc(current_date) <= grp_end_date Then '진행중' 
-					            Else '진행전'  
-					              END as gpstatus
-				 		]]>
+		<![CDATA[
+	        CASE WHEN grp_start_date <=trunc(current_date) 
+      		  		AND grp_end_date <= trunc(current_date) THEN '완료'
+	            WHEN TRUNC(grp_start_date) <= TRUNC(current_date) 
+	            	And trunc(current_date) <= grp_end_date Then '진행중' 
+	            Else '진행전' END as gpstatus
+ 		]]>
 		FROM GROUP_PURCHASE_LISTS
 
 		<include refid="creiteria"></include>
 		order by no
-<![CDATA[
-		 )a where rownum <= #{last}) b where rn  >= #{first}
-	
-]]>
+		
+		<![CDATA[
+		)a where rownum <= #{last}) b where rn  >= #{first} 
+		]]>
 	</select>
 
 	<!-- 등록 -->
