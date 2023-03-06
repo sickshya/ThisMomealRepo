@@ -17,12 +17,14 @@ public class FollowServiceImpl implements FollowService{
 
 	// 팔로우 하기
 	@Override
-	public void follow(FollowVO vo) {
+	public FollowVO follow(FollowVO vo) {
+		return followMapper.follow(vo);
 	}
 
 	// 언팔로우 하기
 	@Override
-	public void unfollow(FollowVO vo) {
+	public FollowVO unfollow(FollowVO vo) {
+		return followMapper.unfollow(vo);
 	}
 
 	// 팔로우 유무

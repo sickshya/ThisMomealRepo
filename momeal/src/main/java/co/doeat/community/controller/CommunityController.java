@@ -41,7 +41,7 @@ public class CommunityController {
 	
 	// 단건조회(ajax)
 	@GetMapping("/community/{no}")
-	@ResponseBody // ajax 처리할때 필요
+	@ResponseBody
 	public MealVO challengeOne(Model model, Map<String, Object>map, HttpSession session, @PathVariable int no) {
 		
 		map.put("userId", session.getAttribute("userId"));
@@ -52,15 +52,30 @@ public class CommunityController {
 		return communityService.getCommunity(map);
 	}
 	
-	// 팔로우 신청(ajax)
-	@PostMapping("/follow/user1")
+	
+	// 팔로우 하기(ajax)
+	@PostMapping("/follow/{userId}")
 	@ResponseBody
-	public String follow(FollowVO vo, HttpSession session) { // @PathVariable String id 피드 작성자 id를 받아와야함
-		String id = "user7";
+	public FollowVO follow(FollowVO vo, HttpSession session, @PathVariable String userId) { // userId = 피드 작성자 id를 받아와야함
 		vo.setFollowerId((String)session.getAttribute("userId"));
-		vo.setFolloweeId(id);
+		vo.setFolloweeId(userId);
+		
+		// 혹시나 이게 동작하지 않는다면 serviceImpl을 확인해보기... 아무 동작도 안 하고 있을 수 있음
 		followService.follow(vo);
-		return "FollowOK";
+		
+		return vo;
+	}
+	
+	// 언팔로우 하기(ajax)
+	@PostMapping("/unfollow/{userId}")
+	@ResponseBody
+	public FollowVO unfollow(FollowVO vo, HttpSession session, @PathVariable String userId) {
+		vo.setFollowerId((String)session.getAttribute("userId"));
+		vo.setFolloweeId(userId);
+		
+		followService.unfollow(vo);
+		
+		return vo;
 	}
 
 	// 커뮤니티 검색결과창
