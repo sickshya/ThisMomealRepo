@@ -17,8 +17,8 @@ public class GroupsServiceImpl implements GroupsService {
 	GroupsMapper groupsMapper;
 
 	@Override
-	public List<Map<String, Object>> groupsList() {
-		return groupsMapper.groupsList();
+	public List<GroupsVO> groupsList(String postDate) {
+		return groupsMapper.groupsList(postDate);
 	}
 
 	@Override

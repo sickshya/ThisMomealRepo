@@ -41,8 +41,8 @@
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	transition: 0.3s;
 	/*width: 40%;*/
-	width: auto;
-	height: auto;
+	width: 700px;
+	height: 200px;
 	border-radius: 5px;
 	text-align: center;
 	margin: 0 auto;
@@ -139,13 +139,13 @@ img {
 			<div class="Cal">
 				<table class="Calendar">
 					<thead>
-						<tr>
+						<tr align="center">
 							<td style="width: 100px"></td>
 							<td onclick="prevCalendar();" style="cursor: pointer;">&#60;</td>
 							<td style="width: 500px"><span id="calYear"></span>- <span
 								id="calMonth"></span>- <span id="calDate"></span></td>
 							<td onclick="nextCalendar();" style="cursor: pointer;">&#62;</td>
-							<td style="width: 100px"></td>
+							<td style="width: 1000px"></td>
 						</tr>
 					</thead>
 					<tbody id="tbd">
@@ -169,110 +169,6 @@ img {
 			<!--         </div> -->
 			<!--       </div> -->
 		</div>
-
-
-		<!-- Story modal -->
-
-		<div id="story-modal" class="uk-modal-container" uk-modal>
-
-			<div class="uk-modal-dialog story-modal">
-				<button
-					class="uk-modal-close-default lg:-mt-9 lg:-mr-9 -mt-5 -mr-5 shadow-lg bg-white rounded-full p-4 transition dark:bg-gray-600 dark:text-white"
-					type="button" uk-close></button>
-
-				<div class="story-modal-media">
-					<img src="assets/images/post/img4.jpg" alt=""
-						class="inset-0 h-full w-full object-cover">
-				</div>
-				<div class="flex-1 bg-white dark:bg-gray-900 dark:text-gray-100">
-
-					<!-- post header-->
-					<div
-						class="border-b flex items-center justify-between px-5 py-3 dark:border-gray-600">
-						<div class="flex flex-1 items-center space-x-4">
-							<a href="#">
-								<div
-									class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
-									<img src="assets/images/avatars/avatar-2.jpg"
-										class="bg-gray-200 border border-white rounded-full w-8 h-8">
-								</div>
-							</a> <span class="block text-lg font-semibold"> Johnson smith
-							</span>
-						</div>
-						<a href="#"> <i
-							class="icon-feather-more-horizontal text-2xl rounded-full p-2 transition -mr-1"></i>
-						</a>
-					</div>
-					<div class="story-content p-4" data-simplebar>
-
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-							sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-							aliquam erat volutpat.</p>
-
-						<div class="py-4 ">
-							<div class="flex justify-around">
-								<a href="#" class="flex items-center space-x-3">
-									<div class="flex font-bold items-baseline">
-										<i class="uil-heart mr-1"> </i> Like
-									</div>
-								</a>
-								<button type="button">글수정</button>
-								<button type="button">글삭제</button>
-
-							</div>
-							<hr class="-mx-4 my-3">
-							<div class="flex items-center space-x-3">
-								<div class="flex items-center">
-									<img src="assets/images/avatars/avatar-1.jpg" alt=""
-										class="w-6 h-6 rounded-full border-2 border-white"> <img
-										src="assets/images/avatars/avatar-4.jpg" alt=""
-										class="w-6 h-6 rounded-full border-2 border-white -ml-2">
-									<img src="assets/images/avatars/avatar-2.jpg" alt=""
-										class="w-6 h-6 rounded-full border-2 border-white -ml-2">
-								</div>
-								<div>
-									Liked <strong> Johnson</strong> and <strong> 209
-										Others </strong>
-								</div>
-							</div>
-						</div>
-
-						<div class="-mt-1 space-y-1">
-							<div class="flex flex-1 items-center space-x-2">
-								<img src="assets/images/avatars/avatar-2.jpg"
-									class="rounded-full w-8 h-8">
-								<div class="flex-1 p-2">consectetuer adipiscing elit, sed
-									diam nonummy nibh euismod</div>
-							</div>
-
-							<div class="flex flex-1 items-center space-x-2">
-								<img src="assets/images/avatars/avatar-4.jpg"
-									class="rounded-full w-8 h-8">
-								<div class="flex-1 p-2">consectetuer adipiscing elit</div>
-							</div>
-
-						</div>
-
-
-					</div>
-					<div class="p-3 border-t dark:border-gray-600">
-						<div
-							class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
-							<input type="text" placeholder="Add your Comment.."
-								class="bg-transparent max-h-8 shadow-none">
-							<div
-								class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
-								<a href="#"> <i class="uil-image"></i></a> <a href="#"> <i
-									class="uil-video"></i></a>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-			</div>
-		</div>
-
 
 
 		<!-- 포인트 모달 -->
@@ -301,93 +197,96 @@ img {
 
 
 		<script>
-window.onload = function () { buildCalendar(); }    // 웹 페이지가 로드되면 buildCalendar 실행
+			window.onload = function() {
+				buildCalendar();
+			} // 웹 페이지가 로드되면 buildCalendar 실행
 
+			let today = new Date(); // 페이지를 로드한 날짜를 저장
+			today.setHours(0, 0, 0, 0); // 비교 편의를 위해 today의 시간을 초기화
 
-let today = new Date();     // 페이지를 로드한 날짜를 저장
-today.setHours(0, 0, 0, 0);    // 비교 편의를 위해 today의 시간을 초기화
+			// 피드생성
+			function buildCalendar() {
 
-// 피드생성
-function buildCalendar() {
+				//let tbody_Calendar = document.querySelector(".Calendar > tbody");
+				document.getElementById("calYear").innerText = today
+						.getFullYear();
+				document.getElementById("calMonth").innerText = leftPad(today
+						.getMonth() + 1);
+				document.getElementById("calDate").innerText = leftPad(today
+						.getDate());
 
-    //let tbody_Calendar = document.querySelector(".Calendar > tbody");
-    document.getElementById("calYear").innerText = today.getFullYear();            
-    document.getElementById("calMonth").innerText = leftPad(today.getMonth() + 1);
-    document.getElementById("calDate").innerText = leftPad(today.getDate()); 
-	
-   	let year =document.getElementById("calYear").innerText
-     let month =document.getElementById("calMonth").innerText
-     let date =document.getElementById("calDate").innerText
-     let thisDay = year +  month + date
-     console.log(thisDay)
-   
-     $.ajax({
-    	url:"/myFeed/"+thisDay,
+				let year = document.getElementById("calYear").innerText
+				let month = document.getElementById("calMonth").innerText
+				let date = document.getElementById("calDate").innerText
+				let thisDay = year + month + date
+				console.log(thisDay)
 
-    	success:function(res){
-    		$('#tbd').empty()
-			//console.log(res[0].typeCode)
-			$(res).each(function(i, res){
-				console.log(res)
-				
-			let tr = `
-			<tr>
-        		<td colspan="6">
-        	    <div class="card" >
-    				<a href="#story-modal" uk-toggle>
-    				<img src="${res.fileDir}" alt="Avatar" style="width:100%">
-    				</a>
-    				<div class="Cardcontainer">
-			          	<div>${res.typeCode}<b></b></div> 
-  			          	<div>식사량 : ${res.mealAmount}</div> 
- 			          	<div>${res.subject}</div> 
-			        </div>
-			      </div>  
-        	</tr>
-			`
-				
-			$('#tbd').append(tr)
-			})
-			
-    		
-    		
-    	}
-     })
-     
-  
-}
+				 $.ajax({
+				    	url:"/groupsFeed/"+thisDay,
 
+				    	success:function(res){
+				    		$('#tbd').empty()
+							//console.log(res[0].typeCode)
+							$(res).each(function(i, re){
+							let tr = `
+							<tr>
+				        		<td colspan="6">
+				        	    <div class="card" >
+				    				<a href="/groupsSelect" uk-toggle>
+				    				<div style="padding: 10px; text-align: left;">
+				    				<img src="${re.profileImgPath}" class= "rounded-full"  style="width:30px; display: inline-block">&nbsp;&nbsp;<b>${re.nickName}</b>
+				    				</div>
+				    				
+				    				`							
+				    				
+							$(re.mealsImg).each(function(i, img){
+								console.log(res)
+								
+								tr += ` <img src="${img.fileDir}" alt="Avatar" style="width:130px; display: inline-block">`
+								
+							})
+							
+				    		tr += 	`</a>
+							      </div>  
+							      </td>
+				        	</tr>`
+							$('#tbd').append(tr)
+							
+							})
+				    		
+				    	}
+							
+				     })
+				     
+				  
+				}
 
+			// 이전달 버튼 클릭
+			function prevCalendar() {
 
+				today = new Date(today.getFullYear(), today.getMonth(), today
+						.getDate() - 1);
+				buildCalendar(); // 달력 다시 생성
 
+			}
+			// 다음달 버튼 클릭
+			function nextCalendar() {
 
-// 이전달 버튼 클릭
-function prevCalendar() {
+				today = new Date(today.getFullYear(), today.getMonth(), today
+						.getDate() + 1);
+				buildCalendar(); // 달력 다시 생성
 
-   today = new Date(today.getFullYear(), today.getMonth() , today.getDate()-1);
-    buildCalendar();    // 달력 다시 생성
+			}
 
-}
-// 다음달 버튼 클릭
-function nextCalendar() {
-   
-	 today = new Date(today.getFullYear(), today.getMonth() , today.getDate()+1);
-	    buildCalendar();    // 달력 다시 생성
-
-	    
-}
-
-// input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수
-function leftPad(value) {
-    if (value < 10) {
-        value = "0" + value;
-        return value;
-    }
-    return value;
-}
-
-
-</script>
+			// input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수
+			function leftPad(value) {
+				if (value < 10) {
+					value = "0" + value;
+					return value;
+				}
+				return value;
+			}
+		</script>
 	</div>
 </body>
 </html>
