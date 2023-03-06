@@ -48,7 +48,7 @@
 <body>
 	<div layout:fragment="content">
 		<!-- Product Details Section Begin -->
-		<!-- 		<section class="product-details spad"> -->
+		<!--       <section class="product-details spad"> -->
 		<div class="container">
 			<form id="attendfrm" th:action="@{/attendChallenge}" method="post">
 				<div class="row">
@@ -88,23 +88,21 @@
 										[[${chall.sumPoint}]]포인트 </span></li>
 								<br>
 								<li><span>80% 이상 성공시 </span><b> 참여비 페이백 + 상금</b></li>
-								<!-- 									<div class="share"> -->
-								<!-- 										<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i -->
-								<!-- 											class="fa fa-twitter"></i></a> <a href="#"><i -->
-								<!-- 											class="fa fa-instagram"></i></a> <a href="#"><i -->
-								<!-- 											class="fa fa-pinterest"></i></a> -->
-								<!-- 									</div> -->
+								<!--                            <div class="share"> -->
+								<!--                               <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i -->
+								<!--                                  class="fa fa-twitter"></i></a> <a href="#"><i -->
+								<!--                                  class="fa fa-instagram"></i></a> <a href="#"><i -->
+								<!--                                  class="fa fa-pinterest"></i></a> -->
+								<!--                            </div> -->
 							</ul>
 							<br> <br>
 							<div style="position: relative;">
 								<div style="float: left; transform: translate(0, -50%);">
-									<a href="#" class="primary-btn" data-target="#Modal-2"
-										onclick="loginChk()">참여하기</a>&nbsp;&nbsp;&nbsp;
+									<a href="" class="primary-btn" data-target="#Modal-2"
+										onclick="loginChk()" id="attendBtn">참여하기</a>&nbsp;&nbsp;&nbsp;
 									<!-- data-toggle="modal" -->
 								</div>
 								&nbsp;&nbsp;
-								<!-- 								<a href="#" -->
-								<!-- 									class="heart-icon" th:if = "${session.userId != null}"><span class="icon_heart_alt"></span></a> -->
 
 								<!-- 좋아요 처리 -->
 								<!-- 로그인 유무에 따라 하트 표시하기(로그인 한 경우만 하트 표시) -->
@@ -207,8 +205,8 @@
 											</button>
 										</div>
 										<div class="modal-body">
-											<!-- 											<img src="" alt="img01" -->
-											<!-- 												class="img-responsive" style="width: 500px; height: 500px;" /> -->
+											<!--                                  <img src="" alt="img01" -->
+											<!--                                     class="img-responsive" style="width: 500px; height: 500px;" /> -->
 											<div class="modal-works" align="right"></div>
 											<br>
 											<p>
@@ -238,40 +236,37 @@
 		</div>
 
 		<script>
-			// 로그인 유무 & 챌린지 참여 여부 판단 후 모달 띄우기
-			function loginChk() {
-				let userId = $('#userId').val();
-				let attendNo = $('#attendNo').val();
-				
-				 console.log("유저 아이디 들어오나요 ================ " + userId);
+		// 로그인 유무 & 챌린지 참여 여부 판단 후 모달 띄우기
+        function loginChk() {
+           let userId = $('#userId').val();
+           let attendNo = $('#attendNo').val();
+           
+            console.log("유저 아이디 들어오나요 ================ " + userId);
 
-		          if(userId == ""){ 
-	             	alert("로그인 한 회원만 신청 가능합니다. \n로그인 후에 다시 시도해주세요."); 
-// 		             $('#attend').attr('data-dismiss', 'modal');
-		             return false;
-		          }
-		          else {
-	                   if(attendNo != 0){
-	                      alert("이미 참여중인 챌린지입니다."); 
-	                      return false;
-	                   }
-	                 $('#attendBtn').attr('data-toggle', 'modal');
-	                }
-			}
-		
-			// 챌린지 참여신청
-			function attedChall() {
-// 				debugger
-				 
-					$('#attendfrm').submit();
-// 		             location.replace("/user/mypageForm.jsp");
-		          }
-		          
-				console.log("챌린지 참가용");
-				
-				
-// 				// 모달창 닫기
-// 				$('#attend').attr('data-dismiss', 'modal');
+               if(userId == ""){ 
+                  alert("로그인 한 회원만 신청 가능합니다. \n로그인 후에 다시 시도해주세요."); 
+//                   $('#attend').attr('data-dismiss', 'modal');
+                  return false;
+               }
+               else {
+                  if(attendNo != 0){
+                     alert("이미 참여중인 챌린지입니다."); 
+                     return false;
+                  }
+                $('#attendBtn').attr('data-toggle', 'modal');
+               }
+        }
+     
+     
+        // 챌린지 참여신청
+        function attedChall() {
+//            debugger
+              $('#attendfrm').submit();
+//                   location.replace("/user/mypageForm.jsp");
+               }
+               
+//            // 모달창 닫기
+//            $('#attend').attr('data-dismiss', 'modal');
 			
 		
 	$(function(){

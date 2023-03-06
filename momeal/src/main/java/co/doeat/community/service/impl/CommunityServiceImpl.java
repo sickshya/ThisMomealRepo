@@ -14,16 +14,18 @@ import co.doeat.community.service.CommunityService;
 public class CommunityServiceImpl implements CommunityService{
 	
 	@Autowired
-	private CommunityMapper map;
+	private CommunityMapper communityMapper;
 	
+	// 커뮤니티 전체조회
 	@Override
 	public List<Map<String, Object>> getCmntList() {
-		return map.getCmntList();
+		return communityMapper.getCmntList();
 	}
 
+	// 커뮤니티 단건조회
 	@Override
-	public MealVO getCommunity(int no) {
-		return map.getCommunity(no);
+	public MealVO getCommunity(Map<String, Object> map) {
+		return communityMapper.getCommunity(map);
 	}
-	
+
 }

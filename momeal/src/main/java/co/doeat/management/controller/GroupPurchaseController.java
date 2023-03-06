@@ -129,17 +129,19 @@ public class GroupPurchaseController {
 	public String myPurchaseList(Model model, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
 		session.setAttribute("userId", "user1");
-		model.addAttribute("myPrList", groupPurchaseService.getPurchaseList());
+
+		String userId = (String) session.getAttribute("userId");
+		model.addAttribute("myPrList", groupPurchaseService.getPurchaseList(userId));
 		return "myPages/myPurchaseList";
 	}
 
 	// 마이페이지 공동구매상세내역
 	@RequestMapping("/myPurchaseSelect/{prdtNo}")
-	public String myPurchaseSelect(Model model, @PathVariable int prdtNo, HttpSession session,
-			HttpServletRequest request) {
-		session = request.getSession();
-		session.setAttribute("userId", "user1");
-		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(prdtNo));
+	public String myPurchaseSelect(Model model, @PathVariable int prdtNo, HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
+		int no = prdtNo;
+		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(userId, no));
+		System.out.println("결과 ==========" + groupPurchaseService.purchaseSelect(userId, no));
 		return "myPages/myPurchaseSelect";
 	}
 

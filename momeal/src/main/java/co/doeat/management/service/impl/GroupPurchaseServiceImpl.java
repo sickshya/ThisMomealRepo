@@ -57,13 +57,13 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 	// +++++++++++++++++++++++++++마이페이지
 
 	@Override
-	public List<GroupPurchaseListVO> getPurchaseList() {
-		return groupPurchaseMapper.getPurchaseList();
+	public List<GroupPurchaseListVO> getPurchaseList(String userId) {
+		return groupPurchaseMapper.getPurchaseList(userId);
 	}
 
 	@Override
-	public Map<String, Object> purchaseSelect(int prdtNo) {
-		return groupPurchaseMapper.purchaseSelect(prdtNo);
+	public Map<String, Object> purchaseSelect(String userId, int no) {
+		return groupPurchaseMapper.purchaseSelect(userId, no);
 	}
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++관리자

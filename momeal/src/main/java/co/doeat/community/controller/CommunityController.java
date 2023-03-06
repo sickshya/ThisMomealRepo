@@ -1,5 +1,7 @@
 package co.doeat.community.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,20 +30,26 @@ public class CommunityController {
 	
 	// 전체조회
 	@RequestMapping("/community")
-	public String community(Model model) { 
-		// getCmniList(여기 받는 값이 없는데 = 리스트 만들수가 없는데)
-		// -> community의 매개변수로 modelList<Map<String, Object>> list를 넘기려고 하니까
-		// No primary or single unique constructor found~ 에러가 뜨는거임 ㅠ
+	public String community(Model model) { // getCmniList(여기 받는 값이 없는데 = 리스트 만들수가 없는데) -> community의 매개변수로 modelList<Map<String, Object>> list를 넘기려고 하니까 No primary or single unique constructor found~ 에러가 뜨는거임 ㅠ
+		
 		model.addAttribute("cmntList", communityService.getCmntList());
+		
+		System.out.println("====== 결과 ▶ " + communityService.getCmntList());
+		
 		return "community/community";
 	}
-	
 	
 	// 단건조회(ajax)
 	@GetMapping("/community/{no}")
 	@ResponseBody // ajax 처리할때 필요
-	public MealVO challengeOne(@PathVariable int no) {
-		return communityService.getCommunity(no);
+	public MealVO challengeOne(Model model, Map<String, Object>map, HttpSession session, @PathVariable int no) {
+		
+		map.put("userId", session.getAttribute("userId"));
+		map.put("no", no);
+		
+		System.out.println(communityService.getCommunity(map));
+		
+		return communityService.getCommunity(map);
 	}
 	
 	// 팔로우 신청(ajax)
@@ -55,8 +63,6 @@ public class CommunityController {
 		return "FollowOK";
 	}
 
-
-	
 	// 커뮤니티 검색결과창
 	@RequestMapping("/communitySearch")
 	public String communitySearch() {
