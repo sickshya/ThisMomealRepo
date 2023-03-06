@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import co.doeat.community.mapper.UserMapper;
 import co.doeat.community.service.UserService;
-import co.doeat.community.service.UsersSearchVO;
+import co.doeat.community.service.UserSearchVO;
 import co.doeat.community.service.UsersVO;
 
 @Service
@@ -42,13 +42,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UsersVO> getAdminUserList(UsersSearchVO svo) {
+	public List<UsersVO> getAdminUserList(UserSearchVO svo) {
 
 		return userMapper.getAdminUserList(svo);
 	}
 
 	@Override
-	public int getCountTotal(UsersSearchVO svo) {
+	public int getCountTotal(UserSearchVO svo) {
 
 		return userMapper.getCountTotal(svo);
 	}
