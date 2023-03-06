@@ -3,17 +3,17 @@
 <mapper namespace="co.doeat.activity.mapper.FollowMapper">
 	
 	<!-- 팔로우 하기 (세션에 있는 아이디, 팔로우 할 대상 유저 아이디, 팔로우 수락 유무)-->
-	<insert id="follow">
+	<select id="follow" resultType="co.doeat.activity.service.FollowVO">
 		INSERT INTO FOLLOW
 		VALUES (#{followerId}, #{followeeId}, 'N')
-	</insert>
+	</select>
 	
 	<!-- 언팔로우 하기 FOLLOWER_ID = 세션에 있는 아이디 / FOLLOWEE_ID = 언팔 대상 유저의 아이디 -->
-	<delete id="unfollow">
+	<select id="unfollow" resultType="co.doeat.activity.service.FollowVO">
 		DELETE FROM FOLLOW
-		WHERE FOLLOWER_ID = 'user3'
-		AND FOLLOWEE_ID = 'user1'
-	</delete>
+		WHERE FOLLOWER_ID = #{followerId}
+		AND FOLLOWEE_ID = #{followeeId}
+	</select>
 	
 	<!-- 팔로잉 유무 (팔로우 중 = 1, 팔로우 안 함 = 0) -->
 	<select id="isFollow" resultType="int">
@@ -23,7 +23,7 @@
 		AND FOLLOWEE_ID = 'user1'
 	</select>
 	
-	<!-- 팔로우 리스트 조회(로그인 한 회원을 팔로우한 회원들) -->
+	<!-- 팔로잉 리스트 조회(로그인 한 회원을 팔로우한 회원들) -->
 	<select id="selectFolloweeList" resultType="FollowVO">
 		SELECT F.*,U.NICK_NAME, U.PROFILE_IMG_PATH
 		FROM FOLLOW F JOIN USERS U

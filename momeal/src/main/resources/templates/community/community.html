@@ -121,7 +121,7 @@
 						<div
 							class="border-b flex items-center justify-between px-5 py-3 dark:border-gray-600">
 							<div class="flex flex-1 items-center space-x-4">
-								<a href="#">
+								<a href="">
 									<div
 										class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
 										<img id="feedFrofile" src=""
@@ -158,41 +158,23 @@
 									</a>
 								</div>
 								<hr class="-mx-4 my-3">
-								<!-- 								<div class="flex items-center space-x-3"> -->
-								<!-- 									<div class="flex items-center"> -->
-								<!-- 										<img src="assets/images/avatars/avatar-1.jpg" alt="" -->
-								<!-- 											class="w-6 h-6 rounded-full border-2 border-white"> <img -->
-								<!-- 											src="assets/images/avatars/avatar-4.jpg" alt="" -->
-								<!-- 											class="w-6 h-6 rounded-full border-2 border-white -ml-2"> -->
-								<!-- 										<img src="assets/images/avatars/avatar-2.jpg" alt="" -->
-								<!-- 											class="w-6 h-6 rounded-full border-2 border-white -ml-2"> -->
-								<!-- 									</div> -->
-								<!-- 									<div> -->
-								<!-- 										Liked <strong> Johnson</strong> and <strong> 209 -->
-								<!-- 											Others </strong> -->
-								<!-- 									</div> -->
-								<!-- 								</div> -->
 							</div>
 
+							<!-- 댓글 출력 -->
 							<div class="-mt-1 space-y-1" id="reply">
-								<!-- <div class="flex flex-1 items-center space-x-2">
-									<img src="assets/images/avatars/avatar-2.jpg"
-										class="rounded-full w-8 h-8">
-									<div class="flex-1 p-2">댓글</div>
-								</div> -->
-							</div>
 
+							</div>
+							<!-- 댓글 출력 끝 -->
 
 						</div>
 						<div class="p-3 border-t dark:border-gray-600">
 							<div
 								class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
-								<input type="text" placeholder="Add your Comment.."
-									class="bg-transparent max-h-8 shadow-none">
+								<input type="text" placeholder="댓글을 입력하세요."
+									class="bg-transparent max-h-8 shadow-none" id="cmmtSubject">
 								<div
 									class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
-									<a href="#"> <i class="uil-image"></i></a> <a href="#"> <i
-										class="uil-video"></i></a>
+									<a href=""><button type="button" style="font-size:10px;" onclick="cmmtInsert()">등록</button></a>
 								</div>
 							</div>
 						</div>
@@ -204,12 +186,10 @@
 		</div>
 		<!-- 스토리 모달 끝 -->
 		<script>
-		// 세션 아이디 값 받아오기
-		// let userId = '<%=(String)session.getAttribute("userId")%>';
 		
-// 		let userId = sessionStorage.getItem("userId");
+		// ▶ 현재 로그인 중인 아이디(세션에 담긴 아이디)
+		let sessionId = $(".oneCmnt").data("sessionid");
 		
-	
 	
 		// ▶ 커뮤니티 게시글 단건 조회 ajax
 		$(".oneCmnt").on("click", function() {
@@ -219,13 +199,14 @@
 			console.log(no);
 
 			let sessionId = $(this).data("sessionid");
+			let dataDiv = $(this);
 			
 			$.ajax({
 				url: "/community/" + no
 			})
 			.then(obj => { // 넘어오는 결과값 자체가 json 타입
 				console.log("팔로우 아이디 챙겨왓나용 ===== " + obj.userId);
-				console.log("세션 아이디 받았나용 ======= " + sessionId)
+				console.log("세션 아이디 받았나용 ======= " + sessionId);
 				$("#cmntImg").attr("src", obj.fileDir);
 				$("#subject").text(obj.subject);
 				$("#nickName").text(obj.nickName);
@@ -240,12 +221,13 @@
 					if(obj.userId == obj.followeeId) {
 						$(".follow").attr("id", "unfollowBtn");
 						$(".follow").attr("value", obj.userId);
-						$(".follow").attr("onclick", "unfollow(" + obj.userId + ")");
+						$(".follow").attr("onclick", "unfollow('" + obj.userId + "')");
 						$(".follow").text("언팔로우");
+// 						dataDiv.data("sessionid", obj.userId);
 					}else{
 						$(".follow").attr("id", "followBtn");
 						$(".follow").attr("value", obj.userId);
-						$(".follow").attr("onclick", "follow(" + obj.userId + ")");
+						$(".follow").attr("onclick", "follow('" + obj.userId + "')");
 						$(".follow").text("팔로우");
 					}
 				}
@@ -255,8 +237,11 @@
 	});
 		
 
-		// ▶ 댓글, 대댓글 ajax
+		// ▶ 댓글, 대댓글 리스트 출력 ajax
 		function commentList(postNo) {
+// 			let sessionId = $(".oneCmnt").data("sessionid");
+// 			console.log("로그인 아이디 ===== " + sessionId)
+			
 			console.log("글번호 =========" + postNo)
 			$.ajax({
 				url: "/comment/" + postNo,
@@ -273,59 +258,90 @@
 				// 댓글창 채우기
 				$(data).each(function(index, item) {
 					console.log(item.profileImgPath);
-					$("#reply").append(
-						`<div class="flex flex-1 items-center space-x-2">
-									<img th:src="${item.profileImgPath}"
-										class="rounded-full w-8 h-8">
-									<div class="flex-1 p-2"><p>${item.subject}</p></div>
-								</div>`
-					)
+					// 댓글일때
+					// 댓글 쓴 아이디가 세션의 아이디와 같다면 수정, 삭제 기능 / 다르다면 답글 기능
+					if(item.cmmtClass == 0) {
+						$("#reply").append(
+							`<div class="flex flex-1 space-x-2" id="comment">
+								<img src="${item.profileImgPath}"
+									class="rounded-full w-8 h-8">
+								<div class="flex-1"><p><b>${item.nickName}</b>
+								${item.userId == sessionId ? 
+									`<button type="button" style="float: right; font-size:12px;">삭제</button>&nbsp;<button type="button" style="float: right; font-size:12px;">수정</button>`
+									: `<button type="button" style="float: right; font-size:12px;">답글</button>`}</p>
+								<p>${item.subject}</p></div>
+							</div>`
+						)
+					}
+					// 대댓글일때
+					// 대댓글 쓴 아이디가 세션의 아이디와 같다면 수정, 삭제 기능
+					if(item.cmmtClass != 0) {
+						$("#reply").append(
+							`<div class="flex flex-1 space-x-2" style="padding-left:20px;">
+								<img src="${item.profileImgPath}"
+									class="rounded-full w-8 h-8">
+								<div class="flex-1"><p><b>${item.nickName}</b>
+								${item.userId == sessionId ? 
+									`<button type="button" style="float: right; font-size:12px;">삭제</button>&nbsp;<button type="button" style="float: right; font-size:12px;">수정</button>` : ``}</p>
+								<p>${item.subject}</p></div>
+							</div> `
+						)
+					}
 				});
 				
 			})
 		};
 		
 		
-		function unfollow(userId) {
-			console.log("가져왔어? ===== " + userId)
-		};
-		
-		
-		// ▶ 팔로잉 기능
-		// 팔로우 / 언팔로우 확인
-		// 새로 만들어진 버튼에 이벤트 어케 주더라.........................
-// 		$("#followBtn").on("click", function() {
-// 			console.log($(this))
-// // 			follow(true);
-// 		});
-
-// 		$("#unfollowBtn").on("click", function() {
-// 			console.log($(this).val())
-// // 			follow(false);
-// 		});
-
-		// 팔로잉 처리 ajax
-		function follow(check) {
-// 			console.log("아작스에도 왔남요 ===== " + userId);
+		// ▶ 댓글 등록 ajax
+		function cmmtInsert() {
 			
-			// 팔로잉 상태가 아니라면 팔로잉 처리 해주기
-			if(check) {
+		}
+		
+
+		// ▶ 팔로우 처리 ajax
+		function follow(userId) {
+// 			debugger
+			console.log("아작스에도 왔남요 ===== " + userId);
+// 			let followId = $(".follow").val();
+// 			let followBtn = $(".follow");
+			
+// 			event.preventDefault()
+// 			debugger
 				$.ajax ({
 					type: 'post',
-					url: '/follow/user1', // 피드 유저의 id를 넘겨줘야함
-					dataType: 'json',   // 데이터 타입을 Json으로 변경
+					url: '/follow/' + userId, // 피드 유저의 id를 넘겨줘야함
+					//dataType: 'json',   // 데이터 타입을 Json으로 변경 // 넘겨주는 값이 JSON타입이 아니라 plain 텍스트인데 JSON으로 넘겨서 애가 인식을 못 한 거임!!!
 					contentType: 'application/json'   // Content-Type을 Json으로 변경
 				})
 				.then(result => {
-					console.log(result)
-					if(result == "FollowOK") {
-						console.log()
-					}
+					console.log("팔로우 신청 결과 ===== " + result.followeeId)
+					$(".follow").attr("id", "unfollowBtn");
+					$(".follow").attr("value", result.followeeId);
+					$(".follow").attr("onclick", "unfollow('" + result.followeeId + "')");
+					$(".follow").text("언팔로우");
 				})
-			}
 		}
+		
+		
+		// ▶ 언팔로우 처리 ajax
+		function unfollow(userId) {
+			console.log("언팔할 아이디 가져왔어? ===== " + userId);
+			
+			$.ajax ({
+				type: 'post',
+				url: '/unfollow/' + userId, // 피드 유저의 id를 넘겨줘야함
+				contentType: 'application/json'   // Content-Type을 Json으로 변경
+			})
+			.then(result => {
+				console.log("언팔로우 결과 ===== " + result.followeeId)
+					$(".follow").attr("id", "followBtn");
+					$(".follow").attr("value", result.followeeId);
+					$(".follow").attr("onclick", "follow('" + result.followeeId + "')");
+					$(".follow").text("팔로우");
+			})
+		};
 
-		// 
 	</script>
 	</div>
 </body>

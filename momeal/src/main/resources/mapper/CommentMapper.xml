@@ -8,11 +8,29 @@
 		FROM COMMENTS C JOIN USERS U
 		ON C.USER_ID = U.USER_ID
 		WHERE C.POST_NO = #{postNo} AND BOARD_CODE = #{boardCode}
-		ORDER BY C.WRITE_DATE, C.CMMT_CODE, C.CMMT_ORDER
+		ORDER BY C.CMMT_GROUP, C.CMMT_ORDER
 	</select>
 
 	<!-- 댓글 등록 -->
+	<insert id="commentInsert" parameterType="co.doeat.community.service.CommentVO">
+		<selectKey keyColumn="no,cmmt_group" keyProperty="no,cmmtGroup" resultType="map" order="BEFORE">
+			SELECT MAX(NO)+1, MAX(CMMT_GROUP)+1 
+			FROM COMMENTS
+		</selectKey>
+		INSERT INTO COMMENTS
+		VALUES (#{no}, #{userId}, sysdate, #{subject}, 0, 1, #{cmmtGroup}, #{postNo}, #{boardCode})
+	</insert>
 	
+	<!-- 대댓글 등록 -->
+	<!-- cmmtGroup은 컨트롤러 태우러 보낼때 값을 같이 보내야할듯..? -->
+	<insert id="replyInsert" parameterType="co.doeat.community.service.CommentVO">
+		<selectKey keyColumn="no,cmmt_order" keyProperty="no,cmmtOrder" resultType="map"  order="BEFORE">
+			SELECT MAX(NO)+1, MAX(CMMT_ORDER)+1 
+			FROM COMMENTS
+		</selectKey>
+		INSERT INTO COMMENTS
+		VALUES (#{no}, #{userId}, sysdate, #{subject}, 0, #{cmmtOrder}, #{cmmtGroup}, #{postNo}, #{boardCode})
+	</insert>
 	
 	<!-- 댓글 수정 -->
 	
