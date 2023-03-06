@@ -1,100 +1,80 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
-<meta charset="UTF-8">
-<title>layout</title>
+	<meta charset="UTF-8">
+	<title>layout</title>
 
-<!-- CSS ================================================== -->
-<!-- 메세지, 알림 -->
-<link rel="stylesheet" href="/assets/css/uikit.css">
-
-<link rel="stylesheet" href="/assets/scss/style.scss">
-<link rel="stylesheet" href="/assets/css/style.css">
-<link rel="stylesheet" href="/assets/css/tailwind-dark.css">
-
-<link rel="stylesheet" href="/assets/css/common.css">
-
-
-<!-- Customized Bootstrap Stylesheet ================================================== -->
-<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Icon Font Stylesheet -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-	rel="stylesheet">
-
-<!-- icons ================================================== -->
-<link rel="stylesheet" href="/assets/css/icons.css">
-
-<!-- Favicon -->
-<link href="/assets/images/favicon.png" rel="icon" type="image/png">
-
-
-<!-- Scripts --!>
+	<!-- CSS ================================================== -->
 	<!-- 메세지, 알림 -->
-<script src="/assets/js/uikit.js"></script>
-<script src="/assets/js/simplebar.js"></script>
+	<link rel="stylesheet" href="/assets/css/uikit.css">
+	<link rel="stylesheet" href="/assets/scss/style.scss">
+	<link rel="stylesheet" href="/assets/css/style.css">
+	<link rel="stylesheet" href="/assets/css/tailwind-dark.css">
+	<link rel="stylesheet" href="/assets/css/common.css">
 
-<script src="/assets/js/tippy.all.min.js"></script>
+	<!-- Customized Bootstrap Stylesheet ================================================== -->
+	<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 
-<script src="/assets/js/jquery-3.3.1.min.js"></script>
+	<!-- Icon Font Stylesheet -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-<!-- 		<script src="/assets/js/simplebar.min.js"></script> -->
-<!-- 		<script src="/assets/js/custom.js"></script> -->
+	<!-- icons ================================================== -->
+	<link rel="stylesheet" href="/assets/css/icons.css">
 
-<!-- 	    <script src="/assets/js/bootstrap-select.min.js"></script> -->
+	<!-- Favicon -->
+	<link href="/assets/images/favicon.png" rel="icon" type="image/png">
 
-<!-- 하트, 댓글 말풍선 아이콘 -->
-<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+	<!-- Scripts --!>
+	<!-- 메세지, 알림 -->
+	<script src="/assets/js/uikit.js"></script>
+	<script src="/assets/js/simplebar.js"></script>
 
+	<script src="/assets/js/tippy.all.min.js"></script>
 
-<!-- Basic Page Needs ================================================== -->
-<title>Instello Sharing Photos</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description"
-	content="Instello - Sharing Photos platform HTML Template">
+	<script src="/assets/js/jquery-3.3.1.min.js"></script>
 
+	<!-- 		<script src="/assets/js/simplebar.min.js"></script> -->
+	<!-- 		<script src="/assets/js/custom.js"></script> -->
+	<!-- 	    <script src="/assets/js/bootstrap-select.min.js"></script> -->
 
+	<!-- 하트, 댓글 말풍선 아이콘 -->
+	<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 
-<!-- Customized Bootstrap Stylesheet -->
-<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Basic Page Needs ================================================== -->
+	<title>Instello Sharing Photos</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Instello - Sharing Photos platform HTML Template">
 
-<!-- Basic Page Needs ================================================== -->
-<title>Instello Sharing Photos</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description"
-	content="Instello - Sharing Photos platform HTML Template">
+	<!-- Customized Bootstrap Stylesheet -->
+	<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Basic Page Needs ================================================== -->
+	<title>Instello Sharing Photos</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Instello - Sharing Photos platform HTML Template">
 
 </head>
 
 <body>
 
 	<!-- header start -->
-	<header class="border-none bg-transparent"
-		uk-sticky="cls-active: is_fixed ; cls-inactive: bg-transparent">
+	<header class="border-none bg-transparent" uk-sticky="cls-active: is_fixed ; cls-inactive: bg-transparent">
 		<div class="header_inner">
 			<div class="left-side">
-
 				<!-- Logo -->
 				<div id="logo">
-					<a href="index.html"> <img src="/assets/images/momeal.png"
-						alt="">
+					<a href="index.html"> <img src="/assets/images/momeal.png" alt="">
 					</a>
 				</div>
-
-				<div class="triger"
-					uk-toggle="target: .header_menu ; cls: is-visible">
+				<div class="triger" uk-toggle="target: .header_menu ; cls: is-visible">
 					<i class="uil-bars"></i>
 				</div>
-				<div class="overly"
-					uk-toggle="target: .header_menu ; cls: is-visible"></div>
-
+				<div class="overly" uk-toggle="target: .header_menu ; cls: is-visible"></div>
 			</div>
 			<div class="right-side uk-visible@s">
-
 				<ul class="header_menu" uk-scrollspy-nav="closest: li; scroll: true">
 					<li><a href="/myChallenge"> STORY </a></li>
 					<li><a href="/community"> COMMUNITY </a></li>
@@ -104,27 +84,18 @@
 					<li><a href="#features" uk-scroll> MYPAGE </a></li>
 					<li><a href="#features" uk-scroll> LOGIN </a></li>
 				</ul>
-
-
-
 				<!-- 크기조절용 -->
 				<!-- 				<div class="right-side lg:pr-4"> -->
 
-
-
 				<!-- Notification -->
-
-				<a href="#" class="header-links-item"> <svg
-						xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-						stroke="currentColor">
-                            <path stroke-linecap="round"
-							stroke-linejoin="round" stroke-width="2"
+				<a href="#" class="header-links-item"> <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+						viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 							d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                        </svg>
+					</svg>
 				</a>
 				<div uk-drop="mode: click;offset: 4" class="header_dropdown">
-					<h4
-						class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
+					<h4 class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
 						Notification</h4>
 					<ul class="dropdown_scrollbar" data-simplebar>
 						<li><a href="#">
@@ -133,79 +104,73 @@
 								</div>
 								<div class="drop_content">
 									<p>
-										<strong>Adrian Mohani</strong> Lorem ipsum dolor cursus <span
-											class="text-link"> Adipiscing massa convallis </span>
+										<strong>Adrian Mohani</strong> Lorem ipsum dolor cursus <span class="text-link">
+											Adipiscing massa convallis </span>
 									</p>
 									<span class="time-ago"> 2 hours ago </span>
 								</div>
-						</a></li>
+							</a></li>
 						<li><a href="#">
 								<div class="drop_avatar">
 									<img src="/assets/images/avatars/avatar-2.jpg" alt="">
 								</div>
 								<div class="drop_content">
 									<p>
-										<strong>Stella Johnson</strong> Nonummy nibh euismod <span
-											class="text-link"> Imperdiet doming </span>
+										<strong>Stella Johnson</strong> Nonummy nibh euismod <span class="text-link">
+											Imperdiet doming </span>
 									</p>
 									<span class="time-ago"> 9 hours ago </span>
 								</div>
-						</a></li>
+							</a></li>
 						<li><a href="#">
 								<div class="drop_avatar">
 									<img src="/assets/images/avatars/avatar-3.jpg" alt="">
 								</div>
 								<div class="drop_content">
 									<p>
-										<strong>Alex Dolgove</strong> Lorem ipsum dolor cursus <span
-											class="text-link"> Adipiscing massa convallis </span>
+										<strong>Alex Dolgove</strong> Lorem ipsum dolor cursus <span class="text-link">
+											Adipiscing massa convallis </span>
 									</p>
 									<span class="time-ago"> 12 hours ago </span>
 								</div>
-						</a></li>
+							</a></li>
 						<li><a href="#">
 								<div class="drop_avatar">
 									<img src="/assets/images/avatars/avatar-1.jpg" alt="">
 								</div>
 								<div class="drop_content">
 									<p>
-										<strong>Stella Johnson</strong> Nonummy nibh euismod <span
-											class="text-link"> Imperdiet doming </span>
+										<strong>Stella Johnson</strong> Nonummy nibh euismod <span class="text-link">
+											Imperdiet doming </span>
 									</p>
 									<span class="time-ago"> Yesterday </span>
 								</div>
-						</a></li>
+							</a></li>
 						<li><a href="#">
 								<div class="drop_avatar">
 									<img src="/assets/images/avatars/avatar-3.jpg" alt="">
 								</div>
 								<div class="drop_content">
 									<p>
-										<strong>Alex Dolgove</strong> Lorem ipsum dolor cursus <span
-											class="text-link"> Adipiscing massa convallis </span>
+										<strong>Alex Dolgove</strong> Lorem ipsum dolor cursus <span class="text-link">
+											Adipiscing massa convallis </span>
 									</p>
 									<span class="time-ago"> 12 hours ago </span>
 								</div>
-						</a></li>
+							</a></li>
 					</ul>
 					<a href="#" class="see-all">See all</a>
 				</div>
 
-
-
 				<!-- Messages -->
-
-				<a href="#" class="header-links-item"> <svg
-						xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-						stroke="currentColor">
-                                <path stroke-linecap="round"
-							stroke-linejoin="round" stroke-width="2"
+				<a href="#" class="header-links-item"> <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+						viewBox="0 0 24 24" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 							d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-                            </svg>
+					</svg>
 				</a>
 				<div uk-drop="mode: click;offset: 4" class="header_dropdown">
-					<h4
-						class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
+					<h4 class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
 						Messages</h4>
 					<ul class="dropdown_scrollbar" data-simplebar>
 						<li><a href="#">
@@ -217,7 +182,7 @@
 									<time> 6:43 PM</time>
 									<p>Lorem ipsum dolor sit amet, consectetur</p>
 								</div>
-						</a></li>
+							</a></li>
 						<li><a href="#">
 								<div class="drop_avatar">
 									<img src="/assets/images/avatars/avatar-2.jpg" alt="">
@@ -227,7 +192,7 @@
 									<time>12:43 PM</time>
 									<p>Sediam nonummy nibh euismod tincidunt laoreet dolore</p>
 								</div>
-						</a></li>
+							</a></li>
 						<li><a href="#">
 								<div class="drop_avatar">
 									<img src="/assets/images/avatars/avatar-3.jpg" alt="">
@@ -237,7 +202,7 @@
 									<time> Wed </time>
 									<p>Lorem ipsum dolor sit amet, consectetur</p>
 								</div>
-						</a></li>
+							</a></li>
 						<li><a href="#">
 								<div class="drop_avatar">
 									<img src="/assets/images/avatars/avatar-1.jpg" alt="">
@@ -248,7 +213,7 @@
 									<p>Namliber tempor cumsoluta nobis eleifend option
 										adipiscing</p>
 								</div>
-						</a></li>
+							</a></li>
 						<li><a href="#">
 								<div class="drop_avatar">
 									<img src="/assets/images/avatars/avatar-2.jpg" alt="">
@@ -258,7 +223,7 @@
 									<time> Fri</time>
 									<p>Lorem ipsum dolor sit amet, consectetur</p>
 								</div>
-						</a></li>
+							</a></li>
 						<li><a href="#">
 								<div class="drop_avatar">
 									<img src="/assets/images/avatars/avatar-3.jpg" alt="">
@@ -268,13 +233,10 @@
 									<time>1 Week ago</time>
 									<p>Sediam nonummy nibh euismod tincidunt laoreet dolore</p>
 								</div>
-						</a></li>
+							</a></li>
 					</ul>
 					<a href="#" class="see-all">See all</a>
 				</div>
-
-
-
 			</div>
 		</div>
 	</header>
@@ -283,17 +245,13 @@
 
 	<!-- 내용 시작 -->
 	<div class="lg:py-40 pt-24 pb-12 relative -mt-20 bg-white" id="home">
-		
 		<div class="uk-container" layout:fragment="content"></div>
 	</div>
 	<!-- 내용 끝 -->
 
 
-
 	<!-- Footer Start -->
-	<div
-		class="container-fluid bg-dark text-light footer mt-5 py-5 wow fadeIn"
-		data-wow-delay="0.1s">
+	<div class="container-fluid bg-dark text-light footer mt-5 py-5 wow fadeIn" data-wow-delay="0.1s">
 		<div class="container py-5">
 			<div class="row g-5">
 				<div class="col-lg-3 col-md-6">
@@ -308,39 +266,34 @@
 						<i class="fa fa-envelope me-3"></i>info@example.com
 					</p>
 					<div class="d-flex pt-2">
-						<a class="btn btn-square btn-outline-light rounded-circle me-2"
-							href=""><i class="fab fa-twitter"></i></a> <a
-							class="btn btn-square btn-outline-light rounded-circle me-2"
-							href=""><i class="fab fa-facebook-f"></i></a> <a
-							class="btn btn-square btn-outline-light rounded-circle me-2"
-							href=""><i class="fab fa-youtube"></i></a> <a
-							class="btn btn-square btn-outline-light rounded-circle me-2"
-							href=""><i class="fab fa-linkedin-in"></i></a>
+						<a class="btn btn-square btn-outline-light rounded-circle me-2" href=""><i
+								class="fab fa-twitter"></i></a> <a
+							class="btn btn-square btn-outline-light rounded-circle me-2" href=""><i
+								class="fab fa-facebook-f"></i></a> <a
+							class="btn btn-square btn-outline-light rounded-circle me-2" href=""><i
+								class="fab fa-youtube"></i></a> <a
+							class="btn btn-square btn-outline-light rounded-circle me-2" href=""><i
+								class="fab fa-linkedin-in"></i></a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<h4 class="text-white mb-4">Services</h4>
-					<a class="btn btn-link" href="">Landscaping</a> <a
-						class="btn btn-link" href="">Pruning plants</a> <a
-						class="btn btn-link" href="">Urban Gardening</a> <a
-						class="btn btn-link" href="">Garden Maintenance</a> <a
-						class="btn btn-link" href="">Green Technology</a>
+					<a class="btn btn-link" href="">Landscaping</a> <a class="btn btn-link" href="">Pruning plants</a>
+					<a class="btn btn-link" href="">Urban Gardening</a> <a class="btn btn-link" href="">Garden
+						Maintenance</a> <a class="btn btn-link" href="">Green Technology</a>
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<h4 class="text-white mb-4">Quick Links</h4>
-					<a class="btn btn-link" href="">About Us</a> <a
-						class="btn btn-link" href="">Contact Us</a> <a
-						class="btn btn-link" href="">Our Services</a> <a
-						class="btn btn-link" href="">Terms & Condition</a> <a
-						class="btn btn-link" href="">Support</a>
+					<a class="btn btn-link" href="">About Us</a> <a class="btn btn-link" href="">Contact Us</a> <a
+						class="btn btn-link" href="">Our Services</a> <a class="btn btn-link" href="">Terms &
+						Condition</a> <a class="btn btn-link" href="">Support</a>
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<h4 class="text-white mb-4">Newsletter</h4>
 					<p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
 					<div class="position-relative w-100">
-						<input
-							class="form-control bg-light border-light w-100 py-3 ps-4 pe-5"
-							type="text" placeholder="Your email">
+						<input class="form-control bg-light border-light w-100 py-3 ps-4 pe-5" type="text"
+							placeholder="Your email">
 						<button type="button"
 							class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
 					</div>
@@ -350,12 +303,6 @@
 	</div>
 	<!-- Footer End -->
 
-
-
-
-
-
-
-
 </body>
+
 </html>
