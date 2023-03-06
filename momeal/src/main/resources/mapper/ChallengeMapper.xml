@@ -8,21 +8,6 @@
 		FROM CHALLENGES C
         ORDER BY C.NO
 	</select>
-	
-	<select id="likeRankChallList" resultType="map">
-		WITH LIKE_COUNT AS (SELECT POST_NO, COUNT(*) CN
-							FROM LIKES
-							GROUP BY POST_NO
-							ORDER BY CN DESC, POST_NO)
-		
-		SELECT C.*, L.*, (SELECT COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE = 'CT01') AS LIKE_CHK
-		FROM CHALLENGES C JOIN (SELECT LIKE_RNK.* 
-								FROM (SELECT LIKE_COUNT.*, ROWNUM RWN
-									  FROM LIKE_COUNT) LIKE_RNK
-								WHERE ROWNUM BETWEEN 1 AND 6 ORDER BY ROWNUM) L
-								ON C.NO = L.POST_NO
-								ORDER BY L.RWN
-	</select>
 
 	<select id="likeRankChallList" resultType="map">
 		WITH LIKE_COUNT AS

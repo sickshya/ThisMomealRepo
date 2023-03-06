@@ -1,15 +1,12 @@
 package co.doeat.management.service.impl;
 
-import java.io.File;
 import java.util.List;
-import java.util.UUID;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import co.doeat.common.service.ImageVO;
+import co.doeat.community.service.UsersVO;
 import co.doeat.management.mapper.GroupPurchaseMapper;
 import co.doeat.management.service.GroupPurchaseListVO;
 import co.doeat.management.service.GroupPurchaseSearchVO;
@@ -43,15 +40,20 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 	}
 
 	@Override
-	public List<GroupPurchaseSettlementVO> payList() {
-
-		return groupPurchaseMapper.payList();
+	public List<GroupPurchaseSettlementVO> payInsert(GroupPurchaseSettlementVO pvo) {
+		return groupPurchaseMapper.payInsert(pvo);
 	}
 
-	@Override
-	public int payInsert(GroupPurchaseSettlementVO vo) {
+//	@Override
+//	public int kakaoPay(GroupPurchaseSettlementVO vo) {
+//		
+//		return groupPurchaseMapper.kakaoPay(vo);
+//	}
 
-		return groupPurchaseMapper.payInsert(vo);
+	//공동구매 결제하기
+	@Override
+	public int attendPurchase(UsersVO vo) {
+		return groupPurchaseMapper.attendPurchase(vo);
 	}
 
 	// +++++++++++++++++++++++++++마이페이지

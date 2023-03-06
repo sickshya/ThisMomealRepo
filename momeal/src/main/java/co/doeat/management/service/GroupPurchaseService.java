@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.doeat.common.service.ImageVO;
+import co.doeat.community.service.UsersVO;
 
 public interface GroupPurchaseService {
 
@@ -15,12 +16,20 @@ public interface GroupPurchaseService {
 	List<GroupPurchaseListVO> getPurchasingList(); // 진행중조회
 
 	// 공동구매-상세
-	List<GroupPurchaseListVO> getPurOne(int no); // 메인_단건조회
+	List<GroupPurchaseListVO> getPurOne(int no); // 단건조회
 
-	// 공동구매-주문하기
-	List<GroupPurchaseSettlementVO> payList(); // 전체조회
+//	// 공동구매-주문하기
+//	List<GroupPurchaseSettlementVO> payList(); // 주문내역조회
+	
+	// 공동구매-결제하기 정보 호출
+	//int kakaoPay(GroupPurchaseSettlementVO vo); //공동구매 결제하기 정보호출
 
-	int payInsert(GroupPurchaseSettlementVO vo); // 저장
+	// 공동구매-주문하기 form
+	List<GroupPurchaseSettlementVO> payInsert(GroupPurchaseSettlementVO pvo); // 저장
+	
+	public int attendPurchase(UsersVO vo); // 공동구매 구매하기
+	
+	// 공동구매 유저
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
 	// 마이페이지 - 공동구매
