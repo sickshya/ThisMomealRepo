@@ -69,6 +69,16 @@
 
 								<!-- 회원리스트 -->
 							
+						
+							<form id="searchFrm">
+								<select name="type">
+									<option value="GN" th:selected="*{svo.type == 'GN'}">전체</option>
+									<option value="G" th:selected="*{svo.type == 'G'}">등급</option>
+									<option value="N" th:selected="*{svo.type == 'N'}">이름</option>
+								</select>
+								<input type="text" name="keyword" th:value="*{paging.keyword}">
+								<button type="submit">검색</button>
+							</form>
 							
 
 
