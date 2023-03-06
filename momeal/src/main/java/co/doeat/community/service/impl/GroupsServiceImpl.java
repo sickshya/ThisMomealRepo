@@ -22,8 +22,8 @@ public class GroupsServiceImpl implements GroupsService {
 	}
 
 	@Override
-	public Map<String, Object> groupsSelect(int no) {
-		return groupsMapper.groupsSelect(no);
+	public Map<String, Object> groupsSelect(String userId) {
+		return groupsMapper.groupsSelect(userId);
 	}
 
 	@Override
