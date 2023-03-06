@@ -1,37 +1,36 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{myPageLayout}">
+
 <head>
-<!-- Favicon -->
-<link href="assets/images/favicon.png" rel="icon" type="image/png">
+	<!-- Favicon -->
+	<link href="assets/images/favicon.png" rel="icon" type="image/png">
 
-<!-- Basic Page Needs
+	<!-- Basic Page Needs
     ================================================== -->
-<title>Delete</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description"
-	content="Instello - Sharing Photos platform HTML Template">
+	<title>Delete</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Instello - Sharing Photos platform HTML Template">
 
-<!-- icons
+	<!-- icons
     ================================================== -->
-<link rel="stylesheet" href="assets/css/icons.css">
+	<link rel="stylesheet" href="assets/css/icons.css">
 
-<!-- CSS 
+	<!-- CSS 
     ================================================== -->
-<link rel="stylesheet" href="assets/css/uikit.css">
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/tailwind-dark.css">
+	<link rel="stylesheet" href="assets/css/uikit.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/tailwind-dark.css">
 </head>
+
 <body>
 	<!-- 마이페이지 회원탈퇴 약관 및 비밀번호 입력창 -->
 	<div layout:fragment="content" align="center">
 		<h1>회원탈퇴</h1>
 		<br>
 		<br>
-		<form id="frm" action="memberEdit" method="post"
-			onsubmit="return formCheck()">
+		<form id="frm" action="memberEdit" method="post" onsubmit="return formCheck()">
 			<div>
 				<div class="col-lg-7">
 					<br>
@@ -43,8 +42,7 @@
 							lacus adipiscing, posuere lectus et, fringilla augue. Lorem ipsum
 							dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 							tempor incididunt ut labore et dolore magna aliqua.</p>
-						<input type=checkbox id="agree1" name="agree" value="true"
-							style="width: 20px; height: 20px;">
+						<input type=checkbox id="agree1" name="agree" value="true" style="width: 20px; height: 20px;">
 					</div>
 					<br>
 					<div style="border: 1px solid #ccc">
@@ -55,8 +53,7 @@
 							lacus adipiscing, posuere lectus et, fringilla augue. Lorem ipsum
 							dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 							tempor incididunt ut labore et dolore magna aliqua.</p>
-						<input type="checkbox" id="agree2" name="agree" value="true"
-							style="width: 20px; height: 20px;">
+						<input type="checkbox" id="agree2" name="agree" value="true" style="width: 20px; height: 20px;">
 					</div>
 
 					<br>
@@ -65,8 +62,7 @@
 						<br>
 						<h3>비밀번호를 입력하세요</h3>
 						<br>
-						<br> <input type="password" id="memberpassword"
-							name="memberpassword"> <br>
+						<br> <input type="password" id="memberpassword" name="memberpassword"> <br>
 						<button type="submit" class="button bg-blue-700">확인</button>
 						<br>
 						<br>
@@ -98,4 +94,5 @@
 		</script>
 	</div>
 </body>
+
 </html>

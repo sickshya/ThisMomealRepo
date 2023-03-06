@@ -1,4 +1,4 @@
-package co.doeat.community.service.impl;
+/*package co.doeat.community.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,3 +35,4 @@ public class CustomUserService implements UserDetailsService {
 	}
 
 }
+*/
