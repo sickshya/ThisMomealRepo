@@ -7,32 +7,7 @@
 <title>community</title>
 
 <script>
-$(function() {
-	$(".oneCmnt").on("click", function() {
-
-		console.log("왔니...........");
-		console.log($(this));
-		let no = $(this).data("cmntno"); // 대소문자 구분 안됨. cmntno는 변수가 아니니까(?) ""안에 넣어주기
-		console.log(no);
-
-		$.ajax({
-			url: "/community/" + no
-		})
-		.then(obj => { // 넘어오는 결과값 자체가 json 타입
-			console.log(obj);
-			$("#cmntImg").attr("src", obj.fileDir);
-		}); 
-		
-		
-		$.ajax({
-			url: "/comment/" + postNo
-		})
-		.then(result => {
-			console.log("댓글 ======== " + result);
-		})
-
-	});
-});
+// $();
 </script>
 
 </head>
@@ -52,7 +27,8 @@ $(function() {
 				<ul
 					class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-5@m uk-grid-small">
 					<li th:each="cmnt : ${cmntList}">
-						<div class="oneCmnt" th:data-cmntno="${cmnt.NO}">
+						<div class="oneCmnt" th:data-cmntno="${cmnt.NO}"
+							th:data-sessionid="${session.userId}">
 							<!-- th:data-여기대문자적으면안됨! -->
 							<div
 								class="bg-blue-400 max-w-full lg:h-64 h-40 rounded-md relative overflow-hidden shadow-sm">
@@ -100,7 +76,7 @@ $(function() {
 			class="my-3 grid lg:grid-cols-5 grid-cols-2 gap-3 hover:text-yellow-700 uk-link-reset">
 			<!-- 한 블럭 시작 -->
 			<div th:each="cmnt : ${cmntList}" class="oneCmnt"
-				th:data-cmntno="${cmnt.NO}">
+				th:data-cmntno="${cmnt.NO}" th:data-sessionid="${session.userId}">
 				<div
 					class="bg-blue-400 max-w-full lg:h-64 h-40 rounded-md relative overflow-hidden shadow-sm">
 					<a href="#story-modal" uk-toggle> <img
@@ -145,24 +121,29 @@ $(function() {
 						<div
 							class="border-b flex items-center justify-between px-5 py-3 dark:border-gray-600">
 							<div class="flex flex-1 items-center space-x-4">
-								<a href="#">
+								<a href="">
 									<div
 										class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
-										<img src="assets/images/avatars/avatar-2.jpg"
+										<img id="feedFrofile" src=""
 											class="bg-gray-200 border border-white rounded-full w-8 h-8">
 									</div>
-								</a> <span class="block text-lg font-semibold"> Johnson smith
-								</span>
+								</a> <span id="nickName" class="block text-lg font-semibold"></span>
 							</div>
-							<a href="#"> <i
-								class="icon-feather-more-horizontal text-2xl rounded-full p-2 transition -mr-1"></i>
-							</a>
+							<!-- 							<input type="hidden" th:data> -->
+							<th:block th:if="${session.userId != null}">
+								<!-- 								<a href="">  -->
+								<!-- 팔로우  -->
+								<!-- 									<th:block th:if ="" id="followChk"> -->
+								<!-- 									<div id="sessionId"> -->
+								<button type="button" class="follow"></button>
+								<!-- 									</div> -->
+								<!-- 									</th:block> -->
+								<!-- 								</a> -->
+							</th:block>
 						</div>
 						<div class="story-content p-4" data-simplebar>
 
-							<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-								sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-								aliquam erat volutpat.</p>
+							<div id="subject"></div>
 
 							<div class="py-4 ">
 								<div class="flex justify-around">
@@ -174,48 +155,26 @@ $(function() {
 										<div class="flex font-bold items-baseline">
 											<i class="uil-heart mr-1"> </i> Comment
 										</div>
-									</a> <a href="#" class="flex items-center space-x-3">
-										<div class="flex font-bold items-baseline">
-											<i class="uil-heart mr-1"> </i> Share
-										</div>
 									</a>
 								</div>
 								<hr class="-mx-4 my-3">
-<!-- 								<div class="flex items-center space-x-3"> -->
-<!-- 									<div class="flex items-center"> -->
-<!-- 										<img src="assets/images/avatars/avatar-1.jpg" alt="" -->
-<!-- 											class="w-6 h-6 rounded-full border-2 border-white"> <img -->
-<!-- 											src="assets/images/avatars/avatar-4.jpg" alt="" -->
-<!-- 											class="w-6 h-6 rounded-full border-2 border-white -ml-2"> -->
-<!-- 										<img src="assets/images/avatars/avatar-2.jpg" alt="" -->
-<!-- 											class="w-6 h-6 rounded-full border-2 border-white -ml-2"> -->
-<!-- 									</div> -->
-<!-- 									<div> -->
-<!-- 										Liked <strong> Johnson</strong> and <strong> 209 -->
-<!-- 											Others </strong> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
 							</div>
 
+							<!-- 댓글 출력 -->
 							<div class="-mt-1 space-y-1" id="reply">
-								<div class="flex flex-1 items-center space-x-2">
-									<img src="assets/images/avatars/avatar-2.jpg"
-										class="rounded-full w-8 h-8">
-									<div class="flex-1 p-2">[[]]</div>
-								</div>
-							</div>
 
+							</div>
+							<!-- 댓글 출력 끝 -->
 
 						</div>
 						<div class="p-3 border-t dark:border-gray-600">
 							<div
 								class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
-								<input type="text" placeholder="Add your Comment.."
-									class="bg-transparent max-h-8 shadow-none">
+								<input type="text" placeholder="댓글을 입력하세요."
+									class="bg-transparent max-h-8 shadow-none" id="cmmtSubject">
 								<div
 									class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
-									<a href="#"> <i class="uil-image"></i></a> <a href="#"> <i
-										class="uil-video"></i></a>
+									<a href=""><button type="button" style="font-size:10px;" onclick="cmmtInsert()">등록</button></a>
 								</div>
 							</div>
 						</div>
@@ -226,8 +185,163 @@ $(function() {
 			</div>
 		</div>
 		<!-- 스토리 모달 끝 -->
-	<script>
+		<script>
 		
+		// ▶ 현재 로그인 중인 아이디(세션에 담긴 아이디)
+		let sessionId = $(".oneCmnt").data("sessionid");
+		
+	
+		// ▶ 커뮤니티 게시글 단건 조회 ajax
+		$(".oneCmnt").on("click", function() {
+			console.log("왔니...........");
+			console.log($(this));
+			let no = $(this).data("cmntno"); // 대소문자 구분 안됨. cmntno는 변수가 아니니까(?) ""안에 넣어주기
+			console.log(no);
+
+			let sessionId = $(this).data("sessionid");
+			let dataDiv = $(this);
+			
+			$.ajax({
+				url: "/community/" + no
+			})
+			.then(obj => { // 넘어오는 결과값 자체가 json 타입
+				console.log("팔로우 아이디 챙겨왓나용 ===== " + obj.userId);
+				console.log("세션 아이디 받았나용 ======= " + sessionId);
+				$("#cmntImg").attr("src", obj.fileDir);
+				$("#subject").text(obj.subject);
+				$("#nickName").text(obj.nickName);
+				$("#feedFrofile").attr("src", obj.profileImgPath);
+				
+				if(obj.userId == sessionId) {
+// 					$(".follow").attr("id", "myBtn");
+// 					$(".follow").attr("value", obj.userId);
+// 					$(".follow").text("내스토리");	
+					$(".follow").empty();	
+				}else {
+					if(obj.userId == obj.followeeId) {
+						$(".follow").attr("id", "unfollowBtn");
+						$(".follow").attr("value", obj.userId);
+						$(".follow").attr("onclick", "unfollow('" + obj.userId + "')");
+						$(".follow").text("언팔로우");
+// 						dataDiv.data("sessionid", obj.userId);
+					}else{
+						$(".follow").attr("id", "followBtn");
+						$(".follow").attr("value", obj.userId);
+						$(".follow").attr("onclick", "follow('" + obj.userId + "')");
+						$(".follow").text("팔로우");
+					}
+				}
+				
+			commentList(no);
+		});
+	});
+		
+
+		// ▶ 댓글, 대댓글 리스트 출력 ajax
+		function commentList(postNo) {
+// 			let sessionId = $(".oneCmnt").data("sessionid");
+// 			console.log("로그인 아이디 ===== " + sessionId)
+			
+			console.log("글번호 =========" + postNo)
+			$.ajax({
+				url: "/comment/" + postNo,
+				type: 'post',
+				dataType: 'json',   // 데이터 타입을 Json으로 변경
+				contentType: 'application/json'   // Content-Type을 Json으로 변경
+			})
+			.then(data => {
+				console.log("댓글 ======== " + data);
+				
+				// 댓글창 비우기
+				$("#reply").empty()
+				
+				// 댓글창 채우기
+				$(data).each(function(index, item) {
+					console.log(item.profileImgPath);
+					// 댓글일때
+					// 댓글 쓴 아이디가 세션의 아이디와 같다면 수정, 삭제 기능 / 다르다면 답글 기능
+					if(item.cmmtClass == 0) {
+						$("#reply").append(
+							`<div class="flex flex-1 space-x-2" id="comment">
+								<img src="${item.profileImgPath}"
+									class="rounded-full w-8 h-8">
+								<div class="flex-1"><p><b>${item.nickName}</b>
+								${item.userId == sessionId ? 
+									`<button type="button" style="float: right; font-size:12px;">삭제</button>&nbsp;<button type="button" style="float: right; font-size:12px;">수정</button>`
+									: `<button type="button" style="float: right; font-size:12px;">답글</button>`}</p>
+								<p>${item.subject}</p></div>
+							</div>`
+						)
+					}
+					// 대댓글일때
+					// 대댓글 쓴 아이디가 세션의 아이디와 같다면 수정, 삭제 기능
+					if(item.cmmtClass != 0) {
+						$("#reply").append(
+							`<div class="flex flex-1 space-x-2" style="padding-left:20px;">
+								<img src="${item.profileImgPath}"
+									class="rounded-full w-8 h-8">
+								<div class="flex-1"><p><b>${item.nickName}</b>
+								${item.userId == sessionId ? 
+									`<button type="button" style="float: right; font-size:12px;">삭제</button>&nbsp;<button type="button" style="float: right; font-size:12px;">수정</button>` : ``}</p>
+								<p>${item.subject}</p></div>
+							</div> `
+						)
+					}
+				});
+				
+			})
+		};
+		
+		
+		// ▶ 댓글 등록 ajax
+		function cmmtInsert() {
+			
+		}
+		
+
+		// ▶ 팔로우 처리 ajax
+		function follow(userId) {
+// 			debugger
+			console.log("아작스에도 왔남요 ===== " + userId);
+// 			let followId = $(".follow").val();
+// 			let followBtn = $(".follow");
+			
+// 			event.preventDefault()
+// 			debugger
+				$.ajax ({
+					type: 'post',
+					url: '/follow/' + userId, // 피드 유저의 id를 넘겨줘야함
+					//dataType: 'json',   // 데이터 타입을 Json으로 변경 // 넘겨주는 값이 JSON타입이 아니라 plain 텍스트인데 JSON으로 넘겨서 애가 인식을 못 한 거임!!!
+					contentType: 'application/json'   // Content-Type을 Json으로 변경
+				})
+				.then(result => {
+					console.log("팔로우 신청 결과 ===== " + result.followeeId)
+					$(".follow").attr("id", "unfollowBtn");
+					$(".follow").attr("value", result.followeeId);
+					$(".follow").attr("onclick", "unfollow('" + result.followeeId + "')");
+					$(".follow").text("언팔로우");
+				})
+		}
+		
+		
+		// ▶ 언팔로우 처리 ajax
+		function unfollow(userId) {
+			console.log("언팔할 아이디 가져왔어? ===== " + userId);
+			
+			$.ajax ({
+				type: 'post',
+				url: '/unfollow/' + userId, // 피드 유저의 id를 넘겨줘야함
+				contentType: 'application/json'   // Content-Type을 Json으로 변경
+			})
+			.then(result => {
+				console.log("언팔로우 결과 ===== " + result.followeeId)
+					$(".follow").attr("id", "followBtn");
+					$(".follow").attr("value", result.followeeId);
+					$(".follow").attr("onclick", "follow('" + result.followeeId + "')");
+					$(".follow").text("팔로우");
+			})
+		};
+
 	</script>
 	</div>
 </body>

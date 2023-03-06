@@ -18,9 +18,10 @@ public class CommentVO {
 	private String subject; // 댓글 내용
 	private int cmmtClass; // 계층(댓글 = 0, 대댓글 = 1)
 	private int cmmtOrder; // 한 댓글 묶음에서의 순서
-	private int cmmtCode; // 댓글 묶음을 구분짓는 순서
+	private int cmmtGroup; // 댓글 묶음을 구분짓는 순서
 	private int postNo; // 커뮤니티 게시글 번호
 	private String boardCode; // 게시글 타입 (식단 = CT04, 그룹 = CT05)
 	
 	private String nickName; // 댓글 작성자 닉네임
+	private String profileImgPath; // 댓글 작성자 프로필 사진
 }

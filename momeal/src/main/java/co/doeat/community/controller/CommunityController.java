@@ -1,13 +1,20 @@
 package co.doeat.community.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.doeat.activity.service.FollowService;
+import co.doeat.activity.service.FollowVO;
 import co.doeat.activity.service.MealVO;
 import co.doeat.community.service.CommunityService;
 
@@ -16,6 +23,9 @@ public class CommunityController {
 	
 	@Autowired
 	private CommunityService communityService;
+	
+	@Autowired
+	private FollowService followService;
 
 	
 	// 전체조회
@@ -29,19 +39,45 @@ public class CommunityController {
 		return "community/community";
 	}
 	
-	
 	// 단건조회(ajax)
 	@GetMapping("/community/{no}")
-	@ResponseBody // ajax 처리할때 필요
-	public MealVO challengeOne(@PathVariable int no) {
+	@ResponseBody
+	public MealVO challengeOne(Model model, Map<String, Object>map, HttpSession session, @PathVariable int no) {
 		
-		System.out.println(communityService.getCommunity(no));
+		map.put("userId", session.getAttribute("userId"));
+		map.put("no", no);
 		
-		return communityService.getCommunity(no);
+		System.out.println(communityService.getCommunity(map));
+		
+		return communityService.getCommunity(map);
+	}
+	
+	
+	// 팔로우 하기(ajax)
+	@PostMapping("/follow/{userId}")
+	@ResponseBody
+	public FollowVO follow(FollowVO vo, HttpSession session, @PathVariable String userId) { // userId = 피드 작성자 id를 받아와야함
+		vo.setFollowerId((String)session.getAttribute("userId"));
+		vo.setFolloweeId(userId);
+		
+		// 혹시나 이게 동작하지 않는다면 serviceImpl을 확인해보기... 아무 동작도 안 하고 있을 수 있음
+		followService.follow(vo);
+		
+		return vo;
+	}
+	
+	// 언팔로우 하기(ajax)
+	@PostMapping("/unfollow/{userId}")
+	@ResponseBody
+	public FollowVO unfollow(FollowVO vo, HttpSession session, @PathVariable String userId) {
+		vo.setFollowerId((String)session.getAttribute("userId"));
+		vo.setFolloweeId(userId);
+		
+		followService.unfollow(vo);
+		
+		return vo;
 	}
 
-
-	
 	// 커뮤니티 검색결과창
 	@RequestMapping("/communitySearch")
 	public String communitySearch() {

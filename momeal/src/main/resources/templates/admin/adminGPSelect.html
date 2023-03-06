@@ -24,18 +24,18 @@
 <link rel="stylesheet" href="css/app-light.css" id="lightTheme">
 <link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
 <style>
-#att_zone{
+#att_zone {
 	width: 550px;
-	min-height:150px;
-	padding:10px;
-	border:1px dotted #00f;
-}
-#att_zone:empty:before{
-	content : attr(data-placeholder);
-	color : #999;
-	font-size:.9em;
+	min-height: 150px;
+	padding: 10px;
+	border: 1px dotted #00f;
 }
 
+#att_zone:empty:before {
+	content: attr(data-placeholder);
+	color: #999;
+	font-size: .9em;
+}
 </style>
 </head>
 <body class="vertical  light  ">
@@ -58,74 +58,63 @@
 										<strong class="card-title">공동구매 상세보기</strong>
 									</div>
 									<div class="card-body" style="width: 500px" id="myForm">
-										
-										<form id="frm"  method="post" enctype="multipart/form-data">
+
+										<form id="frm" method="post" enctype="multipart/form-data">
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">상품명</label>
-												<div class="col-sm-9">
-													[[${selects.name}]]
-												</div>
+												<div class="col-sm-9">[[${selects.name}]]</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">업체명</label>
-												<div class="col-sm-9">
-													[[${selects.coName}]]
-												</div>
+												<div class="col-sm-9">[[${selects.coName}]]</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">시작일자</label>
-												<div class="col-sm-9">
-													[[${selects.grpStartDate }]]
-												</div>
+												<div class="col-sm-9">[[${#dates.format(selects.grpStartDate,'yyyy-MM-dd' ) }]]</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">종료일자</label>
-												<div class="col-sm-9">
-													[[${selects.grpEndDate }]]
-												</div>
+												<div class="col-sm-9">[[${#dates.format(selects.grpEndDate,'yyyy-MM-dd') }]]</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">가격</label>
-												<div class="col-sm-9">
-													[[${selects.price }]]
-												</div>
+												<div class="col-sm-9">[[${selects.price }]]</div>
 											</div>
 
 
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">최소주문수량</label>
-												<div class="col-sm-9">
-													[[${selects.minGd }]]
-												</div>
+												<div class="col-sm-9">[[${selects.minGd }]]</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">공급한계수량</label>
-												<div class="col-sm-9">
-													[[${selects.splyGd }]]
-												</div>
+												<div class="col-sm-9">[[${selects.splyGd }]]</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3" for="exampleFormControlTextarea1">상세설명</label>
-												<div class="col-sm-9">
-													[[${selects.subject }]]
-												</div>
+												<div class="col-sm-9">[[${selects.subject }]]</div>
 											</div>
 											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">썸네일 등록</label>
-												<div class="col-sm-9">=============
-													[[${selects.thumbnailImgPath }]]
-													[[${selects.imgPath }]]
+												<label class="col-sm-3 col-form-label">썸네일 </label>
+												<div class="col-sm-9">
+													[[${selects.thumbnailImgPath }]] <img
+														th:src="${selects.thumbnailImgPath }">
+
 												</div>
 											</div>
 
 											<div class="form-group row">
 												<div id='image_preview'>
-													
+
 													<div id='att_zone'
 														data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
+<!-- 														<div>[[${imgselect}]]</div> -->
+														<div th:each="sel : ${imgselect}">
+															<img th:src="${sel.atchPath}">
 														</div>
-														<!-- for문 돌려야함 -->
-														
+													</div>
+													<!-- for문 돌려야함 -->
+
 												</div>
 											</div>
 										</form>

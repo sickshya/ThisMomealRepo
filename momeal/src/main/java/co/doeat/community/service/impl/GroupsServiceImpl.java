@@ -11,13 +11,14 @@ import co.doeat.community.service.GroupsService;
 import co.doeat.community.service.GroupsVO;
 
 @Service
-public class GroupsServiceImpl implements GroupsService{
-	
-	@Autowired GroupsMapper groupsMapper;
+public class GroupsServiceImpl implements GroupsService {
+
+	@Autowired
+	GroupsMapper groupsMapper;
 
 	@Override
-	public List<Map<String, Object>> groupsList() {
-		return groupsMapper.groupsList();
+	public List<GroupsVO> groupsList(String postDate) {
+		return groupsMapper.groupsList(postDate);
 	}
 
 	@Override

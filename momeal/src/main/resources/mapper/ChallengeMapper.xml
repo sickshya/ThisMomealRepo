@@ -3,10 +3,16 @@
 <mapper namespace="co.doeat.management.mapper.ChallengeMapper">
 
 	<!-- 챌린지 전체조회 -->
+	<!-- 로그인 안 했을때는 하트유무를 표시 안 해줘야 함. html에서 처리하면 되나? -->
+	<!-- 쿼리에서는...어쩌지? -->
 	<select id="getChallList" resultType="map">
-		SELECT C.*, (SELECT COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE = 'CT01') AS LIKE_CHK 
+		SELECT C.*,
+		NVL((SELECT L.NO
+		FROM LIKES L
+		WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE =
+		'CT01'),0) AS LIKE_NO
 		FROM CHALLENGES C
-        ORDER BY C.NO
+		ORDER BY C.NO
 	</select>
 
 	<select id="likeRankChallList" resultType="map">
@@ -14,73 +20,222 @@
 		(SELECT POST_NO, COUNT(*) CN
 		FROM LIKES
 		GROUP BY POST_NO
-		ORDER BY CN DESC, POST_NO)
+		ORDER BY CN
+		DESC, POST_NO)
 
 		SELECT C.*, L.*, NVL((SELECT L.NO FROM LIKES L
-		WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE =
+		WHERE
+		L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE =
 		'CT01'),0) AS LIKE_NO
 		FROM CHALLENGES C JOIN (SELECT LIKE_RNK.*
-		FROM (SELECT LIKE_COUNT.*, ROWNUM RWN
+		FROM
+		(SELECT LIKE_COUNT.*, ROWNUM RWN
 		FROM LIKE_COUNT) LIKE_RNK
-		WHERE ROWNUM BETWEEN 1 AND 6 ORDER BY ROWNUM) L
+		WHERE ROWNUM
+		BETWEEN 1 AND 6 ORDER BY ROWNUM) L
 		ON C.NO = L.POST_NO
 		ORDER BY L.RWN
 	</select>
 
 	<!-- 챌린지단건조회 -->
-	<select id="getChallenge" resultType="co.doeat.management.service.ChallengeVO">
-        SELECT C.*, I.*, (C.PARTICIR * C.DEDUCT_POINT) AS SUM_POINT, (C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY,
-        	   (SELECT COUNT(*) FROM LIKES L WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE = 'CT01') AS LIKE_CHK,
-        	   NVL((SELECT P.NO FROM CHALLENGE_PARTICIPATION P WHERE C.NO = P.NO AND P.USER_ID = #{userId}), 0) AS ATTEND_NO
+	<select id="getChallenge"
+		resultType="co.doeat.management.service.ChallengeVO">
+		SELECT C.*, I.*, (C.PARTICIR * C.DEDUCT_POINT) AS
+		SUM_POINT,
+		(C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY,
+		NVL((SELECT L.NO FROM LIKES L
+		WHERE L.POST_NO = C.NO AND L.USER_ID =
+		#{userId} AND L.BOARD_CODE =
+		'CT01'),0) AS LIKE_NO,
+		NVL((SELECT P.NO
+		FROM CHALLENGE_PARTICIPATION P WHERE C.NO = P.NO AND P.USER_ID =
+		#{userId}), 0) AS ATTEND_NO
 		FROM CHALLENGES C RIGHT JOIN IMAGES I
-		ON (C.NO = I.POST_NO)
+		ON
+		(C.NO = I.POST_NO)
 		WHERE I.POST_NO = #{no} AND I.BOARD_CODE='CT01'
 	</select>
 
 	<!-- 챌린지 등록 -->
 	<insert id="challInsert">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-			SELECT seq_board.NEXTVAL AS NO FROM DUAL
+			SELECT
+			seq_board.NEXTVAL AS NO FROM DUAL
 		</selectKey>
 		INSERT INTO CHALLENGES
-		VALUES(#{no}, #{title}, #{subject}, #{chalStartDate}, #{chalEndDate}, #{round}, 
-			   #{particir}, #{sumParticir}, #{deductPoint}, #{vldStartTime}, #{vldEndTime}, #{vldPosbDate})
+		VALUES(#{no}, #{title}, #{subject},
+		#{chalStartDate}, #{chalEndDate}, #{round},
+		#{particir},
+		#{sumParticir}, #{deductPoint}, #{vldStartTime}, #{vldEndTime},
+		#{vldPosbDate})
 	</insert>
-	
+
 	<!-- 챌린지 참여 -->
-	<insert id="attendChall" parameterType="co.doeat.management.service.ChallengeParticipationVO">
+	<insert id="attendChall"
+		parameterType="co.doeat.management.service.ChallengeParticipationVO">
 		INSERT INTO CHALLENGE_PARTICIPATION
-		VALUES (#{userId}, #{no}, #{round}, null)
-<!-- 		<selectKey keyProperty="USER_ID" resultType="java.util.HashMap" order="AFTER"> -->
-<!-- 			SELECT USER_ID FROM CHALLENGE_PARTICIPATION WHERE NO = #{no} -->
-<!-- 		</selectKey> -->
+		VALUES (#{userId}, #{no}, #{round},
+		null)
+		<!-- <selectKey keyProperty="USER_ID" resultType="java.util.HashMap" order="AFTER"> -->
+		<!-- SELECT USER_ID FROM CHALLENGE_PARTICIPATION WHERE NO = #{no} -->
+		<!-- </selectKey> -->
 	</insert>
-	
+
 	<!-- ▶ 나의 챌린지 -->
 	<!-- 참여중인 챌린지 전체조회 -->
 	<select id="getMyChallList" resultType="map">
 		SELECT *
-		FROM CHALLENGE_PARTICIPATION P LEFT JOIN CHALLENGES C
-		                               ON(P.NO = C.NO)
-		                               LEFT JOIN USERS U
-		                               ON(P.USER_ID = U.USER_ID)
-		WHERE P.USER_ID = #{userId} AND P.CODE_ID IS NULL
-		ORDER BY C.CHAL_START_DATE, C.CHAL_END_DATE
+		FROM
+		CHALLENGE_PARTICIPATION P LEFT JOIN CHALLENGES C
+		ON(P.NO = C.NO)
+		LEFT
+		JOIN USERS U
+		ON(P.USER_ID = U.USER_ID)
+		WHERE P.USER_ID = #{userId} AND
+		P.CODE_ID IS NULL
+		ORDER BY
+		C.CHAL_START_DATE, C.CHAL_END_DATE
 	</select>
 
 	<!-- 참여중인 챌린지 단건조회 -->
 	<select id="getMyChall" resultType="map">
 		SELECT *
-		FROM CHALLENGE_PARTICIPATION P LEFT JOIN CHALLENGES C
-											ON(P.NO = C.NO)
-								   	   LEFT JOIN USERS U
-											ON(P.USER_ID = U.USER_ID)
-		WHERE P.USER_ID = #{userId} AND P.NO = #{no}
+		FROM
+		CHALLENGE_PARTICIPATION P LEFT JOIN CHALLENGES C
+		ON(P.NO = C.NO)
+		LEFT
+		JOIN USERS U
+		ON(P.USER_ID = U.USER_ID)
+		WHERE P.USER_ID = #{userId} AND
+		P.NO = #{no}
 	</select>
 
+	<!-- +++++++++++++++++++++++++++관리자++++++++++++++++++++++++++ -->
 	<!-- 관리자 챌린지 리스트 -->
-	<select id="adminChalList" resultType="ChallengeVO">
-		SELECT * FROM CHALLENGES
+	<sql id="creiteria">
+		<where>
+			<if test="title != null and title != '' ">
+				title = #{title}
+			</if>
+			<if test="chalEndDate != null and chalEndDate != '' ">
+				AND chal_end_date = #{chalEndDate}
+			</if>
+		</where>
+	</sql>
+
+	<select id="getCountTotal"
+		parameterType="co.doeat.management.service.ChallengeVO"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM CHALLENGES
+		<include refid="creiteria"></include>
+	</select>
+
+	<select id="adminChalList"
+		parameterType="co.doeat.management.service.ChallengeVO"
+		resultType="co.doeat.management.service.ChallengeVO">
+		SELECT * FROM( SELECT rownum rn, a.*
+		from(
+
+		SELECT
+		no,title,deduct_point,chal_start_date,chal_end_date,
+		<![CDATA[
+	        CASE WHEN chal_start_date <=trunc(current_date) 
+	        		AND chal_end_date <= trunc(current_date) THEN '완료'
+	            WHEN TRUNC(chal_start_date) <= TRUNC(current_date) 
+	            	And trunc(current_date) <= chal_end_date Then '진행중' 
+	            Else '진행전' END as chstatus
+ 		]]>
+		FROM CHALLENGES
+		<include refid="creiteria"></include>
+		order by no
+		<![CDATA[
+		 )a where rownum <= #{last}) b where rn  >= #{first}
+	
+		]]>
+	</select>
+
+	<!-- 관리자 챌린지 등록 -->
+	<insert id="adminCHInsert"
+		parameterType="co.doeat.management.service.ChallengeVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT
+			MAX(NO)+1 FROM CHALLENGES
+		</selectKey>
+		INSERT INTO CHALLENGES(
+		NO,
+		TITLE,
+		SUBJECT,
+		CHAL_START_DATE,
+		CHAL_END_DATE,
+		ROUND,
+		PARTICIR,
+		SUM_PARTICIR,
+		DEDUCT_POINT,
+		VLD_START_TIME,
+		VLD_END_TIME,
+		VLD_POSB_DATE,
+		THUMBNAIL_IMG,
+		THUMBNAIL_IMG_PATH
+		)
+		VALUES(#{no},
+		#{title},
+		#{subject},
+		#{chalStartDate},
+		#{chalEndDate},
+		#{round},
+		#{particir},
+		#{deductPoint},
+		#{vldStartTime},
+		#{vldEndTime},
+		#{vldPosbDate},
+		#{thumbnailImg},
+		#{thumbnailImgPath})
+	</insert>
+
+	<!-- 챌린지 삭제 -->
+	<delete id="adminCHDelete"
+		parameterType="co.doeat.management.service.ChallengeVO">
+		DELETE FROM CHALLENGES WHERE NO=#{no}
+	</delete>
+
+	<!-- 챌린지 맵 -->
+	<resultMap type="co.doeat.management.service.ChallengeVO"
+		id="chListMap">
+		<id property="no" column="no" />
+		<result property="no" column="no" />
+		<result property="title" column="title" />
+		<result property="subject" column="subject" />
+		<result property="chalStartDate" column="chal_start_Date" />
+		<result property="chalEndDate" column="chal_end_Date" />
+		<result property="round" column="round" />
+		<result property="particir" column="particir" />
+		<result property="sumParticir" column="sum_particir" />
+		<result property="deductPoint" column="deduct_point" />
+		<result property="vldStartTime" column="vld_start_time" />
+		<result property="vldEndTime" column="vld_end_time" />
+		<result property="vldPosbDate" column="vld_posb_date" />
+		<result property="thumbnailImgPath" column="thumbnail_Img_Path" />
+		<collection property="imgPath" resultMap="imgMap"></collection>
+	</resultMap>
+
+	<!-- 챌린지 단건 이미지이름 맵 -->
+	<resultMap type="co.doeat.common.service.ImageVO" id="imgMap">
+		<result property="postNo" column="post_No" />
+		<result property="boardCode" column="board_Code" />
+		<result property="atchPath" column="atch_Path" />
+	</resultMap>
+
+	<!-- 관리자용 단건조회 (이미지다수, 글 하나) -->
+	<select id="adminCHSelect" parameterType="int"
+		resultMap="chListMap">
+		SELECT ch.*, img.*
+		FROM CHALLENGES ch
+		LEFT OUTER JOIN IMAGES
+		img ON ch.no = img.post_no
+		WHERE ch.no = #{no} AND
+		img.board_Code =
+		'CT01'
 	</select>
 
 </mapper>

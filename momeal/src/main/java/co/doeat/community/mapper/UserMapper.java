@@ -2,7 +2,7 @@ package co.doeat.community.mapper;
 
 import java.util.List;
 
-import co.doeat.community.service.UsersSearchVO;
+import co.doeat.community.service.UserSearchVO;
 import co.doeat.community.service.UsersVO;
 
 public interface UserMapper {
@@ -22,8 +22,8 @@ public interface UserMapper {
 	// 페이징
 	List<UsersVO> adminUserList();
 
-	List<UsersVO> getAdminUserList(UsersSearchVO svo);
+	List<UsersVO> getAdminUserList(UserSearchVO svo);
 
-	int getCountTotal(UsersSearchVO svo);
+	int getCountTotal(UserSearchVO svo);
 
 }

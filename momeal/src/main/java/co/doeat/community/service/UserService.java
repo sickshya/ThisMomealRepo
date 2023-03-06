@@ -2,6 +2,9 @@ package co.doeat.community.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public interface UserService {
 	boolean isIdCheck(String id); // 아이디 중복 체크
 
@@ -21,8 +24,8 @@ public interface UserService {
 	List<UsersVO> adminUserList();
 
 	// 페이징하는 목록
-	List<UsersVO> getAdminUserList(UsersSearchVO svo);
+	List<UsersVO> getAdminUserList(UserSearchVO svo);
 
 	// 회원전체수 계산
-	int getCountTotal(UsersSearchVO svo);
+	int getCountTotal(UserSearchVO svo);
 }

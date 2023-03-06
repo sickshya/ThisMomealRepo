@@ -32,11 +32,10 @@ public interface GroupPurchaseMapper {
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
 	// 마이페이지 - 공동구매
-	List<GroupPurchaseListVO> getPurchaseList(); // 공동구매 전체리스트 조회
+	List<GroupPurchaseListVO> getPurchaseList(String userId); // 공동구매 전체리스트 조회
 
 	// 마이페이지 - 리스트에서 구매상세로
-	public Map<String, Object> purchaseSelect(int prdtNo); // 공동구매 상세내역 단건조회
-
+	public Map<String, Object> purchaseSelect(String userId, int no); // 공동구매 상세내역 단건조회
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
 	// 공동구매 물품 리스트
 
@@ -49,7 +48,11 @@ public interface GroupPurchaseMapper {
 
 	// 공동구매 단건조회 select
 	GroupPurchaseListVO adminGPSelect(int no);
-
-
+  
+	// 공동구매 삭제
+	int adminGPDelete(int no);
+	
+	//공동구매 update
+	int adminGPUpdate(GroupPurchaseListVO vo);
 
 }
