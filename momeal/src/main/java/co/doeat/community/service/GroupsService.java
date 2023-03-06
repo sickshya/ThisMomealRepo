@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface GroupsService {
 
-	public List<Map<String, Object>> groupsList(); // 그룹 전체 리스트
+	public List<GroupsVO> groupsList(String postDate); // 그룹 전체 리스트
 
 	public Map<String, Object> groupsSelect(int no); // 그룹 단건조회
 
