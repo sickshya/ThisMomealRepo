@@ -175,6 +175,7 @@
 								<div
 									class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
 									<a href=""><button type="button" style="font-size:10px;" onclick="cmmtInsert()">등록</button></a>
+									<input type="hidden" id="postNo">
 								</div>
 							</div>
 						</div>
@@ -211,6 +212,7 @@
 				$("#subject").text(obj.subject);
 				$("#nickName").text(obj.nickName);
 				$("#feedFrofile").attr("src", obj.profileImgPath);
+				$("#postNo").val(obj.no);
 				
 				if(obj.userId == sessionId) {
 // 					$(".follow").attr("id", "myBtn");
@@ -295,6 +297,22 @@
 		
 		// ▶ 댓글 등록 ajax
 		function cmmtInsert() {
+			debugger
+			let cmmtSubject = $('#cmmtSubject').val();
+			let postNo = $('#postNo').val();
+			
+			event.preventDefault()
+			
+			$.ajax ({
+				type: 'post',
+				url: '/insertComment/' + postNo,
+// 				dataType: 'json',
+				data: {"subject":cmmtSubject},
+// 				contentType: 'application/json'
+			})
+			.then(result => {
+				console.log(result)
+			})
 			
 		}
 		
