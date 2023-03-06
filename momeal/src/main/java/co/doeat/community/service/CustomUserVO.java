@@ -1,4 +1,4 @@
-package co.doeat.community.service;
+/*package co.doeat.community.service;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -51,3 +51,4 @@ public class CustomUserVO implements UserDetails {
 	}
 
 }
+*/
