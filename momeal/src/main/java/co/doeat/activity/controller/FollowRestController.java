@@ -1,5 +1,5 @@
 package co.doeat.activity.controller;
 
-public class FollowController {
+public class FollowRestController {
 
 }
