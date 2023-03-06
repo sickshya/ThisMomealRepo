@@ -11,6 +11,8 @@ public class Paging {
 	int endPage;			//페이지그룹내에서 마지막페이지번호
 	int first;
 	int last;
+	private String keyword; //검색키워드
+	private String type;  // 검색유형
 	
 	public int getFirst() {
 		first = (getPage() - 1) * getPageUnit() + 1;
@@ -82,6 +84,10 @@ public class Paging {
 
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
+	}
+	
+	public String[] getTypeArr() {
+		return type == null ? new String[] {} : type.split("");
 	}
 	
 }

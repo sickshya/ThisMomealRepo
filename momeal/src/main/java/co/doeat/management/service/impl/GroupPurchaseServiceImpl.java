@@ -93,4 +93,9 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 		return groupPurchaseMapper.adminGPDelete(no);
 	}
 
+	@Override
+	public int adminGPUpdate(GroupPurchaseListVO vo) {
+		return groupPurchaseMapper.adminGPUpdate(vo);
+	}
+
 }

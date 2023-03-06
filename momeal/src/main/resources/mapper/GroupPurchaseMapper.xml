@@ -202,49 +202,48 @@
 		UPDATE GROUP_PURCHASE_LISTS
 		<set>
 			<if test="name != null">name = #{name},</if>
-			<if test="name != null">co_Name = #{coName},</if>
-			<if test="name != null">price = #{price},</if>
-			<if test="name != null">subject = #{subject},</if>
-			<if test="name != null">min_gd = #{minGd},</if>
-			<if test="name != null">sply_gd = #{splyGd},</if>
-			<if test="name != null">grp_start_date = #{grpStartDate},</if>
-			<if test="name != null">grp_end_date = #{grpEndDate}</if>
+			<if test="coName != null">co_Name = #{coName},</if>
+			<if test="price != null">price = #{price},</if>
+			<if test="subject != null">subject = #{subject},</if>
+			<if test="minGd != null">min_gd = #{minGd},</if>
+			<if test="splyGd != null">sply_gd = #{splyGd},</if>
+			<if test="grpStartDate != null">grp_start_date = #{grpStartDate},</if>
+			<if test="grpEndDate != null">grp_end_date = #{grpEndDate},</if>
+			<if test="thumbnailImg != null">THUMBNAIL_IMG = #{thumbnailImg},</if>
+			<if test="thumbnailImgPath != null">THUMBNAIL_IMG_PATH =#{thumbnailImgPath}</if>
 		</set>
 		WHERE NO = #{no}
 	</update>
 
-	<!-- 공동구매리스트 맵 -->
-	<resultMap
-		type="co.doeat.management.service.GroupPurchaseListVO" id="gpListMap">
-		<id property="no" column="no" />
-		<result property="no" column="no" />
-		<result property="name" column="name" />
-		<result property="coName" column="co_name" />
-		<result property="price" column="price" />
-		<result property="subject" column="subject" />
-		<result property="minGd" column="min_gd" />
-		<result property="splyGd" column="sply_gd" />
-		<result property="grpStartDate" column="grp_Start_Date" />
-		<result property="grpEndDate" column="grp_End_Date" />
-		<result property="thumbnailImgPath" column="thumbnail_Img_Path" />
-		<collection property="imgPath" resultMap="imgMap"></collection>
-	</resultMap>
+ 	<!-- 공동구매리스트 맵 -->
+<!-- 	<resultMap -->
+<!-- 		type="co.doeat.management.service.GroupPurchaseListVO" id="gpListMap"> -->
+<!-- 		<id property="no" column="no" /> -->
+<!-- 		<result property="no" column="no" /> -->
+<!-- 		<result property="name" column="name" /> -->
+<!-- 		<result property="coName" column="co_name" /> -->
+<!-- 		<result property="price" column="price" /> -->
+<!-- 		<result property="subject" column="subject" /> -->
+<!-- 		<result property="minGd" column="min_gd" /> -->
+<!-- 		<result property="splyGd" column="sply_gd" /> -->
+<!-- 		<result property="grpStartDate" column="grp_Start_Date" /> -->
+<!-- 		<result property="grpEndDate" column="grp_End_Date" /> -->
+<!-- 		<result property="thumbnailImgPath" column="thumbnail_Img_Path" /> -->
+<!-- 		<result property="thumbnailImgPath" column="thumbnail_Img" /> -->
+<!-- 		<collection property="imgPath" resultMap="imgMap"></collection> -->
+<!-- 	</resultMap> -->
 
-	<!-- 공구 단건 이미지이름 맵 -->
-	<resultMap type="co.doeat.common.service.ImageVO" id="imgMap">
-		<result property="postNo" column="post_No" />
-		<result property="boardCode" column="board_Code" />
-		<result property="atchPath" column="atch_Path" />
-	</resultMap>
+ 	<!-- 공구 단건 이미지이름 맵 --> 
+<!-- 	<resultMap type="co.doeat.common.service.ImageVO" id="imgMap"> -->
+<!-- 		<result property="postNo" column="post_No" /> -->
+<!-- 		<result property="boardCode" column="board_Code" /> -->
+<!-- 		<result property="atchPath" column="atch_Path" /> -->
+<!-- 	</resultMap> -->
 
 	<!-- 관리자용 단건조회 (이미지다수, 글 하나) -->
-	<select id="adminGPSelect" parameterType="int"
-		resultMap="gpListMap">
-		SELECT gpl.*, img.*
-		FROM GROUP_PURCHASE_LISTS gpl
-		LEFT OUTER
-		JOIN IMAGES img ON gpl.no = img.post_no
-		WHERE gpl.no = #{no} AND
-		img.board_Code = 'CT03'
+	<select id="adminGPSelect" resultType="GroupPurchaseListVO" >
+		SELECT *
+		FROM GROUP_PURCHASE_LISTS 
+		WHERE no = #{no}
 	</select>
 </mapper>

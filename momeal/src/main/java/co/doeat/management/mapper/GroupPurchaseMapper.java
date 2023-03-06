@@ -45,5 +45,8 @@ public interface GroupPurchaseMapper {
 
 	// 공동구매 삭제
 	int adminGPDelete(int no);
+	
+	//공동구매 update
+	int adminGPUpdate(GroupPurchaseListVO vo);
 
 }

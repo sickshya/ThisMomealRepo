@@ -40,6 +40,7 @@
 
 <body class="vertical  light  ">
 	<div layout:fragment="content">
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 		<div class="wrapper">
 
 
@@ -47,7 +48,7 @@
 				<div class="container-fluid">
 					<div class="row justify-content-center">
 						<div class="col-12">
-							<h2 class="page-title">공동구매 등록</h2>
+							<h2 class="page-title">공동구매 수정</h2>
 							<p class="text-muted">Demo for form control styles, layout
 								options, and custom components for creating a wide variety of
 								forms.</p>
@@ -55,41 +56,41 @@
 
 								<div class="card shadow mb-4">
 									<div class="card-header" style="width: 500px">
-										<strong class="card-title">공동구매 추가하기</strong>
+										<strong class="card-title">공동구매 수정하기</strong>
 									</div>
 									<div class="card-body" style="width: 500px" id="myForm">
-
+	
 										<form id="frm" method="post" enctype="multipart/form-data">
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">상품명</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="name" name="name">
+													<input type="text" class="form-control" id="name" name="name" th:value="${updates.name}">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">업체명</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="coName" name="coName">
+													<input type="text" class="form-control" id="coName" name="coName" th:value="${updates.coName}">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">시작일자</label>
 												<div class="col-sm-9">
 													<input type="date" class="form-control" id="grpStartDate"
-														name="grpStartDate">
+														name="grpStartDate" th:value="${#dates.format(updates.grpStartDate, 'yyyy-MM-dd')}">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">종료일자</label>
 												<div class="col-sm-9">
 													<input type="date" class="form-control" id="grpEndDate"
-														name="grpEndDate">
+														name="grpEndDate" th:value="${#dates.format(updates.grpEndDate, 'yyyy-MM-dd')}">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">가격</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="price" name="price">
+													<input type="text" class="form-control" id="price" name="price" th:value="${updates.price }">
 												</div>
 											</div>
 
@@ -97,26 +98,26 @@
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">최소주문수량</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="minGd" name="minGd">
+													<input type="text" class="form-control" id="minGd" name="minGd" th:value="${updates.minGd }">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">공급한계수량</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="splyGd" name="splyGd">
+													<input type="text" class="form-control" id="splyGd" name="splyGd" th:value="${updates.splyGd }">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3" for="exampleFormControlTextarea1">상세설명</label>
 												<div class="col-sm-9">
 													<textarea class="form-control" id="subject" name="subject"
-														rows="2"></textarea>
+														rows="2">[[${updates.subject }]]</textarea>
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">썸네일 등록</label>
 												<div class="col-sm-9">
-													<input class="form-control" id="file" type="file" name="tfile">
+													<input class="form-control" id="file" type="file" name="tfile" th:value="${updates.thumbnailImg }">
 
 												</div>
 											</div>
@@ -126,17 +127,14 @@
 													<input type='file' id='btnAtt' name="file" multiple='multiple' />
 													<div id='att_zone'
 														data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
+											
 													</div>
 												</div>
 											</div>
 
 											<div class="form-group mb-2">
-												<input type="hidden" name="${images.atchNo}">
-												<input type="hidden" name="${groupPurchaseList.no}">
-												<!-- 												<input type="hidden" name="${images.postNo}" value="${groupPurchaseList.no}"> -->
-												<!-- 												<input type="hidden" name="${images.boardCode}" value="CT03"> -->
-												<button type="button" onclick="GPinsert()"
-													class="btn btn-primary">등록</button>
+												<input type="hidden" id="no" name="no" th:value="${updates.no }"/>
+												<button type="button" onclick="GPUpdate()" class="btn btn-primary" >수정</button>
 											</div>
 										</form>
 									</div>
@@ -264,13 +262,14 @@
 				}
 			)('att_zone', 'btnAtt')
 			
-			function GPinsert() {
+			function GPUpdate() {
 				var formData = new FormData($('#frm')[0])
 				for (let i = 0; i < sel_files.length; i++) {
 					formData.append("files", sel_files[i])
 				}
+				
 				$.ajax({
-					url: "/adminGPInsert",
+					url: "/adminGPUpdate",
 					type: "post",
 					data: formData,
 					contentType: false,
@@ -283,7 +282,6 @@
 					error: function (err) {
 						console.log(err)
 					}
-
 				})
 			}
 		</script>

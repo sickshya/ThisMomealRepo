@@ -81,6 +81,7 @@ public class UserController {
 		svo.setLast(paging.getLast());
 		paging.setTotalRecord(userService.getCountTotal(svo));
 
+		
 		model.addAttribute("getadminUserList", userService.getAdminUserList(svo));
 
 		return "admin/adminUser";
