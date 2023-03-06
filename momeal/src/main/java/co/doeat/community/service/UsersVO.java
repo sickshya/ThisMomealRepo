@@ -19,4 +19,5 @@ public class UsersVO {
 	private String pubcRange;
 	private String email;
 	private String accessToken;
+	private String userRole;
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.doeat.Paging;
 import co.doeat.community.service.UserService;
-import co.doeat.community.service.UsersSearchVO;
+import co.doeat.community.service.UserSearchVO;
 import co.doeat.community.service.UsersVO;
 
 @Controller
@@ -76,7 +76,7 @@ public class UserController {
 	// =============관리자 유저=================================
 	// 페이징
 	@RequestMapping("/adminUser")
-	public String adminUser(Model model, @ModelAttribute("esvo") UsersSearchVO svo, Paging paging) {
+	public String adminUser(Model model, @ModelAttribute("esvo") UserSearchVO svo, Paging paging) {
 		svo.setFirst(paging.getFirst());
 		svo.setLast(paging.getLast());
 		paging.setTotalRecord(userService.getCountTotal(svo));
