@@ -25,8 +25,7 @@ public class GroupsRestController {
 
 	// 날짜에 따른 피드 불러오기
 	@RequestMapping("/groupsFeed/{postDate}")
-	public List<GroupsVO> myFeedList(Model model, @PathVariable String postDate, HttpSession session,
-			HttpServletRequest request) {
+	public List<GroupsVO> myFeedList(Model model, @PathVariable String postDate, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
 		session.setAttribute("userId", "user1");
 

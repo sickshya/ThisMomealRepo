@@ -13,17 +13,21 @@
 
 	<!-- 그룹 전체리스트 출력 -->
 	<select id="groupsList" resultMap="groupsImg">
-		SELECT U.USER_ID, U.USER_NAME, U.NICK_NAME, U.PROFILE_IMG_PATH, GM.*, GL.*
+		SELECT U.USER_ID, U.USER_NAME,
+		U.NICK_NAME, U.PROFILE_IMG_PATH, GM.*, GL.*
 		FROM USERS U
-		JOIN GROUP_MEMBER GM ON (U.USER_ID = GM.USER_ID)
-		JOIN GROUP_LISTS GL ON (GM.NO = GL.NO)
+		JOIN
+		GROUP_MEMBER GM ON (U.USER_ID = GM.USER_ID)
+		JOIN GROUP_LISTS GL ON
+		(GM.NO = GL.NO)
 	</select>
 
 	<select id="imgList"
 		resultType="co.doeat.activity.service.MealVO">
 		SELECT M.*
 		FROM MEALS M
-		WHERE TRUNC(post_date) = TO_DATE('20230306', 'yyyyMMdd')
+		WHERE TRUNC(post_date) =
+		TO_DATE('20230306', 'yyyyMMdd')
 		AND M.USER_ID =
 		#{userId}
 		ORDER BY M.NO

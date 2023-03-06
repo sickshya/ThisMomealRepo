@@ -227,12 +227,12 @@ img {
 				    	success:function(res){
 				    		$('#tbd').empty()
 							//console.log(res[0].typeCode)
-							$(res).each(function(i, re){
+							$(res).each(function(i, re){	
 							let tr = `
 							<tr>
 				        		<td colspan="6">
-				        	    <div class="card" >
-				    				<a href="/groupsSelect" uk-toggle>
+				        	    <div class="card" >				        	   
+				    				<a href="/groupsSelect" id="grpSel" uk-toggle>
 				    				<div style="padding: 10px; text-align: left;">
 				    				<img src="${re.profileImgPath}" class= "rounded-full"  style="width:30px; display: inline-block">&nbsp;&nbsp;<b>${re.nickName}</b>
 				    				</div>
@@ -240,7 +240,9 @@ img {
 				    				`							
 				    				
 							$(re.mealsImg).each(function(i, img){
-								console.log(res)
+							//	let grpSel = $("#grpSel")
+							//	grpSel.attr("href", "/groupsSelect/" + img.userId)
+							//	console.log(img.userId)
 								
 								tr += ` <img src="${img.fileDir}" alt="Avatar" style="width:130px; display: inline-block">`
 								
