@@ -1,6 +1,7 @@
 package co.doeat.management.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -176,7 +177,7 @@ public class GroupPurchaseController {
 				e.printStackTrace();
 			}
 			vo.setThumbnailImg(tfile.getOriginalFilename());// 원본파일명
-			vo.setThumbnailImgPath(saveImg + fileName);// 디렉토리 포함 원본파일
+			vo.setThumbnailImgPath("/mm_images/" + fileName);// 디렉토리 포함 원본파일
 		}
 
 		int no = groupPurchaseService.adminGPInsert(vo);
@@ -192,8 +193,12 @@ public class GroupPurchaseController {
 
 	// 관리자 공동구매 select
 	@RequestMapping("/adminGPSelect/{no}")
-	public String adminGPSelect(@PathVariable int no, Model model) {
+	public String adminGPSelect(@PathVariable int no, Model model, GroupPurchaseListVO vo) {
 		model.addAttribute("selects", groupPurchaseService.adminGPSelect(no));
+		String boardCode = "CT03";
+		int postNo= vo.getNo();
+		model.addAttribute("imgselect", imageService.imageList(boardCode, postNo));
+		
 		return "admin/adminGPSelect";
 	}
 
@@ -204,12 +209,48 @@ public class GroupPurchaseController {
 		int postNo = vo.getNo();
 		imageService.adminGPIDelete(postNo, boardCode);
 		groupPurchaseService.adminGPDelete(no);
-//		if(n != 0) {
-//			model.addAttribute("message", "정상적으로 삭제 되었습니다.");
-//		}else {
-//			model.addAttribute("message", "삭제 실패");
-//		}
 		return "redirect:/adminGroupPurchase";
+	}
+	//관리자 공동구매 update
+	@RequestMapping("/adminGPUpdateForm/{no}")
+	public String adminGPUpdateForm(GroupPurchaseListVO vo, Model model, @PathVariable int no) {
+		model.addAttribute("updates", groupPurchaseService.adminGPSelect(no));
+		String boardCode = "CT03";
+		int postNo= vo.getNo();
+		model.addAttribute("iupdates", imageService.imageList(boardCode, postNo));
+		
+		return "admin/adminGPUpdateForm";
+	}
+	
+	@RequestMapping("/adminGPUpdate")
+	@ResponseBody
+	public String adminGPUpdate(GroupPurchaseListVO vo, ImageVO evo, Model model,List<MultipartFile> files, MultipartFile tfile) {
+		if (!tfile.isEmpty()) {// 첨부파일이 존재하면
+			String fileName = UUID.randomUUID().toString();
+			fileName = fileName + tfile.getOriginalFilename();
+			File uploadFile = new File(saveImg, fileName);
+			try {
+				tfile.transferTo(uploadFile); // 파일저장하긴
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			vo.setThumbnailImg(tfile.getOriginalFilename());// 원본파일명
+			vo.setThumbnailImgPath("/mm_images/" + fileName);// 디렉토리 포함 원본파일
+		}
+		groupPurchaseService.adminGPUpdate(vo);
+		String boardCode = "CT03";
+		int postNo = vo.getNo();
+		imageService.adminGPIDelete(postNo, boardCode);
+		//groupPurchaseService.adminGPUpdate(vo.getNo());
+		//groupPurchaseService.adminGPUpdate(vo);
+		int atchNo = imageService.fileUpload(files, vo.getNo(), boardCode);
+
+		if (atchNo > 0) {
+			evo.setAtchNo(atchNo);
+		}
+
+		return "true";
+				
 	}
 
 }

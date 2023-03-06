@@ -12,4 +12,6 @@ public interface ImageService {
 	int adminGPIDelete(int postNo, String boardCode);
 
 	int adminCHIDelete(ImageVO vo);
+
+	List<ImageVO> imageList(String boardCode, int postNo);
 }
