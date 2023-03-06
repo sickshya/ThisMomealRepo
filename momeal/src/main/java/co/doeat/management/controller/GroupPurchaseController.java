@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import co.doeat.Paging;
 import co.doeat.common.service.ImageService;
 import co.doeat.common.service.ImageVO;
+import co.doeat.community.service.UserService;
 import co.doeat.community.service.UsersVO;
 import co.doeat.management.service.GroupPurchaseListVO;
 import co.doeat.management.service.GroupPurchaseSearchVO;
@@ -42,10 +43,13 @@ public class GroupPurchaseController {
 	@Autowired
 	private ImageService imageService;
 
+	@Autowired
+	private UserService userService;
+
 	@Value("${momeal.saveImg}")
 	private String saveImg;
 
-	// 공동구매 전체리스트
+	// 공동구매
 	@RequestMapping("/purchaseList")
 	public String purchaseList(Model model, HttpServletRequest request, UsersVO userVO) {
 		HttpSession session = request.getSession();
@@ -55,73 +59,57 @@ public class GroupPurchaseController {
 		return "groupPurchase/purchaseList";
 	}
 
-	// 공동구매 단건조회
-	@GetMapping("/purchaseList/{no}")
-	public String purchaseList(Model model, @PathVariable int no) {
+	// 공동구매-상세(단건조회)
+	@GetMapping("/purchaseDetail/{no}")
+	public String purchaseList(Model model, @PathVariable int no, GroupPurchaseSettlementVO pvo) {
+
 		model.addAttribute("PurOne", groupPurchaseService.getPurOne(no));
-		return "groupPurchase/groupDetail";
+		return "groupPurchase/purchaseDetail";
 	}
 
-	// 공동구매(상세)
-	@GetMapping("/groupDetail.do")
-	public String groupDetail(Model model) {
-//		model.addAttribute("getDetail",groupPurchaseService.getDetailList());
-		return "groupPurchase/groupDetail";
+	// 공동구매-구매하기form
+	@RequestMapping("/purchaseForm/{no}")
+	public String purchaseForm(@PathVariable int no, HttpSession session, HttpServletRequest request,
+			GroupPurchaseListVO gvo, Model model, GroupPurchaseSettlementVO vo) {
+		session = request.getSession();
+		session.setAttribute("userId", "user1");
+		String orderId = (String) session.getAttribute("userId");
+
+		model.addAttribute("purOne", groupPurchaseService.getPurOne(no));
+		model.addAttribute("userInfo", userService.userSelect(orderId));
+		// model.addAttribute("kakao", groupPurchaseService.kakaoPay(vo));
+
+		return "groupPurchase/purchaseForm";
 	}
 
-	// 공동구매 ( 구매하기 신청 form 호출 )
-	@GetMapping("/purchaseForm")
-	public String purchaseForm() {
-//		HttpSession session = request.getSession();
-//		String user1 = (String) session.getAttribute("userId");
-		return "groupPurchase/PurchaseForm";
+	// 공동구매-구매완료리스트
+	@GetMapping("/orderList")
+	public String orderList(HttpSession session, HttpServletRequest request, UsersVO vo) {
+		session = request.getSession();		
+
+		// 세션에 담겨있는 아이디 값을 vo의 userId에 담기. (String) 처리 해줘야함
+		vo.setUserId((String) session.getAttribute("userId"));
+		groupPurchaseService.attendPurchase(vo);
+		return "groupPurchase/orderList";
 	}
 
-//	// 공동구매 ( 구매하기 신청 form 호출)
-//	@RequestMapping("/PurchaseForm.do")
-//	@ResponseBody
-//	public String PurchasePayment(GroupPurchaseSettlementVO vo) {
-//		groupPurchaseService.payInsert(vo); //db저장루틴
-//			return "groupPurchase/PurchasePayment";
-//		}
-
-	// 공동구매 배송지
-	@GetMapping("/groupPurchase.do")
-	public String groupPurchase() {
-		return "groupPurchase/groupPurchase";
-	}
-
-	// 공동구매
-	@PostMapping("/purchaseForm.do")
-	public String purchasePayment(GroupPurchaseSettlementVO vo) {
-		groupPurchaseService.payInsert(vo);
+	// 공동구매-구매완료리스트
+	@PostMapping("/orderList")
+	public String orderList(@PathVariable int no, HttpSession session, HttpServletRequest request,
+			UsersVO vo, Model model) {
+		session = request.getSession();
+		session.setAttribute("userId", "user1");
+		model.addAttribute("attendPurchases", groupPurchaseService.attendPurchase(vo));
 		return "redirect:/orderList";
 	}
 
-//	// 공동구매(배송지목록)
-//	@GetMapping("/PurchaseList.do")
-//	public String groupPurchaseList() {
-//		return "groupPurchase/groupPurchaseList";
-//	}
-
-//	//공동구매 찜하기 버튼
-//	@Transactional(rollbackFor = Exception.class)
-//	@PostMapping("/like/{post_no}")
-//	public ModelAndView 
-//	
-
-//	// groupDetail.do 요청시 주문자 수 카운트
-//	@GetMapping("/groupDetail.do")
-//	public String groupDetail(String sttlSt, Model model) {
-//		System.out.println("주문자수 실행");
-//		GroupPurchaseMapper.count(sttlSt);
-//		GroupPurchaseListVO vo = groupPurchaseMapper.groupDetail(sttlSt);
-//		
-//		//vo를 모델에 담아 객체 바인딩 
-//		model.addAttribute("vo",vo);
-//		
-//		return "groupDetail.do";
-//		
+//	// 공동구매
+//	@PostMapping("/purchaseForm/{no}")
+//	public String purchaseForm(GroupPurchaseSettlementVO pvo, HttpSession session, @PathVariable int no) {
+//		pvo.setNo(no);
+//		pvo.setUserId((String) session.getAttribute("userId"));
+//		groupPurchaseService.payInsert(pvo);
+//		return "redirect:/orderList";
 //	}
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지

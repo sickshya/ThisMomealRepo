@@ -16,6 +16,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
 	rel="stylesheet">
+
 <!-- Icons CSS -->
 <link rel="stylesheet" href="/assets/css/feather.css">
 <!-- <!-- Date Range Picker CSS -->
@@ -26,51 +27,176 @@
 </head>
 <body>
 	<div layout:fragment="content">
-
+		<script type="text/javascript"
+			src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 		<div align="center">
-			<h4>주문정보 입력</h4>
+			<h4>주문완료전 정보입력</h4>
 			<hr>
-		</div>
-		<div>
-			<form id="frm" action="/purchaseForm.do" method="post">
-				<table border="1">
-					<tr>
-						<th>아이디</th>
-						<td><input type="text" id="userId" name="userId" required>
-							<!-- 									<button type="button" id="btn" onclick="idCk()" value="no">중복체크</button> -->
-						</td>
-					</tr>
-					<tr>
-						<th>배송지</th>
-						<td><input type="text" id="deliveryAddr" name="deliveryAddr"></td>
-					</tr>
-					<tr>
-						<th>우편번호</th>
-						<td><input type="text" id="zipcode" name="zipcode"></td>
-					</tr>
-					<tr>
-						<th>연락처</th>
-						<td><input type="text" id="tel" name="tel"></td>
-					</tr>
-					<tr>
-						<th>결제수단</th>
-						<td><input type="radio" id="paymentMthd" name="paymentMthd"
-							value="카드">카드<br> <input type="radio"
-							id="paymentMthd" name="paymentMthd" value="현금">현금</td>
-					</tr>
-					<tr>
-						<th>이용약관</th>
-						<td><input type="checkbox" id="userUse" name="userUse">
-							<label for="userUse">약관에 동의하시겠습니까?</label></td>
-					</tr>
-					<tr>
-						<td><textarea class="form-control" name="message"
-								id="message" rows="1" placeholder="Order Notes"></textarea></td>
-					</tr>
-				</table>
-				<br> <input type="submit" value="구매하기">
-				<!-- 						<input type="button" value="뒤로가기" onclick="location.href='groupBuying'"> -->
-			</form>
+
+			<div>
+				<form id="frm" action="" method="post">
+					<table border="1">
+						<tr>
+							<th>아이디</th>
+							<td><input type="text" id="userId" name="userId"
+								th:value="${userInfo.userId}" required> <!-- <button type="button" id="btn" onclick="idCk()" value="no">중복체크</button> -->
+							</td>
+						</tr>
+						<tr>
+							<th>배송지</th>
+							<td><input type="text" id="deliveryAddr" name="deliveryAddr"
+								th:value="${userInfo.addr}"></td>
+						</tr>
+						<tr>
+							<th>우편번호</th>
+							<td><input type="text" id="zipcode" name="zipcode"
+								th:value="${userInfo.zipcode}"></td>
+						</tr>
+						<tr>
+							<th>연락처</th>
+							<td><input type="tel" id="tel" name="tel"
+								th:value="${userInfo.tel}"></td>
+						</tr>
+						<tr>
+							<th>이용약관</th>
+							<td><input type="checkbox" id="userUse" name="userUse">
+								<label for="userUse">약관에 동의하시겠습니까?</label></td>
+						</tr>
+						<tr>
+							<td><textarea class="form-control" name="message"
+									id="message" rows="1" placeholder="Order Notes"></textarea></td>
+						</tr>
+						<tr>
+							<th>결제수단</th>
+							<td><input type="radio" id="paymentMthd" name="paymentMthd"
+								value="C" onchange="showDiv('C')" checked="checked">카드 <input
+								type="radio" id="paymentMthd" name="paymentMthd" value="U"
+								onchange="showDiv('U')">현금</td>
+						</tr>
+					</table>
+
+
+					<div id="card" style="display: block;" class="check_module">
+						<table>
+							<tr>
+								<th>카카오페이</th>
+								<td><input type="checkbox" id="paymentMthd"
+									name="paymentMthd"></td>
+							</tr>
+						</table>
+					</div>
+
+
+					<div id="cash" style="display: none;">
+						<p>국민은행 123-5649-12345 로 입금해주세요.</p>
+					</div>
+
+
+					<!-- 				<input type="button" value="구매하기" class="check_module" -->
+					<!-- 					th:onclick="'location.href=\''+ @{/purchaseForm/{no}(no = ${purOne.no})} + '\''"> -->
+					<input type="button" class="check_module" value="구매하기"
+						th:onclick="|location.href='@{/orderList/{no}(no=${purOne[0].no})}'|">
+
+				</form>
+			</div>
+
+			<script th:inline="javascript">
+				$(".check_module")
+						.click(
+								function() {
+									var IMP = window.IMP; // 생략가능
+									IMP.init('imp51560224');
+									// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+									// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+									IMP
+											.request_pay(
+													{
+														pg : 'kakaopay', //:카카오페이, 
+														/* 
+														    
+														    'inicis', // version 1.1.0부터 지원.
+														    html5_inicis':이니시스(웹표준결제)
+														        'nice':나이스페이
+														        'jtnet':제이티넷
+														        'uplus':LG유플러스
+														        'danal':다날
+														        'payco':페이코
+														        'syrup':시럽페이
+														        'paypal':페이팔
+														 */
+														pay_method : 'card',
+														/* 
+														    'samsung':삼성페이, 
+														    'card':신용카드, 
+														    'trans':실시간계좌이체,
+														    'vbank':가상계좌,
+														    'phone':휴대폰소액결제 
+														 */
+														merchant_uid : 'merchant_'
+																+ new Date()
+																		.getTime(),
+														/* 
+														    merchant_uid에 경우 
+														    https://docs.iamport.kr/implementation/payment
+														    위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+														    참고하세요. 
+														    나중에 포스팅 해볼게요.
+														 */
+														name : '순심',
+														//결제창에서 보여질 이름
+														amount : '20000',
+														//가격 
+														//buyer_email : '${res.resEmail}',
+														buyer_name : '구매자이름',
+														buyer_tel : '010-1234-5678',
+														buyer_addr : '서울특별시 강남구 삼성동',
+														buyer_postcode : '123-456',
+														m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+													/*  
+													    모바일 결제시,
+													    결제가 끝나고 랜딩되는 URL을 지정 
+													    (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐) 
+													 */
+													},
+													function(rsp) {
+														console.log(rsp);
+														if (rsp.success) {
+															var msg = '결제가 완료되었습니다.';
+															msg += '고유ID : '
+																	+ rsp.imp_uid;
+															msg += '상점 거래ID : '
+																	+ rsp.merchant_uid;
+															msg += '결제 금액 : '
+																	+ rsp.paid_amount;
+															msg += '카드 승인번호 : '
+																	+ rsp.apply_num;
+														} else {
+															var msg = '결제에 실패하였습니다.';
+															msg += '에러내용 : '
+																	+ rsp.error_msg;
+														}
+														alert(msg);
+													});
+								});
+
+				function showDiv(option) {
+					if (option == 'C') {
+						document.getElementById('card').setAttribute('style',
+								'display:block')
+						document.getElementById('cash').setAttribute('style',
+								'display:none')
+					} else if (option == 'U') {
+						document.getElementById('card').setAttribute('style',
+								'display:none')
+						document.getElementById('cash').setAttribute('style',
+								'display:block')
+					}
+				}
+			</script>
+
+
+
+
 		</div>
 	</div>
 
