@@ -63,14 +63,24 @@
 
 	<!-- 페이징 --> 
 	<sql id="creiteria">
-		<where>
-			<if test="userId != null and userId != '' ">
-				USER_ID = #{userId}
-			</if>
-			<if test="grade != null and grade != '' ">
-				AND GRADE = #{grade}
-			</if>
-		</where>
+		<if test="typeArr != null">
+			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+				<foreach collection="typeArr" item="type">
+					<trim prefix="OR">
+						<choose>
+							<when test="type == 'G'.toString()">
+								grade like '%' ||#{keyword}||'%'
+							</when>
+							<when test="type == 'N'.toString()">
+								user_name like '%'||#{keyword}||'%'
+							</when>
+						</choose>
+					</trim>
+				</foreach>
+			</trim>
+		
+		</if>
+		
 	</sql>
 
 	<!-- 총 회원수 -->
@@ -88,7 +98,9 @@
 		SELECT * FROM( SELECT ROWNUM RN, A.* FROM(
 
 		SELECT * FROM USERS
+		 
 		<include refid="creiteria"></include>
+		
 		ORDER BY USER_ID
 		
 		<![CDATA[

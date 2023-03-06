@@ -1,18 +1,23 @@
 package co.doeat;
 
+import org.springframework.stereotype.Component;
 
+import lombok.Data;
+
+@Component
+@Data
 public class Paging {
 	int pageUnit=10 ; 		//한페이지 출력할 레코드 건수
 	int pageSize=10 ; 		//페이지번호 수 (5) 1~ 5까지
 	int lastPage;     		//마지막 페이지번호
-	int totalRecord = 126;		//전체 레코드건수
+	int totalRecord = 130;		//전체 레코드건수
 	Integer page = 1;		//현재 페이지
 	int startPage;			//페이지그룹내에서 시작페이지번호
 	int endPage;			//페이지그룹내에서 마지막페이지번호
 	int first;
 	int last;
-	private String keyword; //검색키워드
-	private String type;  // 검색유형
+	String keyword; //검색키워드
+	String type;  // 검색유형
 	
 	public int getFirst() {
 		first = (getPage() - 1) * getPageUnit() + 1;
