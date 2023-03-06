@@ -29,6 +29,8 @@ public class LikesRestController {
 
 		vo.setUserId((String) session.getAttribute("userId"));
 		vo.setPostNo(postNo);
+
+		System.out.println(likesService.mylikeSelect(vo));
 		return likesService.mylikeSelect(vo);
 	}
 
@@ -37,20 +39,23 @@ public class LikesRestController {
 	public int myLikeDel(LikesVO vo, @PathVariable int no, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
 		session.setAttribute("userId", "user1");
+
 		vo.setNo(no);
 		return likesService.myLikeDel(vo);
 	}
 
 	// 마이페이지 - 챌린지 좋아요 추가
 	@PostMapping("/insertLikeChall/{postNo}")
-	public int insertLikeChall(LikesVO vo, @PathVariable int postNo, HttpSession session, HttpServletRequest request) {
+	public LikesVO insertLikeChall(LikesVO vo, @PathVariable int postNo, HttpSession session,
+			HttpServletRequest request) {
 		session = request.getSession();
 		session.setAttribute("userId", "user3");
 
 		vo.setUserId((String) session.getAttribute("userId"));
 		vo.setPostNo(postNo);
 		vo.setBoardCode("CT01");
-		return likesService.insertLikeChall(vo);
+		likesService.insertLikeChall(vo);
+		return vo;
 	}
 
 //	// 마이페이지 - 챌린지 좋아요 취소

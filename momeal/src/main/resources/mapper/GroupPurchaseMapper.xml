@@ -17,8 +17,10 @@
 		,PL.THUMBNAIL_IMG
 		,PL.THUMBNAIL_IMG_PATH
 		,COUNT(PST.NO) AS ordCnt
-		FROM GROUP_PURCHASE_LISTS PL
-		JOIN GROUP_PURCHASE_SETTLEMENT PST ON PL.NO = PST.NO
+		FROM
+		GROUP_PURCHASE_LISTS PL
+		JOIN GROUP_PURCHASE_SETTLEMENT PST ON PL.NO =
+		PST.NO
 		GROUP BY PL.NO
 		,PL.NAME
 		,PL.CO_NAME
@@ -46,8 +48,10 @@
 		,PL.THUMBNAIL_IMG
 		,PL.THUMBNAIL_IMG_PATH
 		,COUNT(PST.NO) AS ordCnt
-		FROM GROUP_PURCHASE_LISTS PL
-		JOIN GROUP_PURCHASE_SETTLEMENT PST ON PL.NO = PST.NO
+		FROM
+		GROUP_PURCHASE_LISTS PL
+		JOIN GROUP_PURCHASE_SETTLEMENT PST ON PL.NO =
+		PST.NO
 		<![CDATA[
 		WHERE TRUNC(grp_start_date) <= sysdate AND sysdate < grp_end_date
 		]]>
@@ -87,7 +91,7 @@
 		#{paymentMthd}, #{zipcode},
 		#{tel}, #{totalGd}, #{totalPrice})
 	</insert>
-  
+
 	<!-- +++++++++++++++++마이페이지+++++++++++++++++++++++++++++++ -->
 	<!-- 마이페이지 - 공동구매내역 전체리스트 -->
 	<select id="getPurchaseList"
@@ -110,7 +114,7 @@
 		LEFT JOIN
 		GROUP_PURCHASE_LISTS G ON (P.NO = G.NO)
 		WHERE
-		U.USER_ID = '#{userId} AND
+		U.USER_ID = #{userId} AND
 		P.NO = #{no}
 	</select>
 
@@ -137,7 +141,7 @@
 
 	<select id="getAdminGroupPurchaseList"
 		parameterType="co.doeat.management.service.GroupPurchaseListVO"
-		resultType="co.doeat.management.service.GroupPurchaseListVO"> 
+		resultType="co.doeat.management.service.GroupPurchaseListVO">
 		SELECT * FROM( SELECT rownum rn, a.*
 		from(
 

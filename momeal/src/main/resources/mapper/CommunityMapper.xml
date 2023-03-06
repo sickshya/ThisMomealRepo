@@ -12,11 +12,13 @@
 
 <!-- 커뮤니티 피드 단건조회 -->
 <select id="getCommunity" resultType="co.doeat.activity.service.MealVO">
-	SELECT U.NICK_NAME, U.PROFILE_IMG_PATH, M.*
+    SELECT U.NICK_NAME, U.PROFILE_IMG_PATH, M.*, (SELECT F.FOLLOWEE_ID
+	FROM FOLLOW F JOIN MEALS M
+	ON (F.FOLLOWEE_ID = M.USER_ID AND F.FOLLOWER_ID = #{userId} AND M.NO = #{no})) AS FOLLOWEE_ID
 	FROM USERS U LEFT JOIN MEALS M
-             	 ON (U.USER_ID = M.USER_ID)
-    WHERE M.NO = #{no}
-    ORDER BY M.NO
+	             ON (U.USER_ID = M.USER_ID)
+	WHERE M.NO = #{no}
+	ORDER BY M.NO
 </select>
 
 </mapper>
