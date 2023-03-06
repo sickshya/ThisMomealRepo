@@ -8,7 +8,6 @@ import lombok.Data;
 
 @Data
 public class ExperienceVO {
-	
 	Integer no; //체험단등록순번
 	String title; //글제목
 	String subject; //글내용
@@ -24,6 +23,4 @@ public class ExperienceVO {
 	Date reviewStartDate; //리뷰작성시작기간
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date reviewEndDate; //리뷰작성완료기간
-	
-	
 }

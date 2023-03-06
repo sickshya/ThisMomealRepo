@@ -56,7 +56,7 @@
 					<div class="row justify-content-center">
 						<script>
 							function gopage(page) {
-								location.href = "adminChallenge?page=" + page;
+								location.href = "adminExperienceGroup?page=" + page;
 								frmSearch.page.value = page;
 								frmSearch.submit();
 							}
@@ -66,40 +66,40 @@
 							<div class="row">
 
 
-								<!-- 챌린지리스트 -->
+								<!-- 체험단 리스트 출력 -->
 								<!-- 표 시작 Striped rows -->
 
 								<div class="col-md-20 my-4">
 									<div class="card shadow">
 										<div class="card-body">
-											<h5 class="card-title">챌린지리스트</h5>
+											<h5 class="card-title">등록된 챌린지 리스트</h5>
 											<p class="card-text">
 												<input type="button" value="등록하기"
-													onclick="location.href='adminChalInsert.do'">
+													onclick="location.href='adminExpGrpInsert.do'">
 											</p>
 											<table class="table table-striped table-hover">
 												<thead>
 													<tr>
 														<th><input type="checkbox"></th>
 														<th>순번</th>
-														<th>챌린지명</th>
-														<th>챌린지포인트</th>
-														<th>시작일</th>
-														<th>종료일</th>
-														<th>현황</th>
+														<th>체험상품명</th>
+														<th>상품설명</th>
+														<th>인원제한수</th>
+														<th>필요등급</th>
+														<th>적립포인트</th>
 														<th>Action</th>
 													</tr>
 												</thead>
 												<tbody>
 
-													<tr th:each="chal : ${getAdminCHList}">
+													<tr th:each="expr : ${exprList}">
 														<td><input type="checkbox"></td>
-														<td th:text="${chal.no}"></td>
-														<td th:text="${chal.title}"></td>
-														<td th:text="${chal.deductPoint}"></td>
-														<td th:text="${chal.chalStartDate}"></td>
-														<td th:text="${chal.chalEndDate}"></td>
-														<td th:text="${chal.chstatus}"></td>
+														<td th:text="${expr.no}"></td>
+														<td th:text="${expr.title}"></td>
+														<td th:text="${expr.subject}"></td>
+														<td th:text="${expr.lmtAplyt}"></td>
+														<td th:text="${expr.need}"></td>
+														<td th:text="${expr.chstatus}"></td>
 														<td>
 															<div class="dropdown">
 																<button class="btn btn-sm dropdown-toggle" type="button"
@@ -112,9 +112,9 @@
 																	<a class="dropdown-item" href="#">재등록</a> <a
 																		class="dropdown-item" href="#">수정</a> <a
 																		class="dropdown-item"
-																		th:href="|adminCHDelete/${chal.no}|">삭제</a> <a
+																		th:href="|adminCHDelete/${expr.no}|">삭제</a> <a
 																		class="dropdown-item"
-																		href="|adminCHSelect/${chal.no}|">상세보기</a>
+																		href="|adminCHSelect/${expr.no}|">상세보기</a>
 																</div>
 															</div>
 														</td>
