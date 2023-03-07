@@ -11,25 +11,19 @@ import co.doeat.community.service.UsersVO;
 public interface GroupPurchaseService {
 
 	// 공동구매-메인
-	List<GroupPurchaseListVO> getPurList(); // 전체조회
+	public List<GroupPurchaseListVO> getPurList(); // 전체조회
 
-	List<GroupPurchaseListVO> getPurchasingList(); // 진행중조회
+	public List<GroupPurchaseListVO> getPurchasingList(); // 진행중조회
 
 	// 공동구매-상세
-	List<GroupPurchaseListVO> getPurOne(int no); // 단건조회
-
-//	// 공동구매-주문하기
-//	List<GroupPurchaseSettlementVO> payList(); // 주문내역조회
-	
-	// 공동구매-결제하기 정보 호출
-	//int kakaoPay(GroupPurchaseSettlementVO vo); //공동구매 결제하기 정보호출
+	public List<GroupPurchaseListVO> getPurOne(int no); // 단건조회
 
 	// 공동구매-주문하기 form
-	List<GroupPurchaseSettlementVO> payInsert(GroupPurchaseSettlementVO pvo); // 저장
-	
-	public int attendPurchase(UsersVO vo); // 공동구매 구매하기
-	
-	// 공동구매 유저
+	public int payInsert(GroupPurchaseSettlementVO pvo); // 배송정보 저장
+	//public List<Map<String, Object>>payInsert(Map<String, Object> map); // 배송정보 저장
+
+	// 공동구매 결제화면 전체조회
+	public List<Map<String, Object>> attendPurchase(Map<String, Object> map); // 배송정보 전체조회
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
 	// 마이페이지 - 공동구매
@@ -52,8 +46,8 @@ public interface GroupPurchaseService {
 
 	// 공동구매 삭제
 	int adminGPDelete(int no);
-	
-	//공동구매 update
+
+	// 공동구매 update
 	int adminGPUpdate(GroupPurchaseListVO vo);
 
 }

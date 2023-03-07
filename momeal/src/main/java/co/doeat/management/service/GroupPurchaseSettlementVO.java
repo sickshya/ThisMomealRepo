@@ -9,10 +9,12 @@ public class GroupPurchaseSettlementVO {
 	private String userId; // 구매자아이디
 	private String deliveryAddr;
 	private String paymentMthd;
-	private int zipCode; // 우편번호
+	private int zipcode; // 우편번호
 	private String tel; // 전화번호
 	private int totalGd; // 구매수량
-	private int totalPrice;
+	private int totalPrice; //총구매금액
 
+	//join
 	private int price; // 제품가격
+	private int listNo; // list테이블 no
 }
