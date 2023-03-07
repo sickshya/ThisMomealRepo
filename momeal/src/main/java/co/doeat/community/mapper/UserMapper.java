@@ -26,4 +26,8 @@ public interface UserMapper {
 
 	int getCountTotal(UserSearchVO svo);
 
+	//포인트=========================================================
+	// 출석체크 포인트 업데이트
+	int updateATPoint(UsersVO uvo);
+
 }

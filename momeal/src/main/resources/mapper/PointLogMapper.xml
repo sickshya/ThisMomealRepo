@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.doeat.record.mapper.PointLogMapper">
+	<!-- 출석체크 포인트 insert -->
+	<insert id="atPointadd"
+		parameterType="co.doeat.record.service.PointLogVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT
+			MAX (NO)+1 FROM POINT_LOG
+		</selectKey>
+		INSERT INTO POINT_LOG(NO,
+		USER_ID,
+		SAVE_DATE,
+		REASON_CODE)
+		VALUES(#{no},
+		'user1',
+		sysdate,
+		'AT01')
+	</insert>
+
+</mapper>
