@@ -2,110 +2,113 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.community.mapper.UserMapper">
 
-	<!-- form에서 작성한 회원 정보 DB에 저장 -->
-	<insert id="insertUserInfo"
-		parameterType="co.doeat.community.service.UsersVO">
-		INSERT INTO
-		USERS(user_id, user_name, nick_name, pwd)
-		VALUES(#{userId},
-		#{userName}, #{nickName}, #{pwd})
-	</insert>
+   <!-- form에서 작성한 회원 정보 DB에 저장 -->
+   <insert id="insertUserInfo"
+      parameterType="co.doeat.community.service.UsersVO">
+      INSERT INTO
+      USERS(user_id, user_name, nick_name, pwd)
+      VALUES(#{userId},
+      #{userName}, #{nickName}, #{pwd})
+   </insert>
 
-	<!-- id 중복체크 -->
-	<select id="isIdCheck" resultType="boolean">
-		SELECT CASE WHEN
-		COUNT(USER_ID) = 1 THEN 0 ELSE 1 END
-		FROM USERS
-		WHERE USER_ID =
-		#{userId}
-	</select>
+   <!-- id 중복체크 -->
+   <select id="isIdCheck" resultType="boolean">
+      SELECT CASE WHEN
+      COUNT(USER_ID) = 1 THEN 0 ELSE 1 END
+      FROM USERS
+      WHERE USER_ID =
+      #{userId}
+   </select>
 
-	<!-- 회원정보수정 -->
-	<update id="updateUserInfo"
-		parameterType="co.doeat.community.service.UsersVO">
-		UPDATE USERS
-		SET USER_ID = #{userId},
-		NAME = #{name},
-		NICKNAME = #{nickname},
-		PWD = #{pwd},
-		TEL = #{tel},
-		ADDR = #{addr}
-		ZIPCODE = #{zipcode},
-		EMAIL = #{email},
-		WHERE USER_ID = #{userId}
-	</update>
+   <!-- 회원정보수정 -->
+   <update id="updateUserInfo"
+      parameterType="co.doeat.community.service.UsersVO">
+      UPDATE USERS
+      SET USER_ID = #{userId},
+      NAME = #{name},
+      NICKNAME = #{nickname},
+      PWD = #{pwd},
+      TEL = #{tel},
+      ADDR = #{addr}
+      ZIPCODE = #{zipcode},
+      EMAIL = #{email},
+      WHERE USER_ID = #{userId}
+   </update>
 
-	<!-- 회원탈퇴신청시 컬럼값 변경 -->
-	<update id="updateWithdraw"
-		parameterType="co.doeat.community.service.UsersVO">
-		UPDATE USERS
-		SET QUIT_REQ = 'Y'
-		WHERE QUIT_REQ = 'N' AND
-		USER_ID = #{userId}
-	</update>
+   <!-- 회원탈퇴신청시 컬럼값 변경 -->
+   <update id="updateWithdraw"
+      parameterType="co.doeat.community.service.UsersVO">
+      UPDATE USERS
+      SET QUIT_REQ = 'Y'
+      WHERE QUIT_REQ = 'N' AND
+      USER_ID = #{userId}
+   </update>
 
-	<!-- 로그인 & 회원정보 수정폼호출시 -->
-	<select id="userSelect"
-		resultType="co.doeat.community.service.UsersVO">
-		SELECT user_id, '{noop}'||pwd pwd, name, 'ROLE_'|| user_role user_role
-		FROM USERS
-		WHERE USER_ID = #{userId }
-	</select>
-
-
-	<!-- ++++++++++++++++++++++++++관리자 ++++++++++++++++++++++ -->
-	<!-- 관리자 회원 리스트 -->
-	<select id="adminUserList"
-		resultType="co.doeat.community.service.UsersVO">
-		SELECT * FROM USERS
-	</select>
+   <!-- 로그인 & 회원정보 수정폼호출시 -->
+   <select id="userSelect"
+      resultType="co.doeat.community.service.UsersVO">
+      SELECT user_id, '{noop}'||pwd pwd, user_name, 'ROLE_'|| user_role user_role
+      FROM USERS
+      WHERE USER_ID = #{userId }
+   </select>
 
 
-	<!-- 페이징 --> 
-	<sql id="creiteria">
-		<if test="typeArr != null">
-			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
-				<foreach collection="typeArr" item="type">
-					<trim prefix="OR">
-						<choose>
-							<when test="type == 'G'.toString()">
-								grade like '%' ||#{keyword}||'%'
-							</when>
-							<when test="type == 'N'.toString()">
-								user_name like '%'||#{keyword}||'%'
-							</when>
-						</choose>
-					</trim>
-				</foreach>
-			</trim>
-		
-		</if>
-		
-	</sql>
+   <!-- ++++++++++++++++++++++++++관리자 ++++++++++++++++++++++ -->
+   <!-- 관리자 회원 리스트 -->
+   <select id="adminUserList"
+      resultType="co.doeat.community.service.UsersVO">
+      SELECT * FROM USERS
+   </select>
 
-	<!-- 총 회원수 -->
-	<select id="getCountTotal" parameterType="UsersVO"
-		resultType="int">
-		SELECT COUNT(*)
-		FROM USERS
-		<include refid="creiteria"></include>
-	</select>
 
-	<!-- 페이징 할 리스트 -->
-	<select id="getAdminUserList" parameterType="UsersVO"
-		resultType="UsersVO">
+   <!-- 페이징 --> 
+   <sql id="creiteria">
+                  <choose>
+                     <when test="type == 'G'.toString()">
+                        grade like '%'||#{keyword}||'%'
+                     </when>
+                     <when test="type == 'N'.toString()">
+                        user_name like '%'||#{keyword}||'%'
+                     </when>
+                  </choose>
+   </sql>
 
-		SELECT * FROM( SELECT ROWNUM RN, A.* FROM(
+   <!-- 총 회원수 -->
+   <select id="getCountTotal" parameterType="UsersVO"
+      resultType="int">
+      SELECT COUNT(*)
+      FROM USERS
+      <where>
+      <include refid="creiteria"></include>
+   </where>
+   </select>
 
-		SELECT * FROM USERS
-		 
-		<include refid="creiteria"></include>
-		
-		ORDER BY USER_ID
-		
-		<![CDATA[
- 		)A WHERE ROWNUM <= #{last}) B WHERE RN  >= #{first}
-			
-		]]>
-	</select>
+   <!-- 페이징 할 리스트 -->
+   <select id="getAdminUserList" parameterType="UsersVO"
+      resultType="UsersVO">
+
+      SELECT * FROM( SELECT ROWNUM RN, A.* FROM(
+
+      SELECT * FROM USERS
+      
+      <where>
+
+      <include refid="creiteria"></include>
+
+   </where> 
+      
+      ORDER BY USER_ID
+      
+      <![CDATA[
+       )A WHERE ROWNUM <= #{last}) B WHERE RN  >= #{first}
+         
+      ]]>
+   </select>
+   
+   <!-- 출석체크 회원테이블 누적 포인트 업데이트 -->
+   <update id="updateATPoint" parameterType="co.doeat.community.service.UsersVO" >
+      UPDATE USERS
+      SET TOTAL_POINT = TOTAL_POINT+10
+      WHERE USER_ID='user1'
+   </update>
 </mapper>
