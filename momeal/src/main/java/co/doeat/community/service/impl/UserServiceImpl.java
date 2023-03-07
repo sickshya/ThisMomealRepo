@@ -58,4 +58,9 @@ public class UserServiceImpl implements UserService {
 		return userMapper.adminUserList();
 	}
 
+	@Override
+	public UsersVO grpSelect(String userId) {
+		return userMapper.grpSelect(userId);
+	}
+
 }

@@ -137,37 +137,23 @@ img {
 			<br>
 			<!--날짜 표시부분-->
 			<div class="Cal">
-				<table class="Calendar">
-					<thead>
-						<tr align="center">
-							<td style="width: 100px"></td>
-							<td onclick="prevCalendar();" style="cursor: pointer;">&#60;</td>
-							<td style="width: 500px"><span id="calYear"></span>- <span
-								id="calMonth"></span>- <span id="calDate"></span></td>
-							<td onclick="nextCalendar();" style="cursor: pointer;">&#62;</td>
-							<td style="width: 1000px"></td>
-						</tr>
-					</thead>
-					<tbody id="tbd">
-					</tbody>
-				</table>
+				<form id="frm" action="/groupsSelect" method="post">
+					<table class="Calendar">
+						<thead>
+							<tr align="center">
+								<td style="width: 100px"></td>
+								<td onclick="prevCalendar();" style="cursor: pointer;">&#60;</td>
+								<td style="width: 500px"><span id="calYear"></span>- <span
+									id="calMonth"></span>- <span id="calDate"></span></td>
+								<td onclick="nextCalendar();" style="cursor: pointer;">&#62;</td>
+								<td style="width: 1000px"></td>
+							</tr>
+						</thead>
+						<tbody id="tbd">
+						</tbody>
+					</table>
+				</form>
 			</div>
-
-
-			<!--사진보여주는 부분 for문 돌리기-->
-
-			<!--     <div class="card"> -->
-			<!--         <a href="#story-modal" uk-toggle> -->
-			<!--         <img src="img_avatar2.png" alt="Avatar" style="width:100%"> -->
-			<!--         </a> -->
-			<!--         <div class="Cardcontainer"> -->
-			<!--           <h4><b>${meal.typeCode}</b></h4>  -->
-			<!--           <p>식사량 : ${meal.mealAmount} </p>  -->
-			<!--           <p>2${meal.mealTime}</p>  -->
-			<!--           <p>3${meal.subject}</p>  -->
-
-			<!--         </div> -->
-			<!--       </div> -->
 		</div>
 
 
@@ -232,17 +218,14 @@ img {
 							<tr>
 				        		<td colspan="6">
 				        	    <div class="card" >				        	   
-				    				<a href="/groupsSelect" id="grpSel" uk-toggle>
+				    				<a href="/groupsSelect/${re.userId}/${re.postDate}" uk-toggle>
 				    				<div style="padding: 10px; text-align: left;">
-				    				<img src="${re.profileImgPath}" class= "rounded-full"  style="width:30px; display: inline-block">&nbsp;&nbsp;<b>${re.nickName}</b>
+				    				<img src="${re.profileImgPath}" class= "rounded-full" style="width:30px; display: inline-block">&nbsp;&nbsp;<b>${re.nickName}</b>
 				    				</div>
 				    				
 				    				`							
 				    				
 							$(re.mealsImg).each(function(i, img){
-							//	let grpSel = $("#grpSel")
-							//	grpSel.attr("href", "/groupsSelect/" + img.userId)
-							//	console.log(img.userId)
 								
 								tr += ` <img src="${img.fileDir}" alt="Avatar" style="width:130px; display: inline-block">`
 								

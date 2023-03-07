@@ -96,4 +96,10 @@
 			
 		]]>
 	</select>
+	
+	<select id="grpSelect" resultType="co.doeat.community.service.UsersVO">
+		SELECT *
+		FROM USERS
+		WHERE USER_ID = #{userId}
+	</select>
 </mapper>

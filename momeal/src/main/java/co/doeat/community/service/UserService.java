@@ -17,7 +17,9 @@ public interface UserService {
 	int updateWithdraw(UsersVO vo); // 회원탈퇴 업데이트
 
 	UsersVO userSelect(String userId); // 로그인, 회원정보수정폼 호출시
-	
+
+	// 그룹 상세(글하나, 이미지 다수) select
+	UsersVO grpSelect(String userId);
 
 	// 관리자===========================================
 	// 회원 목록 출력
