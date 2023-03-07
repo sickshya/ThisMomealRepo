@@ -136,7 +136,7 @@ public class GroupPurchaseController {
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
 	// 페이징
-	@RequestMapping("/adminGroupPurchase")
+	@RequestMapping("/admin/adminGroupPurchase")
 	public String adminGroupPurchase(Model model, @ModelAttribute("esvo") GroupPurchaseSearchVO svo, Paging paging) {
 		svo.setFirst(paging.getFirst());
 		svo.setLast(paging.getLast());
@@ -146,7 +146,7 @@ public class GroupPurchaseController {
 	}
 
 	// 공동구매등록
-	@RequestMapping("/adminGPInsertFrom")
+	@RequestMapping("/admin/adminGPInsertFrom")
 	public String adminGPInsertFrom() {
 		return "admin/adminGPInsertFrom";
 	}
@@ -180,7 +180,7 @@ public class GroupPurchaseController {
 	}
 
 	// 관리자 공동구매 select
-	@RequestMapping("/adminGPSelect/{no}")
+	@RequestMapping("/admin/adminGPSelect/{no}")
 	public String adminGPSelect(@PathVariable int no, Model model, GroupPurchaseListVO vo) {
 		model.addAttribute("selects", groupPurchaseService.adminGPSelect(no));
 		String boardCode = "CT03";
@@ -191,16 +191,16 @@ public class GroupPurchaseController {
 	}
 
 	// 관리자 공동구매 delete
-	@RequestMapping("/adminGPDelete/{no}")
+	@RequestMapping("/admin/adminGPDelete/{no}")
 	public String adminGPDelete(@PathVariable int no, Model model, GroupPurchaseListVO vo, ImageVO evo) {
 		String boardCode = "CT03";
 		int postNo = vo.getNo();
 		imageService.adminGPIDelete(postNo, boardCode);
 		groupPurchaseService.adminGPDelete(no);
-		return "redirect:/adminGroupPurchase";
+		return "redirect:/admin/adminGroupPurchase";
 	}
 	//관리자 공동구매 update
-	@RequestMapping("/adminGPUpdateForm/{no}")
+	@RequestMapping("/admin/adminGPUpdateForm/{no}")
 	public String adminGPUpdateForm(GroupPurchaseListVO vo, Model model, @PathVariable int no) {
 		model.addAttribute("updates", groupPurchaseService.adminGPSelect(no));
 		String boardCode = "CT03";

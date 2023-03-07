@@ -63,24 +63,14 @@
 
 	<!-- 페이징 --> 
 	<sql id="creiteria">
-		<if test="typeArr != null">
-			<trim prefix="(" suffix=") AND" prefixOverrides="OR">
-				<foreach collection="typeArr" item="type">
-					<trim prefix="OR">
 						<choose>
 							<when test="type == 'G'.toString()">
-								grade like '%' ||#{keyword}||'%'
+								grade like '%'||#{keyword}||'%'
 							</when>
 							<when test="type == 'N'.toString()">
 								user_name like '%'||#{keyword}||'%'
 							</when>
 						</choose>
-					</trim>
-				</foreach>
-			</trim>
-		
-		</if>
-		
 	</sql>
 
 	<!-- 총 회원수 -->
@@ -88,7 +78,9 @@
 		resultType="int">
 		SELECT COUNT(*)
 		FROM USERS
+		<where>
 		<include refid="creiteria"></include>
+	</where>
 	</select>
 
 	<!-- 페이징 할 리스트 -->
@@ -98,8 +90,12 @@
 		SELECT * FROM( SELECT ROWNUM RN, A.* FROM(
 
 		SELECT * FROM USERS
-		 
+		
+		<where>
+
 		<include refid="creiteria"></include>
+
+	</where> 
 		
 		ORDER BY USER_ID
 		
@@ -108,4 +104,11 @@
 			
 		]]>
 	</select>
+	
+	<!-- 출석체크 회원테이블 누적 포인트 업데이트 -->
+	<update id="updateATPoint" parameterType="co.doeat.community.service.UsersVO" >
+		UPDATE USERS
+		SET TOTAL_POINT = TOTAL_POINT+10
+		WHERE USER_ID='user1'
+	</update>
 </mapper>
