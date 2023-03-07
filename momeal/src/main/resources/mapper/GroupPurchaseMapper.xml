@@ -81,12 +81,33 @@
 
 	<!-- 배송정보 입력 -->
 	<insert id="payInsert" parameterType="GroupPurchaseSettlementVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT
+			MAX(NO)+1 FROM GROUP_PURCHASE_SETTLEMENT
+		</selectKey>
 		insert into GROUP_PURCHASE_SETTLEMENT(NO,USER_ID,
-		DELIVERY_ADDR, PAYMENT_MTHD, ZIPCODE, TEL, TOTAL_GD, TOTAL_PRICE)
-		values(#{no}, #{userId}, #{deliveryAddr},
+		DELIVERY_ADDR,
+		PAYMENT_MTHD, ZIPCODE, TEL, TOTAL_GD, TOTAL_PRICE)
+		values(#{no},
+		#{userId}, #{deliveryAddr},
 		#{paymentMthd}, #{zipcode},
-		#{tel}, #{totalGd}, #{totalPrice})
+		#{tel},
+		#{totalGd}, #{totalPrice})
 	</insert>
+
+	<!-- 배송정보 조회 -->
+	<select id="attendPurchase"
+		resultType="GroupPurchaseSettlementVO">
+		SELECT g.*, s.*
+		FROM
+		GROUP_PURCHASE_LISTS g JOIN GROUP_PURCHASE_SETTLEMENT s
+		ON (g.NO = s.LIST_NO)
+		WHERE
+		s.LIST_NO = #{no}
+		ORDER BY g.NO
+	</select>
+
+	
 
 	<!-- +++++++++++++++++마이페이지+++++++++++++++++++++++++++++++ -->
 	<!-- 마이페이지 - 공동구매내역 전체리스트 -->
@@ -215,35 +236,35 @@
 		WHERE NO = #{no}
 	</update>
 
- 	<!-- 공동구매리스트 맵 -->
-<!-- 	<resultMap -->
-<!-- 		type="co.doeat.management.service.GroupPurchaseListVO" id="gpListMap"> -->
-<!-- 		<id property="no" column="no" /> -->
-<!-- 		<result property="no" column="no" /> -->
-<!-- 		<result property="name" column="name" /> -->
-<!-- 		<result property="coName" column="co_name" /> -->
-<!-- 		<result property="price" column="price" /> -->
-<!-- 		<result property="subject" column="subject" /> -->
-<!-- 		<result property="minGd" column="min_gd" /> -->
-<!-- 		<result property="splyGd" column="sply_gd" /> -->
-<!-- 		<result property="grpStartDate" column="grp_Start_Date" /> -->
-<!-- 		<result property="grpEndDate" column="grp_End_Date" /> -->
-<!-- 		<result property="thumbnailImgPath" column="thumbnail_Img_Path" /> -->
-<!-- 		<result property="thumbnailImgPath" column="thumbnail_Img" /> -->
-<!-- 		<collection property="imgPath" resultMap="imgMap"></collection> -->
-<!-- 	</resultMap> -->
+	<!-- 공동구매리스트 맵 -->
+	<!-- <resultMap -->
+	<!-- type="co.doeat.management.service.GroupPurchaseListVO" id="gpListMap"> -->
+	<!-- <id property="no" column="no" /> -->
+	<!-- <result property="no" column="no" /> -->
+	<!-- <result property="name" column="name" /> -->
+	<!-- <result property="coName" column="co_name" /> -->
+	<!-- <result property="price" column="price" /> -->
+	<!-- <result property="subject" column="subject" /> -->
+	<!-- <result property="minGd" column="min_gd" /> -->
+	<!-- <result property="splyGd" column="sply_gd" /> -->
+	<!-- <result property="grpStartDate" column="grp_Start_Date" /> -->
+	<!-- <result property="grpEndDate" column="grp_End_Date" /> -->
+	<!-- <result property="thumbnailImgPath" column="thumbnail_Img_Path" /> -->
+	<!-- <result property="thumbnailImgPath" column="thumbnail_Img" /> -->
+	<!-- <collection property="imgPath" resultMap="imgMap"></collection> -->
+	<!-- </resultMap> -->
 
- 	<!-- 공구 단건 이미지이름 맵 --> 
-<!-- 	<resultMap type="co.doeat.common.service.ImageVO" id="imgMap"> -->
-<!-- 		<result property="postNo" column="post_No" /> -->
-<!-- 		<result property="boardCode" column="board_Code" /> -->
-<!-- 		<result property="atchPath" column="atch_Path" /> -->
-<!-- 	</resultMap> -->
+	<!-- 공구 단건 이미지이름 맵 -->
+	<!-- <resultMap type="co.doeat.common.service.ImageVO" id="imgMap"> -->
+	<!-- <result property="postNo" column="post_No" /> -->
+	<!-- <result property="boardCode" column="board_Code" /> -->
+	<!-- <result property="atchPath" column="atch_Path" /> -->
+	<!-- </resultMap> -->
 
 	<!-- 관리자용 단건조회 (이미지다수, 글 하나) -->
-	<select id="adminGPSelect" resultType="GroupPurchaseListVO" >
+	<select id="adminGPSelect" resultType="GroupPurchaseListVO">
 		SELECT *
-		FROM GROUP_PURCHASE_LISTS 
+		FROM GROUP_PURCHASE_LISTS
 		WHERE no = #{no}
 	</select>
 </mapper>

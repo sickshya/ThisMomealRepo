@@ -20,5 +20,29 @@ public class CommentServiceImpl implements CommentService{
 	public List<CommentVO> commentsList(CommentVO vo) {
 		return commentMapper.commentsList(vo);
 	}
+
+	// 댓글 등록
+	@Override
+	public void commentInsert(CommentVO vo) {
+		commentMapper.commentInsert(vo);
+	}
 	
+	// 대댓글 등록
+	@Override
+	public void replyInsert(CommentVO vo) {
+		commentMapper.replyInsert(vo);
+	}
+	
+	// 댓글 수정
+	@Override
+	public void commentUpdate(CommentVO vo) {
+		commentMapper.commentUpdate(vo);
+	}
+
+	// 댓글 삭제
+	@Override
+	public void commentDelete(int no) {
+		commentMapper.commentDelete(no);
+	}
+
 }

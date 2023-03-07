@@ -3,8 +3,6 @@
 <mapper namespace="co.doeat.management.mapper.ChallengeMapper">
 
 	<!-- 챌린지 전체조회 -->
-	<!-- 로그인 안 했을때는 하트유무를 표시 안 해줘야 함. html에서 처리하면 되나? -->
-	<!-- 쿼리에서는...어쩌지? -->
 	<select id="getChallList" resultType="map">
 		SELECT C.*,
 		NVL((SELECT L.NO
@@ -16,6 +14,7 @@
 		ORDER BY C.NO
 	</select>
 
+	<!-- 챌린지 인기순 조회 -->
 	<select id="likeRankChallList" resultType="map">
 		WITH LIKE_COUNT AS
 		(SELECT POST_NO, COUNT(*) CN
@@ -38,7 +37,7 @@
 		ORDER BY L.RWN
 	</select>
 
-	<!-- 챌린지단건조회 -->
+	<!-- 챌린지 단건조회 -->
 	<select id="getChallenge"
 		resultType="co.doeat.management.service.ChallengeVO">
 		SELECT C.*, I.*, (C.PARTICIR * C.DEDUCT_POINT) AS

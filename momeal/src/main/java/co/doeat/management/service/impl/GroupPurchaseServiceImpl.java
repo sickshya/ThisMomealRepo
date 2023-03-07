@@ -39,21 +39,16 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 		return groupPurchaseMapper.getPurOne(no);
 	}
 
+	// 공동구매 결제하기
 	@Override
-	public List<GroupPurchaseSettlementVO> payInsert(GroupPurchaseSettlementVO pvo) {
+	public int payInsert(GroupPurchaseSettlementVO pvo) {
 		return groupPurchaseMapper.payInsert(pvo);
 	}
 
-//	@Override
-//	public int kakaoPay(GroupPurchaseSettlementVO vo) {
-//		
-//		return groupPurchaseMapper.kakaoPay(vo);
-//	}
-
-	//공동구매 결제하기
+	// 공동구매 결제화면 전체조회
 	@Override
-	public int attendPurchase(UsersVO vo) {
-		return groupPurchaseMapper.attendPurchase(vo);
+	public List<Map<String, Object>> attendPurchase(Map<String, Object> map) {
+		return groupPurchaseMapper.attendPurchase(map);
 	}
 
 	// +++++++++++++++++++++++++++마이페이지

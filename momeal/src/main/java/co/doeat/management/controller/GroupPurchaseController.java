@@ -1,8 +1,8 @@
 package co.doeat.management.controller;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,55 +63,43 @@ public class GroupPurchaseController {
 	// 공동구매-상세(단건조회)
 	@GetMapping("/purchaseDetail/{no}")
 	public String purchaseList(Model model, @PathVariable int no, GroupPurchaseSettlementVO pvo) {
-
 		model.addAttribute("PurOne", groupPurchaseService.getPurOne(no));
 		return "groupPurchase/purchaseDetail";
 	}
 
-	// 공동구매-구매하기form
+	// 공동구매-정보입력form
 	@RequestMapping("/purchaseForm/{no}")
 	public String purchaseForm(@PathVariable int no, HttpSession session, HttpServletRequest request,
 			GroupPurchaseListVO gvo, Model model, GroupPurchaseSettlementVO vo) {
-		session = request.getSession();
-		session.setAttribute("userId", "user1");
-		String orderId = (String) session.getAttribute("userId");
-
+//		session = request.getSession();
+//		session.setAttribute("userId", "user1");
+//		String orderId = (String) session.getAttribute("userId")
 		model.addAttribute("purOne", groupPurchaseService.getPurOne(no));
-		model.addAttribute("userInfo", userService.userSelect(orderId));
+		model.addAttribute("userInfo", userService.userSelect("user1"));
 		// model.addAttribute("kakao", groupPurchaseService.kakaoPay(vo));
 
 		return "groupPurchase/purchaseForm";
 	}
 
-	// 공동구매-구매완료리스트
-	@GetMapping("/orderList")
-	public String orderList(HttpSession session, HttpServletRequest request, UsersVO vo) {
-		session = request.getSession();		
-
-		// 세션에 담겨있는 아이디 값을 vo의 userId에 담기. (String) 처리 해줘야함
-		vo.setUserId((String) session.getAttribute("userId"));
-		groupPurchaseService.attendPurchase(vo);
-		return "groupPurchase/orderList";
-	}
-
-	// 공동구매-구매완료리스트
-	@PostMapping("/orderList")
-	public String orderList(@PathVariable int no, HttpSession session, HttpServletRequest request,
-			UsersVO vo, Model model) {
+	// 공동구매-결제
+	@PostMapping("/purchase") // 아작스부를떄 호출
+	@ResponseBody
+	public String purchase(HttpSession session, HttpServletRequest request, UsersVO vo, GroupPurchaseSettlementVO pvo) {
 		session = request.getSession();
-		session.setAttribute("userId", "user1");
-		model.addAttribute("attendPurchases", groupPurchaseService.attendPurchase(vo));
+		groupPurchaseService.payInsert(pvo);
 		return "redirect:/orderList";
 	}
 
-//	// 공동구매
-//	@PostMapping("/purchaseForm/{no}")
-//	public String purchaseForm(GroupPurchaseSettlementVO pvo, HttpSession session, @PathVariable int no) {
-//		pvo.setNo(no);
-//		pvo.setUserId((String) session.getAttribute("userId"));
-//		groupPurchaseService.payInsert(pvo);
-//		return "redirect:/orderList";
-//	}
+	// 공동구매-구매완료리스트
+	@GetMapping("/orderList")
+	public String orderList(HttpSession session, HttpServletRequest request, Map<String, Object> map) {
+		session = request.getSession();
+		// 세션에 담겨있는 아이디 값을 vo의 userId에 담기. (String) 처리 해줘야함
+		// vo.setUserId((String) session.getAttribute("userId"));
+		groupPurchaseService.attendPurchase(map);
+		return "groupPurchase/orderList";
+	}
+
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
 	// 마이페이지 공동구매내역 리스트
@@ -136,7 +125,7 @@ public class GroupPurchaseController {
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
 	// 페이징
-	@RequestMapping("/adminGroupPurchase")
+	@RequestMapping("/admin/adminGroupPurchase")
 	public String adminGroupPurchase(Model model, @ModelAttribute("esvo") GroupPurchaseSearchVO svo, Paging paging) {
 		svo.setFirst(paging.getFirst());
 		svo.setLast(paging.getLast());
@@ -146,7 +135,7 @@ public class GroupPurchaseController {
 	}
 
 	// 공동구매등록
-	@RequestMapping("/adminGPInsertFrom")
+	@RequestMapping("/admin/adminGPInsertFrom")
 	public String adminGPInsertFrom() {
 		return "admin/adminGPInsertFrom";
 	}
@@ -180,39 +169,41 @@ public class GroupPurchaseController {
 	}
 
 	// 관리자 공동구매 select
-	@RequestMapping("/adminGPSelect/{no}")
+	@RequestMapping("/admin/adminGPSelect/{no}")
 	public String adminGPSelect(@PathVariable int no, Model model, GroupPurchaseListVO vo) {
 		model.addAttribute("selects", groupPurchaseService.adminGPSelect(no));
 		String boardCode = "CT03";
-		int postNo= vo.getNo();
+		int postNo = vo.getNo();
 		model.addAttribute("imgselect", imageService.imageList(boardCode, postNo));
-		
+
 		return "admin/adminGPSelect";
 	}
 
 	// 관리자 공동구매 delete
-	@RequestMapping("/adminGPDelete/{no}")
+	@RequestMapping("/admin/adminGPDelete/{no}")
 	public String adminGPDelete(@PathVariable int no, Model model, GroupPurchaseListVO vo, ImageVO evo) {
 		String boardCode = "CT03";
 		int postNo = vo.getNo();
 		imageService.adminGPIDelete(postNo, boardCode);
 		groupPurchaseService.adminGPDelete(no);
-		return "redirect:/adminGroupPurchase";
+		return "redirect:/admin/adminGroupPurchase";
 	}
+  
 	//관리자 공동구매 update
-	@RequestMapping("/adminGPUpdateForm/{no}")
+	@RequestMapping("/admin/adminGPUpdateForm/{no}")
 	public String adminGPUpdateForm(GroupPurchaseListVO vo, Model model, @PathVariable int no) {
 		model.addAttribute("updates", groupPurchaseService.adminGPSelect(no));
 		String boardCode = "CT03";
-		int postNo= vo.getNo();
+		int postNo = vo.getNo();
 		model.addAttribute("iupdates", imageService.imageList(boardCode, postNo));
-		
+
 		return "admin/adminGPUpdateForm";
 	}
-	
+
 	@RequestMapping("/adminGPUpdate")
 	@ResponseBody
-	public String adminGPUpdate(GroupPurchaseListVO vo, ImageVO evo, Model model,List<MultipartFile> files, MultipartFile tfile) {
+	public String adminGPUpdate(GroupPurchaseListVO vo, ImageVO evo, Model model, List<MultipartFile> files,
+			MultipartFile tfile) {
 		if (!tfile.isEmpty()) {// 첨부파일이 존재하면
 			String fileName = UUID.randomUUID().toString();
 			fileName = fileName + tfile.getOriginalFilename();
@@ -229,8 +220,8 @@ public class GroupPurchaseController {
 		String boardCode = "CT03";
 		int postNo = vo.getNo();
 		imageService.adminGPIDelete(postNo, boardCode);
-		//groupPurchaseService.adminGPUpdate(vo.getNo());
-		//groupPurchaseService.adminGPUpdate(vo);
+		// groupPurchaseService.adminGPUpdate(vo.getNo());
+		// groupPurchaseService.adminGPUpdate(vo);
 		int atchNo = imageService.fileUpload(files, vo.getNo(), boardCode);
 
 		if (atchNo > 0) {
@@ -238,7 +229,7 @@ public class GroupPurchaseController {
 		}
 
 		return "true";
-				
+
 	}
 
 }

@@ -87,12 +87,12 @@ p {
 	display: block;
 	font-size: 15px;
 	border: none;
-	border-bottom: 2px solid #04a5db;
+	border-bottom: 2px solid #D5F7C9;
 	background: none;
 }
 
 .form-control:focus, .form-control:valid {
-	border-bottom: 2px solid #ffffff;
+	border-bottom: 2px solid #FFF59F;
 }
 
 .form-control:focus+span, .form-control:valid+span {
@@ -107,7 +107,7 @@ textarea.form-control {
 	padding: 13px 1px;
 }
 
-button[type="submit"] {
+button[type="submit"], button[type="reset"], button[type="button"] {
 	width: 162px;
 	height: 51px;
 	display: flex;
@@ -115,8 +115,8 @@ button[type="submit"] {
 	justify-content: center;
 	margin: 60px auto 0;
 	padding: 0;
-	color: #ffffff;
-	border: 2px solid #ffffff;
+	color: #FFF59F;
+	border: 2px solid #FFF59F;
 	border-radius: 4px;
 	background-color: #39459b;
 	cursor: pointer;
@@ -124,8 +124,8 @@ button[type="submit"] {
 	transition: background-color 0.2s linear;
 }
 
-button[type="submit"]:hover {
-	background-color: #299cd1;
+button[type="submit"]:hover, button[type="reset"]:hover, button[type="button"]:hover {
+	background-color: #D5F7C9;
 }
 
 @media ( max-width :767px) {
@@ -137,8 +137,8 @@ button[type="submit"]:hover {
 		font-size: 14px;
 	}
 	.wrapper {
-		background: #39459b;
-		border: 10px solid #95c6db;
+		background: #D5F7C9;
+		border: 10px solid #FFF59F;
 	}
 	.form-container {
 		width: 100%;

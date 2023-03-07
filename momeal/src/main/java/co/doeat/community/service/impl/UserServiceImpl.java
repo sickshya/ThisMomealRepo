@@ -57,6 +57,11 @@ public class UserServiceImpl implements UserService {
 	public List<UsersVO> adminUserList() {
 		return userMapper.adminUserList();
 	}
+//===============================================================포인트==========================
+	@Override
+	public int updateATPoint(UsersVO uvo) {
+		return userMapper.updateATPoint(uvo);
+	}
 
 	@Override
 	public UsersVO grpSelect(String userId) {
