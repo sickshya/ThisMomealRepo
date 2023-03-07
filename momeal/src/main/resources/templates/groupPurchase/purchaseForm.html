@@ -34,7 +34,7 @@
 			<hr>
 
 			<div>
-				<form id="frm" action="" method="post">
+				<form id="frm" action="/purchase" method="post">
 					<table border="1">
 						<tr>
 							<th>아이디</th>
@@ -58,6 +58,16 @@
 								th:value="${userInfo.tel}"></td>
 						</tr>
 						<tr>
+							<th>주문 수량</th>
+							<td><input type="number" id="totalGd" name="totalGd"
+								th:value="${userInfo.totalGd}"></td>
+						</tr>
+						<tr>
+							<th>총 금액</th>
+							<td><input type="number" id="totalPrice" name="totalPrice"
+								th:value="${userInfo.totalPrice}"></td>
+						</tr>
+						<tr>
 							<th>이용약관</th>
 							<td><input type="checkbox" id="userUse" name="userUse">
 								<label for="userUse">약관에 동의하시겠습니까?</label></td>
@@ -69,10 +79,11 @@
 						<tr>
 							<th>결제수단</th>
 							<td><input type="radio" id="paymentMthd" name="paymentMthd"
-								value="C" onchange="showDiv('C')" checked="checked">카드 <input
-								type="radio" id="paymentMthd" name="paymentMthd" value="U"
-								onchange="showDiv('U')">현금</td>
+								value="현금" onchange="showDiv('C')" checked="checked">카드
+								<input type="radio" id="paymentMthd" name="paymentMthd"
+								value="카드" onchange="showDiv('U')">현금</td>
 						</tr>
+
 					</table>
 
 
@@ -80,8 +91,7 @@
 						<table>
 							<tr>
 								<th>카카오페이</th>
-								<td><input type="checkbox" id="paymentMthd"
-									name="paymentMthd"></td>
+								<td><input type="radio" id="kakao"></td>
 							</tr>
 						</table>
 					</div>
@@ -94,16 +104,23 @@
 
 					<!-- 				<input type="button" value="구매하기" class="check_module" -->
 					<!-- 					th:onclick="'location.href=\''+ @{/purchaseForm/{no}(no = ${purOne.no})} + '\''"> -->
-					<input type="button" class="check_module" value="구매하기"
-						th:onclick="|location.href='@{/orderList/{no}(no=${purOne[0].no})}'|">
+					<input type="submit" class="check_module" value="구매하기">
 
 				</form>
 			</div>
-
 			<script th:inline="javascript">
 				$(".check_module")
 						.click(
 								function() {
+									let userId = $('#userId').val(); // 공구자 아이디
+									let deliveryAddr = $('#deliveryAddr').val(); // 공구자 배송지
+									let tel = $('#tel').val(); // 공구자 전화번호
+									let paymentMthd = $('#paymentMthd').val(); // 공구자 결제수단
+									let zipcode = $('#zipcode').val(); // 공구자 결제수단
+									let tel = $('#tel').val(); // 공구자 결제수단
+									let totalGd = $('#totalGd').val(); // 공구자 결제수단
+									let totalPrice = $('#totalPrice').val(); // 공구자 결제수단
+
 									var IMP = window.IMP; // 생략가능
 									IMP.init('imp51560224');
 									// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -144,13 +161,11 @@
 														 */
 														name : '순심',
 														//결제창에서 보여질 이름
-														amount : '20000',
+														amount : '990000',
 														//가격 
-														//buyer_email : '${res.resEmail}',
-														buyer_name : '구매자이름',
-														buyer_tel : '010-1234-5678',
-														buyer_addr : '서울특별시 강남구 삼성동',
-														buyer_postcode : '123-456',
+														buyer_email : resEmail,
+														buyer_name : resName,
+														buyer_tel : resTel,
 														m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 													/*  
 													    모바일 결제시,
@@ -170,6 +185,41 @@
 																	+ rsp.paid_amount;
 															msg += '카드 승인번호 : '
 																	+ rsp.apply_num;
+
+															// 컨트롤러에 데이터를 전달하여 DB에 입력하는 로직
+															// 결제내역을 사용자에게 보여주기 위해 필요함.
+															$
+																	.ajax({
+																		url : "/purchase",
+																		type : "POST",
+																		data : JSON
+																				.stringify({
+																					"userId" : userId,
+																					//"deliveryAddr": deliveryAddr,
+																					"paymentMthd" : paymentMthd,
+																					"deliveryAddr" : deliveryAddr,
+																					"tel" : tel,
+																					"totalGd" : totalGd,
+																					"totalPrice" : totalPrice,
+																					"zipcode" : zipcode
+																				//                         payState: rsp.status,
+																				}),
+																		contentType : 'application/json',
+																		success : function(
+																				result) {
+																			if (result == "y") { // ㅇ오잉.ㅇ.ㅇ....
+																				alert(msg);
+																			} else {
+																				alert("디비입력실패");
+																				return false;
+																			}
+																		},
+																		error : function(
+																				a,
+																				b,
+																				c) {
+																		}
+																	});
 														} else {
 															var msg = '결제에 실패하였습니다.';
 															msg += '에러내용 : '
@@ -193,9 +243,6 @@
 					}
 				}
 			</script>
-
-
-
 
 		</div>
 	</div>
