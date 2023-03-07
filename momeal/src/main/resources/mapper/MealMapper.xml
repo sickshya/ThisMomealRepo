@@ -40,7 +40,10 @@
 		SELECT * FROM MEALS
 		WHERE NO = #{no}
 	</select>
-
-
+	
+	<select id="mealList" resultType="co.doeat.activity.service.MealVO" parameterType="co.doeat.activity.service.MealVO">
+		SELECT * FROM MEALS
+		WHERE POST_DATE = #{postDate} AND USER_ID = #{userId}
+	</select>
 
 </mapper>

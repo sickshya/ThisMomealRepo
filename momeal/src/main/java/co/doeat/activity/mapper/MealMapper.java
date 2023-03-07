@@ -9,5 +9,8 @@ public interface MealMapper {
 
 	int insertMeal(MealVO vo);
 	// MealVO mealSelect(MealVO vo);
+	
+	// 그룹 상세(글 하나, 이미지 다수)
+	List<MealVO> mealList(MealVO vo);
 
 }

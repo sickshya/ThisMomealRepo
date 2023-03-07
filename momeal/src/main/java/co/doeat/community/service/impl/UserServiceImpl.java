@@ -63,4 +63,9 @@ public class UserServiceImpl implements UserService {
 		return userMapper.updateATPoint(uvo);
 	}
 
+	@Override
+	public UsersVO grpSelect(String userId) {
+		return userMapper.grpSelect(userId);
+	}
+
 }
