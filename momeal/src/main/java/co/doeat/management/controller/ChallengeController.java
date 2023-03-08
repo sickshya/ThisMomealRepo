@@ -112,7 +112,7 @@ public class ChallengeController {
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
 	// 챌린지 관리자
 	// 페이징
-	@RequestMapping("/adminChallenge")
+	@RequestMapping("/admin/adminChallenge")
 	public String adminChallenge(Model model, @ModelAttribute("esvo") ChallengeSearchVO svo, Paging paging) {
 		svo.setFirst(paging.getFirst());
 		svo.setLast(paging.getLast());

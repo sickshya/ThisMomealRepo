@@ -19,11 +19,13 @@ public class WebConfig implements WebMvcConfigurer {
 		.setCachePeriod(20);
 	}
 	
-//	public void addViewControllers(ViewControllerRegistry registry) {
-//		registry.addViewController("/home").setViewName("/base/home");
-//		registry.addViewController("/main").setViewName("/base/home");
-//		registry.addViewController("/").setViewName("base/home");
-//		registry.addViewController("/login").setViewName("myPages/userLoginForm");
-//	}
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/home").setViewName("/base/home");
+		registry.addViewController("/main").setViewName("/base/home");
+		registry.addViewController("/").setViewName("base/home");
+		registry.addViewController("/login").setViewName("myPages/userLoginForm");
+		
+		registry.addRedirectViewController("/logout", "/login");
+	}
 
 }
