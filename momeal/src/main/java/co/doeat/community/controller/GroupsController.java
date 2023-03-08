@@ -3,6 +3,7 @@ package co.doeat.community.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.doeat.activity.service.MealService;
 import co.doeat.activity.service.MealVO;
@@ -35,6 +37,12 @@ public class GroupsController {
 		vo.setUserId((String)session.getAttribute("userId"));
 		model.addAttribute("grList", groupsService.grpList(vo));
 		return "groups/groupsList";
+	}
+	
+	@RequestMapping("/groupsList/{no}")
+	@ResponseBody
+	public List<GroupsVO> memList(@PathVariable int no) {
+		return groupsService.membList(no);
 	}
 
 	// 그룹 피드 페이지로 이동

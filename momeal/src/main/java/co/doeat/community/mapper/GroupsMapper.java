@@ -14,6 +14,6 @@ public interface GroupsMapper {
 	
 	public List<GroupsVO> grpList(GroupsVO vo); // 참여중인 그룹
 
-	int insertGroups(GroupsVO vo); // 그룹 즐겨찾기 추가
+	public List<GroupsVO> membList(int no); // 해당그룹 멤버리스트 조회
 
 }

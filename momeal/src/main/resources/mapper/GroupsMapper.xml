@@ -68,8 +68,10 @@
 		WHERE U.USER_ID = #{userId}   
 	</select>
 
-	<!-- 그룹 즐겨찾기 추가 -->
-	<insert id="insertGroups">
-
-	</insert>
+	<!-- 해당그룹 멤버리스트 조회 -->
+	<select id="membList" resultType="map">
+		SELECT U.NICK_NAME, U.PROFILE_IMG_PATH, GL.*, GM.*
+	    FROM USERS U JOIN GROUP_MEMBER GM ON(U.USER_ID = GM.USER_ID)
+	    JOIN GROUP_LISTS GL ON (GM.NO = GL.NO and GL.NO = #{no})
+	</select>
 </mapper>
