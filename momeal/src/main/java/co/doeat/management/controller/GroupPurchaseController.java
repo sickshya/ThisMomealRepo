@@ -100,7 +100,6 @@ public class GroupPurchaseController {
 		return "groupPurchase/orderList";
 	}
 
-
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
 	// 마이페이지 공동구매내역 리스트
 	@RequestMapping("/myPurchaseList")
@@ -187,8 +186,8 @@ public class GroupPurchaseController {
 		groupPurchaseService.adminGPDelete(no);
 		return "redirect:/admin/adminGroupPurchase";
 	}
-  
-	//관리자 공동구매 update
+
+	// 관리자 공동구매 update
 	@RequestMapping("/admin/adminGPUpdateForm/{no}")
 	public String adminGPUpdateForm(GroupPurchaseListVO vo, Model model, @PathVariable int no) {
 		model.addAttribute("updates", groupPurchaseService.adminGPSelect(no));

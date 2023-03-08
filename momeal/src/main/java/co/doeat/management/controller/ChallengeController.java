@@ -59,7 +59,8 @@ public class ChallengeController {
 
 	// 단건조회
 	@GetMapping("/challenge/{no}")
-	public String challenge(Model model, Map<String, Object> map, HttpSession session, HttpServletRequest request, @PathVariable int no) {
+	public String challenge(Model model, Map<String, Object> map, HttpSession session, HttpServletRequest request,
+			@PathVariable int no) {
 		session = request.getSession();
 		map.put("userId", session.getAttribute("userId"));
 		map.put("no", no);
