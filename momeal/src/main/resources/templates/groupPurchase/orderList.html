@@ -3,15 +3,63 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
 <head>
+<!-- Favicon -->
+<link href="/assets/images/favicon.png" rel="icon" type="image/png">
 <meta charset="UTF-8">
-<title>groupPurchaseList</title>
+<title>orderList</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description"
+	content="Instello - Sharing Photos platform HTML Template">
+
+<!-- icons
+    ================================================== -->
+<link rel="stylesheet" href="/assets/css/icons.css">
+
+<!-- CSS 
+    ================================================== -->
+<link rel="stylesheet" href="/assets/css/uikit.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/tailwind-dark.css">
 </head>
 <body>
-	<div layout:fragment="content">
 
-		<h1>주문 내역</h1>
+	<div layout:fragment="content" align="center">
+		<h1 class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">주문 내역</h1>
 		<hr>
-	</div>
 
+		<form id="frm" action="" method="post">
+			<div id="wrapper">
+				<div class="col-lg-7">
+					<ul>
+						<li th:each="order : ${orderlist}"
+						
+							th:onclick="'location.href=\''+ @{/orderlist/{no}(no = ${order.no})} + '\''">
+							<div align="left">
+								<p class="truncate"></p>
+							</div> <a href="#" class="block flex items-center py-3 px-4 space-x-3">
+								<div class="w-13 h-13 rounded-full relative flex-shrink-0">
+									<img th:src="${order.thumbnailImgPath }" alt=""
+										style="width: 100px; height: 110px;">
+								</div>
+								<div class="flex-1 min-w-0 relative text-gray-500" align="left">
+									<h4 class="text-black font-semibold dark:text-white"></h4>
+									<!-- <span class="absolute right-0 top-1 text-xs">상세내역 링크?모달?</span>  -->
+									<span class="absolute right-0 top-1 text-xs">주문일자</span>
+<!-- 									/<p class="truncate" th:text="${order.name}">상품간단내용</p> -->
+									<p class="text-black font-semibold dark:text-white">가격</p>
+									<p class="truncate">수량</p>
+									<div align="right">
+									</div>
+								</div>
+						</a>
+							<hr>
+						</li>
+					</ul>
+					<br>
+										<input type="button" value="뒤로가기" style="width: 100px; height: 40px;">
+				</div>
+			</div>
+		</form>
+	</div>
 </body>
 </html>
