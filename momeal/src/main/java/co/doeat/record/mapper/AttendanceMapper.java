@@ -11,4 +11,7 @@ public interface AttendanceMapper {
 
 	// 출석정보 가져오기
 	List<Map<String, Object>> getAttendanceList(String id);
+	
+	//출석중복체크
+	boolean ajaxAtCheck(AttendanceVO vo);
 }

@@ -8,6 +8,11 @@
 	
 </insert>
 
+<!-- 출석중복체크 -->
+<select id="ajaxAtCheck" resultType="boolean">
+	SELECT CASE WHEN TRUNC(ATT_DATE) = TRUNC(sysdate) THEN 0 ELSE 1 END
+	FROM ATTENDANCE WHERE user_ID = 'user1' and TRUNC(ATT_DATE) = TRUNC(sysdate)
+</select>
 
 
 

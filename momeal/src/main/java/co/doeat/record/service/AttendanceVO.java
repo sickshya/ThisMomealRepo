@@ -14,4 +14,6 @@ public class AttendanceVO {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date attDate;
 	private String userId;
+	
+	boolean ajaxAtCheck;
 }
