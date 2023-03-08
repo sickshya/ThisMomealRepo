@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{feedLayout}">
+<head>
+<!-- Favicon -->
+<link href="assets/images/favicon.png" rel="icon" type="image/png">
+
+<!-- Basic Page Needs
+    ================================================== -->
+<title>GroupsList</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description"
+	content="Instello - Sharing Photos platform HTML Template">
+
+<!-- icons
+    ================================================== -->
+<link rel="stylesheet" href="assets/css/icons.css">
+
+<!-- CSS 
+    ================================================== -->
+<link rel="stylesheet" href="assets/css/uikit.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/tailwind-dark.css">
+
+</head>
+<body>
+	<!-- 그룹 리스트 -->
+	<div layout:fragment="content" align="center">
+		<h3 style="font-size: 25px;">내가 만든 그룹</h3>
+		<br>
+		<div style="border: 1px solid #ccc" class="col-lg-6 bg-white rounded-md lg:shadow-lg " th:each="grp : ${grList}" th:if="${session.userId == grp.GRP_LEADER}">
+			<div class="block items-center py-3 px-4 space-x-3">
+				<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
+					<div class="flex-1 min-w-0 text-gray-500 col" align="left">
+						<h4 class="text-black font-semibold dark:text-white">
+							<a th:href="@{/groupsFeed/{no}(no = ${grp.NO})}">[[${grp.GRP_NAME}]]&nbsp;&nbsp;&nbsp;[[${grp.GRP_LEADER}]]</a>
+						</h4>
+					</div>
+					<div class="top-0 start-100 col" align="right">
+						<button type="button" data-toggle="modal" class="primary-btn"
+							data-target="#Modal-1" onclick="memChk()" id="showBtn" th:data-no="${grp.NO}">그룹관리</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<br><br>
+		<br>
+		<h3 style="font-size: 25px;">참여중인 그룹</h3>
+		<br>
+		<div style="border: 1px solid #ccc"
+			class="col-lg-6 bg-white rounded-md lg:shadow-lg "
+			th:each="grp : ${grList}" th:if="${session.userId != grp.GRP_LEADER}">
+			<div class="block items-center py-3 px-4 space-x-3">
+				<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
+					<div class="flex-1 min-w-0 text-gray-500 col" align="left">
+						<h4 class="text-black font-semibold dark:text-white">
+							<a th:href="@{/groupsFeed/{no}(no = ${grp.NO})}">[[${grp.GRP_NAME}]]
+								: [[${grp.GRP_LEADER}]]</a>
+						</h4>
+					</div>
+					<div class="top-0 start-100 col" align="right">
+						<button type="button">탈퇴하기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<br>
+		<button type="button">그룹생성?</button>
+
+
+		<!-- 참여하기 모달 -->
+		<div class="modal fade" id="Modal-1" tabindex="-1" role="dialog"
+			aria-labelledby="Modal-label-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="Modal-label-1"></h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" id="memList">
+<!-- 						<div class="modal-works" align="right"></div> -->
+						<br>
+<!-- 							<img src="" class="bg-gray-200 border border-white rounded-full w-8 h-8" id="profileImgPath"> -->
+<!-- 							<span class="block text-lg font-semibold" id="nickName"></span> -->
+						<br>
+					</div>
+					<div class="modal-footer">
+						<p style="float: left; margin: 0px;">멤버를 초대해보세요</p>
+						<button type="button" onclick="showMem()" class="btn btn-default"
+							id="attend" style="margin: 0px;">코드공유</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 참여하기 모달 끝 -->
+
+
+
+		<script>
+			function memChk() {
+				let no = $("#showBtn").data("no");
+				
+				$("#memList").empty()
+				
+				$.ajax({
+					url: "/groupsList/" + no
+				})
+				.then(result => {
+					console.log(result);
+					$(result).each(function(index, memb) {
+							$("#Modal-label-1").text(memb.GRP_NAME)
+						console.log(memb.USER_ID);
+						if(memb.USER_ID == memb.GRP_LEADER) {
+							$("#memList").append(
+							`
+							<img src="${memb.PROFILE_IMG_PATH}" class="bg-gray-200 border border-white rounded-full w-8 h-8" id="profileImgPath">
+							<span class="block text-lg font-semibold" id="nickName" style="color: green;">${memb.NICK_NAME}</span>
+							`
+							)
+						//	$("#profileImgPath").attr("src", memb.PROFILE_IMG_PATH)
+						//	$("#nickName").css("color","green");
+						//	$("#nickName").text(memb.NICK_NAME)
+						} else {
+							$("#memList").append(
+							`
+							<img src="${memb.PROFILE_IMG_PATH}" class="bg-gray-200 border border-white rounded-full w-8 h-8" id="profileImgPath">
+							<span class="block text-lg font-semibold" id="nickName" >${memb.NICK_NAME}</span>
+							`
+							)
+// 							$("#profileImgPath").attr("src", memb.PROFILE_IMG_PATH)
+// 							$("#nickName").text(memb.NICK_NAME)
+						}
+						
+					})
+				});
+			}
+		</script>
+	</div>
+</body>
+</html>

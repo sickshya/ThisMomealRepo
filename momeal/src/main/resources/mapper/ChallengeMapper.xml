@@ -2,112 +2,170 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.management.mapper.ChallengeMapper">
 
-	<!-- 챌린지 전체조회 -->
+	<!-- 챌린지 전체조회(최신 등록순 조회) -->
 	<select id="getChallList" resultType="map">
 		SELECT C.*,
-		NVL((SELECT L.NO
-		FROM LIKES L
-		WHERE L.POST_NO = C.NO AND L.USER_ID = #{userId} AND
-		L.BOARD_CODE =
-		'CT01'),0) AS LIKE_NO
-		FROM CHALLENGES C
-		ORDER BY C.NO
+			   NVL((SELECT L.NO
+					  FROM LIKES L
+					 WHERE L.POST_NO = C.NO 
+					   AND L.USER_ID = #{userId} 
+					   AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO
+		  FROM CHALLENGES C
+		 ORDER BY C.NO DESC
 	</select>
 
-	<!-- 챌린지 인기순 조회 -->
+	<!-- 챌린지 인기순 조회(좋아요 상위 7개까지) -->
 	<select id="likeRankChallList" resultType="map">
-		WITH LIKE_COUNT AS
-		(SELECT POST_NO, COUNT(*) CN
-		FROM LIKES
-		GROUP BY POST_NO
-		ORDER BY CN
-		DESC, POST_NO)
-
-		SELECT C.*, L.*, NVL((SELECT L.NO FROM LIKES L
-		WHERE
-		L.POST_NO = C.NO AND L.USER_ID = #{userId} AND L.BOARD_CODE =
-		'CT01'),0) AS LIKE_NO
-		FROM CHALLENGES C JOIN (SELECT LIKE_RNK.*
-		FROM
-		(SELECT LIKE_COUNT.*, ROWNUM RWN
-		FROM LIKE_COUNT) LIKE_RNK
-		WHERE ROWNUM
-		BETWEEN 1 AND 6 ORDER BY ROWNUM) L
-		ON C.NO = L.POST_NO
-		ORDER BY L.RWN
+		WITH LIKE_COUNT 
+		AS
+		(SELECT POST_NO, 
+		        COUNT(*) CN
+		   FROM LIKES
+		  GROUP BY POST_NO
+		  ORDER BY CN DESC, 
+		        POST_NO)
+		
+		SELECT C.*, 
+		       NVL(LC.CN, 0) AS CN, 
+		       NVL((SELECT L.NO 
+		              FROM LIKES L
+		             WHERE  L.POST_NO = C.NO 
+		               AND L.USER_ID = #{userId} 
+		               AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO
+		 FROM CHALLENGES C 
+		 LEFT JOIN  LIKE_COUNT LC
+		   ON C.NO = LC.POST_NO
+		<![CDATA[
+		WHERE rownum < 8
+		]]>
 	</select>
 
 	<!-- 챌린지 단건조회 -->
 	<select id="getChallenge"
 		resultType="co.doeat.management.service.ChallengeVO">
-		SELECT C.*, I.*, (C.PARTICIR * C.DEDUCT_POINT) AS
-		SUM_POINT,
-		(C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY,
-		NVL((SELECT L.NO FROM LIKES L
-		WHERE L.POST_NO = C.NO AND L.USER_ID =
-		#{userId} AND L.BOARD_CODE =
-		'CT01'),0) AS LIKE_NO,
-		NVL((SELECT P.NO
-		FROM CHALLENGE_PARTICIPATION P WHERE C.NO = P.NO AND P.USER_ID =
-		#{userId}), 0) AS ATTEND_NO
-		FROM CHALLENGES C RIGHT JOIN IMAGES I
-		ON
-		(C.NO = I.POST_NO)
-		WHERE I.POST_NO = #{no} AND I.BOARD_CODE='CT01'
+		SELECT C.*, 
+			   I.*, 
+			   (C.PARTICIR * C.DEDUCT_POINT) AS SUM_POINT,
+			   (C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY,
+			   NVL((SELECT L.NO 
+			   		  FROM LIKES L
+					 WHERE L.POST_NO = C.NO 
+					   AND L.USER_ID = #{userId} 
+					   AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO,
+			   NVL((SELECT P.NO
+					  FROM CHALLENGE_PARTICIPATION P 
+					 WHERE C.NO = P.NO 
+					   AND P.USER_ID = #{userId}), 0) AS ATTEND_NO
+		  FROM CHALLENGES C 
+		  RIGHT JOIN IMAGES I 
+		    ON (C.NO = I.POST_NO)
+		 WHERE I.POST_NO = #{no} 
+		   AND I.BOARD_CODE='CT01'
 	</select>
 
 	<!-- 챌린지 등록 -->
-	<insert id="challInsert">
+	<insert id="insertChallenge">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-			SELECT
-			seq_board.NEXTVAL AS NO FROM DUAL
+			SELECT seq_board.NEXTVAL AS NO 
+			  FROM DUAL
 		</selectKey>
 		INSERT INTO CHALLENGES
-		VALUES(#{no}, #{title}, #{subject},
-		#{chalStartDate}, #{chalEndDate}, #{round},
-		#{particir},
-		#{sumParticir}, #{deductPoint}, #{vldStartTime}, #{vldEndTime},
-		#{vldPosbDate})
+		VALUES(#{no}, 
+			   #{title}, 
+			   #{subject},
+			   #{chalStartDate}, 
+			   #{chalEndDate}, 
+			   #{round},
+			   #{particir},
+			   #{sumParticir}, 
+			   #{deductPoint}, 
+			   #{vldStartTime}, 
+			   #{vldEndTime},
+			   #{vldPosbDate})
 	</insert>
 
 	<!-- 챌린지 참여 -->
 	<insert id="attendChall"
 		parameterType="co.doeat.management.service.ChallengeParticipationVO">
 		INSERT INTO CHALLENGE_PARTICIPATION
-		VALUES (#{userId}, #{no}, #{round},
-		null)
+		VALUES (#{userId}, #{no}, #{round}, null)
 		<!-- <selectKey keyProperty="USER_ID" resultType="java.util.HashMap" order="AFTER"> -->
 		<!-- SELECT USER_ID FROM CHALLENGE_PARTICIPATION WHERE NO = #{no} -->
 		<!-- </selectKey> -->
 	</insert>
 
-	<!-- ▶ 나의 챌린지 -->
-	<!-- 참여중인 챌린지 전체조회 -->
+	<!-- ▶ 나의 챌린지 - 참여중 -->
+	<!-- 참여중 - 전체조회 -->
 	<select id="getMyChallList" resultType="map">
-		SELECT *
-		FROM
-		CHALLENGE_PARTICIPATION P LEFT JOIN CHALLENGES C
-		ON(P.NO = C.NO)
-		LEFT
-		JOIN USERS U
-		ON(P.USER_ID = U.USER_ID)
-		WHERE P.USER_ID = #{userId} AND
-		P.CODE_ID IS NULL
-		ORDER BY
-		C.CHAL_START_DATE, C.CHAL_END_DATE
+		SELECT p.code_id, 
+			   c.*, 
+			   u.nick_name, 
+			   u.grade, 
+			   u.profile_img_path
+		  FROM CHALLENGE_PARTICIPATION P 
+		  JOIN CHALLENGES C
+		    ON (P.NO = C.NO)
+		  JOIN USERS U
+		    ON (P.USER_ID = U.USER_ID)
+		 WHERE P.USER_ID = #{userId} 
+		   AND P.CODE_ID IS NULL
+	  	 ORDER BY C.CHAL_START_DATE, 
+	   		  	  C.CHAL_END_DATE
 	</select>
 
-	<!-- 참여중인 챌린지 단건조회 -->
+	<!-- 참여중 - 단건조회 -->
 	<select id="getMyChall" resultType="map">
 		SELECT *
-		FROM
-		CHALLENGE_PARTICIPATION P LEFT JOIN CHALLENGES C
-		ON(P.NO = C.NO)
-		LEFT
-		JOIN USERS U
-		ON(P.USER_ID = U.USER_ID)
-		WHERE P.USER_ID = #{userId} AND
-		P.NO = #{no}
+		FROM CHALLENGE_PARTICIPATION P 
+		LEFT JOIN CHALLENGES C
+		  ON (P.NO = C.NO)
+		LEFT JOIN USERS U
+		  ON (P.USER_ID = U.USER_ID)
+	   WHERE P.USER_ID = #{userId} 
+	     AND P.NO = #{no}
+	</select>
+	
+	<!-- 참여중 - 챌린지별 인증사진 전체조회 -->
+	<select id="getMyChallImg" resultType="co.doeat.management.service.ChallengeValidationVO">
+		SELECT *
+		  FROM CHALLENGE_VALIDATION
+		 WHERE NO = #{no}
+		   AND USER_ID = #{userId}
+	</select>
+	
+	<!-- 참여중 - 챌린지별 인증사진 단건조회 -->
+	<select id="getMyChallImgOne" resultType="co.doeat.management.service.ChallengeValidationVO">
+		SELECT *
+		  FROM CHALLENGE_VALIDATION
+		 WHERE NO = #{no}
+		   AND USER_ID = #{userId}
+		   AND TRUNC(VLD_DATE) = TO_DATE(#{vldDate},'YYYYMMDD')
+	</select>
+	
+	<!-- 참여중 - 인증사진 등록 -->
+	<insert id="insertMyChallImg">
+		INSERT INTO CHALLENGE_VALIDATION
+		VALUES (#{userId}, #{no}, #{chalImg}, TO_DATE(SYSDATE,'YYYY-MM-DD'), #{fileDir})
+	</insert>
+	
+	
+	<!-- ▶ 나의 챌린지 - 종료 -->
+	<!-- 종료 - 전체조회 -->
+	<select id="getMyEndChallList" resultType="map">
+		SELECT p.code_id, 
+			   c.*, 
+			   u.nick_name, 
+			   u.grade, 
+			   u.profile_img_path
+		  FROM CHALLENGE_PARTICIPATION P 
+		  JOIN CHALLENGES C
+		    ON (P.NO = C.NO)
+		  JOIN USERS U
+		    ON (P.USER_ID = U.USER_ID)
+		 WHERE P.USER_ID = #{userId} 
+		   AND P.CODE_ID IS NOT NULL
+	  	 ORDER BY C.CHAL_START_DATE, 
+	   		  	  C.CHAL_END_DATE
 	</select>
 
 	<!-- +++++++++++++++++++++++++++관리자++++++++++++++++++++++++++ -->

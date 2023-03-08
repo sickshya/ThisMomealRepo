@@ -1,4 +1,4 @@
-/*package co.doeat.community.service.impl;
+package co.doeat.community.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,10 +29,10 @@ public class CustomUserService implements UserDetailsService {
 
 		CustomUserVO cvo = new CustomUserVO();
 		cvo.setUserId(vo.getUserId());
-		cvo.setPwd(vo.getPwd());
+		cvo.setPassword(vo.getPassword());
 		cvo.setUserRole(vo.getUserRole());
 		return cvo;
 	}
-
+	
+	
 }
-*/

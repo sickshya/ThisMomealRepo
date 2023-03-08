@@ -36,22 +36,66 @@
 </head>
 <body>
 
+
+
 	<!--  공동구매 진행 여부 버튼 -->
 	<div layout:fragment="content">
 		<div align="center">
+			<!-- 게시판이름 -->
+			<h1
+				class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">공동구매</h1>
+
 			<div class="product__details__tab">
+
 				<ul class="nav nav-tabs" role="tablist">
 					<li class="nav-item"><a class="nav-link active"
-						data-toggle="tab" href="#PurchaseAll" role="tab"
-						aria-selected="true">전체보기</a></li>
+						data-toggle="tab" href="#PurchasingList" role="tab"
+						aria-selected="true">진행 중</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab"
-						href="#PurchasingList" role="tab" aria-selected="false">진행 중</a></li>
-
+						href="#PurchaseAll" role="tab" aria-selected="false">전체보기</a></li>
 				</ul>
 
-				<!--  공동구매(전체) -->
-
+				
 				<div class="tab-content">
+
+					<!-- 공동구매(진행) -->
+					<div class="tab-pane active" id="PurchasingList" role="tabpanel">
+						<section class="section-margin calc-60px">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-6 col-lg-4 col-xl-3"
+										th:each="getPur:${PurchsingList}">
+										<div class="card text-center card-product">
+											<div class="card-product__img">
+												<img class="card-img" th:src="${getPur.thumbnailImgPath}">
+												<!--  썸네일(상세보기,좋아요) -->
+												<ul class="card-product__imgOverlay">
+													<li><button
+															th:onclick="'location.href=\''+ @{/purchaseDetail/{no}(no = ${getPur.no})} + '\''">
+															<i class="ti-search"></i>
+														</button></li>
+													<li><button>
+															<i class="ti-heart"></i>
+														</button></li>
+												</ul>
+											</div>
+											<!--  썸네일 하단설명, 가격, 주문사항 -->
+											<div class="card-body">
+												<div th:text="${getPur.coName}"></div>
+												<h4 class="card-product__title">
+													<a href="groupDetail.do" th:text="${getPur.name}"></a>
+												</h4>
+												<span th:text="${getPur.price}"></span>
+												<p style="color: red;">[[${getPur.ordCnt}]]명이 주문 중</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+
+					<!--  공동구매(전체) -->
 					<div class="tab-pane active" id="PurchaseAll" role="tabpanel">
 						<div class="product__details__tab__desc">
 							<section class="section-margin calc-60px">
@@ -91,42 +135,8 @@
 					</div>
 
 
-					<!-- 공동구매(진행) -->
-					<div class="tab-pane active" id="PurchasingList" role="tabpanel">
-						<section class="section-margin calc-60px">
-							<div class="container">
-								<div class="row">
-									<div class="col-md-6 col-lg-4 col-xl-3"
-										th:each="getPur:${PurchsingList}">
-										<div class="card text-center card-product">
-											<div class="card-product__img">
-												<img class="card-img" th:src="${getPur.thumbnailImgPath}">
-												<!--  썸네일(상세보기,좋아요) -->
-												<ul class="card-product__imgOverlay">
-													<li><button
-															th:onclick="'location.href=\''+ @{/purchaseDetail/{no}(no = ${getPur.no})} + '\''">
-															<i class="ti-search"></i>
-														</button></li>
-													<li><button>
-															<i class="ti-heart"></i>
-														</button></li>
-												</ul>
-											</div>
-											<!--  썸네일 하단설명, 가격, 주문사항 -->
-											<div class="card-body">
-												<div th:text="${getPur.coName}"></div>
-												<h4 class="card-product__title">
-													<a href="groupDetail.do" th:text="${getPur.name}"></a>
-												</h4>
-												<span th:text="${getPur.price}"></span>
-												<p style="color: red;">[[${getPur.ordCnt}]]명이 주문 중</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</section>
-					</div>
+
+
 				</div>
 			</div>
 		</div>

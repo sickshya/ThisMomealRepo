@@ -4,20 +4,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.doeat.Paging;
-import co.doeat.community.service.UserService;
 import co.doeat.community.service.UserSearchVO;
+import co.doeat.community.service.UserService;
 import co.doeat.community.service.UsersVO;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Controller
 public class UserController {
+
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	// 회원가입 폼 호출
 	@RequestMapping("/userJoinForm")
@@ -81,7 +88,6 @@ public class UserController {
 		svo.setLast(paging.getLast());
 		paging.setTotalRecord(userService.getCountTotal(svo));
 
-		
 		model.addAttribute("getadminUserList", userService.getAdminUserList(svo));
 
 		return "admin/adminUser";

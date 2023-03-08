@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout}">
+	layout:decorate="~{feedLayout}">
 
 <head>
 <meta charset="UTF-8">
@@ -171,7 +171,7 @@ img {
 						<a href="feedUpload"
 							class="bg-gray-300 shadow-sm p-2 px-6 rounded-md dark:bg-gray-700">
 							식단기록</a> 
-							<a   href="javascript:atCk();"
+							<a href="attendanceCheck"
 							class="bg-pink-500 shadow-sm p-2 pink-500 px-6 rounded-md text-white hover:text-white hover:bg-pink-600">
 							출석체크</a>
 
@@ -481,19 +481,7 @@ $('#tbd').on("click",".show",function(){
 	});
 })
 
-//출석중복체크
-function atCk(){
-	fetch("ajaxAtCheck")
-		.then(response => response.text())
-		.then(data => isCheckResult(data));
-}
-function isCheckResult(data){
-	if(data == "true") {
-		alert("출석");
-	}else if(data == "false"){
-		alert("이미 출석을 완료했습니다");
-	}
-}
+
 </script>
 	</div>
 </body>

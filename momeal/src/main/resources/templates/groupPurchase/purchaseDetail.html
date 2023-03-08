@@ -75,14 +75,13 @@ textarea {
 									'MM-dd')}]]([[${#dates.dayOfWeekName(PurOne[0].grpEndDate)}]])</span></li>
 						</ul>
 
-						
-						<form class="purchaseBtn">
-							<input type="number" name="qty" min="1" id="gdsCnt" size="2"
-								maxlength="12" value="1" title="" class="input-text qty">
-							<input type="hidden" id="gdsNo" value="${PurOne[0].no}"></a>
 
-							<a href="#" class="primary-btn"
-								th:onclick="'location.href=\''+ @{/purchaseForm/{no}(no = ${PurOne[0].no})} + '\''">구매하기</a>
+						<form class="purchaseBtn" action="/purchaseForm" >
+							<input type="number" name="totalGd" min="1" id="totalGd" size="2"
+								maxlength="12" value="1" title="" class="input-text qty">
+							<input type="hidden" id="no" name="no" th:value="${PurOne[0].no}"></a>
+							<input type="hidden" name="listNo" th:value="${no}">
+							<button class="primary-btn">구매하기</button>
 						</form>
 
 
@@ -140,7 +139,7 @@ textarea {
 	function sendGdsInfo() {
 		let gdsNo = $("#gdsNo").value(); //
 		let gdsCnt = $("#gdsCnt").value();
-		
+
 	}
 </script>
 </html>

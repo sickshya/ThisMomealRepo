@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/assets/css/aboutSignIn.css">
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
 </head>
 
 <body>
@@ -11,29 +12,36 @@
     <div class="wrapper">
         <div class="form-container">
             <h1>로그인 페이지</h1>
-            <h2 th:text="${error}">nomal error</h2>
-            <h2 th:text="${param.error}">param error</h2>
-
-            <h2 th:text="${logout}">nomal logout</h2>
-            <h2 th:text="${param.logout}">param logout</h2>
-        </div>
-        <div>
-            <form action="login" method="post">
+            [[${param.error}]]
+            <form action="/doLogin" id="frm" name="frm" method="post">
                 <div class="form-group">
-                    <input width="360" type="text" class="form-control" id="userId" name="username" required="required">
+                    <input width="360" type="text" class="form-control" id="username" name="userId"
+                        required="required">
                     <span>로그인 ID</span>
                     <span class="border"></span>
                 </div>
                 <div class="form-group">
-                    <input width="360" type="password" class="form-control" id="userId" name="password"
+                    <input width="360" type="password" class="form-control" id="password" name="password"
                         required="required">
                     <span>패스워드</span>
                     <span class="border"></span>
                 </div>
-                <button type="submit">로그인</button>
+                <div class="form-group"><input class="form-check-input" id="remember-me" name="remember-me"
+                        type="checkbox" />
+                    <label class="form-check-label" for="remember-me">Remember-me</label></div>
+                <div class="form-group"><a class="btn btn-primary" href="javascript:fnSubmit();">로그인</a></div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>
         </div>
     </div>
+
+    <script>
+        let frm = $("#frm");
+
+        function fnSubmit() {
+            frm.submit();
+        }
+    </script>
 </body>
 
 </html>

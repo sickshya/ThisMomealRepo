@@ -33,6 +33,7 @@
 	<script src="/assets/js/tippy.all.min.js"></script>
 
 	<script src="/assets/js/jquery-3.3.1.min.js"></script>
+	<script src="/second-template/js/bootstrap.min.js"></script>
 
 	<!-- 		<script src="/assets/js/simplebar.min.js"></script> -->
 	<!-- 		<script src="/assets/js/custom.js"></script> -->
@@ -81,8 +82,9 @@
 					<li><a href="/challenge"> CHALLENGE </a></li>
 					<li><a href="/purchaseList"> STROE </a></li>
 					<li><a href="#features" uk-scroll> BOARD </a></li>
-					<li><a href="#features" uk-scroll> MYPAGE </a></li>
-					<li><a href="#features" uk-scroll> LOGIN </a></li>
+					<li><a href="/myPage" uk-scroll> MYPAGE </a></li>
+					<li th:if="${session.userId == null}"><a href="/login" uk-scroll> LOGIN </a></li>
+					<li th:if="${session.userId != null}"><a href="/logout" uk-scroll> LOGOUT </a></li>
 				</ul>
 				<!-- 크기조절용 -->
 				<!-- 				<div class="right-side lg:pr-4"> -->
@@ -241,13 +243,13 @@
 		</div>
 	</header>
 	<!-- header end -->
- 
+
 	<!-- 내용 시작 -->
 	<div class="lg:py-40 pt-24 pb-12 relative -mt-20 bg-white" id="home">
 		<div class="uk-container" layout:fragment="content"></div>
 	</div>
 	<!-- 내용 끝 -->
- 
+
 	<!-- Footer Start -->
 	<div class="container-fluid bg-dark text-light footer mt-5 py-5 wow fadeIn" data-wow-delay="0.1s">
 		<div class="container py-5">

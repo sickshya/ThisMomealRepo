@@ -2,8 +2,13 @@ package co.doeat.management.service;
 
 import java.util.List;
 
-public interface ExperienceService {
+public interface ExperienceService{
 
+	// 체험단-메인
+	public List<ExperienceVO> getExperList(); // 전체조회
+	
+	public List<ExperienceVO> getExperiencing(); // 진행중조회
+	
 	// 관리자 +++++++++++++++++++++++++++++++++++
 	List<ExperienceVO> adminExperienceGroup();
 }

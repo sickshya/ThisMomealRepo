@@ -22,15 +22,11 @@ public class LikesRestController {
 
 	// 마이페이지 - 식단 좋아요 상세
 	@GetMapping("/myLikeList/{postNo}")
-	public Map<String, Object> likesSelect(LikesVO vo, @PathVariable int postNo, HttpSession session,
-			HttpServletRequest request) {
-		session = request.getSession();
-		session.setAttribute("userId", "user1");
-
+	public Map<String, Object> likesSelect(LikesVO vo, @PathVariable int postNo, HttpServletRequest request) {
+		HttpSession session = request.getSession();
 		vo.setUserId((String) session.getAttribute("userId"));
 		vo.setPostNo(postNo);
 
-		System.out.println(likesService.mylikeSelect(vo));
 		return likesService.mylikeSelect(vo);
 	}
 
@@ -38,7 +34,6 @@ public class LikesRestController {
 	@PostMapping("/myLikeDel/{no}")
 	public int myLikeDel(LikesVO vo, @PathVariable int no, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
-		session.setAttribute("userId", "user1");
 
 		vo.setNo(no);
 		return likesService.myLikeDel(vo);
@@ -49,7 +44,6 @@ public class LikesRestController {
 	public LikesVO insertLikeChall(LikesVO vo, @PathVariable int postNo, HttpSession session,
 			HttpServletRequest request) {
 		session = request.getSession();
-		session.setAttribute("userId", "user3");
 
 		vo.setUserId((String) session.getAttribute("userId"));
 		vo.setPostNo(postNo);

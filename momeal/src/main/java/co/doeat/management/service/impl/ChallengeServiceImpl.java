@@ -11,6 +11,7 @@ import co.doeat.management.service.ChallengeParticipationVO;
 import co.doeat.management.service.ChallengeSearchVO;
 import co.doeat.management.service.ChallengeService;
 import co.doeat.management.service.ChallengeVO;
+import co.doeat.management.service.ChallengeValidationVO;
 
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
@@ -39,8 +40,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	// 챌린지 등록
 	@Override
-	public int challInsert(ChallengeVO vo) {
-		return challengeMapper.challInsert(vo);
+	public int insertChallenge(ChallengeVO vo) {
+		return challengeMapper.insertChallenge(vo);
 	}
 
 	// 챌린지 참여하기
@@ -49,19 +50,39 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeMapper.attendChall(vo);
 	}
 
-	// ▶ 나의 챌린지
+	// ▶ 나의 챌린지 - 진행중
 	// 진행중 - 전체조회
 	@Override
-	public List<Map<String, Object>> getMyChallList(Map<String, Object> map) {
-		return challengeMapper.getMyChallList(map);
+	public List<Map<String, Object>> getMyChallList(String userId) {
+		return challengeMapper.getMyChallList(userId);
 	}
 
 	// 진행중 - 단건조회
 	@Override
-	public Map<String, Object> getMyChall(int no) {
-		return challengeMapper.getMyChall(no);
+	public Map<String, Object> getMyChall(String userId, int no) {
+		return challengeMapper.getMyChall(userId, no);
+	}
+	
+	// 진행중 - 나의 인증 사진 조회
+	@Override
+	public List<ChallengeValidationVO> getMyChallImg(String userId, int no) {
+		return challengeMapper.getMyChallImg(userId, no);
+	}
+	
+	// 진행중 - 인증 사진 등록
+	@Override
+	public void insertMyChallImg(ChallengeValidationVO vo) {
+		challengeMapper.insertMyChallImg(vo);
+	}
+	
+	// ▶ 나의 챌린지 - 종료
+	// 종료 - 전체조회
+	@Override
+	public List<Map<String, Object>> getMyEndChallList(String userId) {
+		return challengeMapper.getMyEndChallList(userId);
 	}
 
+	
 	// ▶ 관리자======================================================
 
 	@Override

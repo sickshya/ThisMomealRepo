@@ -46,9 +46,15 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 	}
 
 	// 공동구매 결제화면 전체조회
+//	@Override
+//	public List<Map<String, Object>> getOrderList(Map<String, Object> map) {
+//		return groupPurchaseMapper.getOrderList(map);
+//	}
+	
+	// 공동구매 결제화면 전체조회
 	@Override
-	public List<Map<String, Object>> attendPurchase(Map<String, Object> map) {
-		return groupPurchaseMapper.attendPurchase(map);
+	public List<GroupPurchaseSettlementVO> getOrderList() {
+		return groupPurchaseMapper.getOrderList();
 	}
 
 	// +++++++++++++++++++++++++++마이페이지
@@ -94,5 +100,9 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 	public int adminGPUpdate(GroupPurchaseListVO vo) {
 		return groupPurchaseMapper.adminGPUpdate(vo);
 	}
+
+
+
+
 
 }

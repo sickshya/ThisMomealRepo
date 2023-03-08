@@ -51,11 +51,11 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-6 col-md-6">
-						<div class="product__details__pic">
-							<div class="product__details__pic__item">
+						<div class="product__details__pic" align="center">
+<!-- 							<div class="product__details__pic__item"> -->
 								<img class="product__details__pic__item--large"
-									th:src="${chall.ATCH_PATH}" alt=""  style="width:465px; height:465px;">
-							</div>
+									th:src="${chall.THUMBNAIL_IMG_PATH}" alt="" style="width:330px; height:330px;">
+<!-- 							</div> -->
 
 						</div>
 					</div>
@@ -72,7 +72,7 @@
 
 							<a href="#" class="heart-icon" data-toggle="modal"
 								data-target="#Modal-1">인증방법</a> <a href="#" class="primary-btn"
-								data-toggle="modal" data-target="#Modal-2">인증하기</a>
+								data-toggle="modal" data-target="#Modal-2" onclick="modal()">인증하기</a>
 						</div>
 					</div>
 					<div class="col-lg-12">
@@ -95,7 +95,7 @@
 									<div class="product__details__tab__desc">
 										<p>달성률</p>
 										<h4>
-											<b>달성률 계산해서 쿼리문에 넣어야할듯 미쳤나 ㅠ</b>
+											<b>달성률 계산 ㅠ</b>
 										</h4>
 										<br>
 										<div class="row">
@@ -148,34 +148,11 @@
 
 											<!-- 인증샷 반복문 돌리기 -->
 											<div class="row row-0-gutter">
-												<div class="col-md-3 col-0-gutter text-center">
+												<div th:each="img : ${valImg}" class="col-md-3 col-0-gutter text-center">
 													<div class="mz-module-about">
-														<img th:src="${chall.ATCH_PATH}"
-															style="width: 200px; height: 200px;">
-													</div>
-												</div>
-												<div class="col-md-3 col-0-gutter text-center">
-													<div class="mz-module-about">
-														<img th:src="${chall.ATCH_PATH}"
-															style="width: 200px; height: 200px;">
-													</div>
-												</div>
-												<div class="col-md-3 col-0-gutter text-center">
-													<div class="mz-module-about">
-														<img th:src="${chall.ATCH_PATH}"
-															style="width: 200px; height: 200px;">
-													</div>
-												</div>
-												<div class="col-md-3 col-0-gutter text-center">
-													<div class="mz-module-about">
-														<img th:src="${chall.ATCH_PATH}"
-															style="width: 200px; height: 200px;">
-													</div>
-												</div>
-												<div class="col-md-3 col-0-gutter text-center">
-													<div class="mz-module-about">
-														<img th:src="${chall.ATCH_PATH}"
-															style="width: 200px; height: 200px;">
+														<a href="#" data-toggle="modal" data-target="#Modal-3">
+															<img th:src="${img.fileDir}" style="width: 200px; height: 200px;">
+														</a>
 													</div>
 												</div>
 											</div>
@@ -248,31 +225,31 @@
 											<div class="row row-0-gutter">
 												<div class="col-md-3 col-0-gutter text-center">
 													<div class="mz-module-about">
-														<img th:src="${chall.ATCH_PATH}"
+														<img th:src="${chall.THUMBNAIL_IMG_PATH}"
 															style="width: 200px; height: 200px;">
 													</div>
 												</div>
 												<div class="col-md-3 col-0-gutter text-center">
 													<div class="mz-module-about">
-														<img th:src="${chall.ATCH_PATH}"
+														<img th:src="${chall.THUMBNAIL_IMG_PATH}"
 															style="width: 200px; height: 200px;">
 													</div>
 												</div>
 												<div class="col-md-3 col-0-gutter text-center">
 													<div class="mz-module-about">
-														<img th:src="${chall.ATCH_PATH}"
+														<img th:src="${chall.THUMBNAIL_IMG_PATH}"
 															style="width: 200px; height: 200px;">
 													</div>
 												</div>
 												<div class="col-md-3 col-0-gutter text-center">
 													<div class="mz-module-about">
-														<img th:src="${chall.ATCH_PATH}"
+														<img th:src="${chall.THUMBNAIL_IMG_PATH}"
 															style="width: 200px; height: 200px;">
 													</div>
 												</div>
 												<div class="col-md-3 col-0-gutter text-center">
 													<div class="mz-module-about">
-														<img th:src="${chall.ATCH_PATH}"
+														<img th:src="${chall.THUMBNAIL_IMG_PATH}"
 															style="width: 200px; height: 200px;">
 													</div>
 												</div>
@@ -304,7 +281,7 @@
 												<b>✅ 이렇게 찍어주세요</b>
 											</p>
 											<div align="center">
-												<img th:src="${chall.ATCH_PATH}" alt="img01"
+												<img th:src="${chall.THUMBNAIL_IMG_PATH}" alt="img01"
 													class="img-responsive" style="width: 300px; height: 300px;" />
 											</div>
 											<p>요렇게 찍어달라는 인증방법 컬럼도 있어야 할 것 같은데..?🤦‍</p>
@@ -315,7 +292,34 @@
 							<!-- 인증방법 모달 끝 -->
 
 							<!-- 인증창 모달 -->
-							<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog"
+							<form id="frm" method="post" enctype="multipart/form-data">
+								<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog"
+									aria-labelledby="Modal-label-1">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title" id="Modal-label-1">인증하기</h4>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body" id="myChallImgModal">
+											<!-- 인증 사진 첨부 (script에서 처리) -->
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default" id="uploadBtn" onclick="myChallImgInsert()">등록</button>
+											</div>
+											<input type="hidden" id="userId" name="userId" th:value="${session.userId}">
+											<input type="hidden" id="no" name="no" th:value="${chall.NO}">
+										</div>
+									</div>
+								</div>
+							</form>
+							<!-- 인증창 모달 끝 -->
+							
+							<!-- 인증 이미지 상세 확인 모달 -->
+							<div class="modal fade" id="Modal-3" tabindex="-1" role="dialog"
 								aria-labelledby="Modal-label-1">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
@@ -327,7 +331,7 @@
 											</button>
 										</div>
 										<div class="modal-body">
-											<img th:src="${chall.ATCH_PATH}" alt="img01"
+											<img th:src="${chall.THUMBNAIL_IMG_PATH}" alt="img01"
 												class="img-responsive" style="width: 500px; height: 500px;" />
 											<div class="modal-works" align="right">
 												<span>인증사진 올리기</span>
@@ -345,6 +349,90 @@
 					</div>
 				</div>
 			</div>
+			
+			
+		<script>
+		// ▶ 인증하기 버튼 클릭시 동작
+		function modal() {
+			// 모달창 body의 내용 지우기
+			 $("#myChallImgModal").empty()
+			 
+			 // 모달창 body에 날짜 넣을 태그, 파일첨부 창 생성
+			 $("#myChallImgModal").append(
+				`<p id="date"></p>
+				<div style="padding: 10px;">
+				<input type="file" id="file" name="file" onchange="preview(this)">
+				</div>`
+			 )
+			
+			// 오늘 날짜 계산하기
+			let today = new Date();   
+
+			let year = today.getFullYear(); // 년도
+			let month = today.getMonth() + 1;  // 월
+			let date = today.getDate();  // 날짜
+
+			// 계산한 오늘 날짜 출력하기
+			$("#date").text(year + '년 ' + month + '월 ' + date + '일')
+			
+			
+		}
+		
+		
+		// ▶ 첨부파일 버튼 클릭시 동작
+		function preview(obj) {
+
+			// 파일이 있는지 확인
+            if(!obj.files.length) {
+                return;
+            }
+			
+			// 기존 첨부파일이 있다면 지우기
+			$("#file").parent().next().remove()
+			
+			// 미리보기 생성 (이미지 태그의 src에 선택한 파일 데이터를 넣어줌)
+			let reader = new FileReader();
+
+			// 
+            reader.readAsDataURL(obj.files[0]);
+			
+            reader.onload = function (data) {
+            	let img = $('<img />');
+//             	$(img).attr('id', 'myChallImg');
+                $(img).attr('src', data.target.result);
+                $(img).height(500);
+                $(img).width(500);
+                
+                $("#myChallImgModal").append(img);
+            }
+		}
+			
+		// 인증사진 등록
+		function myChallImgInsert() {
+			// serialize 왜 안 돼....? form에 있는 userId가 문자열로 안 바껴서 넘어감 ㅠ
+// 			let data = $('#frm').serialize();
+// 			let data = $("form[id=frm]").serialize();
+
+			var formData = new FormData($('#frm')[0])
+			
+			$.ajax({
+				url: "/insertMyChallImg",
+				type: "post",
+				data: formData,
+				contentType:false,
+				processData:false,
+			})
+			.then(result => {
+				console.log(result);
+				alert("인증사진이 등록되었습니다.")
+				$('#uploadBtn').attr('data-dismiss', 'modal');
+				
+				location.reload();
+			})
+			
+		}
+		
+		</script>
 <!-- 		</section> -->
 
 

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>experienceList</title>
+
+<!-- Css Styles -->
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="/assets/css/style_grp.css">
+<link rel="stylesheet" href="/assets/css/style_grpD.css">
+<link rel="stylesheet" href="/assets/css/common.css">
+<link rel="stylesheet" href="/assets/css/bootstrap.min_grp.css">
+<link rel="stylesheet" href="/assets/css/all.min.css">
+<link rel="stylesheet" href="/assets/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="/assets/css/nice-select.css">
+<link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/second-template/css/bootstrap.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/second-template/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet" href="/second-template/css/elegant-icons.css"
+	type="text/css">
+<link rel="stylesheet" href="/second-template/css/style.css"
+	type="text/css">
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<style>
+.tag {
+	align-items: center;
+}
+</style>
+</head>
+<body>
+
+
+
+
+	<div layout:fragment="content">
+		<div align="center">
+			<!-- 게시판이름 -->
+			<h1
+				class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">체험단</h1>
+
+			<!--  체험단 진행 여부 버튼 -->
+			<!-- 체험단 탭 시작 -->
+
+			<div class="product__details__tab">
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="nav-item"><a class="nav-link active"
+						data-toggle="tab" href="#ExpersingList" role="tab"
+						aria-selected="true">진행 중</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab"
+						href="#ExperAll" role="tab" aria-selected="false">전체 보기</a></li>
+
+
+				</ul>
+
+
+
+				<div class="tab-content">
+
+
+					<!-- 체험단(진행)시작 -->
+					<div class="tab-pane active" id="ExpersingList" role="tabpanel">
+						<section class="section-margin calc-60px">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-10 col-lg-12 col-xl-10"
+										th:each="getExp:${ExpingList}">
+										<div class="card text-center card-product">
+											<div class="card-product__img">
+												<img class="card-img" th:src="${getExp.thumbnailImgPath}">
+												<!--  썸네일(상세보기,좋아요) -->
+												<ul class="card-product__imgOverlay">
+													<li><button
+															th:onclick="'location.href=\''+ @{/experienceDetail/{no}(no = ${getExp.no})} + '\''">
+															<i class="ti-search"></i>
+														</button></li>
+													<li><button>
+															<i class="ti-heart"></i>
+														</button></li>
+												</ul>
+											</div>
+											<!--  썸네일 하단설명, 가격, 주문사항 -->
+											<div class="card-body">
+												<div th:text="${getExp.nessGrd}"></div>
+												<h4 class="card-product__title">
+													<a th:text="${getExp.title}"></a>
+												</h4>
+												<!-- 													<span th:text="${getExp.subject}"></span> -->
+												<p th:unless="${getExp.expeStartDate == '0'}"
+													style="color: green;">마감기한 : [[ ${getExp.startDate} ]]</p>
+												<p style="color: red;">신청인원 :
+													[[${getExp.ordCnt}]]/[[${getExp.lmtAplyt}]]</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+					<!-- 체험단(진행)끝 -->
+
+
+
+					<!--  체험단(전체)시작 -->
+					<div class="tab-pane active" id="ExperAll" role="tabpanel">
+						<div class="product__details__tab__desc">
+							<section class="section-margin calc-60px">
+								<div class="container">
+									<div class="row">
+										<div class="col-md-10 col-lg-12 col-xl-10"
+											th:each="getExp:${ExpList}">
+											<div class="card text-center card-product">
+												<div class="card-product__img">
+													<img class="card-img" th:src="${getExp.thumbnailImgPath}">
+													<!--  썸네일(상세보기,좋아요) -->
+													<ul class="card-product__imgOverlay">
+														<li><button
+																th:onclick="'location.href=\''+ @{/experienceDetail/{no}(no = ${getExp.no})} + '\''">
+																<i class="ti-search"></i>
+															</button></li>
+														<li><button>
+																<i class="ti-heart"></i>
+															</button></li>
+													</ul>
+												</div>
+												<!--  썸네일 하단설명, 가격, 주문사항 -->
+												<div class="card-body">
+													<div th:text="${getExp.nessGrd}"></div>
+													<h4 class="card-product__title">
+														<a th:text="${getExp.title}"></a>
+													</h4>
+													<p th:unless="${getExp.expeStartDate == '0'}"
+														style="color: green;">마감기한 : [[ ${getExp.startDate} ]]</p>
+													<p style="color: red;">신청인원 :
+														[[${getExp.ordCnt}]]/[[${getExp.lmtAplyt}]]</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+						</div>
+					</div>
+					<!--  체험단(전체)끝 -->
+
+
+
+					<!-- 체험단 탭 끝 -->
+				</div>
+			</div>
+
+
+			<!-- <!-- 		찜하기 버튼 눌렀을때 이벤트 발생 -->
+			<!-- <!-- 		<script type="text/javascript"> -->
+			<!-- // 		$(document).ready(function(){ -->
+			<!-- // 			$('#ti-heart').click(function(event){ -->
+			<!-- // 				event.preventDefalut(); -->
+			<!-- // 			// 비로그인 상태시 찜하기 버튼을 누르면  -->
+			<!-- // 			}) -->
+			<!-- // 		}) -->
+
+			<!-- Scripts -->
+			<script src="/assets/js/tippy.all.min.js"></script>
+			<script src="/assets/js/uikit.js"></script>
+			<script src="/assets/js/simplebar.js"></script>
+			<script src="/assets/js/custom.js"></script>
+			<!-- 		<script src="/assets/js/bootstrap-select.min.js"></script> -->
+
+
+			<script src="/assets/js/bootstrap.bundle.min.js"></script>
+			<script src="/assets/js/skrollr.min.js"></script>
+			<script src="/assets/js/owl.carousel.min.js"></script>
+			<script src="/assets/js/jquery.nice-select.min.js"></script>
+			<script src="/assets/js/jquery.ajaxchimp.min.js"></script>
+			<script src="/assets/js/mail-script.js"></script>
+			<script src="/assets/js/main.js"></script>
+			<!-- 		<script src="/second-template/js/bootstrap.min.js"></script> -->
+			<script src="/second-template/js/jquery-ui.min.js"></script>
+		</div>
+</body>
+</html>
