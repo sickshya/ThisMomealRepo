@@ -21,9 +21,9 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		HttpSession session = request.getSession();
-		System.out.println(authentication.getCredentials() + "<- 이 값은 왜 널이온지?");
-		System.out.println(authentication.getName() + "<- 현재 로그인한 아이디 ===========================================");
-		System.out.println(authentication.getAuthorities() + "<- 이 유저의 권한 ===========================================");
+		log.info("getCredentials : " + authentication.getCredentials());
+		log.info("getName ( 로그인 한 아이디 ) : " + authentication.getName());
+		log.info("getAuthorities ( 아이디의 권한 ) : " + authentication.getAuthorities());
 		session.setAttribute("userId", authentication.getName());
 
 		log.warn("Login Success");

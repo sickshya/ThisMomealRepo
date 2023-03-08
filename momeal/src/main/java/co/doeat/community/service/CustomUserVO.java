@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class CustomUserVO implements UserDetails {
 	private String userId;
-	private String pwd;
+	private String password;
 	private String userRole;
 
 	@Override
@@ -22,7 +22,7 @@ public class CustomUserVO implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return this.pwd;
+		return this.password;
 	}
 
 	@Override
