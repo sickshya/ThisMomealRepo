@@ -29,7 +29,7 @@ public class CustomUserService implements UserDetailsService {
 
 		CustomUserVO cvo = new CustomUserVO();
 		cvo.setUserId(vo.getUserId());
-		cvo.setPwd(vo.getPwd());
+		cvo.setPassword(vo.getPassword());
 		cvo.setUserRole(vo.getUserRole());
 		return cvo;
 	}

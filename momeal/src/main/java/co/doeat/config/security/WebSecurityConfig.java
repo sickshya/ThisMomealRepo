@@ -47,7 +47,7 @@ public class WebSecurityConfig {
 				.formLogin((form) -> form.loginPage("/login") // 접근이 차단된 페이지를 클릭할 시 이동할 url
 						.loginProcessingUrl("/doLogin") // 로그인 시 매핑되는 url
 						.usernameParameter("userId") // 로그인 view 내의 form 태그 내에 로그인 할 때 username에 매핑되는 태그의 name
-						.passwordParameter("pwd") // 로그인 view 내의 form 태그 내에 로그인 할 때 password에 매핑되는 태그의 name
+						.passwordParameter("password") // 로그인 view 내의 form 태그 내에 로그인 할 때 password에 매핑되는 태그의 name
 						.successHandler(new CustomLoginSuccessHandler()) // 로그인 성공시 실행되는 메소드
 						.permitAll())
 				.logout((logout) -> logout.permitAll().logoutUrl("/logout") // 로그아웃 시 맵핑되는 url
