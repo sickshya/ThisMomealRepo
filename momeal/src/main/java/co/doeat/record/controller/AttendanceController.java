@@ -52,17 +52,29 @@ public class AttendanceController {
 		
 		
 	//출석체크 insert (포인트도 같이)
-		@RequestMapping("/attendanceCheck")
-		public String attendacne(AttendanceVO vo, PointLogVO pvo, HttpServletRequest request, UsersVO uvo) {
-			//회원정보
-			//출석테이블에 저장
-			attendanceService.atInsert(vo);
-			//포인트로그테이블에 저장
-			pointLogService.atPointadd(pvo);
-			//회원테이블에 누적포인트 업데이트
-			userService.updateATPoint(uvo);
+//		@RequestMapping("/attendanceCheck")
+//		public String attendacne(AttendanceVO vo, PointLogVO pvo, HttpServletRequest request, UsersVO uvo) {
+//			//회원정보
+//			//출석테이블에 저장
+//			attendanceService.atInsert(vo);
+//			//포인트로그테이블에 저장
+//			pointLogService.atPointadd(pvo);
+//			//회원테이블에 누적포인트 업데이트
+//			userService.updateATPoint(uvo);
+//			
+//			return "myFeed/myFeed";
+//		}
+		
+	//출석체크 중복체크
+		@RequestMapping("/ajaxAtCheck")
+		@ResponseBody
+		public String ajaxAtCheck(AttendanceVO vo, PointLogVO pvo, UsersVO uvo) {
+			//pvo.setUserId("user1");
+			//uvo.setUserId("user1");
+			Boolean b = attendanceService.ajaxAtCheck(vo, pvo, uvo);
+			String str = (b!=null)? "true" : " false";
 			
-			return "myFeed/myFeed";
+			return str;
 		}
 		
 	
