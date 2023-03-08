@@ -106,7 +106,6 @@ public class GroupPurchaseController {
 	@RequestMapping("/myPurchaseList")
 	public String myPurchaseList(Model model, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
-		session.setAttribute("userId", "user1");
 
 		String userId = (String) session.getAttribute("userId");
 		model.addAttribute("myPrList", groupPurchaseService.getPurchaseList(userId));
