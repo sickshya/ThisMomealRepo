@@ -19,20 +19,19 @@ import co.doeat.community.service.GroupsVO;
 @RestController
 public class GroupsRestController {
 	@Autowired
-	ServletContext servletContext;
-	@Autowired
 	GroupsService groupsService;
 
-	// 날짜에 따른 피드 불러오기
-	@RequestMapping("/groupsFeed/{postDate}")
-	public List<GroupsVO> myFeedList(Model model, @PathVariable String postDate, HttpSession session, HttpServletRequest request) {
-		session = request.getSession();
-		session.setAttribute("userId", "user1");
-
-		String userId = (String) session.getAttribute("userId");
-		System.out.println("===========================" + postDate);
-
-		return groupsService.groupsList(postDate);
+	// 지정한 그룹 날짜에 따른 피드 불러오기
+	@RequestMapping("/groupsFeed/{postDate}/{no}")
+	public List<GroupsVO> myFeedList(Model model, 
+			                         @PathVariable String postDate, 
+			                         @PathVariable int no, 
+			                         HttpSession session) {
+		
+//		session.setAttribute("userId", "user1");
+//		String userId = (String) session.getAttribute("userId");
+		
+		return groupsService.groupsList(postDate, no);
 	}
 
 }

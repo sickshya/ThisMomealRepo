@@ -28,6 +28,8 @@ import co.doeat.management.service.ChallengeParticipationVO;
 import co.doeat.management.service.ChallengeSearchVO;
 import co.doeat.management.service.ChallengeService;
 import co.doeat.management.service.ChallengeVO;
+import co.doeat.management.service.ChallengeValidationVO;
+import co.doeat.management.service.GroupPurchaseListVO;
 
 @Controller
 public class ChallengeController {
@@ -59,8 +61,7 @@ public class ChallengeController {
 
 	// 단건조회
 	@GetMapping("/challenge/{no}")
-	public String challenge(Model model, Map<String, Object> map, HttpSession session, HttpServletRequest request,
-			@PathVariable int no) {
+	public String challenge(Model model, Map<String, Object> map, HttpSession session, HttpServletRequest request, @PathVariable int no) {
 		session = request.getSession();
 		map.put("userId", session.getAttribute("userId"));
 		map.put("no", no);
@@ -80,31 +81,58 @@ public class ChallengeController {
 	}
 
 	// ▶ 나의 챌린지 ◀
-	// 진행중 - 전체조회
-	@RequestMapping("/myChallenge")
-	public String myChallenge(Model model, Map<String, Object> map, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		map.put("userId", session.getAttribute("userId"));
-		model.addAttribute("myChall", challengeService.getMyChallList(map));
-		return "challenge/myChallenge";
-	}
-
 	// 진행중 - 전체조회(챌린지 참여신청 후 이동)
-	@RequestMapping("/myChallengeList")
-	public String myChallengeList(Model model, Map<String, Object> map, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		map.put("userId", session.getAttribute("userId"));
-		model.addAttribute("myChall", challengeService.getMyChallList(map));
+	@RequestMapping("/myChallenge")
+	public String myChallengeList(Model model, HttpSession session) {
+		// 세션의 로그인 정보에 담겨있는 유저 본인의 아이디를 {key:"userId" value:세션 아이디} 이렇게 담아서 보내야함!!!
+		// 그럼 그 값을 읽어서 해당 유저의 정보만 보여줌
+		String userId = (String) session.getAttribute("userId");
+		model.addAttribute("myChall", challengeService.getMyChallList(userId));
 		return "challenge/myChallenge";
 	}
 
 	// 진행중 - 단건조회
 	@GetMapping("/myChallenge/{no}")
-	public String myChallengOne(Model model, @PathVariable int no) {
-		model.addAttribute("chall", challengeService.getMyChall(no));
+	public String myChallengOne(Model model, @PathVariable int no, HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
+		
+		// 챌린지 정보 select
+		model.addAttribute("chall", challengeService.getMyChall(userId, no));
+		
+		// 챌린지 인증 이미지 select
+		model.addAttribute("valImg", challengeService.getMyChallImg(userId, no));
+		
+		System.out.println("이미지 ▶ ====== " + challengeService.getMyChallImg(userId, no));
+		
 		return "challenge/myChallengeDetail";
 	}
+	
+	// 진행중 - 인증 사진 등록
+	@RequestMapping("/insertMyChallImg/{no}")
+	@ResponseBody
+	public String insertMyChallImg(ChallengeValidationVO vo, @PathVariable int no, HttpSession session, MultipartFile file) {
+		if (!file.isEmpty()) { // 첨부파일이 존재하면
+			String fileName = UUID.randomUUID().toString();
+			fileName = fileName + file.getOriginalFilename();
+			File uploadFile = new File(saveImg, fileName);
+			try {
+				file.transferTo(uploadFile); // 파일 저장
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			vo.setChalImg(file.getOriginalFilename()); // 원본 파일명
+			vo.setFileDir("/mm_images/" + fileName); // 디렉토리 포함 원본 파일
+		}
+		
+		vo.setUserId((String) session.getAttribute("userId"));
+		vo.setNo(no);
 
+		challengeService.insertMyChallImg(vo);
+		
+		return "success";
+	}
+
+	
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
 	// 챌린지 관리자
 	// 페이징

@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>purchaseList</title>
+<title>experienceList</title>
 
 <!-- Css Styles -->
 <link rel="icon" href="favicon.ico">
@@ -38,40 +38,46 @@
 
 
 
-	<!--  공동구매 진행 여부 버튼 -->
+
 	<div layout:fragment="content">
 		<div align="center">
 			<!-- 게시판이름 -->
 			<h1
-				class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">공동구매</h1>
+				class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">체험단</h1>
+
+			<!--  체험단 진행 여부 버튼 -->
+			<!-- 체험단 탭 시작 -->
 
 			<div class="product__details__tab">
-
 				<ul class="nav nav-tabs" role="tablist">
 					<li class="nav-item"><a class="nav-link active"
-						data-toggle="tab" href="#PurchasingList" role="tab"
+						data-toggle="tab" href="#ExpersingList" role="tab"
 						aria-selected="true">진행 중</a></li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab"
-						href="#PurchaseAll" role="tab" aria-selected="false">전체보기</a></li>
+						href="#ExperAll" role="tab" aria-selected="false">전체 보기</a></li>
+
+
 				</ul>
 
-				
+
+
 				<div class="tab-content">
 
-					<!-- 공동구매(진행) -->
-					<div class="tab-pane active" id="PurchasingList" role="tabpanel">
+
+					<!-- 체험단(진행)시작 -->
+					<div class="tab-pane active" id="ExpersingList" role="tabpanel">
 						<section class="section-margin calc-60px">
 							<div class="container">
 								<div class="row">
-									<div class="col-md-6 col-lg-4 col-xl-3"
-										th:each="getPur:${PurchsingList}">
+									<div class="col-md-10 col-lg-12 col-xl-10"
+										th:each="getExp:${ExpingList}">
 										<div class="card text-center card-product">
 											<div class="card-product__img">
-												<img class="card-img" th:src="${getPur.thumbnailImgPath}">
+												<img class="card-img" th:src="${getExp.thumbnailImgPath}">
 												<!--  썸네일(상세보기,좋아요) -->
 												<ul class="card-product__imgOverlay">
 													<li><button
-															th:onclick="'location.href=\''+ @{/purchaseDetail/{no}(no = ${getPur.no})} + '\''">
+															th:onclick="'location.href=\''+ @{/experienceDetail/{no}(no = ${getExp.no})} + '\''">
 															<i class="ti-search"></i>
 														</button></li>
 													<li><button>
@@ -81,12 +87,15 @@
 											</div>
 											<!--  썸네일 하단설명, 가격, 주문사항 -->
 											<div class="card-body">
-												<div th:text="${getPur.coName}"></div>
+												<div th:text="${getExp.nessGrd}"></div>
 												<h4 class="card-product__title">
-													<a href="groupDetail.do" th:text="${getPur.name}"></a>
+													<a th:text="${getExp.title}"></a>
 												</h4>
-												<span th:text="${getPur.price}"></span>
-												<p style="color: red;">[[${getPur.ordCnt}]]명이 주문 중</p>
+												<!-- 													<span th:text="${getExp.subject}"></span> -->
+												<p th:unless="${getExp.expeStartDate == '0'}"
+													style="color: green;">마감기한 : [[ ${getExp.startDate} ]]</p>
+												<p style="color: red;">신청인원 :
+													[[${getExp.ordCnt}]]/[[${getExp.lmtAplyt}]]</p>
 											</div>
 										</div>
 									</div>
@@ -94,22 +103,25 @@
 							</div>
 						</section>
 					</div>
+					<!-- 체험단(진행)끝 -->
 
-					<!--  공동구매(전체) -->
-					<div class="tab-pane active" id="PurchaseAll" role="tabpanel">
+
+
+					<!--  체험단(전체)시작 -->
+					<div class="tab-pane active" id="ExperAll" role="tabpanel">
 						<div class="product__details__tab__desc">
 							<section class="section-margin calc-60px">
 								<div class="container">
 									<div class="row">
-										<div class="col-md-6 col-lg-5 col-xl-3"
-											th:each="getPur:${PurList}">
+										<div class="col-md-10 col-lg-12 col-xl-10"
+											th:each="getExp:${ExpList}">
 											<div class="card text-center card-product">
 												<div class="card-product__img">
-													<img class="card-img" th:src="${getPur.thumbnailImgPath}">
+													<img class="card-img" th:src="${getExp.thumbnailImgPath}">
 													<!--  썸네일(상세보기,좋아요) -->
 													<ul class="card-product__imgOverlay">
 														<li><button
-																th:onclick="'location.href=\''+ @{/purchaseDetail/{no}(no = ${getPur.no})} + '\''">
+																th:onclick="'location.href=\''+ @{/experienceDetail/{no}(no = ${getExp.no})} + '\''">
 																<i class="ti-search"></i>
 															</button></li>
 														<li><button>
@@ -119,12 +131,14 @@
 												</div>
 												<!--  썸네일 하단설명, 가격, 주문사항 -->
 												<div class="card-body">
-													<div th:text="${getPur.coName}"></div>
+													<div th:text="${getExp.nessGrd}"></div>
 													<h4 class="card-product__title">
-														<a href="groupDetail.do" th:text="${getPur.name}"></a>
+														<a th:text="${getExp.title}"></a>
 													</h4>
-													<span th:text="${getPur.price}"></span>
-													<p style="color: red;">[[${getPur.ordCnt}]]명이 주문 중</p>
+													<p th:unless="${getExp.expeStartDate == '0'}"
+														style="color: green;">마감기한 : [[ ${getExp.startDate} ]]</p>
+													<p style="color: red;">신청인원 :
+														[[${getExp.ordCnt}]]/[[${getExp.lmtAplyt}]]</p>
 												</div>
 											</div>
 										</div>
@@ -133,41 +147,41 @@
 							</section>
 						</div>
 					</div>
+					<!--  체험단(전체)끝 -->
 
 
 
-
+					<!-- 체험단 탭 끝 -->
 				</div>
 			</div>
+
+
+			<!-- <!-- 		찜하기 버튼 눌렀을때 이벤트 발생 -->
+			<!-- <!-- 		<script type="text/javascript"> -->
+			<!-- // 		$(document).ready(function(){ -->
+			<!-- // 			$('#ti-heart').click(function(event){ -->
+			<!-- // 				event.preventDefalut(); -->
+			<!-- // 			// 비로그인 상태시 찜하기 버튼을 누르면  -->
+			<!-- // 			}) -->
+			<!-- // 		}) -->
+
+			<!-- Scripts -->
+			<script src="/assets/js/tippy.all.min.js"></script>
+			<script src="/assets/js/uikit.js"></script>
+			<script src="/assets/js/simplebar.js"></script>
+			<script src="/assets/js/custom.js"></script>
+			<!-- 		<script src="/assets/js/bootstrap-select.min.js"></script> -->
+
+
+			<script src="/assets/js/bootstrap.bundle.min.js"></script>
+			<script src="/assets/js/skrollr.min.js"></script>
+			<script src="/assets/js/owl.carousel.min.js"></script>
+			<script src="/assets/js/jquery.nice-select.min.js"></script>
+			<script src="/assets/js/jquery.ajaxchimp.min.js"></script>
+			<script src="/assets/js/mail-script.js"></script>
+			<script src="/assets/js/main.js"></script>
+			<!-- 		<script src="/second-template/js/bootstrap.min.js"></script> -->
+			<script src="/second-template/js/jquery-ui.min.js"></script>
 		</div>
-
-
-		<!-- <!-- 		찜하기 버튼 눌렀을때 이벤트 발생 -->
-		<!-- <!-- 		<script type="text/javascript"> -->
-		<!-- // 		$(document).ready(function(){ -->
-		<!-- // 			$('#ti-heart').click(function(event){ -->
-		<!-- // 				event.preventDefalut(); -->
-		<!-- // 			// 비로그인 상태시 찜하기 버튼을 누르면  -->
-		<!-- // 			}) -->
-		<!-- // 		}) -->
-
-		<!-- Scripts -->
-		<script src="/assets/js/tippy.all.min.js"></script>
-		<script src="/assets/js/uikit.js"></script>
-		<script src="/assets/js/simplebar.js"></script>
-		<script src="/assets/js/custom.js"></script>
-		<!-- 		<script src="/assets/js/bootstrap-select.min.js"></script> -->
-
-
-		<script src="/assets/js/bootstrap.bundle.min.js"></script>
-		<script src="/assets/js/skrollr.min.js"></script>
-		<script src="/assets/js/owl.carousel.min.js"></script>
-		<script src="/assets/js/jquery.nice-select.min.js"></script>
-		<script src="/assets/js/jquery.ajaxchimp.min.js"></script>
-		<script src="/assets/js/mail-script.js"></script>
-		<script src="/assets/js/main.js"></script>
-		<!-- 		<script src="/second-template/js/bootstrap.min.js"></script> -->
-		<script src="/second-template/js/jquery-ui.min.js"></script>
-	</div>
 </body>
 </html>

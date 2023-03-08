@@ -6,6 +6,7 @@ import java.util.Map;
 import co.doeat.management.service.ChallengeParticipationVO;
 import co.doeat.management.service.ChallengeSearchVO;
 import co.doeat.management.service.ChallengeVO;
+import co.doeat.management.service.ChallengeValidationVO;
 
 public interface ChallengeMapper {
 	// ▶ 챌린지
@@ -15,18 +16,22 @@ public interface ChallengeMapper {
 
 	public ChallengeVO getChallenge(Map<String, Object> map); // 단건조회
 
-	public int challInsert(ChallengeVO vo); // 챌린지 등록
+	public int insertChallenge(ChallengeVO vo); // 챌린지 등록
 
 	public int attendChall(ChallengeParticipationVO vo); // 챌린지 참여신청
 
 	// ▶ 나의 챌린지
 	// 1. 진행중인 챌린지
-	public List<Map<String, Object>> getMyChallList(Map<String, Object> map); // 전체조회. getMyChallList() 여기에 userId
-																				// 들어가야할거같음
+	public List<Map<String, Object>> getMyChallList(String userId); // 진행중인 챌린지 전체조회
 
-	public Map<String, Object> getMyChall(int no); // 단건조회. 매개변수로 userId도 들어가야함!!!
+	public Map<String, Object> getMyChall(String userId, int no); // 단건조회
+	
+	public List<ChallengeValidationVO> getMyChallImg(String userId, int no); // 챌린지별 인증 사진 조회
+	
+	public void insertMyChallImg(ChallengeValidationVO vo); // 인증 사진 등록
 
-	/// ===================관리자===========================
+	
+	// ===================관리자===========================
 	// ▶ 관리자 챌린지
 	// 관리자 챌린지 리스트
 	List<ChallengeVO> adminChalList(ChallengeSearchVO svo);// 관리자 챌린지리스트
