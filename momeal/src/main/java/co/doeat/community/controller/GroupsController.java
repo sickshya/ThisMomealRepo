@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import co.doeat.activity.service.MealService;
 import co.doeat.activity.service.MealVO;
 import co.doeat.community.service.GroupsService;
+import co.doeat.community.service.GroupsVO;
 import co.doeat.community.service.UserService;
 
 @Controller
@@ -27,12 +28,24 @@ public class GroupsController {
 
 	@Autowired
 	MealService mealService;
+	
+	// 그룹 리스트 페이지로 이동
+	@RequestMapping("/groupsList")
+	public String groupsList(Model model, GroupsVO vo, HttpSession session) {
+		vo.setUserId((String)session.getAttribute("userId"));
+		model.addAttribute("grList", groupsService.grpList(vo));
+		return "groups/groupsList";
+	}
 
-	@RequestMapping("/groupsFeed")
-	public String groupsFeed() {
+	// 그룹 피드 페이지로 이동
+	@RequestMapping("/groupsFeed/{no}")
+	public String groupsFeed(@PathVariable int no, Model model) {
+		model.addAttribute("no", no);
+		
 		return "groups/groupsFeed";
 	}
 
+	// 그룹 멤버 상세페이지
 	@RequestMapping("/groupsSelect/{userId}/{postDate}")
 	public String GroupsSelect(@PathVariable String userId, @PathVariable String postDate, Model model,
 			HttpSession session) throws ParseException {
