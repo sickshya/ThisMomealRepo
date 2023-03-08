@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.doeat.record.mapper.AttendanceMapper">
+<!-- 출석체크 정보저장 -->	
+<insert id="atInsert" parameterType="co.doeat.record.service.AttendanceVO">
+	INSERT INTO ATTENDANCE(ATT_DATE,USER_ID)
+	VALUES(sysdate,'user1')
+	
+</insert>
+
+
+
+
+
+
+
+
+
+</mapper>
