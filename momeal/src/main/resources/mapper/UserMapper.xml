@@ -47,7 +47,7 @@
 	<!-- 로그인 & 회원정보 수정폼호출시 -->
 	<select id="userSelect"
 		resultType="co.doeat.community.service.UsersVO">
-		SELECT user_id, '{noop}'||pwd pwd, name, 'ROLE_'|| user_role user_role
+		SELECT user_id, pwd, user_name, 'ROLE_'|| user_role user_role
 		FROM USERS
 		WHERE USER_ID = #{userId }
 	</select>
