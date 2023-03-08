@@ -128,27 +128,6 @@ img {
 <body>
 	<div layout:fragment="content">
 
-		<!-- <!--     <script> -->
-		<!-- //     $(function(){ -->
-		<!-- //     	$(".oneMeal").on("click",function(){ -->
-
-		<!-- //     		let no = $(this).data("mealno") -->
-		<!-- //     		console.log(no); -->
-
-		<!-- //     		$.ajax({ -->
-		<!-- //     			url:"/myFeed/"+no -->
-		<!-- //     		}) -->
-		<!-- //     		.then(obj => { -->
-		<!-- //     			$("#challImg").attr("src",obj.fileDir); -->
-		<!-- //     		}); -->
-		<!-- //     	}); -->
-		<!-- //     }); -->
-
-		<!--     </script> -->
-
-
-
-
 		<!--<div id="wrapper">-->
 
 		<!-- btn night mode -->
@@ -189,7 +168,7 @@ img {
 
 					<div
 						class="capitalize flex font-semibold space-x-3 text-center text-sm my-2">
-						<a href="feedUpload.do"
+						<a href="feedUpload"
 							class="bg-gray-300 shadow-sm p-2 px-6 rounded-md dark:bg-gray-700">
 							식단기록</a> 
 							<a href="attendanceCheck"
@@ -278,17 +257,17 @@ img {
 
 
 		<!-- Story modal -->
-
+		<form  action="mealSelect">
 		<div id="story-modal" class="uk-modal-container" uk-modal>
-
+					
 			<div class="uk-modal-dialog story-modal">
 				<button
 					class="uk-modal-close-default lg:-mt-9 lg:-mr-9 -mt-5 -mr-5 shadow-lg bg-white rounded-full p-4 transition dark:bg-gray-600 dark:text-white"
 					type="button" uk-close></button>
 
 				<div class="story-modal-media">
-					<img src="assets/images/post/img4.jpg" alt=""
-						class="inset-0 h-full w-full object-cover">
+					<img src="" alt=""
+						class="inset-0 h-full w-full object-cover" id="mealImg">
 				</div>
 				<div class="flex-1 bg-white dark:bg-gray-900 dark:text-gray-100">
 
@@ -310,11 +289,8 @@ img {
 						</a>
 					</div>
 					<div class="story-content p-4" data-simplebar>
-
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-							sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-							aliquam erat volutpat.</p>
-
+							<div><p id="mealScore">식단점수</p></div>
+							
 						<div class="py-4 ">
 							<div class="flex justify-around">
 								<a href="#" class="flex items-center space-x-3">
@@ -378,7 +354,7 @@ img {
 
 			</div>
 		</div>
-
+	</form>
 
 
 		<!-- 포인트 모달 -->
@@ -441,12 +417,12 @@ function buildCalendar() {
 			<tr>
         		<td colspan="6">
         	    <div class="card" >
-    				<a href="#story-modal" uk-toggle>
+    				<a href="#story-modal" class="show" uk-toggle data-no="${res.no}"">
     				<img src="${res.fileDir}" alt="Avatar" style="width:100%">
     				</a>
     				<div class="Cardcontainer">
 			          	<div>${res.typeCode}<b></b></div> 
-  			          	<div>${res.mealAmount}식사량</div> 
+  			          	<div>식사량: ${res.mealAmount}</div> 
  			          	<div>${res.subject}</div> 
 			        </div>
 			      </div>  
@@ -492,6 +468,18 @@ function leftPad(value) {
     }
     return value;
 }
+
+//상세보기
+$('#tbd').on("click",".show",function(){
+	let no = $(this).data("no")
+	$.ajax({
+		url: "/mealSelect/" +no
+	})
+	.then(obj => {
+		$("#mealImg").attr("src", obj.fileDir);
+		$("#mealScore").text(obj.mealScore);
+	});
+})
 
 
 </script>

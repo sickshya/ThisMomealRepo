@@ -20,6 +20,7 @@ public class UsersVO {
 	private String email;
 	private String accessToken;
 	private String userRole;
+	private int attendanceCnt;
 	
 	private int totalGd;
 	private int totalPrice;

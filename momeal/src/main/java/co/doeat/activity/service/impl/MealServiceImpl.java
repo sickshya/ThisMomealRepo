@@ -31,6 +31,11 @@ public class MealServiceImpl implements MealService{
 		return mealMapper.mealList(vo);
 	}
 
+	@Override
+	public MealVO mealSelect(int no) {
+		return mealMapper.mealSelect(no);
+	}
+
 
 
 	
