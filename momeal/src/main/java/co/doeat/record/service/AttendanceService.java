@@ -13,5 +13,5 @@ public interface AttendanceService {
 	List<Map<String, Object>> getAttendanceList(String id);
 
 	// 출석중복체크
-	public boolean ajaxAtCheck(AttendanceVO vo, PointLogVO pvo, UsersVO uvo);
+	public Boolean ajaxAtCheck(AttendanceVO vo, PointLogVO pvo, UsersVO uvo);
 }

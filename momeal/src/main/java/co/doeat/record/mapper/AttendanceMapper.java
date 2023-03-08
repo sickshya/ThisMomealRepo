@@ -13,5 +13,5 @@ public interface AttendanceMapper {
 	List<Map<String, Object>> getAttendanceList(String id);
 	
 	//출석중복체크
-	boolean ajaxAtCheck(AttendanceVO vo);
+	Boolean ajaxAtCheck(AttendanceVO vo);
 }

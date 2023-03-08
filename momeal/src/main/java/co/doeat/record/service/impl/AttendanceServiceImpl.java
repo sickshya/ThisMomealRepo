@@ -35,19 +35,19 @@ public class AttendanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public boolean ajaxAtCheck(AttendanceVO vo, PointLogVO pvo, UsersVO uvo) {
+	public Boolean ajaxAtCheck(AttendanceVO vo, PointLogVO pvo, UsersVO uvo) {
 		System.out.println("잘돌아감???");	
 		Boolean b = attendanceMapper.ajaxAtCheck(vo);
-//		if (b == null) {
-//			//출석테이블에 저장
-//			attendanceMapper.atInsert(vo);
-//			//포인트로그테이블에 저장
-//			pointLogMapper.atPointadd(pvo);
-//			//회원테이블에 누적포인트 업데이트
-//			userMapper.updateATPoint(uvo);
-//		}else {
-//			
-//		}
+		if (b == null) {
+			//출석테이블에 저장
+			attendanceMapper.atInsert(vo);
+			//포인트로그테이블에 저장
+			pointLogMapper.atPointadd(pvo);
+			//회원테이블에 누적포인트 업데이트
+			userMapper.updateATPoint(uvo);
+		}else {
+			
+		}
 		return b;
 		
 	}
