@@ -52,7 +52,6 @@ public class CommunityController {
 		return communityService.getCommunity(map);
 	}
 	
-	
 	// 팔로우 하기(ajax)
 	@PostMapping("/follow/{userId}")
 	@ResponseBody
