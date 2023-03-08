@@ -23,8 +23,10 @@ public interface GroupPurchaseService {
 	//public List<Map<String, Object>>payInsert(Map<String, Object> map); // 배송정보 저장
 
 	// 공동구매 결제화면 전체조회
-	public List<Map<String, Object>> attendPurchase(Map<String, Object> map); // 배송정보 전체조회
+	//public List<Map<String, Object>> getOrderList(Map<String, Object> map); // 배송정보 전체조회
+	List<GroupPurchaseSettlementVO> getOrderList(); // 배송정보 전체조회
 
+	
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
 	// 마이페이지 - 공동구매
 	List<GroupPurchaseListVO> getPurchaseList(String userId); // 공동구매 전체리스트 조회
@@ -49,5 +51,7 @@ public interface GroupPurchaseService {
 
 	// 공동구매 update
 	int adminGPUpdate(GroupPurchaseListVO vo);
+
+	
 
 }

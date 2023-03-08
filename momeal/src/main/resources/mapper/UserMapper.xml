@@ -35,6 +35,14 @@
       WHERE USER_ID = #{userId}
    </update>
 
+	<!-- 로그인 & 회원정보 수정폼호출시 -->
+	<select id="userSelect"
+		resultType="co.doeat.community.service.UsersVO">
+		SELECT user_id, pwd, user_name, 'ROLE_'|| user_role user_role
+		FROM USERS
+		WHERE USER_ID = #{userId }
+	</select>
+
    <!-- 회원탈퇴신청시 컬럼값 변경 -->
    <update id="updateWithdraw"
       parameterType="co.doeat.community.service.UsersVO">
@@ -43,15 +51,6 @@
       WHERE QUIT_REQ = 'N' AND
       USER_ID = #{userId}
    </update>
-
-   <!-- 로그인 & 회원정보 수정폼호출시 -->
-   <select id="userSelect"
-      resultType="co.doeat.community.service.UsersVO">
-      SELECT user_id, '{noop}'||pwd pwd, user_name, 'ROLE_'|| user_role user_role
-      FROM USERS
-      WHERE USER_ID = #{userId }
-   </select>
-
 
    <!-- ++++++++++++++++++++++++++관리자 ++++++++++++++++++++++ -->
    <!-- 관리자 회원 리스트 -->
@@ -109,4 +108,11 @@
 		FROM USERS
 		WHERE USER_ID = #{userId}
 	</select>
+	
+	<!-- 출석체크 회원테이블 누적 포인트 업데이트 -->
+	<update id="updateATPoint" parameterType="co.doeat.community.service.UsersVO" >
+		UPDATE USERS
+		SET TOTAL_POINT = TOTAL_POINT+10
+		WHERE USER_ID='user1'
+	</update>
 </mapper>

@@ -46,15 +46,13 @@ public class ChallengeController {
 	// 전체조회
 	// 세션에 아이디 값도 담아두기(임시)
 	@RequestMapping("/challenge")
-	public String challengeMain(Model model, HttpServletRequest request) {
+	public String challengeMain(Model model, HttpSession session, HttpServletRequest request) {
 		// 임시로 세션에 ID 값 담기
-		HttpSession session = request.getSession();
-		session.setAttribute("userId", "user3");
+		session = request.getSession();
 		String id = (String) session.getAttribute("userId");
 
 		// 전체조회
 		model.addAttribute("challList", challengeService.getChallList(id));
-
 		// 인기순(좋아요 많은 순) 조회
 		model.addAttribute("challRec", challengeService.likeRankChallList(id));
 
@@ -63,7 +61,8 @@ public class ChallengeController {
 
 	// 단건조회
 	@GetMapping("/challenge/{no}")
-	public String challenge(Model model, Map<String, Object> map, HttpSession session, @PathVariable int no) {
+	public String challenge(Model model, Map<String, Object> map, HttpSession session, HttpServletRequest request, @PathVariable int no) {
+		session = request.getSession();
 		map.put("userId", session.getAttribute("userId"));
 		map.put("no", no);
 		model.addAttribute("chall", challengeService.getChallenge(map));
@@ -72,8 +71,8 @@ public class ChallengeController {
 
 	// 챌린지 참여하기
 	@PostMapping("/attendChallenge")
-	public String attendChallenge(ChallengeParticipationVO vo, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String attendChallenge(ChallengeParticipationVO vo, HttpSession session, HttpServletRequest request) {
+		session = request.getSession();
 
 		// 세션에 담겨있는 아이디 값을 vo의 userId에 담기. (String) 처리 해줘야함
 		vo.setUserId((String) session.getAttribute("userId"));
@@ -137,7 +136,7 @@ public class ChallengeController {
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
 	// 챌린지 관리자
 	// 페이징
-	@RequestMapping("/adminChallenge")
+	@RequestMapping("/admin/adminChallenge")
 	public String adminChallenge(Model model, @ModelAttribute("esvo") ChallengeSearchVO svo, Paging paging) {
 		svo.setFirst(paging.getFirst());
 		svo.setLast(paging.getLast());

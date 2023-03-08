@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,7 +41,7 @@ public class GroupPurchaseController {
 
 	@Autowired
 	private GroupPurchaseService groupPurchaseService;
-
+	
 	@Autowired
 	private ImageService imageService;
 
@@ -64,49 +65,47 @@ public class GroupPurchaseController {
 	@GetMapping("/purchaseDetail/{no}")
 	public String purchaseList(Model model, @PathVariable int no, GroupPurchaseSettlementVO pvo) {
 		model.addAttribute("PurOne", groupPurchaseService.getPurOne(no));
+	    model.addAttribute("no", no);
 		return "groupPurchase/purchaseDetail";
 	}
 
 	// 공동구매-정보입력form
-	@RequestMapping("/purchaseForm/{no}")
-	public String purchaseForm(@PathVariable int no, HttpSession session, HttpServletRequest request,
-			GroupPurchaseListVO gvo, Model model, GroupPurchaseSettlementVO vo) {
-//		session = request.getSession();
-//		session.setAttribute("userId", "user1");
-//		String orderId = (String) session.getAttribute("userId")
-		model.addAttribute("purOne", groupPurchaseService.getPurOne(no));
+	@RequestMapping("/purchaseForm")
+	public String purchaseForm(HttpSession session, 
+			                   Model model, 
+			                   GroupPurchaseSettlementVO vo,
+			                   @RequestParam int totalGd ) {
+		System.out.println();
+		List<GroupPurchaseListVO>  gvo = groupPurchaseService.getPurOne(vo.getNo());
+		model.addAttribute("purOne", gvo);
 		model.addAttribute("userInfo", userService.userSelect("user1"));
-		// model.addAttribute("kakao", groupPurchaseService.kakaoPay(vo));
-
+		model.addAttribute("totalPrice", totalGd*gvo.get(0).getPrice()); //totalPrice 구하기
 		return "groupPurchase/purchaseForm";
 	}
 
 	// 공동구매-결제
 	@PostMapping("/purchase") // 아작스부를떄 호출
-	@ResponseBody
-	public String purchase(HttpSession session, HttpServletRequest request, UsersVO vo, GroupPurchaseSettlementVO pvo) {
+	@ResponseBody //무조건 데이터로 넘어감.
+	public String purchase(HttpSession session, HttpServletRequest request, UsersVO vo, @RequestBody GroupPurchaseSettlementVO pvo) {
 		session = request.getSession();
 		groupPurchaseService.payInsert(pvo);
-		return "redirect:/orderList";
+		return "ok";
 	}
 
-	// 공동구매-구매완료리스트
-	@GetMapping("/orderList")
-	public String orderList(HttpSession session, HttpServletRequest request, Map<String, Object> map) {
-		session = request.getSession();
-		// 세션에 담겨있는 아이디 값을 vo의 userId에 담기. (String) 처리 해줘야함
-		// vo.setUserId((String) session.getAttribute("userId"));
-		groupPurchaseService.attendPurchase(map);
-		return "groupPurchase/orderList";
-	}
-
+	   // 공동구매-구매내역조회
+	@RequestMapping("/orderList")
+	  public String orderList(HttpServletRequest request, GroupPurchaseSettlementVO pvo, Model model) {
+		  HttpSession session = request.getSession();
+		  session.setAttribute("userId", "user1");
+		  model.addAttribute("orderlist",groupPurchaseService.getOrderList());
+		  return "groupPurchase/orderList";
+	   }
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
 	// 마이페이지 공동구매내역 리스트
 	@RequestMapping("/myPurchaseList")
 	public String myPurchaseList(Model model, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
-		session.setAttribute("userId", "user1");
 
 		String userId = (String) session.getAttribute("userId");
 		model.addAttribute("myPrList", groupPurchaseService.getPurchaseList(userId));
@@ -188,8 +187,8 @@ public class GroupPurchaseController {
 		groupPurchaseService.adminGPDelete(no);
 		return "redirect:/admin/adminGroupPurchase";
 	}
-  
-	//관리자 공동구매 update
+
+	// 관리자 공동구매 update
 	@RequestMapping("/admin/adminGPUpdateForm/{no}")
 	public String adminGPUpdateForm(GroupPurchaseListVO vo, Model model, @PathVariable int no) {
 		model.addAttribute("updates", groupPurchaseService.adminGPSelect(no));

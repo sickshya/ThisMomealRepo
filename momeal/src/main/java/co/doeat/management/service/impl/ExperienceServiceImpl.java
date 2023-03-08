@@ -10,11 +10,21 @@ import co.doeat.management.service.ExperienceService;
 import co.doeat.management.service.ExperienceVO;
 
 @Service
-public class ExperienceServiceImpl implements ExperienceService {
+public class ExperienceServiceImpl implements ExperienceService{
 
 	@Autowired
-	ExperienceMapper experienceMapper;
+	private ExperienceMapper experienceMapper;
 	
+	@Override
+	public List<ExperienceVO> getExperList() {
+		return experienceMapper.getExperList();
+	}
+
+	@Override
+	public List<ExperienceVO> getExperiensing() {
+		return experienceMapper.getExperiensing();
+    
+	// 관리자 +++++++++++++++++++++++++++++++++++
 	@Override
 	public List<ExperienceVO> adminExperienceGroup() {
 		return experienceMapper.adminExperienceGroup();

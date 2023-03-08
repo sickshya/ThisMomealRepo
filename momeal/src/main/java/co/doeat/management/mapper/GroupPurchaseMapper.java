@@ -22,7 +22,8 @@ public interface GroupPurchaseMapper {
 	//public List<Map<String, Object>>payInsert(Map<String, Object> map); // 배송정보 저장
 
 	// 공동구매 결제화면 전체조회
-	public List<Map<String, Object>> attendPurchase(Map<String, Object> map); // 배송정보 전체조회
+	//public List<Map<String, Object>> getOrderList(Map<String, Object> map); // 배송정보 전체조회
+	List<GroupPurchaseSettlementVO> getOrderList(); // 배송정보 전체조회
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
 	// 마이페이지 - 공동구매
