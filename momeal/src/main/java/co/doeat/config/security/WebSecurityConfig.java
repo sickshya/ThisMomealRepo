@@ -1,4 +1,4 @@
-package co.doeat.config;
+package co.doeat.config.security;
 
 import javax.sql.DataSource;
 
