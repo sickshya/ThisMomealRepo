@@ -94,7 +94,7 @@
 		<!-- </selectKey> -->
 	</insert>
 
-	<!-- ▶ 나의 챌린지 -->
+	<!-- ▶ 나의 챌린지 - 참여중 -->
 	<!-- 참여중 - 전체조회 -->
 	<select id="getMyChallList" resultType="map">
 		SELECT p.code_id, 
@@ -147,6 +147,26 @@
 		INSERT INTO CHALLENGE_VALIDATION
 		VALUES (#{userId}, #{no}, #{chalImg}, TO_DATE(SYSDATE,'YYYY-MM-DD'), #{fileDir})
 	</insert>
+	
+	
+	<!-- ▶ 나의 챌린지 - 종료 -->
+	<!-- 종료 - 전체조회 -->
+	<select id="getMyEndChallList" resultType="map">
+		SELECT p.code_id, 
+			   c.*, 
+			   u.nick_name, 
+			   u.grade, 
+			   u.profile_img_path
+		  FROM CHALLENGE_PARTICIPATION P 
+		  JOIN CHALLENGES C
+		    ON (P.NO = C.NO)
+		  JOIN USERS U
+		    ON (P.USER_ID = U.USER_ID)
+		 WHERE P.USER_ID = #{userId} 
+		   AND P.CODE_ID IS NOT NULL
+	  	 ORDER BY C.CHAL_START_DATE, 
+	   		  	  C.CHAL_END_DATE
+	</select>
 
 	<!-- +++++++++++++++++++++++++++관리자++++++++++++++++++++++++++ -->
 	<!-- 관리자 챌린지 리스트 -->

@@ -50,10 +50,10 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeMapper.attendChall(vo);
 	}
 
-	// ▶ 나의 챌린지
+	// ▶ 나의 챌린지 - 진행중
 	// 진행중 - 전체조회
 	@Override
-	public List<Map<String, Object>> getMyChallList(String userId) {// 진행중인 챌린지 전체조회)
+	public List<Map<String, Object>> getMyChallList(String userId) {
 		return challengeMapper.getMyChallList(userId);
 	}
 
@@ -73,6 +73,13 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Override
 	public void insertMyChallImg(ChallengeValidationVO vo) {
 		challengeMapper.insertMyChallImg(vo);
+	}
+	
+	// ▶ 나의 챌린지 - 종료
+	// 종료 - 전체조회
+	@Override
+	public List<Map<String, Object>> getMyEndChallList(String userId) {
+		return challengeMapper.getMyEndChallList(userId);
 	}
 
 	
