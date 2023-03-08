@@ -37,7 +37,7 @@
 	</select>
 
 	<!-- 현재 진행중 체험단 리스트 출력 -->
-	<select id="getExperiensing" resultType="ExperienceVO">
+	<select id="getExperiencing" resultType="ExperienceVO">
 		SELECT  EG.NO
 		        ,EG.TITLE
 		        ,EG.SUBJECT
@@ -71,7 +71,8 @@
 		        ,EG.REVIEW_END_DATE
 		        ,EG.THUMBNAIL_IMG
 		        ,EG.THUMBNAIL_IMG_PATH
-
+	</select>
+	
 	<!-- 관리자 +++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 	<!-- 공동구매 전체리스트 출력 -->
 	<select id="adminExperienceGroup" resultType="co.doeat.management.service.ExperienceVO">
