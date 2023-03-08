@@ -75,7 +75,6 @@ public class GroupPurchaseController {
 			                   Model model, 
 			                   GroupPurchaseSettlementVO vo,
 			                   @RequestParam int totalGd ) {
-		System.out.println();
 		List<GroupPurchaseListVO>  gvo = groupPurchaseService.getPurOne(vo.getNo());
 		model.addAttribute("purOne", gvo);
 		model.addAttribute("userInfo", userService.userSelect("user1"));

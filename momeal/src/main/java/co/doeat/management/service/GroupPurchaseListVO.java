@@ -32,6 +32,9 @@ public class GroupPurchaseListVO extends ImageVO {
 	private int ordCnt; // 해당 물품의 구매자 수, 결제자 수 카운트
 	private List<ImageVO> imgPath; // 관리자 공동구매관리 상세조회 시, 이미지 경로값
 	private String gpstatus; // 날짜에 따른 공동구매 진행상태
+	private String deliveryAddr; // 공동구매 물품배송지
+	private int zipcode;
+	private int tel;
 
 	// 이미지
 	private String atchPath; // 첨부이미지 경로
