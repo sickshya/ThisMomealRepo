@@ -44,15 +44,13 @@ public class ChallengeController {
 	// 전체조회
 	// 세션에 아이디 값도 담아두기(임시)
 	@RequestMapping("/challenge")
-	public String challengeMain(Model model, HttpServletRequest request) {
+	public String challengeMain(Model model, HttpSession session, HttpServletRequest request) {
 		// 임시로 세션에 ID 값 담기
-		HttpSession session = request.getSession();
-		session.setAttribute("userId", "user3");
+		session = request.getSession();
 		String id = (String) session.getAttribute("userId");
 
 		// 전체조회
 		model.addAttribute("challList", challengeService.getChallList(id));
-
 		// 인기순(좋아요 많은 순) 조회
 		model.addAttribute("challRec", challengeService.likeRankChallList(id));
 
@@ -61,8 +59,8 @@ public class ChallengeController {
 
 	// 단건조회
 	@GetMapping("/challenge/{no}")
-	public String challenge(Model model, Map<String, Object> map, HttpServletRequest request, @PathVariable int no) {
-		HttpSession session = request.getSession();
+	public String challenge(Model model, Map<String, Object> map, HttpSession session, HttpServletRequest request, @PathVariable int no) {
+		session = request.getSession();
 		map.put("userId", session.getAttribute("userId"));
 		map.put("no", no);
 		model.addAttribute("chall", challengeService.getChallenge(map));
@@ -71,8 +69,8 @@ public class ChallengeController {
 
 	// 챌린지 참여하기
 	@PostMapping("/attendChallenge")
-	public String attendChallenge(ChallengeParticipationVO vo, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String attendChallenge(ChallengeParticipationVO vo, HttpSession session, HttpServletRequest request) {
+		session = request.getSession();
 
 		// 세션에 담겨있는 아이디 값을 vo의 userId에 담기. (String) 처리 해줘야함
 		vo.setUserId((String) session.getAttribute("userId"));
@@ -93,9 +91,6 @@ public class ChallengeController {
 	// 진행중 - 전체조회(챌린지 참여신청 후 이동)
 	@RequestMapping("/myChallengeList")
 	public String myChallengeList(Model model, Map<String, Object> map, HttpServletRequest request) {
-		// 세션의 로그인 정보에 담겨있는 유저 본인의 아이디를 {key:"userId" value:세션 아이디} 이렇게 담아서 보내야함!!!
-		// 그럼 그 값을 읽어서 해당 유저의 정보만 보여줌
-		// 지금은 임시로 user3이라고 보내는중...
 		HttpSession session = request.getSession();
 		map.put("userId", session.getAttribute("userId"));
 		model.addAttribute("myChall", challengeService.getMyChallList(map));
