@@ -81,8 +81,9 @@
 					<li><a href="/challenge"> CHALLENGE </a></li>
 					<li><a href="/purchaseList"> STROE </a></li>
 					<li><a href="#features" uk-scroll> BOARD </a></li>
-					<li><a href="#features" uk-scroll> MYPAGE </a></li>
-					<li><a href="#features" uk-scroll> LOGIN </a></li>
+					<li><a href="/myPage" uk-scroll> MYPAGE </a></li>
+					<li th:if="${session.userId == null}"><a href="/login" uk-scroll> LOGIN </a></li>
+					<li th:if="${session.userId != null}"><a href="/logout" uk-scroll> LOGOUT </a></li>
 				</ul>
 				<!-- 크기조절용 -->
 				<!-- 				<div class="right-side lg:pr-4"> -->
