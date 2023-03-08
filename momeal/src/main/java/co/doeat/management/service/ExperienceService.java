@@ -9,5 +9,6 @@ public interface ExperienceService{
 	
 	public List<ExperienceVO> getExperiensing(); // 진행중조회
 	
-	
+	// 관리자 +++++++++++++++++++++++++++++++++++
+	List<ExperienceVO> adminExperienceGroup();
 }

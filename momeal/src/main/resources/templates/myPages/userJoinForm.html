@@ -18,40 +18,56 @@
                 <form id="frm" action="userJoin.do" onsubmit="return formCheck()" method="post">
                     <div class="form-group">
                         <input width="360" type="text" class="form-control" id="userId" name="userId"
-                            required="required"> <span>아이디</span> <span class="border"></span>
+                            required="required">
+                        <span>아이디</span>
+                        <span class="border"></span>
                         <button type="button" onclick="idChk()" id="btnId" value="No">중복체크</button>
                     </div>
                     <div class="form-group">
                         <input width="400" type="text" class="form-control" id="userName" name="userName"
-                            required="required"> <span>이름</span> <span class="border"></span>
+                            required="required">
+                        <span>이름</span>
+                        <span class="border"></span>
                     </div>
                     <div class="form-group">
                         <input width="400" type="text" class="form-control" id="nickName" name="nickName"
-                            required="required"> <span>닉네임</span> <span class="border"></span>
+                            required="required">
+                        <span>닉네임</span>
+                        <span class="border"></span>
                     </div>
                     <div class="form-group">
                         <input width="400" type="password" class="form-control" id="pwd" name="pwd" required="required">
-                        <span>비밀번호</span> <span class="border"></span>
+                        <span>비밀번호</span>
+                        <span class="border"></span>
                     </div>
                     <div class="form-group">
                         <input width="400" type="password" class="form-control" id="pwdChk" required="required">
-                        <span>비밀번호확인</span> <span class="border"></span>
-                    </div>
-                    <div class="form-group">
-                        <input width="400" type="tel" class="form-control" id="tel" name="tel"> <span>연락처</span> <span
-                            class="border"></span>
-                    </div>
-                    <div class="form-group">
-                        <input width="400" type="button" class="form-control" onclick="execDaumPostcode()"
-                            value="우편번호 찾기">
-                        <span class="border"></span>
-                        <input width="400" type="text" class="form-control" id="address" name="addr"> <span>주소</span>
+                        <span>비밀번호확인</span>
                         <span class="border"></span>
                     </div>
                     <div class="form-group">
-                        <input width="400" type="text" class="form-control" id="extraAddress"> <span>상세주소</span>
+                        <input width="400" type="tel" class="form-control" id="tel" name="tel">
+                        <span>연락처</span>
+                        <span class="border"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="button" class="form-control" onclick="execDaumPostcode()" value="우편번호 찾기">
+                        <input width="400" type="text" class="form-control" id="postcode" name="addr">
+                        <span>주소</span>
+                        <span class="border"></span>
+                    </div>
+                    <div class="form-group">
+                        <input width="400" type="text" class="form-control" id="address">
                         <span class="border"></span>
                         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                    </div>
+                    <div class="form-group">
+                        <input width="400" type="text" class="form-control" id="extraAddress">
+                        <span class="border"></span>
+                    </div>
+                    <div class="form-group">
+                        <input width="400" type="text" class="form-control" id="detailAddress">
+                        <span class="border"></span>
                     </div>
                     <br>
                     <button type="submit">신청하기</button>

@@ -20,16 +20,11 @@ public class LikesController {
 	@RequestMapping("/myLikeList")
 	public String myLikeList(Model model, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
-		session.setAttribute("userId", "user1");
-
 		String userId = (String) session.getAttribute("userId");
 
 		model.addAttribute("myPageLike", likesService.myLikeList(userId));
 
 		model.addAttribute("challLike", likesService.myChallList(userId));
-
-		System.out.println("=================================" + likesService.myLikeList(userId));
-		System.out.println("===============================" + likesService.myChallList(userId));
 		return "myPages/myLikeList";
 	}
 }

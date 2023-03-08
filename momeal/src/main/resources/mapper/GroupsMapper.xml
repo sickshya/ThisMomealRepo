@@ -5,20 +5,22 @@
 
 	<resultMap type="co.doeat.community.service.GroupsVO"
 		id="groupsImg">
-		<collection property="mealsImg" select="imgList"
-			column="user_id" ofType="co.doeat.activity.service.MealVO"
-			javaType="ArrayList" />
+		<collection property="mealsImg" javaType="ArrayList"
+			ofType="co.doeat.activity.service.MealVO" select="imgList"
+			column="{userId=USER_ID, postDate=POST_DATE}" />
 	</resultMap>
 
 
 	<!-- 그룹 전체리스트 출력 -->
 	<select id="groupsList" resultMap="groupsImg">
 		SELECT U.USER_ID, U.USER_NAME,
+		#{postDate} as post_date,
 		U.NICK_NAME, U.PROFILE_IMG_PATH, GM.*, GL.*
 		FROM USERS U
 		JOIN
 		GROUP_MEMBER GM ON (U.USER_ID = GM.USER_ID)
-		JOIN GROUP_LISTS GL ON
+		JOIN
+		GROUP_LISTS GL ON
 		(GM.NO = GL.NO)
 	</select>
 
@@ -26,26 +28,23 @@
 		resultType="co.doeat.activity.service.MealVO">
 		SELECT M.*
 		FROM MEALS M
-		WHERE TRUNC(post_date) =
-		TO_DATE('20230306', 'yyyyMMdd')
-		AND M.USER_ID =
-		#{userId}
+		WHERE TRUNC(post_date) = TO_DATE(#{postDate}, 'yyyyMMdd')
+		AND M.USER_ID = #{userId}
 		ORDER BY M.NO
 	</select>
 
 	<!-- 그룹 단건조회 -->
 	<select id="groupsSelect" resultType="map">
 		SELECT U.USER_ID,
-		U.USER_NAME, U.NICK_NAME, U.PROFILE_IMG_PATH, M.*, GM.*,
-		GL.*
-		FROM USERS
-		U LEFT JOIN MEALS M ON(U.USER_ID = M.USER_ID)
-		LEFT JOIN GROUP_MEMBER GM
-		ON (M.USER_ID = GM.USER_ID)
-		LEFT JOIN GROUP_LISTS GL ON (GM.NO = GL.NO)
-		WHERE TRUNC(post_date) =
-		TO_DATE(#{postDate},'yyyyMMdd') AND M.USER_ID
-		= #{userId} AND M.NO = #{no}
+		U.USER_NAME, U.NICK_NAME, U.PROFILE_IMG_PATH, M.*, GM.*, GL.*
+		FROM
+		USERS U JOIN MEALS M ON(U.USER_ID = M.USER_ID)
+		JOIN GROUP_MEMBER GM ON
+		(M.USER_ID = GM.USER_ID)
+		JOIN GROUP_LISTS GL ON (GM.NO = GL.NO)
+		WHERE
+		TRUNC(post_date) = TO_DATE(#{postDate},'yyyyMMdd') AND M.USER_ID =
+		#{userId}
 	</select>
 
 	<!-- 그룹 즐겨찾기 추가 -->

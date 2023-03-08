@@ -1,12 +1,7 @@
 package co.doeat.community.service;
 
-import java.util.Date;
+
 import java.util.List;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import co.doeat.activity.service.MealVO;
 import lombok.Data;
 
@@ -26,4 +21,5 @@ public class GroupsVO {
 
 	private String profileImgPath;
 	private String nickName;
+	private String postDate; // 안에서 TODATE 해서 String으로 넘겨주면 된당
 }

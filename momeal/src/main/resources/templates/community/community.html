@@ -141,7 +141,7 @@
 								<!-- 								</a> -->
 							</th:block>
 						</div>
-						<div class="story-content p-4" data-simplebar>
+						<div class="story-content p-4" data-simplebar id="scrollDiv">
 
 							<div id="subject"></div>
 
@@ -161,9 +161,7 @@
 							</div>
 
 							<!-- 댓글 출력 -->
-							<div class="-mt-1 space-y-1" id="reply">
-
-							</div>
+							<div class="-mt-1 space-y-1" id="reply"></div>
 							<!-- 댓글 출력 끝 -->
 
 						</div>
@@ -174,8 +172,9 @@
 									class="bg-transparent max-h-8 shadow-none" id="cmmtSubject">
 								<div
 									class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
-									<a href=""><button type="button" style="font-size:10px;" onclick="cmmtInsert()">등록</button></a>
-									<input type="hidden" id="postNo">
+									<a href=""><button type="button" style="font-size: 10px;"
+											onclick="cmmtInsert()">등록</button></a> <input type="hidden"
+										id="postNo">
 								</div>
 							</div>
 						</div>
@@ -192,7 +191,7 @@
 		let sessionId = $(".oneCmnt").data("sessionid");
 		
 	
-		// ▶ 커뮤니티 게시글 단건 조회 ajax
+		// ▶ 커뮤니티 게시글 단건 조회
 		$(".oneCmnt").on("click", function() {
 			console.log("왔니...........");
 			console.log($(this));
@@ -202,6 +201,7 @@
 			let sessionId = $(this).data("sessionid");
 			let dataDiv = $(this);
 			
+			// ajax 처리
 			$.ajax({
 				url: "/community/" + no
 			})
@@ -225,7 +225,6 @@
 						$(".follow").attr("value", obj.userId);
 						$(".follow").attr("onclick", "unfollow('" + obj.userId + "')");
 						$(".follow").text("언팔로우");
-// 						dataDiv.data("sessionid", obj.userId);
 					}else{
 						$(".follow").attr("id", "followBtn");
 						$(".follow").attr("value", obj.userId);
@@ -264,14 +263,18 @@
 					// 댓글 쓴 아이디가 세션의 아이디와 같다면 수정, 삭제 기능 / 다르다면 답글 기능
 					if(item.cmmtClass == 0) {
 						$("#reply").append(
-							`<div class="flex flex-1 space-x-2" id="comment">
+							`<div class="flex flex-1 space-x-2" id="comment${item.no}">
 								<img src="${item.profileImgPath}"
 									class="rounded-full w-8 h-8">
-								<div class="flex-1"><p><b>${item.nickName}</b>
+								<div class="flex-1" id="one${item.no}"><p id="p${item.no}"><b>${item.nickName}</b>
 								${item.userId == sessionId ? 
-									`<button type="button" style="float: right; font-size:12px;">삭제</button>&nbsp;<button type="button" style="float: right; font-size:12px;">수정</button>`
-									: `<button type="button" style="float: right; font-size:12px;">답글</button>`}</p>
-								<p>${item.subject}</p></div>
+									`<button type="button" style="float: right; font-size:12px;" onclick="cmmtDelete(${item.no})">삭제</button>&nbsp;
+									 <button type="button" style="float: right; font-size:12px;" onclick="updateBox('${item.subject}', ${item.cmmtGroup}, ${item.no})">수정</button>
+									 <button type="button" style="float: right; font-size:12px;" id="cmmtReply${item.no}" onclick="reply(${item.cmmtGroup}, ${item.no})">답글</button>`
+									: `<button type="button" style="float: right; font-size:12px;" id="cmmtReply${item.no}" onclick="reply(${item.cmmtGroup}, ${item.no})">답글</button>`}</p>
+								<div id="subject${item.no}"><p>${item.subject}</p></div></div>
+								<input type="hidden" id="cmmtClass${item.no}" value="0">
+								<input type="hidden" id="cmmtOrder${item.no}" value="${item.cmmtOrder}">
 							</div>`
 						)
 					}
@@ -279,13 +282,16 @@
 					// 대댓글 쓴 아이디가 세션의 아이디와 같다면 수정, 삭제 기능
 					if(item.cmmtClass != 0) {
 						$("#reply").append(
-							`<div class="flex flex-1 space-x-2" style="padding-left:20px;">
+							`<div class="flex flex-1 space-x-2" style="padding-left:25px;">
 								<img src="${item.profileImgPath}"
 									class="rounded-full w-8 h-8">
-								<div class="flex-1"><p><b>${item.nickName}</b>
+								<div class="flex-1" id="replyOne${item.no}"><p id="p${item.no}"><b>${item.nickName}</b>
 								${item.userId == sessionId ? 
-									`<button type="button" style="float: right; font-size:12px;">삭제</button>&nbsp;<button type="button" style="float: right; font-size:12px;">수정</button>` : ``}</p>
-								<p>${item.subject}</p></div>
+									`<button type="button" style="float: right; font-size:12px;" onclick="cmmtDelete(${item.no})">삭제</button>&nbsp;
+									<button type="button" style="float: right; font-size:12px;" onclick="updateBox('${item.subject}', ${item.cmmtGroup}, ${item.no})">수정</button>` : ``}</p>
+									<div id="subject${item.no}"><p>${item.subject}</p></div></div>
+									<input type="hidden" id="cmmtClass${item.no}" value="1">
+									<input type="hidden" id="cmmtOrder${item.no}" value="${item.cmmtOrder}">
 							</div> `
 						)
 					}
@@ -295,57 +301,240 @@
 		};
 		
 		
-		// ▶ 댓글 등록 ajax
+		// ▶ 댓글 등록
 		function cmmtInsert() {
-			debugger
-			let cmmtSubject = $('#cmmtSubject').val();
-			let postNo = $('#postNo').val();
 			
 			event.preventDefault()
 			
+			let cmmtSubject = $('#cmmtSubject').val();
+			let postNo = $('#postNo').val();
+			let scrollDiv = $('#scrollDiv');
+			
+			// 내용이 없을 경우 ajax 이동 차단
+			if(cmmtSubject == '') {
+				alert("내용을 입력해주세요.")
+				return false;
+			}
+			
+			// ajax 처리
 			$.ajax ({
 				type: 'post',
 				url: '/insertComment/' + postNo,
 // 				dataType: 'json',
-				data: {"subject":cmmtSubject},
+				data: {"subject":cmmtSubject}
 // 				contentType: 'application/json'
 			})
 			.then(result => {
 				console.log(result)
+				$('#cmmtSubject').val("");
+				commentList(postNo);
+				// 스크롤 안 됨..... 현재 높이 구하는게 따로 있음
+				$("#scrollDiv .simplebar-content").scrollTop($("#scrollDiv .simplebar-content")[0].scrollHeight);
 			})
 			
 		}
-		
 
-		// ▶ 팔로우 처리 ajax
-		function follow(userId) {
-// 			debugger
-			console.log("아작스에도 왔남요 ===== " + userId);
-// 			let followId = $(".follow").val();
-// 			let followBtn = $(".follow");
+		// 답글 등록
+		function replyInsert(cmmtGroup, no) {
 			
-// 			event.preventDefault()
-// 			debugger
-				$.ajax ({
-					type: 'post',
-					url: '/follow/' + userId, // 피드 유저의 id를 넘겨줘야함
-					//dataType: 'json',   // 데이터 타입을 Json으로 변경 // 넘겨주는 값이 JSON타입이 아니라 plain 텍스트인데 JSON으로 넘겨서 애가 인식을 못 한 거임!!!
-					contentType: 'application/json'   // Content-Type을 Json으로 변경
-				})
-				.then(result => {
-					console.log("팔로우 신청 결과 ===== " + result.followeeId)
-					$(".follow").attr("id", "unfollowBtn");
-					$(".follow").attr("value", result.followeeId);
-					$(".follow").attr("onclick", "unfollow('" + result.followeeId + "')");
-					$(".follow").text("언팔로우");
-				})
+			event.preventDefault()
+			
+			let replySubject = $('#replySubject').val();
+			let postNo = $('#postNo').val();
+			let scrollDiv = $('#scrollDiv');
+			
+			// 내용이 없을 경우 ajax 이동 차단
+			if(replySubject == '') {
+				alert("내용을 입력해주세요.")
+				return false;
+			}
+
+			// ajax 처리
+			$.ajax ({
+				type: 'post',
+				url: '/insertReply/' + postNo,
+				data: {"subject":replySubject, "cmmtGroup":cmmtGroup}
+			})
+			.then(result => {
+				console.log(result)
+				$('#replyBox' + no).remove();
+				commentList(postNo);
+				// 답글은 제일 밑으로 내려가면 안되는데..ㅠ
+// 				$("#scrollDiv .simplebar-content").scrollTop($("#scrollDiv .simplebar-content")[0].scrollHeight);
+			})
 		}
 		
 		
-		// ▶ 언팔로우 처리 ajax
+		// ▶ 답글창 생성
+		function reply(cmmtGroup, no) {
+			let postNo = $('#postNo').val();
+			let comment = $('#one' + no);
+			let reply = $('#cmmtReply' + no);
+			
+			// 답글창 붙이기
+			comment.append(
+			`<div class="p-3 border-t dark:border-gray-600" id="replyBox${no}">
+				<div
+					class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
+					<input type="text" placeholder="댓글을 입력하세요."
+						class="bg-transparent max-h-8 shadow-none" id="replySubject">
+					<div
+						class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
+						<a href=""><button type="button" style="font-size:10px;" onclick="replyInsert(${cmmtGroup}, ${no})">등록</button></a>
+					</div>
+				</div>
+			</div>`		
+			)
+			
+			reply.attr("onclick", "unreply(" + cmmtGroup + "," + no + ")")
+			
+		}
+
+		
+		// ▶ 답글창 닫기
+		function unreply(cmmtGroup, no) {
+			let comment = $('#one' + no);
+			let reply = $('#cmmtReply' + no);
+			let replyBox = $('#replyBox' + no);
+
+			replyBox.remove()
+			reply.attr("onclick", "reply(" + cmmtGroup + "," + no + ")")
+		}
+		
+
+		// ▶ 댓글 수정창 열기
+		function updateBox(subject, cmmtGroup, no) {
+
+			let commentBox = $('#subject' + no);
+			let comment = commentBox.text();
+			commentBox.empty()
+			
+			let cmmtClass = $('#cmmtClass' + no).val();
+			console.log("댓글 클래스 =====" + cmmtClass);
+
+			// 버튼 지우기
+			if($('#cmmtClass' + no).val() == 0) {				
+				$('#one' + no).find('button').remove();
+			}else {
+				$('#replyOne' + no).find('button').remove();
+			}
+
+			// 취소 버튼 추가
+			$('#p' + no).append(
+				`<button type="button" style="float: right; font-size:12px;" onclick="noUpdate('${subject}', ${no})">취소</button>`
+			)
+
+			// 댓글 수정창 생성
+			commentBox.append(
+				`<div id="updateBox${no}">
+					<div
+						class="bg-gray-200 rounded-full rounded-md relative">
+						<input type="text" placeholder="댓글을 입력하세요."
+							class="bg-transparent max-h-8 shadow-none" id="updateSubject" value="${comment}">
+						<div
+							class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
+							<a href=""><button type="button" style="font-size:10px;" onclick="commentUpdate(${no})">수정</button></a>
+						</div>
+					</div>
+				</div>`	
+			)
+		}
+		
+		
+		// ▶ 댓글 수정 기능 (수정)
+		function commentUpdate(no) {
+// 			debugger
+			event.preventDefault()
+			
+			let updateSubject = $('#updateSubject').val();
+			let postNo = $('#postNo').val();
+			
+			// 내용이 없을 경우 ajax 이동 차단
+			if(updateSubject == '') {
+				alert("내용을 입력해주세요.")
+				return false;
+			}
+
+			// ajax 처리
+			$.ajax ({
+				type: 'post',
+				url: '/updateComment/' + no,
+				data: {"subject":updateSubject, "no":no}
+			})
+			.then(result => {
+				console.log(result)
+				
+				commentList(postNo);
+			})
+		}
+		
+		
+		// ▶ 댓글 수정 취소
+		function noUpdate(subject, no) {
+			
+			event.preventDefault()
+			
+			let postNo = $('#postNo').val();
+			
+			// ajax 처리 (기존의 댓글 내용으로 그냥 수정 처리함)
+			$.ajax ({
+				type: 'post',
+				url: '/updateComment/' + no,
+				data: {"subject":subject, "no":no}
+			})
+			.then(result => {
+				console.log(result)
+				
+				commentList(postNo);
+			})
+		}
+
+		
+		// ▶ 댓글 삭제
+		function cmmtDelete(no) {
+			let postNo = $('#postNo').val();
+			
+			// ajax 처리
+			$.ajax ({
+				type: 'post',
+				url: '/deleteComment/' + no
+			})
+			.then(result => {
+				console.log(result)
+				commentList(postNo);
+			})
+		}
+		
+
+		// ▶ 팔로우 처리
+		function follow(userId) {
+// 			debugger
+			event.preventDefault()
+			
+			console.log("아작스에도 왔남요 ===== " + userId);
+			
+			// ajax 처리
+			$.ajax ({
+				type: 'post',
+				url: '/follow/' + userId, // 피드 유저의 id를 넘겨줘야함
+				//dataType: 'json',   // 데이터 타입을 Json으로 변경 // 넘겨주는 값이 JSON타입이 아니라 plain 텍스트인데, JSON으로 넘겨서 애가 인식을 못 한 거임!!!
+				contentType: 'application/json'   // Content-Type을 Json으로 변경
+			})
+			.then(result => {
+				console.log("팔로우 신청 결과 ===== " + result.followeeId)
+				$(".follow").attr("id", "unfollowBtn");
+				$(".follow").attr("value", result.followeeId);
+				$(".follow").attr("onclick", "unfollow('" + result.followeeId + "')");
+				$(".follow").text("언팔로우");
+			})
+		}
+		
+		
+		// ▶ 언팔로우 처리
 		function unfollow(userId) {
 			console.log("언팔할 아이디 가져왔어? ===== " + userId);
 			
+			// ajax 처리
 			$.ajax ({
 				type: 'post',
 				url: '/unfollow/' + userId, // 피드 유저의 id를 넘겨줘야함

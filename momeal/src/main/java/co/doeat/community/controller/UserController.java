@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.doeat.Paging;
-import co.doeat.community.service.UserService;
 import co.doeat.community.service.UserSearchVO;
+import co.doeat.community.service.UserService;
 import co.doeat.community.service.UsersVO;
 
 @Controller
 public class UserController {
+
 	@Autowired
 	private UserService userService;
 
@@ -81,7 +82,6 @@ public class UserController {
 		svo.setLast(paging.getLast());
 		paging.setTotalRecord(userService.getCountTotal(svo));
 
-		
 		model.addAttribute("getadminUserList", userService.getAdminUserList(svo));
 
 		return "admin/adminUser";

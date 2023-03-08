@@ -17,6 +17,9 @@ public interface UserMapper {
 	int updateWithdraw(UsersVO vo); // 회원탈퇴 업데이트
 
 	UsersVO userSelect(String userId); // 로그인, 회원정보수정폼 호출시
+	
+	// 그룹 상세(글하나, 이미지 다수) select
+	UsersVO grpSelect(String userId);
 
 	// 매퍼
 	// 페이징
@@ -25,5 +28,9 @@ public interface UserMapper {
 	List<UsersVO> getAdminUserList(UserSearchVO svo);
 
 	int getCountTotal(UserSearchVO svo);
+
+	//포인트=========================================================
+	// 출석체크 포인트 업데이트
+	int updateATPoint(UsersVO uvo);
 
 }

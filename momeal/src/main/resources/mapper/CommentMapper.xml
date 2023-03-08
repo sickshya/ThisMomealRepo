@@ -12,29 +12,37 @@
 	</select>
 
 	<!-- 댓글 등록 -->
+	<!-- 그룹 번호는 no 번호랑 동일하게 넣어주면 됨 -->
 	<insert id="commentInsert" parameterType="co.doeat.community.service.CommentVO">
-		<selectKey keyColumn="no,cmmt_group" keyProperty="no,cmmtGroup" resultType="map" order="BEFORE">
-			SELECT MAX(NO)+1, MAX(CMMT_GROUP)+1 
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT MAX(NO)+1
 			FROM COMMENTS
 		</selectKey>
 		INSERT INTO COMMENTS
-		VALUES (#{no}, #{userId}, sysdate, #{subject}, 0, 1, #{cmmtGroup}, #{postNo}, #{boardCode})
+		VALUES (#{no}, #{userId}, sysdate, #{subject}, 0, 1, #{no}, #{postNo}, #{boardCode})
 	</insert>
 	
 	<!-- 대댓글 등록 -->
-	<!-- cmmtGroup은 컨트롤러 태우러 보낼때 값을 같이 보내야할듯..? -->
 	<insert id="replyInsert" parameterType="co.doeat.community.service.CommentVO">
-		<selectKey keyColumn="no,cmmt_order" keyProperty="no,cmmtOrder" resultType="map"  order="BEFORE">
-			SELECT MAX(NO)+1, MAX(CMMT_ORDER)+1 
+		<selectKey keyProperty="no,cmmtOrder" resultType="co.doeat.community.service.CommentVO" order="BEFORE">
+			SELECT MAX(no)+1 AS no, MAX(cmmt_order)+1 AS cmmt_order
 			FROM COMMENTS
 		</selectKey>
 		INSERT INTO COMMENTS
-		VALUES (#{no}, #{userId}, sysdate, #{subject}, 0, #{cmmtOrder}, #{cmmtGroup}, #{postNo}, #{boardCode})
+		VALUES (#{no}, #{userId}, sysdate, #{subject}, 1, #{cmmtOrder}, #{cmmtGroup}, #{postNo}, #{boardCode})
 	</insert>
 	
 	<!-- 댓글 수정 -->
+	<update id="commentUpdate">
+		UPDATE COMMENTS
+		SET SUBJECT = #{subject}
+		WHERE NO = #{no}
+	</update>
 	
 	
 	<!-- 댓글 삭제 -->
-
+	<delete id="commentDelete">
+		DELETE COMMENTS
+		WHERE NO = #{no}
+	</delete>
 </mapper>

@@ -26,6 +26,16 @@ public class MealServiceImpl implements MealService{
 		return mealMapper.myFeedList(postDate);
 	}
 
+	@Override
+	public List<MealVO> mealList(MealVO vo) {
+		return mealMapper.mealList(vo);
+	}
+
+	@Override
+	public MealVO mealSelect(int no) {
+		return mealMapper.mealSelect(no);
+	}
+
 
 
 	
