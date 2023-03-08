@@ -76,14 +76,15 @@ public class ChallengeController {
 		return "redirect:/myChallengeList";
 	}
 
-	// ▶ 나의 챌린지 ◀
-	// 진행중 - 전체조회(챌린지 참여신청 후 이동)
+	// ▶ 나의 챌린지 - 진행중 ◀
+	// 진행중, 종료 - 전체조회(챌린지 참여신청 후 이동)
 	@RequestMapping("/myChallenge")
 	public String myChallengeList(Model model, HttpSession session) {
-		// 세션의 로그인 정보에 담겨있는 유저 본인의 아이디를 {key:"userId" value:세션 아이디} 이렇게 담아서 보내야함!!!
-		// 그럼 그 값을 읽어서 해당 유저의 정보만 보여줌
 		String userId = (String) session.getAttribute("userId");
+		// 진행중
 		model.addAttribute("myChall", challengeService.getMyChallList(userId));
+		// 종료
+		model.addAttribute("endChall", challengeService.getMyEndChallList(userId));
 		return "challenge/myChallenge";
 	}
 
@@ -125,6 +126,10 @@ public class ChallengeController {
 		
 		return "success";
 	}
+	
+	
+	// ▶ 나의 챌린지 - 종료 ◀
+
 
 	
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
