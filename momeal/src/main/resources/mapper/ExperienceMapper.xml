@@ -2,6 +2,76 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.management.mapper.ExperienceMapper">
 
+	<!-- 전체 체험단 리스트 출력 -->
+	<select id="getExperList" resultType="ExperienceVO">
+		SELECT  EG.NO
+		        ,EG.TITLE
+		        ,EG.SUBJECT
+		        ,EG.NOW_APLYT
+		        ,EG.LMT_APLYT
+		        ,EG.NESS_GRD
+		        ,EG.SAVE_POINT
+		        ,(EG.EXPE_START_DATE- TRUNC(SYSDATE)) as START_DATE 
+		        ,EG.EXPE_END_DATE
+		        ,EG.REVIEW_START_DATE
+		        ,EG.REVIEW_END_DATE
+		        ,EG.THUMBNAIL_IMG
+		        ,EG.THUMBNAIL_IMG_PATH
+		        ,COUNT(EP.NO) AS ordCnt
+		FROM EXPERIENCE_GROUP EG
+		JOIN EXPERIENCE_PARTICIPANTS EP
+		ON EG.NO = EP.NO
+		GROUP BY EG.NO
+		        ,EG.TITLE
+		        ,EG.SUBJECT
+		        ,EG.NOW_APLYT
+		        ,EG.LMT_APLYT
+		        ,EG.NESS_GRD
+		        ,EG.SAVE_POINT
+		        ,EG.EXPE_START_DATE
+		        ,EG.EXPE_END_DATE
+		        ,EG.REVIEW_START_DATE
+		        ,EG.REVIEW_END_DATE
+		        ,EG.THUMBNAIL_IMG
+		        ,EG.THUMBNAIL_IMG_PATH
+	</select>
+
+	<!-- 현재 진행중 체험단 리스트 출력 -->
+	<select id="getExperiensing" resultType="ExperienceVO">
+		SELECT  EG.NO
+		        ,EG.TITLE
+		        ,EG.SUBJECT
+		        ,EG.NOW_APLYT
+		        ,EG.LMT_APLYT
+		        ,EG.NESS_GRD
+		        ,EG.SAVE_POINT
+		        ,(EG.EXPE_START_DATE- TRUNC(SYSDATE)) as START_DATE 
+		        ,EG.EXPE_END_DATE
+		        ,EG.REVIEW_START_DATE
+		        ,EG.REVIEW_END_DATE
+		        ,EG.THUMBNAIL_IMG
+		        ,EG.THUMBNAIL_IMG_PATH
+		        ,COUNT(EP.NO) AS ordCnt
+		FROM EXPERIENCE_GROUP EG
+		JOIN EXPERIENCE_PARTICIPANTS EP
+		<![CDATA[
+		ON EG.NO = EP.NO
+		WHERE TRUNC(expe_start_date) <= sysdate AND sysdate < expe_end_date
+		]]>
+		GROUP BY EG.NO
+		        ,EG.TITLE
+		        ,EG.SUBJECT
+		        ,EG.NOW_APLYT
+		        ,EG.LMT_APLYT
+		        ,EG.NESS_GRD
+		        ,EG.SAVE_POINT
+		        ,EG.EXPE_START_DATE
+		        ,EG.EXPE_END_DATE
+		        ,EG.REVIEW_START_DATE
+		        ,EG.REVIEW_END_DATE
+		        ,EG.THUMBNAIL_IMG
+		        ,EG.THUMBNAIL_IMG_PATH
+
 	<!-- 관리자 +++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 	<!-- 공동구매 전체리스트 출력 -->
 	<select id="adminExperienceGroup" resultType="co.doeat.management.service.ExperienceVO">

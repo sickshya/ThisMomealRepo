@@ -22,6 +22,7 @@ public class UsersVO {
 	private String userRole;
 	private int attendanceCnt;
 	
+	// 공동구매 
 	private int totalGd;
 	private int totalPrice;
 	private String deliveryAddr;
