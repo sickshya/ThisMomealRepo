@@ -292,29 +292,33 @@
 							<!-- 인증방법 모달 끝 -->
 
 							<!-- 인증창 모달 -->
-							<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog"
-								aria-labelledby="Modal-label-1">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h4 class="modal-title" id="Modal-label-1">인증하기</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body" id="myChallImgModal">
-										<!-- 인증 사진 첨부 (script에서 처리) -->
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default">등록</button>
+							<form id="frm" method="post" enctype="multipart/form-data">
+								<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog"
+									aria-labelledby="Modal-label-1">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title" id="Modal-label-1">인증하기</h4>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body" id="myChallImgModal">
+											<!-- 인증 사진 첨부 (script에서 처리) -->
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default" id="uploadBtn" onclick="myChallImgInsert()">등록</button>
+											</div>
+											<input type="hidden" id="userId" name="userId" th:value="${session.userId}">
+											<input type="hidden" id="no" name="no" th:value="${chall.NO}">
 										</div>
 									</div>
 								</div>
-							</div>
+							</form>
 							<!-- 인증창 모달 끝 -->
 							
-							<!-- 인증 이미지 모달 -->
+							<!-- 인증 이미지 상세 확인 모달 -->
 							<div class="modal fade" id="Modal-3" tabindex="-1" role="dialog"
 								aria-labelledby="Modal-label-1">
 								<div class="modal-dialog" role="document">
@@ -377,9 +381,6 @@
 		
 		// ▶ 첨부파일 버튼 클릭시 동작
 		function preview(obj) {
-			// let fileTag = $("#file");
-			// let imgTag = $("#myChallImg");
-			
 
 			// 파일이 있는지 확인
             if(!obj.files.length) {
@@ -397,25 +398,38 @@
 			
             reader.onload = function (data) {
             	let img = $('<img />');
-            	$(img).attr('id', 'myChallImg');
+//             	$(img).attr('id', 'myChallImg');
                 $(img).attr('src', data.target.result);
                 $(img).height(500);
                 $(img).width(500);
                 
                 $("#myChallImgModal").append(img);
             }
+		}
+			
+		// 인증사진 등록
+		function myChallImgInsert() {
+			// serialize 왜 안 돼....? form에 있는 userId가 문자열로 안 바껴서 넘어감 ㅠ
+// 			let data = $('#frm').serialize();
+// 			let data = $("form[id=frm]").serialize();
 
-				/* // 첨부파일 선택한 경우
-				// 미리보기 생성 (이미지 태그의 src에 선택한 파일 데이터를 넣어줌)
-				let reader = new FileReader();
-
-				// reader 읽어들이는 작업(onload) 후 함수 실행. 읽어온 데이터를 함수의 매개변수 파라미터로 넣어줌
-				reader.onload = function(data) {
-					console.log(data);
-					imgTag.attr("src", data.target.result);
-				}
-				reader.readAsDataURL(fileTag.files) 
-			} */
+			var formData = new FormData($('#frm')[0])
+			
+			$.ajax({
+				url: "/insertMyChallImg",
+				type: "post",
+				data: formData,
+				contentType:false,
+				processData:false,
+			})
+			.then(result => {
+				console.log(result);
+				alert("인증사진이 등록되었습니다.")
+				$('#uploadBtn').attr('data-dismiss', 'modal');
+				
+				location.reload();
+			})
+			
 		}
 		
 		</script>
