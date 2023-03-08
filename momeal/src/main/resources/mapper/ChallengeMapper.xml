@@ -145,7 +145,7 @@
 	<!-- 참여중 - 인증사진 등록 -->
 	<insert id="insertMyChallImg">
 		INSERT INTO CHALLENGE_VALIDATION
-		VALUES (${userId}, #{no}, #{chalImg}, SYSDATE, #{fileDir})
+		VALUES (#{userId}, #{no}, #{chalImg}, TO_DATE(SYSDATE,'YYYY-MM-DD'), #{fileDir})
 	</insert>
 
 	<!-- +++++++++++++++++++++++++++관리자++++++++++++++++++++++++++ -->

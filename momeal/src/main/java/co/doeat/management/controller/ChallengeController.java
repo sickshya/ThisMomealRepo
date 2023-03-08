@@ -46,11 +46,10 @@ public class ChallengeController {
 	// 전체조회
 	// 세션에 아이디 값도 담아두기(임시)
 	@RequestMapping("/challenge")
-	public String challengeMain(Model model, HttpSession session, HttpServletRequest request) {
+	public String challengeMain(Model model, HttpSession session) {
 		// 임시로 세션에 ID 값 담기
-		session = request.getSession();
 		String id = (String) session.getAttribute("userId");
-
+		
 		// 전체조회
 		model.addAttribute("challList", challengeService.getChallList(id));
 		// 인기순(좋아요 많은 순) 조회
@@ -61,8 +60,7 @@ public class ChallengeController {
 
 	// 단건조회
 	@GetMapping("/challenge/{no}")
-	public String challenge(Model model, Map<String, Object> map, HttpSession session, HttpServletRequest request, @PathVariable int no) {
-		session = request.getSession();
+	public String challenge(Model model, Map<String, Object> map, HttpSession session, @PathVariable int no) {
 		map.put("userId", session.getAttribute("userId"));
 		map.put("no", no);
 		model.addAttribute("chall", challengeService.getChallenge(map));
@@ -71,9 +69,7 @@ public class ChallengeController {
 
 	// 챌린지 참여하기
 	@PostMapping("/attendChallenge")
-	public String attendChallenge(ChallengeParticipationVO vo, HttpSession session, HttpServletRequest request) {
-		session = request.getSession();
-
+	public String attendChallenge(ChallengeParticipationVO vo, HttpSession session) {
 		// 세션에 담겨있는 아이디 값을 vo의 userId에 담기. (String) 처리 해줘야함
 		vo.setUserId((String) session.getAttribute("userId"));
 		challengeService.attendChall(vo);
@@ -108,9 +104,10 @@ public class ChallengeController {
 	}
 	
 	// 진행중 - 인증 사진 등록
-	@RequestMapping("/insertMyChallImg/{no}")
+	@RequestMapping("/insertMyChallImg")
 	@ResponseBody
-	public String insertMyChallImg(ChallengeValidationVO vo, @PathVariable int no, HttpSession session, MultipartFile file) {
+	public String insertMyChallImg(ChallengeValidationVO vo, MultipartFile file, HttpSession session) {
+		System.out.println("왔어???????? =================");
 		if (!file.isEmpty()) { // 첨부파일이 존재하면
 			String fileName = UUID.randomUUID().toString();
 			fileName = fileName + file.getOriginalFilename();
@@ -123,10 +120,7 @@ public class ChallengeController {
 			vo.setChalImg(file.getOriginalFilename()); // 원본 파일명
 			vo.setFileDir("/mm_images/" + fileName); // 디렉토리 포함 원본 파일
 		}
-		
-		vo.setUserId((String) session.getAttribute("userId"));
-		vo.setNo(no);
-
+//		vo.setUserId((String) session.getAttribute("userId"));
 		challengeService.insertMyChallImg(vo);
 		
 		return "success";
