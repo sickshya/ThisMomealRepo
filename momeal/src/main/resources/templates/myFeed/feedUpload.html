@@ -48,8 +48,8 @@
 </head>
 <body class="vertical  light  ">
 	<div layout:fragment="content">
-		
-		
+
+
 		<script src="js/jquery.min.js"></script>
 		<script src="js/popper.min.js"></script>
 		<script src="js/moment.min.js"></script>
@@ -65,8 +65,7 @@
 		<script async
 			src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
 
-		<form id="frm" action="mealInsert.do" method="post"
-			enctype="multipart/form-data">
+
 			<div class="wrapper">
 
 
@@ -83,92 +82,79 @@
 											<div class="card-header">
 												<strong class="card-title">My Story</strong>
 											</div>
-											<div class="card-body">
-												<div class="form-group mb-3">
-													<label for="simpleinput">식단점수</label>
-													<!--<input type="text" id="simpleinput" class="form-control">-->
-													<br>
-													<select id="mealScore"name="mealScore">
-														<option value="1">1점 🤔 </option>
-														<option value="1">2점 😐 </option>
-														<option value="1">3점 😊 </option>
-														<option value="1">4점 😁 </option>
-														<option value="1">5점 😋 </option>
-													
-													</select>
-								
-												</div>
-											<div class="form-group mb-3">
-											<label for="example-email">분류</label>
-												<select name="typeCode" id="typeCode">
-													<option value="아침">아침</option>
-													<option value="점심">점심</option>
-													<option value="저녁">저녁</option>
-													<option value="간식">간식</option>
-												</select>
-											</div>
+												<div class="card-body">
+											<form id="frm" method="post" enctype="multipart/form-data">
+													<div class="form-group mb-3">
+														<label for="simpleinput">식단점수</label>
+														<br> <select id="mealScore" name="mealScore">
+															<option value="1">1점 🤔</option>
+															<option value="1">2점 😐</option>
+															<option value="1">3점 😊</option>
+															<option value="1">4점 😁</option>
+															<option value="1">5점 😋</option>
+
+														</select>
+
+													</div>
+													<div class="form-group mb-3">
+														<label for="example-email">분류</label> <select
+															name="typeCode" id="typeCode">
+															<option value="아침">아침</option>
+															<option value="점심">점심</option>
+															<option value="저녁">저녁</option>
+															<option value="간식">간식</option>
+														</select>
+													</div>
 
 
-												<div class="form-group mb-3">
-													<label for="example-password">식사량</label>
-												<select name="mealAmount" id="mealAmount">
-													<option value="가볍게">가볍게</option>
-													<option value="적당하게">적당하게</option>
-													<option value="배부르게">배부르게</option>
-													<option value="과하게">과하게</option>
-												</select>
-												</div>
-																								
-												
-												<div class="form-group mb-3">
-													<label for="example-palaceholder">시간</label>
-													<!--<input type="text" id="example-palaceholder" class="form-control"
-                                                placeholder="placeholder">-->
-													<form>
-														<p>
-															<input type="time">
-														</p>
-													</form>
-												</div>
+													<div class="form-group mb-3">
+														<label for="example-password">식사량</label> <select
+															name="mealAmount" id="mealAmount">
+															<option value="가볍게">가볍게</option>
+															<option value="적당하게">적당하게</option>
+															<option value="배부르게">배부르게</option>
+															<option value="과하게">과하게</option>
+														</select>
+													</div>
 
-												<div class="form-group mb-3">
-													<label for="example-textarea">내용</label>
-													<textarea class="form-control" id="example-textarea"
-														rows="4"></textarea>
-												</div>
-												<div class="form-group mb-3">
-													<label for="simpleinput">태그</label> <input type="text"
-														id="simpleinput" class="form-control">
-												</div>
-												<div>
-													<!--파일업로드-->
-													<div align=center>
-														<div class="my">
-															<div class="col-md-6">
-																<div class="card shadow mb-4">
-																	<div class="card-header">
-																		<strong>Uppy</strong>
-																	</div>
-																	<div class="card-body">
-																		<div id="drag-drop-area"></div>
-																		<input id="img" name="img">
-																	</div>
-																	<!-- .card-body -->
-																</div>
-																<!-- .card -->
+
+													<div class="form-group mb-3">
+														<label for="example-palaceholder">시간</label> 
+														<input type="time" id="mealTime" name="mealTime">
+
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="example-textarea">내용</label>
+														<textarea class="form-control" id="subject" name="subject"
+															rows="4"></textarea>
+													</div>
+													<div class="form-group mb-3">
+														<label for="simpleinput">태그</label> <input type="text"
+															id="tags" class="form-control">
+													</div>
+													<div>
+														<!--파일업로드-->
+														<div class="form-group row">
+															<label class="col-sm-3 col-form-label">썸네일 등록</label>
+															<div class="col-sm-9">
+																<input class="form-control" id="file" type="file"
+																	name="file" onchange="preview()"><br>
+																<img id="profileImg">
 															</div>
-															<!-- .col -->
 														</div>
 													</div>
-													<div align=center>
-														<input type="submit" value="등록">
-													</div>
+														<!-- 버튼 -->
+														<div align=center>
+															<button type="button" onclick="MealInsert()">등록</button>
+														</div>
 
+											</form>
+													<!-- .row -->
 												</div>
-												<!-- .row -->
-											</div>
 										</div>
 										<!-- .row -->
+									</div>
 									</div>
 									<!-- .container-fluid -->
 
@@ -177,22 +163,68 @@
 								<!--?>-->
 							</div>
 						</div>
-					</div>
 				</main>
+					</div>
 				<!-- main -->
-			</div>
+			
 			<!-- .wrapper -->
-		</form>
 
+		<!--파일미리보기 -->
 		<script>
-        window.dataLayer = window.dataLayer || [];
+			//input태그 가져오기	
+			let fileTag = document.querySelector("input[name=file]");
+			// 파일 있는지 확인
+			fileTag.onchange = function() {
+				let imgTag = document.querySelector("#profileImg");
+				if (fileTag.files.length > 0) {
+					//파일을 선택한 경우, 미리보기 생성 == 이미지 태그 src에 데이터(파일태그에서 선택한 파일)넣어주기
+					let reader = new FileReader();
+					//reader읽어드리기
+					reader.onload = function(data) {
+						console.log(data);
+						imgTag.src = data.target.result;
+						imgTag.width = 250;
+						imgTag.height = 150;
+					}
+					reader.readAsDataURL(fileTag.files[0]);
+				} else {
+					//취소버튼 누를 경우
+					imgTag.src = "";
+				}
+			}
+			</script>
+			<script>
+		function MealInsert(){
+			console.log("클릭")
+			var formData = new FormData($('#frm')[0])
+			$.ajax({
+				url:"/insertMeal",
+				type:"post",
+				data:formData,
+				contentType:false,
+				processData:false,
+				success: function(res){
+					console.log(res)
+					alert("등록되었습니다")
+					location.href="/myFeed"
+				},
+				error: function(err){
+					console.log(err)
+				}
+				
+			})
+		}
+		
+		</script> 
+		<script>
+			window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'UA-56159088-1');
-    </script>
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			gtag('config', 'UA-56159088-1');
+		</script>
 		<!-- Scripts
     ================================================== -->
 		<script src="assets/js/tippy.all.min.js"></script>
@@ -203,32 +235,6 @@
 
 
 		<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-
-		<script>
-        var uptarg = document.getElementById('drag-drop-area');
-        if (uptarg)
-        {
-          var uppy = Uppy.Core().use(Uppy.Dashboard,
-          {
-            inline: true,
-            target: uptarg,
-            proudlyDisplayPoweredByUppy: false,
-            theme: 'dark',
-            width: 770,
-            height: 210,
-            plugins: ['Webcam']
-          }).use(Uppy.Tus,
-          {
-            endpoint: 'https://master.tus.io/files/'
-          });
-          uppy.on('complete', (result) =>
-          {
-            console.log('Upload complete! We’ve uploaded these files:', result.successful)
-          });
-        }
-        
-        
-      </script>
 	</div>
 </body>
 
