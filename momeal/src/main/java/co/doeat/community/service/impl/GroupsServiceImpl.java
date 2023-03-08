@@ -27,13 +27,13 @@ public class GroupsServiceImpl implements GroupsService {
 	}
 
 	@Override
-	public int insertGroups(GroupsVO vo) {
-		return groupsMapper.insertGroups(vo);
+	public List<GroupsVO> grpList(GroupsVO vo) {
+		return groupsMapper.grpList(vo);
 	}
 
 	@Override
-	public List<GroupsVO> grpList(GroupsVO vo) {
-		return groupsMapper.grpList(vo);
+	public List<GroupsVO> membList(int no) {
+		return groupsMapper.membList(no);
 	}
 
 }
