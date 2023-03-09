@@ -140,7 +140,7 @@
 					// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
 					IMP.request_pay( // 결제창을 띄움
 					{
-						pg : 'kakaopay', //:카카오페이, 
+						pg : 'html5_inicis', //:카카오페이, 
 						/*  'inicis', // version 1.1.0부터 지원.
 						    html5_inicis':이니시스(웹표준결제)
 						        'nice':나이스페이
@@ -168,7 +168,7 @@
 						    나중에 포스팅 해볼게요.
 						 */
 						name : userId, //결제창에서 보여질 이름
-						amount : totalPrice, //가격 
+						amount : 100,//totalPrice, //가격 
 						buyer_name : userId,
 						buyer_tel : tel,
 						m_redirect_url : 'http://localhost/purchaseForm'
