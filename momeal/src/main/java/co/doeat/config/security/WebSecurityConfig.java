@@ -3,9 +3,11 @@ package co.doeat.config.security;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,7 +36,7 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((requests) -> requests.antMatchers("/", "home", "/userJoinForm").permitAll() // 설정된
+		http.authorizeHttpRequests((requests) -> requests.antMatchers("/", "home", "/signup/**").permitAll() // 설정된
 				// url은
 				// 인증되지
 				// 않더라도 누구나 접근
@@ -65,4 +67,9 @@ public class WebSecurityConfig {
 					"/modal-template/**", "/second-template/**");
 		};
 	}
+
+//	@Bean
+//	public void configure(WebSecurity web) throws Exception {
+//	       web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+//	   }
 }

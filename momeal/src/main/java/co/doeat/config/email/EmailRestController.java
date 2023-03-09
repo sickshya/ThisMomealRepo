@@ -9,13 +9,14 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @RestController
-public class EmailController {
+public class EmailRestController {
 
 	@Autowired RegisterMail registerMail;
 	
-	@PostMapping("login/mailConfirm")
-	String mailConfirm(@RequestParam("email") String email) throws Exception {
+	@PostMapping("/signup/mailConfirm.do")
+	public String mailConfirm(@RequestParam("email") String email) throws Exception {
 		String code = registerMail.sendSimpleMessage(email);
+		log.info("입력된 email 주소 : " + email);
 		log.info("인증하기위한 code : " + code);
 		return code;
 	}

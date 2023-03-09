@@ -4,29 +4,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.doeat.community.service.UserService;
 import co.doeat.community.service.UsersVO;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @RestController
 public class UserRestController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	BCryptPasswordEncoder bcryptEncoder;
 
 	// 회원가입시 ID 중복체크(duplicate check)
-	@GetMapping("/idDuplicateCheck.do")
-	public String idDuplicateCheck(@RequestParam("id") String triedId) {
+	@PostMapping("/signup/checkId.do")
+	public String idDuplicateCheck(@RequestParam("userId") String triedId) {
+		log.info(triedId + "이 아이디를 받아왔음");
 		boolean b = userService.isIdCheck(triedId);
-		String result = "1"; // when the id doesn't exist
+		String result = "0"; // when the id doesn't exist
 		if (!b) {
-			result = "0"; // it exists
+			result = "1"; // it exists
 		}
 		return result;
 	}
@@ -36,11 +41,11 @@ public class UserRestController {
 	@GetMapping("/userPwdForm")
 	public boolean userPwdForm(UsersVO vo, Model model, HttpSession session, HttpServletRequest request) {
 		boolean a = false;
-		 session = request.getSession();
-		 session.setAttribute("userId", "user1");
-		 
+		session = request.getSession();
+		session.setAttribute("userId", "user1");
+
 		String id = (String) session.getAttribute("userId");
-		
+
 		UsersVO uvo = userService.userSelect(id);
 
 		if (uvo != null) {
@@ -52,13 +57,12 @@ public class UserRestController {
 	}
 
 	// 폼에 입력된 값들로 회원가입
-	// 수정 예정
-	@PostMapping("/userJoin.do")
+	@PostMapping("/signup/register.do")
 	public String userJoin(UsersVO uvo, Model model) {
+		uvo.setPassword(bcryptEncoder.encode(uvo.getPassword()));
 		userService.insertUserInfo(uvo);
-		model.addAttribute("userInfo", uvo);
-
-		return "myFeed/myFeed"; // 임의값
+//		model.addAttribute("userInfo", uvo);
+		return "/login"; // 임의값
 	}
 
 }

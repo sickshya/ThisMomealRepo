@@ -6,15 +6,15 @@
    <insert id="insertUserInfo"
       parameterType="co.doeat.community.service.UsersVO">
       INSERT INTO
-      USERS(user_id, user_name, nick_name, password)
+      USERS(user_id, user_name, nick_name, password, TEL, ADDR, ZIPCODE, EMAIL)
       VALUES(#{userId},
-      #{userName}, #{nickName}, #{password})
+      #{userName}, #{nickName}, #{password}, #{tel}, #{addr}, #{zipcode}, #{email})
    </insert>
 
    <!-- id 중복체크 -->
    <select id="isIdCheck" resultType="boolean">
       SELECT CASE WHEN
-      COUNT(USER_ID) = 1 THEN 0 ELSE 1 END
+      COUNT(USER_ID) = 1 THEN 0 ELSE 1 END AS USER_ID
       FROM USERS
       WHERE USER_ID =
       #{userId}

@@ -27,9 +27,9 @@ public class UserController {
 	PasswordEncoder passwordEncoder;
 
 	// 회원가입 폼 호출
-	@RequestMapping("/userJoinForm")
+	@RequestMapping("/signup/signupFrm")
 	public String userJoinForm() {
-		return "myPages/userJoinForm";
+		return "users/signupFrm";
 	}
 
 	// 마이페이지 접근을 위해 비밀번호 입력창 호출
