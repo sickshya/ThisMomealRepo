@@ -6,14 +6,22 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.doeat.community.mapper.UserMapper;
+import co.doeat.community.service.UsersVO;
 import co.doeat.record.mapper.AttendanceMapper;
+import co.doeat.record.mapper.PointLogMapper;
 import co.doeat.record.service.AttendanceService;
 import co.doeat.record.service.AttendanceVO;
+import co.doeat.record.service.PointLogVO;
 
 @Service
 public class AttendanceServiceImpl implements AttendanceService {
 	@Autowired
 	private AttendanceMapper attendanceMapper;
+	
+	@Autowired PointLogMapper pointLogMapper;
+	
+	@Autowired UserMapper userMapper;
 	
 	@Override
 	public int atInsert(AttendanceVO vo) {

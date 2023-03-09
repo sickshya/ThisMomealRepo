@@ -3,6 +3,8 @@ package co.doeat.record.service;
 import java.util.List;
 import java.util.Map;
 
+import co.doeat.community.service.UsersVO;
+
 public interface AttendanceService {
 	// 출석체크 insert
 	int atInsert(AttendanceVO vo);

@@ -44,7 +44,7 @@ public class UserRestController {
 		UsersVO uvo = userService.userSelect(id);
 
 		if (uvo != null) {
-			if (!uvo.getPwd().equals(vo.getPwd())) {
+			if (!uvo.getPassword().equals(vo.getPassword())) {
 				a = true;
 			}
 		}
