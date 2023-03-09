@@ -4,9 +4,15 @@
 <!-- 출석체크 정보저장 -->	
 <insert id="atInsert" parameterType="co.doeat.record.service.AttendanceVO">
 	INSERT INTO ATTENDANCE(ATT_DATE,USER_ID)
-	VALUES(sysdate,'user1')
+	VALUES(sysdate,#{userId})
 	
 </insert>
+
+<!-- 출석중복체크 -->
+<select id="ajaxAtCheck" resultType="boolean">
+	SELECT CASE WHEN TRUNC(ATT_DATE) = TRUNC(sysdate) THEN 0 ELSE 1 END
+	FROM ATTENDANCE WHERE user_ID = #{userId} and TRUNC(ATT_DATE) = TRUNC(sysdate)
+</select>
 
 
 

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import co.doeat.community.mapper.UserMapper;
 import co.doeat.community.service.UsersVO;
@@ -18,22 +19,20 @@ import co.doeat.record.service.PointLogVO;
 public class AttendanceServiceImpl implements AttendanceService {
 	@Autowired
 	private AttendanceMapper attendanceMapper;
-
 	@Autowired
-	PointLogMapper pointLogMapper;
-
+	private PointLogMapper pointLogMapper;
 	@Autowired
-	UserMapper userMapper;
+	private UserMapper userMapper;
 
 	@Override
 	public int atInsert(AttendanceVO vo) {
 		return attendanceMapper.atInsert(vo);
 	}
 
-	@Override
-	public List<Map<String, Object>> getAttendanceList(String id) {
-		return attendanceMapper.getAttendanceList(id);
-	}
+//	@Override
+//	public List<Map<String, Object>> getAttendanceList(String id) {
+//		return attendanceMapper.getAttendanceList(id);
+//	}
 
 	@Override
 	public Boolean ajaxAtCheck(AttendanceVO vo, PointLogVO pvo, UsersVO uvo) {

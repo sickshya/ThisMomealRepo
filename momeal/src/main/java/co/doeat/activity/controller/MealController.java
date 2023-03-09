@@ -1,7 +1,5 @@
 package co.doeat.activity.controller;
 
-import java.io.File;
-import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -9,12 +7,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import co.doeat.activity.mapper.FollowMapper;
 import co.doeat.activity.service.FollowService;
@@ -55,10 +50,7 @@ public class MealController {
 	public String feedUpload() {
 		return "myFeed/feedUpload";
 	}
-
 	
-	
-
 	
 	//식단 단건조회
 	

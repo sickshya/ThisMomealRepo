@@ -19,8 +19,8 @@ public class MealVO {
 	private String typeCode;
 	private String mealTime;
 	private String mealAmount;
-	@DateTimeFormat
-	@JsonFormat(pattern = "yyyy/MM/dd")
+	@DateTimeFormat(pattern = "yyyyMMdd")
+	@JsonFormat(pattern = "yyyyMMdd")
 	private Date postDate;
 
 	private String nickName; // 회원 닉네임

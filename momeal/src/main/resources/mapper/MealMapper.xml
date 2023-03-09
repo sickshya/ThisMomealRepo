@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.activity.mapper.MealMapper">
-
+	<!-- 개인 식단등록 -->
 	<insert id="insertMeal" parameterType="co.doeat.activity.service.MealVO">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			SELECT
@@ -21,7 +21,7 @@
 		
 		)values (
 		#{no},
-		'user1',
+		#{userId},
 		#{subject},
 		#{img},
 		#{fileDir},
@@ -33,25 +33,31 @@
 		
 		)
 	</insert>
-
+	
+	<!-- 개인 식단 리스트 -->
 	<select id="myFeedList"
 		resultType="co.doeat.activity.service.MealVO" parameterType="String">
 		SELECT *
 		FROM MEALS
-		WHERE TRUNC(post_date) = TO_DATE(#{postDate},'yyyyMMdd')
+		WHERE TRUNC(post_date) = TO_DATE(#{postDate},'yyyyMMdd') AND user_id = #{userId}
 	</select>
- 
+	
+ 	<!-- 개인 식단 단건조회 -->
 	<select id="mealSelect"
 		resultType="co.doeat.activity.service.MealVO">
 		SELECT * FROM MEALS
 		WHERE NO = #{no}
 	</select>
 	
+	<!-- 그룹 식단 리스트 -->
 	<select id="mealList" resultType="co.doeat.activity.service.MealVO" parameterType="co.doeat.activity.service.MealVO">
 		SELECT * FROM MEALS
 		WHERE POST_DATE = #{postDate} AND USER_ID = #{userId}
 	</select>
 	
-	
+	<!-- 개인식단삭제 -->
+	<delete id="mealDelete" parameterType="co.doeat.activity.service.MealVO">
+	DELETE FROM MEALS WHERE NO = #{no}
+	</delete>
 
 </mapper>

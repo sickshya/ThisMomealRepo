@@ -1,8 +1,5 @@
 package co.doeat.record.mapper;
 
-import java.util.List;
-import java.util.Map;
-
 import co.doeat.record.service.AttendanceVO;
 
 public interface AttendanceMapper {
@@ -10,7 +7,7 @@ public interface AttendanceMapper {
 	int atInsert(AttendanceVO vo);
 
 	// 출석정보 가져오기
-	List<Map<String, Object>> getAttendanceList(String id);
+	//List<Map<String, Object>> getAttendanceList(String id);
 	
 	// 출석 중복체크
 	Boolean ajaxAtCheck(AttendanceVO vo);

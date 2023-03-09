@@ -5,17 +5,20 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.doeat.activity.service.MealService;
 import co.doeat.activity.service.MealVO;
+import co.doeat.management.service.GroupPurchaseListVO;
 
 @RestController
 public class MealRestController {
@@ -28,8 +31,9 @@ public class MealRestController {
 
 	// 날짜에 따른 피드 불러오기
 	@RequestMapping("/myFeed/{postDate}")
-	public List<MealVO> myFeedList(@PathVariable String postDate) {
-		return mealService.myFeedList(postDate);
+	public List<MealVO> myFeedList(@PathVariable String postDate, HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
+		return mealService.myFeedList(postDate,userId);
 	}
 	
 	//상세조회
@@ -40,7 +44,8 @@ public class MealRestController {
 	}
 	
 	@RequestMapping("/insertMeal")
-	public String mealInsert(MealVO vo, MultipartFile file) {
+	public String mealInsert(MealVO vo, MultipartFile file, HttpSession session) {
+		vo.setUserId((String) session.getAttribute("userId"));
 		if (!file.isEmpty()) {// 첨부파일이 존재하면
 			String fileName = UUID.randomUUID().toString();
 			fileName = fileName + file.getOriginalFilename();
@@ -57,4 +62,12 @@ public class MealRestController {
 		return "true";
 	}
 
+	
+	//식단 삭제
+	@RequestMapping("/mealDelete/{no}")
+	public int mealDelete(@PathVariable int no, GroupPurchaseListVO vo) {
+		return mealService.mealDelete(no);
+		
+	}
+	
 }
