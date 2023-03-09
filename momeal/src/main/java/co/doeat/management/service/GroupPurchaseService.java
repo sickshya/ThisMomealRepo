@@ -11,20 +11,18 @@ import co.doeat.community.service.UsersVO;
 public interface GroupPurchaseService {
 
 	// 공동구매-메인
-	public List<GroupPurchaseListVO> getPurList(); // 전체조회
+	public List<GroupPurchaseListVO> pchAllList(); // 전체조회
 
-	public List<GroupPurchaseListVO> getPurchasingList(); // 진행중조회
+	public List<GroupPurchaseListVO> pchIngList(); // 진행중조회
 
 	// 공동구매-상세
-	public List<GroupPurchaseListVO> getPurOne(int no); // 단건조회
+	public List<GroupPurchaseListVO> pchDetail(int no); // 단건조회
 
 	// 공동구매-주문하기 form
 	public int payInsert(GroupPurchaseSettlementVO pvo); // 배송정보 저장
-	//public List<Map<String, Object>>payInsert(Map<String, Object> map); // 배송정보 저장
 
 	// 공동구매 결제화면 전체조회
-	//public List<Map<String, Object>> getOrderList(Map<String, Object> map); // 배송정보 전체조회
-	List<GroupPurchaseSettlementVO> getOrderList(); // 배송정보 전체조회
+	List<GroupPurchaseSettlementVO> pchOrderList(); // 배송정보 전체조회
 
 	
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지

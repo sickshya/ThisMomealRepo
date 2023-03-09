@@ -38,67 +38,65 @@ public class GroupPurchaseController {
 
 	@Autowired
 	ServletContext servletContext;
-
 	@Autowired
 	private GroupPurchaseService groupPurchaseService;
-	
 	@Autowired
 	private ImageService imageService;
-
 	@Autowired
 	private UserService userService;
-
 	@Value("${momeal.saveImg}")
 	private String saveImg;
 
-	// 공동구매
-	@RequestMapping("/purchaseList")
-	public String purchaseList(Model model, HttpServletRequest request, UsersVO userVO) {
+	// 공동구매(전체조회) 리스트 폼 호출
+	@RequestMapping("/pch/pchMain")
+	public String pchMain(Model model, HttpSession session, UsersVO userVO) {
+		model.addAttribute("pchAllList", groupPurchaseService.pchAllList()); // 전체 공동구매 리스트 조회
+		model.addAttribute("pchIngList", groupPurchaseService.pchIngList()); // 진행 중인 공동구매 리스트 조회
+		return "purchase/pchMain";
+	}
+
+	// 공동구매 리스트에서 단건조회를 하면 그 상품에 대한 상세페이지
+	@GetMapping("/pch/pchDetail/{no}")
+	public String pchDetail(Model model, @PathVariable int no, HttpSession session, GroupPurchaseSettlementVO pvo) {
+		model.addAttribute("pchDetail", groupPurchaseService.pchDetail(no));
+		model.addAttribute("no", no);
+		return "purchase/pchDetail";
+	}
+
+	// 공동구매를 신청하기 위한 서류 작성 form 호출 ( 신청form )
+	@RequestMapping("/pch/pchOrderFrm")
+	public String pchOrderFrm(
+						HttpServletRequest request, 
+						Model model, 
+						GroupPurchaseSettlementVO vo,
+						@RequestParam int totalGd) {
 		HttpSession session = request.getSession();
-		session.setAttribute("userId", "user1");
-		model.addAttribute("PurList", groupPurchaseService.getPurList()); // 전체
-		model.addAttribute("PurchsingList", groupPurchaseService.getPurchasingList()); // 진행
-		return "groupPurchase/purchaseList";
-	}
-
-	// 공동구매-상세(단건조회)
-	@GetMapping("/purchaseDetail/{no}")
-	public String purchaseList(Model model, @PathVariable int no, GroupPurchaseSettlementVO pvo) {
-		model.addAttribute("PurOne", groupPurchaseService.getPurOne(no));
-	    model.addAttribute("no", no);
-		return "groupPurchase/purchaseDetail";
-	}
-
-	// 공동구매-정보입력form
-	@RequestMapping("/purchaseForm")
-	public String purchaseForm(HttpSession session, 
-			                   Model model, 
-			                   GroupPurchaseSettlementVO vo,
-			                   @RequestParam int totalGd ) {
-		List<GroupPurchaseListVO>  gvo = groupPurchaseService.getPurOne(vo.getNo());
+		String id = (String) session.getAttribute("userId");
+		List<GroupPurchaseListVO> gvo = groupPurchaseService.pchDetail(vo.getNo());
 		model.addAttribute("purOne", gvo);
-		model.addAttribute("userInfo", userService.userSelect("user1"));
-		model.addAttribute("totalPrice", totalGd*gvo.get(0).getPrice()); //totalPrice 구하기
-		return "groupPurchase/purchaseForm";
+		model.addAttribute("userInfo", userService.userSelect(id));
+		model.addAttribute("totalPrice", totalGd * gvo.get(0).getPrice()); // totalPrice 구하기
+		return "purchase/pchOrderFrm";
 	}
 
-	// 공동구매-결제
-	@PostMapping("/purchase") // 아작스부를떄 호출
-	@ResponseBody //무조건 데이터로 넘어감.
-	public String purchase(HttpSession session, HttpServletRequest request, UsersVO vo, @RequestBody GroupPurchaseSettlementVO pvo) {
+	// 공동구매(결제)
+	@PostMapping("/pch/purchase.do") // 아작스부를떄 호출
+	@ResponseBody // 무조건 데이터로 넘어감.
+	public String purchase(HttpSession session, HttpServletRequest request, UsersVO vo,
+			@RequestBody GroupPurchaseSettlementVO pvo) {
 		session = request.getSession();
 		groupPurchaseService.payInsert(pvo);
 		return "ok";
 	}
 
-	   // 공동구매-구매내역조회
-	@RequestMapping("/orderList")
-	  public String orderList(HttpServletRequest request, GroupPurchaseSettlementVO pvo, Model model) {
-		  HttpSession session = request.getSession();
-		  session.setAttribute("userId", "user1");
-		  model.addAttribute("orderlist",groupPurchaseService.getOrderList());
-		  return "groupPurchase/orderList";
-	   }
+	// 공동구매(구매내역조회)
+	@RequestMapping("/pch/pchOrderList")
+	public String orderList(HttpServletRequest request, GroupPurchaseSettlementVO pvo, Model model) {
+		HttpSession session = request.getSession();
+		session.getAttribute("userId");
+		model.addAttribute("orderlist", groupPurchaseService.pchOrderList());
+		return "purchase/pchOrderList";
+	}
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
 	// 마이페이지 공동구매내역 리스트

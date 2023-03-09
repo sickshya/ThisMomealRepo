@@ -12,8 +12,9 @@ public class ExperienceVO {
 	private int no; //체험단등록순번
 	private String title; //글제목
 	private String subject; //글내용
-	private int nowAplyt; //현재신청인원
-	private int lmtAplyt; //신청인원제한
+	private int nowAplyt; //신청인원
+	private int lmtAplyt; //마감인원
+	private int Aplyt; // 남은인원 카운트
 	private String nessGrd; //필요등급
 	private int savePoint; //적립포인트
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -28,4 +29,8 @@ public class ExperienceVO {
 	private String thumbnailImg; // 썸네일이미지 이름
 	private String thumbnailImgPath; // 썸네일이미지 경로
 	private int startDate; //체험단시작날짜 
+	
+	// 이미지
+	private String atchPath; // 첨부이미지 경로
+	
 }

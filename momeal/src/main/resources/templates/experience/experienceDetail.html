@@ -50,39 +50,43 @@ textarea {
 					<div class="product__details__pic">
 						<div class="product__details__pic__item">
 							<img class="product__details__pic__item--large"
-								th:src="${PurOne[0].thumbnailImgPath}">
+								th:src="${ExpOne[0].thumbnailImgPath}">
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6">
 					<div class="product__details__text">
-						<h3>[[ ${PurOne[0].name} ]]</h3>
-						<p th:if="${PurOne[0].grpStartDate == '0'}" style="color: red;"></p>
-						<p th:unless="${PurOne[0].grpStartDate == '0'}"
-							style="color: red;">[[${#dates.format(PurOne[0].grpStartDate,'MM-dd')}]]일
-							뒤 시작</p>
-						<div class="product__details__price">[[${PurOne[0].price}]]</div>
-						<!--                   <p>[[${#dates.format(PurOne[0].grpStartDate, -->
-						<!--                      'MM-dd')}]]([[${#dates.dayOfWeekName(PurOne[0].grpStartDate)}]]) -->
-						<!--                      ~ [[${#dates.format(PurOne[0].grpEndDate, -->
-						<!--                      'MM-dd')}]]([[${#dates.dayOfWeekName(PurOne[0].grpEndDate)}]])</p> -->
+						<h3>[[ ${ExpOne[0].title} ]]</h3>
+						<div class="product__details__price">[[${ExpOne[0].subject}]]</div>
+						<p th:if="${ExpOne[0].expeStartDate == '0'}" style="color: red;"></p>
+						<p th:unless="${ExpOne[0].expeStartDate == '0'}"
+							style="color: red;">[[${#dates.format(ExpOne[0].expeStartDate,'MM-dd')}]]일
+							에 시작해요!</p>
 						<ul>
-							<li><b>주문자 수</b> <span>[[${PurOne[0].ordCnt}]]명</span></li>
-							<li><b>주문 가능수량</b> <span>총 [[${PurOne[0].splyGd}]]개</span></li>
-							<li><b>진행 기간</b> <span>[[${#dates.format(PurOne[0].grpStartDate,
-									'MM-dd')}]]([[${#dates.dayOfWeekName(PurOne[0].grpStartDate)}]])
-									~ [[${#dates.format(PurOne[0].grpEndDate,
-									'MM-dd')}]]([[${#dates.dayOfWeekName(PurOne[0].grpEndDate)}]])</span></li>
+							<li><b>참여 등급</b> <span>[[${ExpOne[0].nessGrd}]]</span></li>
+							<li><b>참여 인원</b> <span>[[${ExpOne[0].nowAplyt}]] 명 신청 / [[${ExpOne[0].aplyt}]] 명 남음</span></li>
+							<li><b>모집 기간</b> <span>[[${#dates.format(ExpOne[0].expeStartDate,
+									'MM-dd')}]]([[${#dates.dayOfWeekName(ExpOne[0].expeStartDate)}]])
+									 -  [[${#dates.format(ExpOne[0].expeEndDate,
+									'MM-dd')}]]([[${#dates.dayOfWeekName(ExpOne[0].expeEndDate)}]])</span></li>
+							<li><b>리뷰 기간</b> <span>[[${#dates.format(ExpOne[0].reviewStartDate,
+									'MM-dd')}]]([[${#dates.dayOfWeekName(ExpOne[0].reviewStartDate)}]])
+									 -  [[${#dates.format(ExpOne[0].reviewEndDate,
+									'MM-dd')}]]([[${#dates.dayOfWeekName(ExpOne[0].reviewEndDate)}]])</span></li>
 						</ul>
-
-
-						<form class="purchaseBtn" action="/purchaseForm" >
-							<input type="number" name="totalGd" min="1" id="totalGd" size="2"
-								maxlength="12" value="1" title="" class="input-text qty">
-							<input type="hidden" id="no" name="no" th:value="${PurOne[0].no}"></a>
-
-							<button class="primary-btn">구매하기</button>
+						<br>
+						<form class="purchaseBtn" action="/expr/exprAply.do" >
+							<input type="hidden" id="no" name="no" th:value="${ExpOne[0].no}"></a>
+							<button class="primary-btn" >신청하기</button>
 						</form>
+						
+<!-- 						<form class="purchaseBtn" action="/experienceForm" > -->
+<!-- 							<input type="number" name="totalGd" min="1" id="totalGd" size="2" -->
+<!-- 								maxlength="12" value="1" title="" class="input-text qty"> -->
+<!-- 							<input type="hidden" id="no" name="no" th:value="${ExpOne[0].no}"></a> -->
+<!-- 							<br> -->
+<!-- 							<button class="primary-btn">신청하기</button> -->
+<!-- 						</form> -->
 
 
 					</div>
@@ -102,7 +106,7 @@ textarea {
 							<div class="tab-pane active" id="detail" role="tabpanel">
 								<div class="product__details__tab__desc">
 									<img class="product__details__pic__item--large"
-										th:each="puroneImg:${PurOne}" th:src="${puroneImg.atchPath}">
+										th:each="exponeImg:${ExpOne}" th:src="${exponeImg.atchPath}">
 								</div>
 							</div>
 							<!--                      상세 탭 끝 후기 탭 시작 -->
@@ -135,11 +139,5 @@ textarea {
 		<script src="/second-template/js/jquery-ui.min.js"></script>
 	</div>
 </body>
-<script>
-	function sendGdsInfo() {
-		let gdsNo = $("#gdsNo").value(); //
-		let gdsCnt = $("#gdsCnt").value();
 
-	}
-</script>
 </html>
