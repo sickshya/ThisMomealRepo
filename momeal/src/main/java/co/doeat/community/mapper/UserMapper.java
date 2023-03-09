@@ -33,4 +33,6 @@ public interface UserMapper {
 	// 출석체크 포인트 업데이트
 	int updateATPoint(UsersVO uvo);
 
+	// 체험단
+	int selectExpUser(UsersVO vo); //유저정보 select
 }

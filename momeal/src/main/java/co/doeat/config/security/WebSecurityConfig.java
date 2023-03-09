@@ -34,7 +34,7 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((requests) -> requests.antMatchers("/", "home", "/userJoinForm").permitAll() // 설정된
+		http.authorizeHttpRequests((requests) -> requests.antMatchers("/", "home", "/pch/**", "/userJoinForm").permitAll() // 설정된
 				// url은
 				// 인증되지
 				// 않더라도 누구나 접근

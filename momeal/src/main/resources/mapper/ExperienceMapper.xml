@@ -73,6 +73,52 @@
 		        ,EG.THUMBNAIL_IMG_PATH
 	</select>
 	
+	<!-- 단건조회 -->
+	<select id="ExperOne" resultType="ExperienceVO">
+		SELECT  g.NO,
+		        g.TITLE,
+		        g.SUBJECT,
+		        (g.NOW_APLYT - g.LMT_APLYT) AS APLYT,
+		        g.LMT_APLYT,
+		        g.NESS_GRD,
+		        g.SAVE_POINT,
+		        g.EXPE_START_DATE,
+		        g.EXPE_END_DATE,
+		        g.REVIEW_START_DATE,
+		        g.REVIEW_END_DATE,
+		        g.THUMBNAIL_IMG,
+		        g.THUMBNAIL_IMG_PATH, 
+		       i.*, 
+		       (SELECT COUNT(*) 
+		          FROM EXPERIENCE_PARTICIPANTS
+		          WHERE NO = i.POST_NO) ord_cnt
+		FROM
+		EXPERIENCE_GROUP g LEFT JOIN IMAGES i
+		ON (g.NO = i.POST_NO)
+		WHERE
+		i.POST_NO = 1 AND i.board_code='CT02'
+		ORDER BY g.NO
+	</select>
+	
+	<!-- 배송정보 입력 -->
+	<insert id="selectExpUser" parameterType="ExprParticipantsVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT	MAX(NO)+1
+			FROM EXPERIENCE_PARTICIPANTS
+		</selectKey>
+		insert into EXPERIENCE_PARTICIPANTS
+        		(NO,
+       			 USER_ID,
+       			 APL_DATE,
+       			 ADDR
+       			 )
+		values( #{no},
+        		#{userId}, 
+       			#{aplDate},
+        		#{addr}
+        		)
+	</insert>
+	
 	<!-- 관리자 +++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 	<!-- 공동구매 전체리스트 출력 -->
 	<select id="adminExperienceGroup" resultType="co.doeat.management.service.ExperienceVO">

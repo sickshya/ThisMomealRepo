@@ -68,4 +68,10 @@ public class UserServiceImpl implements UserService {
 		return userMapper.grpSelect(userId);
 	}
 
+//===============================================================체험단==========================
+	@Override
+	public int selectExpUser(UsersVO vo) {
+		return userMapper.selectExpUser(vo);
+	}
+
 }
