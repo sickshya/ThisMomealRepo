@@ -21,22 +21,22 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 
 	// 전체보기
 	@Override
-	public List<GroupPurchaseListVO> getPurList() {
+	public List<GroupPurchaseListVO> pchAllList() {
 
-		return groupPurchaseMapper.getPurList();
+		return groupPurchaseMapper.pchAllList();
 	}
 
 	// 진행중
 	@Override
-	public List<GroupPurchaseListVO> getPurchasingList() {
+	public List<GroupPurchaseListVO> pchIngList() {
 
-		return groupPurchaseMapper.getPurchasingList();
+		return groupPurchaseMapper.pchIngList();
 	}
 
 	// 단건조회
 	@Override
-	public List<GroupPurchaseListVO> getPurOne(int no) {
-		return groupPurchaseMapper.getPurOne(no);
+	public List<GroupPurchaseListVO> pchDetail(int no) {
+		return groupPurchaseMapper.pchDetail(no);
 	}
 
 	// 공동구매 결제하기
@@ -45,16 +45,11 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 		return groupPurchaseMapper.payInsert(pvo);
 	}
 
-	// 공동구매 결제화면 전체조회
-//	@Override
-//	public List<Map<String, Object>> getOrderList(Map<String, Object> map) {
-//		return groupPurchaseMapper.getOrderList(map);
-//	}
 	
 	// 공동구매 결제화면 전체조회
 	@Override
-	public List<GroupPurchaseSettlementVO> getOrderList() {
-		return groupPurchaseMapper.getOrderList();
+	public List<GroupPurchaseSettlementVO> pchOrderList() {
+		return groupPurchaseMapper.pchOrderList();
 	}
 
 	// +++++++++++++++++++++++++++마이페이지

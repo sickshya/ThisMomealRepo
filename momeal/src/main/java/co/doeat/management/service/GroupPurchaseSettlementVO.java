@@ -19,4 +19,6 @@ public class GroupPurchaseSettlementVO {
 	private int listNo; // list테이블 no
 	private String addr; //고객주소
 	private String thumbnailImgPath; // 썸네일이미지 경로
+	private String name;
+	private String subject;
 }

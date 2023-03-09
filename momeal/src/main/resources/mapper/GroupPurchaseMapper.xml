@@ -4,7 +4,7 @@
 	namespace="co.doeat.management.mapper.GroupPurchaseMapper">
 
 	<!-- 전체 공구진행중 리스트 출력 -->
-	<select id="getPurList" resultType="GroupPurchaseListVO">
+	<select id="pchAllList" resultType="GroupPurchaseListVO">
 		SELECT PL.NO
 				,PL.NAME
 				,PL.CO_NAME
@@ -33,7 +33,7 @@
 	</select>
 
 	<!-- 현재 진행중인 공구리스트 출력 -->
-	<select id="getPurchasingList" resultType="GroupPurchaseListVO">
+	<select id="pchIngList" resultType="GroupPurchaseListVO">
 		SELECT PL.NO
 				,PL.NAME
 				,PL.CO_NAME
@@ -65,7 +65,7 @@
 	</select>
 
 	<!-- 단건조회 -->
-	<select id="getPurOne" resultType="GroupPurchaseListVO">
+	<select id="pchDetail" resultType="GroupPurchaseListVO">
 		SELECT g.*, 
 		       i.*, 
 		       (SELECT COUNT(*) 
@@ -107,7 +107,7 @@
 	</insert>
 
 	<!-- 배송정보 조회 -->
-	<select id="getOrderList"
+	<select id="pchOrderList"
 		resultType="GroupPurchaseSettlementVO">
 			SELECT g.*, s.*
 			FROM GROUP_PURCHASE_LISTS g 

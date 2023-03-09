@@ -108,7 +108,7 @@ public class ChallengeController {
 	// 진행중 - 인증 사진 등록
 	@RequestMapping("/insertMyChallImg")
 	@ResponseBody
-	public String insertMyChallImg(ChallengeValidationVO vo, MultipartFile file, HttpSession session) {
+	public ChallengeValidationVO insertMyChallImg(ChallengeValidationVO vo, MultipartFile file, HttpSession session) {
 		if (!file.isEmpty()) { // 첨부파일이 존재하면
 			String fileName = UUID.randomUUID().toString();
 			fileName = fileName + file.getOriginalFilename();
@@ -123,7 +123,9 @@ public class ChallengeController {
 		}
 		challengeService.insertMyChallImg(vo);
 		
-		return "success";
+		System.out.println("결과 ====== " + challengeService.insertMyChallImg(vo));
+		
+		return challengeService.insertMyChallImg(vo);
 	}
 	
 	
