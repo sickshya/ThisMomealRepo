@@ -79,15 +79,6 @@ textarea {
 							<input type="hidden" id="no" name="no" th:value="${ExpOne[0].no}"></a>
 							<button class="primary-btn" >신청하기</button>
 						</form>
-						
-<!-- 						<form class="purchaseBtn" action="/experienceForm" > -->
-<!-- 							<input type="number" name="totalGd" min="1" id="totalGd" size="2" -->
-<!-- 								maxlength="12" value="1" title="" class="input-text qty"> -->
-<!-- 							<input type="hidden" id="no" name="no" th:value="${ExpOne[0].no}"></a> -->
-<!-- 							<br> -->
-<!-- 							<button class="primary-btn">신청하기</button> -->
-<!-- 						</form> -->
-
 
 					</div>
 				</div>
@@ -106,7 +97,7 @@ textarea {
 							<div class="tab-pane active" id="detail" role="tabpanel">
 								<div class="product__details__tab__desc">
 									<img class="product__details__pic__item--large"
-										th:each="exponeImg:${ExpOne}" th:src="${exponeImg.atchPath}">
+										th:each="expOneImg:${ExpOne}" th:src="${expOneImg.atchPath}">
 								</div>
 							</div>
 							<!--                      상세 탭 끝 후기 탭 시작 -->
@@ -124,7 +115,7 @@ textarea {
 
 
 										<div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
-											<button type="button" class="primary-btn">전송하기</button>
+											<button type="submit" class="primary-btn">전송하기</button>
 										</div>
 									</div>
 								</div>

@@ -1,5 +1,7 @@
 package co.doeat.management.controller;
 
+import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import co.doeat.community.service.UserService;
 import co.doeat.community.service.UsersVO;
@@ -53,23 +57,23 @@ public class ExperienceController {
 	}
 	
 	// 체험단(호출)
-	@GetMapping("/expr/exprFrm")
-	public String experience(
-								 HttpSession session, 
-								 UsersVO vo) {
-		String id = (String) session.getAttribute("userId");
+	@RequestMapping("/expr/exprFrm")
+	public String experience(UsersVO vo) {
+		userService.ExpSelectUser(vo);
 		return "experience/experienceForm";
 	}
 	
 	// 체험단(신청)
 	@GetMapping("/expr/exprAply.do")
-	public String experienceForm(HttpSession session, 
-								 ExprParticipantsVO vo,
-								 UsersVO uvo,
-								 Model model) {
-		String id = (String) session.getAttribute("userId");
-		model.addAttribute("expUserInfo", userService.selectExpUser(uvo));
-		experienceService.ExpInsert(vo);
+	public String exprAply(HttpServletRequest request,
+								 Model model,
+								 ExperienceVO vo,
+								 UsersVO uvo
+								 ) {
+		//HttpSession session = request.getSession();
+		//String id = (String) session.getAttribute("userId");
+		model.addAttribute("userInfo",userService.ExpSelectUser(uvo));
+		model.addAttribute("expInfo", experienceService.ExpInsert(vo));
 		return "redirect:/expOrderList";
 	}
 	

@@ -36,5 +36,5 @@ public interface UserService {
 	int updateATPoint(UsersVO uvo);
 	
 	// 체험단
-	int selectExpUser(UsersVO vo); //유저정보 select
+	int ExpSelectUser(UsersVO vo); //유저정보 select
 }
