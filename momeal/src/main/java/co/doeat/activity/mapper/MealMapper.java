@@ -7,7 +7,7 @@ import co.doeat.activity.service.MealVO;
 
 public interface MealMapper {
 	// 마이피드 식단 불러오기
-	List<MealVO> myFeedList(String postDate);
+	List<MealVO> myFeedList(String postDate,String userId);
 
 	// 식단 등록
 	int insertMeal(MealVO vo);
@@ -17,5 +17,8 @@ public interface MealMapper {
 
 	// 그룹 상세(글 하나, 이미지 다수)
 	List<MealVO> mealList(MealVO vo);
+	
+	//식단 삭제
+	int mealDelete(int no);
 
 }

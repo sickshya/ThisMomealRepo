@@ -22,8 +22,8 @@ public class MealServiceImpl implements MealService{
 	}
 
 	@Override
-	public List<MealVO> myFeedList(String postDate) {
-		return mealMapper.myFeedList(postDate);
+	public List<MealVO> myFeedList(String postDate,String userId) {
+		return mealMapper.myFeedList(postDate,userId);
 	}
 
 	@Override
@@ -34,6 +34,11 @@ public class MealServiceImpl implements MealService{
 	@Override
 	public MealVO mealSelect(int no) {
 		return mealMapper.mealSelect(no);
+	}
+
+	@Override
+	public int mealDelete(int no) {
+		return mealMapper.mealDelete(no);
 	}
 
 

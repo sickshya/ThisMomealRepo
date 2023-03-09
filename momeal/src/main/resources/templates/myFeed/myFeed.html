@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{feedLayout}">
+	layout:decorate="~{layout}">
 
 <head>
 <meta charset="UTF-8">
@@ -171,7 +171,7 @@ img {
 						<a href="feedUpload"
 							class="bg-gray-300 shadow-sm p-2 px-6 rounded-md dark:bg-gray-700">
 							식단기록</a> 
-							<a href="attendanceCheck"
+							<a   href="javascript:atCk();"
 							class="bg-pink-500 shadow-sm p-2 pink-500 px-6 rounded-md text-white hover:text-white hover:bg-pink-600">
 							출석체크</a>
 
@@ -290,7 +290,7 @@ img {
 					</div>
 					<div class="story-content p-4" data-simplebar>
 							<div><p id="mealScore">식단점수</p></div>
-							
+							<input type="hidden" id="no">
 						<div class="py-4 ">
 							<div class="flex justify-around">
 								<a href="#" class="flex items-center space-x-3">
@@ -299,7 +299,7 @@ img {
 									</div>
 								</a>
 								<button type="button">글수정</button>
-								<button type="button">글삭제</button>
+								<button type="button"  onclick="feedDel();">글삭제</button>
 
 							</div>
 							<hr class="-mx-4 my-3">
@@ -383,12 +383,12 @@ img {
 
 
 
-		<script>
+<script>
 window.onload = function () { buildCalendar(); }    // 웹 페이지가 로드되면 buildCalendar 실행
 
 
 let today = new Date();     // 페이지를 로드한 날짜를 저장
-today.setHours(0, 0, 0, 0);    // 비교 편의를 위해 today의 시간을 초기화
+today.setHours(0, 0, 0, 0);  // 비교 편의를 위해 today의 시간을 초기화
 
 // 피드생성
 function buildCalendar() {
@@ -430,9 +430,9 @@ function buildCalendar() {
 			`
 				
 			$('#tbd').append(tr)
-			})
 			
-    		
+	
+			})
     		
     	}
      })
@@ -444,21 +444,28 @@ function buildCalendar() {
 
 
 
-// 이전달 버튼 클릭
+// 이전 버튼 클릭
 function prevCalendar() {
-
    today = new Date(today.getFullYear(), today.getMonth() , today.getDate()-1);
-    buildCalendar();    // 달력 다시 생성
+   
+
+    buildCalendar();    // 폼 다시 생성
 
 }
-// 다음달 버튼 클릭
-function nextCalendar() {
-   
-	 today = new Date(today.getFullYear(), today.getMonth() , today.getDate()+1);
-	    buildCalendar();    // 달력 다시 생성
 
+// 다음 버튼 클릭
+function nextCalendar() {
+	 nextday = new Date(today.getFullYear(), today.getMonth() , today.getDate()+1);
+	 var currentDate = new Date();
+	 currentDate.setHours(0, 0, 0, 0);
+	 if (nextday > currentDate) {
+		    return; 
+	}
+	today = new Date(today.getFullYear(), today.getMonth() , today.getDate()+1); 
+	buildCalendar();    // 폼 다시 생성	    
 	    
 }
+
 
 // input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수
 function leftPad(value) {
@@ -478,10 +485,41 @@ $('#tbd').on("click",".show",function(){
 	.then(obj => {
 		$("#mealImg").attr("src", obj.fileDir);
 		$("#mealScore").text(obj.mealScore);
+		$('#no').val(obj.no);
+		
 	});
 })
 
+//출석중복체크
+function atCk(){
+	fetch("ajaxAtCheck")
+		.then(response => response.text())
+		.then(data => isCheckResult(data));
+}
+function isCheckResult(data){
+	if(data == "true") {
+		alert("출석");
+	}else if(data == "false"){
+		alert("이미 출석을 완료했습니다");
+	}
+}
 
+//피드삭제
+function feedDel(){
+	let no = $('#no').val()
+	console.log(no);
+	$.ajax({
+		url : "/mealDelete/" +no,
+		success: function(res){
+			alert("삭제 되었습니다")
+			location.href = "/myFeed"			
+		},
+		error:function(err){
+			console.log(err)
+		}
+	})
+
+}
 </script>
 	</div>
 </body>

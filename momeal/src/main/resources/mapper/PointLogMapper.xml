@@ -13,7 +13,7 @@
 		SAVE_DATE,
 		REASON_CODE)
 		VALUES(#{no},
-		'user1',
+		#{userId},
 		sysdate,
 		'AT01')
 	</insert>
