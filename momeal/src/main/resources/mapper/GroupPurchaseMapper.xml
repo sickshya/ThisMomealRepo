@@ -82,8 +82,7 @@
 	<!-- 배송정보 입력 -->
 	<insert id="payInsert" parameterType="GroupPurchaseSettlementVO">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-			SELECT	MAX(NO)+1,
-					MAX(LIST_NO)+1 
+			SELECT	MAX(NO)+1
 			FROM GROUP_PURCHASE_SETTLEMENT
 		</selectKey>
 		insert into GROUP_PURCHASE_SETTLEMENT
