@@ -27,4 +27,5 @@ public class LikesController {
 		model.addAttribute("challLike", likesService.myChallList(userId));
 		return "myPages/myLikeList";
 	}
+	
 }

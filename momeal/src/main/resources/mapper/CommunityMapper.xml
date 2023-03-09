@@ -4,10 +4,19 @@
 
 	<!-- 커뮤니티 전체조회 -->
 	<select id="getCmntList" resultType="map">
-		SELECT * 
-		FROM MEALS M LEFT JOIN USERS U
-	            	 ON (M.USER_ID = U.USER_ID)
-	    ORDER BY M.NO
+		SELECT M.*, 
+             U.NICK_NAME, 
+             U.GRADE, 
+             U.PROFILE_IMG_PATH,
+             NVL((SELECT L.NO
+                    FROM LIKES L
+                   WHERE L.POST_NO = M.NO 
+                     AND L.USER_ID = 'user3'
+                     AND L.BOARD_CODE = 'CT04'),0) AS LIKE_NO
+      FROM MEALS M 
+      LEFT JOIN USERS U
+      ON (M.USER_ID = U.USER_ID)
+      ORDER BY M.NO
 	</select>
 	
 	<!-- 커뮤니티 피드 단건조회 -->
