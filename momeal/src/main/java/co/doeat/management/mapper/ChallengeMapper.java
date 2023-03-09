@@ -28,7 +28,7 @@ public interface ChallengeMapper {
 	
 	public List<ChallengeValidationVO> getMyChallImg(String userId, int chalNo); // 챌린지별 인증 사진 조회
 	
-	public void insertMyChallImg(ChallengeValidationVO vo); // 인증 사진 등록
+	public ChallengeValidationVO insertMyChallImg(ChallengeValidationVO vo); // 인증 사진 등록
 	
 	// 2. 종료된 챌린지
 	public List<Map<String, Object>> getMyEndChallList(String userId); // 진행중인 챌린지 전체조회

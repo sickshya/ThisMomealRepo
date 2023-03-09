@@ -4,14 +4,19 @@
 
 	<!-- 챌린지 전체조회(최신 등록순 조회) -->
 	<select id="getChallList" resultType="map">
-		SELECT C.*,
-			   NVL((SELECT L.NO
-					  FROM LIKES L
-					 WHERE L.POST_NO = C.NO 
-					   AND L.USER_ID = #{userId} 
-					   AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO
-		  FROM CHALLENGES C
-		 ORDER BY C.NO DESC
+		SELECT M.*, 
+		       U.NICK_NAME, 
+		       U.GRADE, 
+		       U.PROFILE_IMG_PATH,
+		       NVL((SELECT L.NO
+		              FROM LIKES L
+		             WHERE L.POST_NO = M.NO 
+		               AND L.USER_ID = #{userId}
+		               AND L.BOARD_CODE = 'CT04'),0) AS LIKE_NO
+		FROM MEALS M 
+		LEFT JOIN USERS U
+		ON (M.USER_ID = U.USER_ID)
+		ORDER BY M.NO
 	</select>
 
 	<!-- 챌린지 인기순 조회(좋아요 상위 7개까지) -->
@@ -156,6 +161,8 @@
 	</select>
 	
 	<!-- 참여중 - 인증사진 등록 -->
+	<!-- select 하니까 selectKey를 못 써.. resultType = vo로 해서 결과를 vo에 받아야 append를 하는데 ㅠ -->
+<!-- 	<select id="" ></select> -->
 	<insert id="insertMyChallImg">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			SELECT

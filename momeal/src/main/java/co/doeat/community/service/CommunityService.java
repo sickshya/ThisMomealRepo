@@ -7,7 +7,8 @@ import co.doeat.activity.service.MealVO;
 
 public interface CommunityService {
 	
-	public List<Map<String, Object>> getCmntList(); // 전체조회
+	public List<Map<String, Object>> getCmntList(String id); // 전체조회
+	
 	public MealVO getCommunity(Map<String, Object>map); // 단건조회
 	
 }

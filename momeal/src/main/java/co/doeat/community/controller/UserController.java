@@ -40,15 +40,16 @@ public class UserController {
 
 	// 회원정보 수정폼 호출
 	@RequestMapping("/userEditForm")
-	public String userEditForm(UsersVO vo) {
+	public String userEditForm(UsersVO vo, Model model) {
+
+		model.addAttribute("userInfo", userService.userSelect("user2"));
+
 		return "myPages/userEditForm";
 	}
 
 	// 회원정보 수정시 .. 재확인필요
 	@RequestMapping("/userEdit")
-	public String userEdit(UsersVO vo, Model model, HttpSession session, HttpServletRequest request) {
-		session = request.getSession();
-		session.setAttribute("userId", "user1");
+	public String userEdit(UsersVO vo, Model model, HttpSession session) {
 
 		String id = (String) session.getAttribute("userId");
 		vo = userService.userSelect(id);

@@ -71,8 +71,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 	
 	// 진행중 - 인증 사진 등록
 	@Override
-	public void insertMyChallImg(ChallengeValidationVO vo) {
-		challengeMapper.insertMyChallImg(vo);
+	public ChallengeValidationVO insertMyChallImg(ChallengeValidationVO vo) {
+		return challengeMapper.insertMyChallImg(vo);
 	}
 	
 	// ▶ 나의 챌린지 - 종료
