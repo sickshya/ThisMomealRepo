@@ -1,6 +1,7 @@
 package co.doeat.activity.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,16 +34,22 @@ public class FollowServiceImpl implements FollowService{
 		return followMapper.isFollow(vo);
 	}
 
-	// 팔로우 리스트 조회
-	@Override
-	public List<FollowVO> selectFolloweeList(String userId) {
-		return followMapper.selectFolloweeList(userId);
-	}
-
 	// 팔로워 리스트 조회
 	@Override
 	public List<FollowVO> selectFollowerList(String userId) {
 		return followMapper.selectFollowerList(userId);
+	}
+
+	// 팔로잉 리스트 조회
+	@Override
+	public List<FollowVO> selectFollowingList(String userId) {
+		return followMapper.selectFollowingList(userId);
+	}
+	
+	// 팔로워, 팔로잉 리스트 조회
+	@Override
+	public Map<String, Object> followCount(String userId) {
+		return followMapper.followCount(userId);
 	}
 
 	// 탈퇴시 팔로우 전체 삭제

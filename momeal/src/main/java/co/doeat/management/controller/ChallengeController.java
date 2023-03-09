@@ -89,17 +89,18 @@ public class ChallengeController {
 	}
 
 	// 진행중 - 단건조회
-	@GetMapping("/myChallenge/{no}")
-	public String myChallengOne(Model model, @PathVariable int no, HttpSession session) {
+	@GetMapping("/myChallenge/{chalNo}")
+	public String myChallengOne(Model model, @PathVariable int chalNo, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		
 		// 챌린지 정보 select
-		model.addAttribute("chall", challengeService.getMyChall(userId, no));
+		model.addAttribute("chall", challengeService.getMyChall(userId, chalNo));
 		
+		System.out.println("어케 담아오는데 ▶ ====== " + challengeService.getMyChall(userId, chalNo));
 		// 챌린지 인증 이미지 select
-		model.addAttribute("valImg", challengeService.getMyChallImg(userId, no));
+		model.addAttribute("valImg", challengeService.getMyChallImg(userId, chalNo));
 		
-		System.out.println("이미지 ▶ ====== " + challengeService.getMyChallImg(userId, no));
+		System.out.println("이미지 ▶ ====== " + challengeService.getMyChallImg(userId, chalNo));
 		
 		return "challenge/myChallengeDetail";
 	}
@@ -108,7 +109,6 @@ public class ChallengeController {
 	@RequestMapping("/insertMyChallImg")
 	@ResponseBody
 	public String insertMyChallImg(ChallengeValidationVO vo, MultipartFile file, HttpSession session) {
-		System.out.println("왔어???????? =================");
 		if (!file.isEmpty()) { // 첨부파일이 존재하면
 			String fileName = UUID.randomUUID().toString();
 			fileName = fileName + file.getOriginalFilename();
@@ -121,7 +121,6 @@ public class ChallengeController {
 			vo.setChalImg(file.getOriginalFilename()); // 원본 파일명
 			vo.setFileDir("/mm_images/" + fileName); // 디렉토리 포함 원본 파일
 		}
-//		vo.setUserId((String) session.getAttribute("userId"));
 		challengeService.insertMyChallImg(vo);
 		
 		return "success";
