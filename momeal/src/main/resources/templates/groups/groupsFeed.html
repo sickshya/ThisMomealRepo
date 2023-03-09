@@ -249,13 +249,17 @@ img {
 				buildCalendar(); // 달력 다시 생성
 
 			}
-			// 다음달 버튼 클릭
+			// 다음 버튼 클릭
 			function nextCalendar() {
-
-				today = new Date(today.getFullYear(), today.getMonth(), today
-						.getDate() + 1);
-				buildCalendar(); // 달력 다시 생성
-
+			    nextday = new Date(today.getFullYear(), today.getMonth() , today.getDate()+1);
+			    var currentDate = new Date();
+			    currentDate.setHours(0, 0, 0, 0);
+			    if (nextday > currentDate) {
+			          return; 
+			   }
+			   today = new Date(today.getFullYear(), today.getMonth() , today.getDate()+1); 
+			   buildCalendar();    // 폼 다시 생성       
+			       
 			}
 
 			// input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수

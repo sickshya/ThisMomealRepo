@@ -30,7 +30,9 @@
 	<div layout:fragment="content" align="center">
 		<h3 style="font-size: 25px;">내가 만든 그룹</h3>
 		<br>
-		<div style="border: 1px solid #ccc" class="col-lg-6 bg-white rounded-md lg:shadow-lg " th:each="grp : ${grList}" th:if="${session.userId == grp.GRP_LEADER}">
+		<div style="border: 1px solid #ccc"
+			class="col-lg-6 bg-white rounded-md lg:shadow-lg "
+			th:each="grp : ${grList}" th:if="${session.userId == grp.GRP_LEADER}">
 			<div class="block items-center py-3 px-4 space-x-3">
 				<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
 					<div class="flex-1 min-w-0 text-gray-500 col" align="left">
@@ -40,14 +42,18 @@
 					</div>
 					<div class="top-0 start-100 col" align="right">
 						<button type="button" data-toggle="modal" class="primary-btn"
-							data-target="#Modal-1" onclick="memChk()" id="showBtn" th:data-no="${grp.NO}">그룹관리</button>
+							data-target="#listModal" onclick="memChk()"
+							th:data-no="${grp.NO}">관리</button>
+						&nbsp;&nbsp;
+						<button type="button" onclick="grpListDel()"
+							th:data-no="${grp.NO}">삭제</button>
+
 					</div>
 				</div>
 			</div>
 		</div>
-		<br>
-		<br><br>
-		<br>
+		<br> <br>
+		<br> <br>
 		<h3 style="font-size: 25px;">참여중인 그룹</h3>
 		<br>
 		<div style="border: 1px solid #ccc"
@@ -57,23 +63,27 @@
 				<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
 					<div class="flex-1 min-w-0 text-gray-500 col" align="left">
 						<h4 class="text-black font-semibold dark:text-white">
-							<a th:href="@{/groupsFeed/{no}(no = ${grp.NO})}">[[${grp.GRP_NAME}]]
-								: [[${grp.GRP_LEADER}]]</a>
+							<a th:href="@{/groupsFeed/{no}(no = ${grp.NO})}">[[${grp.GRP_NAME}]]&nbsp;&nbsp;&nbsp;[[${grp.GRP_LEADER}]]</a>
 						</h4>
 					</div>
 					<div class="top-0 start-100 col" align="right">
-						<button type="button">탈퇴하기</button>
+						<button type="button" data-toggle="modal" class="primary-btn"
+							data-target="#listModal" onclick="memChk()" id="showBtn"
+							th:data-no="${grp.NO}">멤버</button>
+						&nbsp;&nbsp;
+						<button type="button" onclick="membDel()" th:data-no="${grp.NO}">탈퇴</button>
+						<input type="hidden" id="userId" th:value="${session.userId}">
 					</div>
 				</div>
 			</div>
 		</div>
-		<br>
-		<br>
-		<button type="button">그룹생성?</button>
+		<br> <br>
+		<button type="submit" data-toggle="modal" class="primary-btn"
+			data-target="#createModal">그룹생성</button>
 
 
-		<!-- 참여하기 모달 -->
-		<div class="modal fade" id="Modal-1" tabindex="-1" role="dialog"
+		<!-- 멤버리스트 모달 -->
+		<div class="modal fade" id="listModal" tabindex="-1" role="dialog"
 			aria-labelledby="Modal-label-1">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -84,63 +94,152 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body" id="memList">
-<!-- 						<div class="modal-works" align="right"></div> -->
-						<br>
-<!-- 							<img src="" class="bg-gray-200 border border-white rounded-full w-8 h-8" id="profileImgPath"> -->
-<!-- 							<span class="block text-lg font-semibold" id="nickName"></span> -->
-						<br>
+					<div class="modal-body" id="memList" style="padding: 20px;">
 					</div>
 					<div class="modal-footer">
-						<p style="float: left; margin: 0px;">멤버를 초대해보세요</p>
-						<button type="button" onclick="showMem()" class="btn btn-default"
-							id="attend" style="margin: 0px;">코드공유</button>
+						<button type="button" onclick="inviteMem()"
+							class="btn btn-default" id="attend" style="margin: 0px;">초대하기</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- 참여하기 모달 끝 -->
+		<!-- 멤버리스트 모달 끝 -->
+
+
+		<!-- 그룹 만들기 모달 -->
+		<form id="frm" method="post">
+			<div class="modal fade" id="createModal" tabindex="-1" role="dialog"
+				aria-labelledby="Modal-label-1">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="Modal-label-1">그룹 만들기</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body" id="" style="padding: 20px;">
+							<input type="hidden" id="grpLeader" name="grpLeader"
+								th:value="${session.userId}"> <label>그룹 이름</label> <input
+								type="text" id="grpName" name="grpName">
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" onclick="createGrp()"
+								class="btn btn-default" id="attend" style="margin: 0px;">확인</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<!-- 그룹만들기 모달 끝 -->
 
 
 
 		<script>
+			// 멤버리스트 모달로 보여줌
 			function memChk() {
-				let no = $("#showBtn").data("no");
+				let no = $(event.target).data("no");
 				
 				$("#memList").empty()
 				
 				$.ajax({
 					url: "/groupsList/" + no
+					
 				})
 				.then(result => {
 					console.log(result);
+					
 					$(result).each(function(index, memb) {
 							$("#Modal-label-1").text(memb.GRP_NAME)
-						console.log(memb.USER_ID);
+							console.log(memb.USER_ID);
+							
 						if(memb.USER_ID == memb.GRP_LEADER) {
 							$("#memList").append(
-							`
-							<img src="${memb.PROFILE_IMG_PATH}" class="bg-gray-200 border border-white rounded-full w-8 h-8" id="profileImgPath">
-							<span class="block text-lg font-semibold" id="nickName" style="color: green;">${memb.NICK_NAME}</span>
-							`
+							`<div class="py-2" style="padding-left: 30px;">
+          						  <div class="flex flex-1 items-center space-x-4">
+						               <a href="#">
+						                  <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
+						                     <img src="${memb.PROFILE_IMG_PATH}" class="bg-gray-200 border border-white rounded-full w-8 h-8" id="profileImgPath">
+						                  </div>
+						               </a>
+             						<span class="block text-lg font-semibold" id="nickName" style="color: green;">${memb.NICK_NAME}</span>
+					            </div>
+					         </div>`
 							)
-						//	$("#profileImgPath").attr("src", memb.PROFILE_IMG_PATH)
-						//	$("#nickName").css("color","green");
-						//	$("#nickName").text(memb.NICK_NAME)
+					
 						} else {
 							$("#memList").append(
-							`
-							<img src="${memb.PROFILE_IMG_PATH}" class="bg-gray-200 border border-white rounded-full w-8 h-8" id="profileImgPath">
-							<span class="block text-lg font-semibold" id="nickName" >${memb.NICK_NAME}</span>
-							`
+									`<div class="py-2" style="padding-left: 30px;">
+	          						  <div class="flex flex-1 items-center space-x-4">
+							               <a href="#">
+							                  <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
+							                     <img src="${memb.PROFILE_IMG_PATH}" class="bg-gray-200 border border-white rounded-full w-8 h-8" id="profileImgPath">
+							                  </div>
+							               </a>
+	             						<span class="block text-lg font-semibold" id="nickName">${memb.NICK_NAME}</span>
+						            </div>
+						         </div>`
 							)
-// 							$("#profileImgPath").attr("src", memb.PROFILE_IMG_PATH)
-// 							$("#nickName").text(memb.NICK_NAME)
 						}
 						
 					})
 				});
 			}
+			
+			
+			// 참여중인 그룹의 멤버탈퇴
+			function membDel() {
+				let grpNo = $(event.target).data("no");
+				let userId = $(event.target).next().val();
+				
+				$.ajax({
+					type: 'POST',
+					url: "/grpMembDel/" + userId + "/" + grpNo
+				})
+				.then(result => {
+					location.reload();
+				});
+			}
+			
+			
+			// 내가 만든 그룹 삭제
+			function grpListDel() {
+				let no = $(event.target).data("no");
+				console.log(no);
+				
+				$.ajax({
+					type: 'POST',
+					url: "/grpDel/" + no
+				})
+				.then(result => {
+					location.reload();
+				});
+			}
+			
+			
+			// 그룹 만들기
+		    function createGrp() {
+				let userId = $(event.target).next().val();
+				var formData = new FormData($('#frm')[0])
+				console.log(userId);
+				
+				$.ajax({
+					type: 'POST',
+					url: "/grpInsert",
+					data: formData,
+					contentType: false,
+			        processData: false
+				})
+				.then(result =>{
+					console.log(result);
+					
+					location.reload();
+				})
+			}
+			
+			
 		</script>
 	</div>
 </body>
