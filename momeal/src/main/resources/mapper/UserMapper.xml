@@ -90,11 +90,8 @@
 		SELECT * FROM( SELECT ROWNUM RN, A.* FROM(
 
 		SELECT * FROM USERS
-
 		<where>
-
 			<include refid="creiteria"></include>
-
 		</where>
 
 		ORDER BY USER_ID
@@ -112,38 +109,24 @@
 		WHERE USER_ID = #{userId}
 	</select>
 
-
-
-
 	<!-- 출석체크 회원테이블 누적 포인트 업데이트 -->
-	<update id="updateATPoint"
-		parameterType="co.doeat.community.service.UsersVO">
-		<selectKey keyProperty="attendanceCnt" resultType="int"
-			order="BEFORE">
-			<!-- CREATE FUNCTION ATT_UPDATE ( -->
-			<!-- V_CNT IN NUMBER) -->
-			<!-- RETURN NUMBER IS -->
-			<!-- O_RETURN NUMBER -->
-			<!-- DECLARE -->
-			<!-- V_CNT NUMBER; -->
-			<!-- BEGIN -->
-			<!-- SELECT ATTENDANCE_CNT -->
-			<!-- INTO v_cnt -->
-			<!-- FROM USERS -->
-			<!-- WHERE USER_ID=#{userId}; -->
-
-			<!-- <![CDATA[IF V_CNT < 9 THEN ]]> -->
-			<!-- O_RETURN := V_CNT +1; -->
-			<!-- ELSE -->
-			<!-- O_RETURN := 0; -->
-
-			<!-- END IF; -->
-
-			<!-- END; -->
+	<update id="updateATPoint" parameterType="co.doeat.community.service.UsersVO" >
+	<selectKey keyProperty="attendanceCnt" resultType="int" order="BEFORE">
+			SELECT
+  				<![CDATA[CASE WHEN attendance_cnt < 9 THEN attendance_cnt + 1]]>
+      			 ELSE 0 
+  				END
+			FROM users
+			WHERE user_id = #{userId}
 		</selectKey>
 		UPDATE USERS
-		SET TOTAL_POINT = TOTAL_POINT+5,
-		ATTENDACNE_CNT=#{attendanceCnt}
+		SET TOTAL_POINT = TOTAL_POINT+5, ATTENDANCE_CNT=#{attendanceCnt}
 		WHERE USER_ID=#{userId}
 	</update>
+	
+	<select id="myFeedUserSelect" resultType="co.doeat.community.service.UsersVO">
+		SELECT *
+		FROM USERS
+		WHERE USER_ID = #{userId}
+	</select>
 </mapper>

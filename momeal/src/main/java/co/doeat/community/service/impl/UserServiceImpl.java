@@ -74,4 +74,9 @@ public class UserServiceImpl implements UserService {
 		return userMapper.selectExpUser(vo);
 	}
 
+	@Override
+	public UsersVO myFeedUserSelect(String id) {
+		return userMapper.myFeedUserSelect(id);
+	}
+
 }

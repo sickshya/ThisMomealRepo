@@ -1,4 +1,4 @@
-package co.doeat.config.email;
+/*package co.doeat.config.email;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
@@ -102,3 +102,4 @@ public class RegisterMail {
 		return ePw; // 메일로 보냈던 인증 코드를 서버로 반환
 	}
 }
+*/

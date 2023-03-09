@@ -1,4 +1,4 @@
-package co.doeat.config.email;
+/*package co.doeat.config.email;
 
 import java.util.Properties;
 
@@ -34,3 +34,4 @@ public class MailConfig {
 		return properties;
 	}
 }
+*/
