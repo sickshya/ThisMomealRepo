@@ -17,23 +17,39 @@ public class GroupsServiceImpl implements GroupsService {
 	GroupsMapper groupsMapper;
 
 	@Override
-	public List<GroupsVO> groupsList(String postDate, int no) {
-		return groupsMapper.groupsList(postDate, no);
+	public List<GroupsVO> grpSelect(String postDate, int no) {
+		return groupsMapper.grpSelect(postDate, no);
 	}
 
 	@Override
-	public Map<String, Object> groupsSelect(String userId) {
-		return groupsMapper.groupsSelect(userId);
+	public Map<String, Object> grpMembSelect(String userId) {
+		return groupsMapper.grpMembSelect(userId);
 	}
 
 	@Override
-	public List<GroupsVO> grpList(GroupsVO vo) {
-		return groupsMapper.grpList(vo);
+	public List<GroupsVO> grpAllList(GroupsVO vo) {
+		return groupsMapper.grpAllList(vo);
 	}
 
 	@Override
 	public List<GroupsVO> membList(int no) {
 		return groupsMapper.membList(no);
+	}
+
+	@Override
+	public int grpMembDel(String userId, int grpNo) {
+		return groupsMapper.grpMembDel(userId, grpNo);
+	}
+
+	@Override
+	public int grpDel(int no) {
+		return groupsMapper.grpDel(no);
+	}
+
+	@Override
+	public int grpInsert(GroupsVO vo) {
+		groupsMapper.grpInsert(vo);
+		return groupsMapper.membInsert(vo);
 	}
 
 }

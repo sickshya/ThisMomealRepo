@@ -11,35 +11,36 @@
 	</resultMap>
 
 
-	<!-- 내가 속한 그룹 전체 멤버리스트 출력 -->
-	<select id="groupsList" resultMap="groupsImg">
-		SELECT U.USER_ID, 
-		       U.USER_NAME,
-		       #{postDate} as post_date,
-		       U.NICK_NAME, 
-		       U.PROFILE_IMG_PATH, 
-		       GM.*, 
-		       GL.*
-		       
+	<!-- 내가 속한 그룹 전체 멤버리스트 출력 / 그룹 단건조회 -->
+	<select id="grpSelect" resultMap="groupsImg">
+		SELECT U.USER_ID,
+		U.USER_NAME,
+		#{postDate} as post_date,
+		U.NICK_NAME,
+		U.PROFILE_IMG_PATH,
+		GM.*,
+		GL.*
+
 		FROM USERS U
-		JOIN GROUP_MEMBER GM 
-		  ON (U.USER_ID = GM.USER_ID)
-		JOIN GROUP_LISTS GL 
-		  ON (GM.NO = GL.NO)
-	   WHERE GL.NO = #{no}
+		JOIN GROUP_MEMBER GM
+		ON (U.USER_ID = GM.USER_ID)
+		JOIN GROUP_LISTS GL
+		ON (GM.NO = GL.NO)
+		WHERE GL.NO = #{no}
 	</select>
 
 	<select id="imgList"
 		resultType="co.doeat.activity.service.MealVO">
 		SELECT M.*
 		FROM MEALS M
-		WHERE TRUNC(post_date) = TO_DATE(#{postDate}, 'yyyyMMdd')
+		WHERE TRUNC(post_date) =
+		TO_DATE(#{postDate}, 'yyyyMMdd')
 		AND M.USER_ID = #{userId}
 		ORDER BY M.NO
 	</select>
 
-	<!-- 그룹 단건조회 -->
-	<select id="groupsSelect" resultType="map">
+	<!-- 그룹 멤버 단건조회 -->
+	<select id="grpMembSelect" resultType="map">
 		SELECT U.USER_ID,
 		U.USER_NAME, U.NICK_NAME, U.PROFILE_IMG_PATH, M.*, GM.*, GL.*
 		FROM
@@ -51,27 +52,63 @@
 		TRUNC(post_date) = TO_DATE(#{postDate},'yyyyMMdd') AND M.USER_ID =
 		#{userId}
 	</select>
-	
-	<!-- 내가 참여중인 그룹 -->
-	<select id="grpList" resultType="map">
-		 SELECT U.USER_ID, 
-		       U.USER_NAME,
-		       U.NICK_NAME, 
-		       GM.*, 
-		       GL.*
-		       
+
+	<!-- 내가 참여중인 그룹 리스트 -->
+	<select id="grpAllList" resultType="map">
+		SELECT U.USER_ID,
+		U.USER_NAME,
+		U.NICK_NAME,
+		GM.*,
+		GL.*
+
 		FROM USERS U
-		JOIN GROUP_MEMBER GM 
-		  ON (U.USER_ID = GM.USER_ID)
-		JOIN GROUP_LISTS GL 
-		  ON (GM.NO = GL.NO)
-		WHERE U.USER_ID = #{userId}   
+		JOIN GROUP_MEMBER GM
+		ON (U.USER_ID = GM.USER_ID)
+		JOIN GROUP_LISTS GL
+		ON (GM.NO = GL.NO)
+		WHERE U.USER_ID = #{userId}
 	</select>
 
 	<!-- 해당그룹 멤버리스트 조회 -->
 	<select id="membList" resultType="map">
-		SELECT U.NICK_NAME, U.PROFILE_IMG_PATH, GL.*, GM.*
-	    FROM USERS U JOIN GROUP_MEMBER GM ON(U.USER_ID = GM.USER_ID)
-	    JOIN GROUP_LISTS GL ON (GM.NO = GL.NO and GL.NO = #{no})
+		SELECT U.NICK_NAME,
+		U.PROFILE_IMG_PATH, GL.*, GM.*
+		FROM USERS U JOIN GROUP_MEMBER GM ON(U.USER_ID = GM.USER_ID)
+		JOIN GROUP_LISTS GL ON (GM.NO = GL.NO AND GL.NO = #{no})
 	</select>
+
+	<!-- 참여중인 그룹의 멤버탈퇴 -->
+	<delete id="grpMembDel"
+		parameterType="co.doeat.community.service.GroupsVO">
+		DELETE FROM GROUP_MEMBER
+		WHERE NO = #{grpNo} AND USER_ID
+		= #{userId}
+	</delete>
+
+	<!-- 내가 만든 그룹 삭제 -->
+	<delete id="grpDel"
+		parameterType="co.doeat.community.service.GroupsVO">
+		DELETE FROM GROUP_LISTS
+		WHERE NO = #{no}
+	</delete>
+
+	<!-- 멤버 추가 -->
+	<insert id="membInsert"
+		parameterType="co.doeat.community.service.GroupsVO">
+		INSERT INTO GROUP_MEMBER
+		VALUES (#{no}, #{userId})
+	</insert>
+
+	<!-- 그룹 만들기 -->
+	<insert id="grpInsert"
+		parameterType="co.doeat.community.service.GroupsVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT
+			MAX(NO)+1 FROM GROUP_LISTS
+		</selectKey>
+		INSERT INTO GROUP_LISTS
+		VALUES(#{no}, #{grpLeader}, #{grpName}, null,
+		null)
+	</insert>
+
 </mapper>
