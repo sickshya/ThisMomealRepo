@@ -68,22 +68,11 @@
 								${#dates.dayOfWeekName(chall.CHAL_START_DATE)} ]]) ~ [[
 								${#dates.format(chall.CHAL_END_DATE, 'MM-dd')} ]]([[
 								${#dates.dayOfWeekName(chall.CHAL_END_DATE)} ]])</p>
-							<th:block th:if="${chall.CODE_ID == 'CL01'}">
-								<p style="color: red;"><b>[[ ${chall.DEDUCT_POINT} ]]포인트를 획득했어요!</b></p>
-							</th:block>
-							<th:block th:if="${chall.CODE_ID == 'CL02'}">
-								<p style="color: red;"><b>포인트 획득에 실패했어요😥</b></p>
-							</th:block>
-							<th:block th:if="${chall.CODE_ID == '0'}">
-							<br>
-								<a href="#" class="heart-icon" data-toggle="modal"
-									data-target="#Modal-1">인증방법</a> <a href="#" class="primary-btn"
-									data-toggle="modal" data-target="#Modal-2" onclick="modal()">인증하기</a>
-							</th:block>
-							<th:block th:unless="${chall.CODE_ID == '0'}">
-							<a href="#" class="primary-btn"
-								data-toggle="modal" data-target="#Modal-3" onclick="reviewModal()">리뷰쓰기</a>
-							</th:block>
+							<p>인증시간.. 필요한가....</p>
+
+							<a href="#" class="heart-icon" data-toggle="modal"
+								data-target="#Modal-1">인증방법</a> <a href="#" class="primary-btn"
+								data-toggle="modal" data-target="#Modal-2" onclick="modal()">인증하기</a>
 						</div>
 					</div>
 					<div class="col-lg-12">
@@ -322,7 +311,7 @@
 												<button type="button" class="btn btn-default" id="uploadBtn" onclick="myChallImgInsert()">등록</button>
 											</div>
 											<input type="hidden" id="userId" name="userId" th:value="${session.userId}">
-											<input type="hidden" id="chalNo" name="chalNo" th:value="${chall.NO}">
+											<input type="hidden" id="no" name="no" th:value="${chall.NO}">
 										</div>
 									</div>
 								</div>
@@ -426,13 +415,6 @@
 
 			var formData = new FormData($('#frm')[0])
 			
-				if (confirm("인증사진은 등록 후 수정, 삭제가 불가능합니다. \n정말로 등록하시겠습니까?") == true){ 
-					   //true는 확인버튼을 눌렀을 때 코드 작성
-					   alert("인증사진이 등록되었습니다.");
-					 }else{
-					   // false는 취소버튼을 눌렀을 때, 취소됨
-					   return;
-					 }
 			$.ajax({
 				url: "/insertMyChallImg",
 				type: "post",
@@ -442,14 +424,10 @@
 			})
 			.then(result => {
 				console.log(result);
-// 				$('#uploadBtn').attr('data-dismiss', 'modal');
+				alert("인증사진이 등록되었습니다.")
+				$('#uploadBtn').attr('data-dismiss', 'modal');
 				
-				// 모달창 닫기
-				$('#Modal-2').modal('hide');
-				
-				
-				
-// 				location.reload();
+				location.reload();
 			})
 			
 		}

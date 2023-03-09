@@ -59,8 +59,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	// 진행중 - 단건조회
 	@Override
-	public Map<String, Object> getMyChall(String userId, int no) {
-		return challengeMapper.getMyChall(userId, no);
+	public Map<String, Object> getMyChall(String userId, int chalNo) {
+		return challengeMapper.getMyChall(userId, chalNo);
 	}
 	
 	// 진행중 - 나의 인증 사진 조회

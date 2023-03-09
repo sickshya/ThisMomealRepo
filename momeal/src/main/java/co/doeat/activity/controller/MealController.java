@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import co.doeat.activity.mapper.FollowMapper;
+import co.doeat.activity.service.FollowService;
 import co.doeat.activity.service.MealService;
 import co.doeat.activity.service.MealVO;
+import groovyjarjarantlr4.v4.codegen.model.ModelElement;
 
 @Controller
 public class MealController {
@@ -24,12 +28,16 @@ public class MealController {
 	ServletContext servletContext;
 	@Autowired
 	MealService mealService;
+	@Autowired
+	FollowService followservice;
 	@Value("${momeal.saveImg}")
 	private String saveImg;
 
 
 	@GetMapping("/myFeed")
-	public String myFeed() {
+	public String myFeed(Model model, HttpSession session) {
+		model.addAttribute("follow", followservice.followCount((String) session.getAttribute("userId")));
+		System.out.println("가져왔나요 ======" + followservice.followCount((String) session.getAttribute("userId")));
 		return "myFeed/myFeed";
 	}
 
