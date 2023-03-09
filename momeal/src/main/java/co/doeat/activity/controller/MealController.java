@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.doeat.activity.mapper.FollowMapper;
 import co.doeat.activity.service.FollowService;
 import co.doeat.activity.service.MealService;
 import co.doeat.activity.service.MealVO;
+import co.doeat.community.service.UserService;
+import co.doeat.community.service.UsersVO;
 import groovyjarjarantlr4.v4.codegen.model.ModelElement;
 
 @Controller
@@ -27,10 +29,13 @@ public class MealController {
 	FollowService followservice;
 	@Value("${momeal.saveImg}")
 	private String saveImg;
+	@Autowired 
+	UserService userService;
 
 
 	@GetMapping("/myFeed")
 	public String myFeed(Model model, HttpSession session) {
+		model.addAttribute("selects", userService.myFeedUserSelect((String) session.getAttribute("userId")));
 		model.addAttribute("follow", followservice.followCount((String) session.getAttribute("userId")));
 		System.out.println("가져왔나요 ======" + followservice.followCount((String) session.getAttribute("userId")));
 		return "myFeed/myFeed";
@@ -52,7 +57,7 @@ public class MealController {
 	}
 	
 	
-	//식단 단건조회
+	//식단에서 회원 닉네임 소환
 	
 
 }

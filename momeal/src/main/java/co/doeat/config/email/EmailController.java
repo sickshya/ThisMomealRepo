@@ -1,4 +1,4 @@
-package co.doeat.config.email;
+/*package co.doeat.config.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,3 +20,4 @@ public class EmailController {
 		return code;
 	}
 }
+*/
