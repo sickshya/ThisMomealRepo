@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import co.doeat.activity.mapper.FollowMapper;
 import co.doeat.activity.service.FollowService;
 import co.doeat.activity.service.MealService;
-import co.doeat.activity.service.MealVO;
-import groovyjarjarantlr4.v4.codegen.model.ModelElement;
 
 @Controller
 public class MealController {
