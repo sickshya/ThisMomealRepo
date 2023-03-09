@@ -10,11 +10,12 @@ import lombok.Data;
 
 @Data
 public class ChallengeValidationVO {
+	private int no; // 고유 번호
 	private String userId; // 회원 아이디
-	private int no; // 챌린지 번호
-	private String chalImg; // 인증 사진 이름
+	private int chalNo; // 챌린지 번호
 	@DateTimeFormat(pattern = "yyyy-MM-dd") 
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date vldDate; // 인증 날짜
+	private String chalImg; // 인증 사진 이름
 	private String fileDir; // 인증 사진 주소
 }

@@ -97,11 +97,11 @@
 	<!-- ▶ 나의 챌린지 - 참여중 -->
 	<!-- 참여중 - 전체조회 -->
 	<select id="getMyChallList" resultType="map">
-		SELECT p.code_id, 
-			   c.*, 
-			   u.nick_name, 
-			   u.grade, 
-			   u.profile_img_path
+		SELECT P.CODE_ID, 
+			   C.*, 
+			   U.NICK_NAME, 
+			   U.GRADE, 
+			   U.PROFILE_IMG_PATH
 		  FROM CHALLENGE_PARTICIPATION P 
 		  JOIN CHALLENGES C
 		    ON (P.NO = C.NO)
@@ -115,7 +115,19 @@
 
 	<!-- 참여중 - 단건조회 -->
 	<select id="getMyChall" resultType="map">
-		SELECT *
+		SELECT U.NICK_NAME, 
+			   U.TOTAL_POINT, 
+			   P.USER_ID, 
+			   P.NO, 
+			   P.ROUND, 
+			   NVL(P.CODE_ID, '0') as code_id, 
+			   C.TITLE, 
+			   C.CHAL_START_DATE, 
+			   C.CHAL_END_DATE, 
+			   C.PARTICIR, 
+			   C.SUM_PARTICIR, 
+			   C.DEDUCT_POINT, 
+			   C.THUMBNAIL_IMG_PATH
 		FROM CHALLENGE_PARTICIPATION P 
 		LEFT JOIN CHALLENGES C
 		  ON (P.NO = C.NO)
@@ -129,8 +141,9 @@
 	<select id="getMyChallImg" resultType="co.doeat.management.service.ChallengeValidationVO">
 		SELECT *
 		  FROM CHALLENGE_VALIDATION
-		 WHERE NO = #{no}
+		 WHERE CHAL_NO = #{chalNo}
 		   AND USER_ID = #{userId}
+		 ORDER BY NO DESC
 	</select>
 	
 	<!-- 참여중 - 챌린지별 인증사진 단건조회 -->
@@ -144,8 +157,12 @@
 	
 	<!-- 참여중 - 인증사진 등록 -->
 	<insert id="insertMyChallImg">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT
+			NVL(MAX(NO)+1, 1) FROM CHALLENGE_VALIDATION
+		</selectKey>
 		INSERT INTO CHALLENGE_VALIDATION
-		VALUES (#{userId}, #{no}, #{chalImg}, TO_DATE(SYSDATE,'YYYY-MM-DD'), #{fileDir})
+		VALUES (#{no}, #{userId}, #{chalNo}, TO_DATE(SYSDATE,'YYYY-MM-DD'), #{chalImg}, #{fileDir}, 'Y')
 	</insert>
 	
 	
@@ -164,8 +181,8 @@
 		    ON (P.USER_ID = U.USER_ID)
 		 WHERE P.USER_ID = #{userId} 
 		   AND P.CODE_ID IS NOT NULL
-	  	 ORDER BY C.CHAL_START_DATE, 
-	   		  	  C.CHAL_END_DATE
+	  	 ORDER BY C.CHAL_START_DATE DESC, 
+	   		  	  C.CHAL_END_DATE DESC
 	</select>
 
 	<!-- +++++++++++++++++++++++++++관리자++++++++++++++++++++++++++ -->

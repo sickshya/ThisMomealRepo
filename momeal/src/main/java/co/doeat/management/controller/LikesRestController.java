@@ -32,8 +32,8 @@ public class LikesRestController {
 
 	// 마이페이지 - 좋아요 삭제
 	@PostMapping("/myLikeDel/{no}")
-	public int myLikeDel(LikesVO vo, @PathVariable int no, HttpSession session, HttpServletRequest request) {
-		session = request.getSession();
+	public int myLikeDel(LikesVO vo, @PathVariable int no, HttpSession session) {
+	//	session = request.getSession();
 
 		vo.setNo(no);
 		return likesService.myLikeDel(vo);
