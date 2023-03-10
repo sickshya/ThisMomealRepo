@@ -41,7 +41,7 @@
 
 
 			<div>
-				<form id="frm" action="/expOrderList" method="post">
+				<form id="frm" action="/expr/expOrderList" method="post">
 					<table border="1">
 						<tr>
 							<th>아이디</th>
@@ -169,9 +169,9 @@
 						success : function(result) {
 							if (result == "신청이 완료되었습니다.") {
 								alert(result);
-								location.href = "/expOrderList"
+								location.href = "/expr/expOrderList"
 							} else {
-								alert("디비입력실패");
+								alert("신청 되지 않았습니다.");
 								return false;
 							}
 						},

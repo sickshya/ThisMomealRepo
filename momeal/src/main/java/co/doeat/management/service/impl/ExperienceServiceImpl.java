@@ -47,8 +47,8 @@ public class ExperienceServiceImpl implements ExperienceService {
 	}
 
 	@Override
-	public Map<String, Object> expOrderList(int no) {
-		return experienceMapper.expOrderList(no);
+	public List<ExprParticipantsVO> expOrderList() {
+		return experienceMapper.expOrderList();
 	}
 
 	// 관리자 +++++++++++++++++++++++++++++++++++
@@ -57,4 +57,5 @@ public class ExperienceServiceImpl implements ExperienceService {
 		return experienceMapper.adminExperienceGroup();
 	}
 
+	
 }
