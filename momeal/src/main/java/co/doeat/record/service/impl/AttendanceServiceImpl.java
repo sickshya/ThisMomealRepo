@@ -39,12 +39,12 @@ public class AttendanceServiceImpl implements AttendanceService {
 		System.out.println("잘돌아감???");
 		Boolean b = attendanceMapper.ajaxAtCheck(vo);
 		if (b == null) {
-			// 출석테이블에 저장
-			attendanceMapper.atInsert(vo);
 			// 포인트로그테이블에 저장
 			pointLogMapper.atPointadd(pvo);
 			// 회원테이블에 누적포인트 업데이트
 			userMapper.updateATPoint(uvo);
+			// 출석테이블에 저장
+			attendanceMapper.atInsert(vo);
 		} else {
 
 		}

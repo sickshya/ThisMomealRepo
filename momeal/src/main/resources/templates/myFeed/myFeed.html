@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout}">
+	layout:decorate="~{feedLayout}">
 
 <head>
 <meta charset="UTF-8">
@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="assets/css/tailwind-dark.css">
 
 <!-- 인증 모달 -->
-<link href="/modal-template/css/style.css" rel="stylesheet">
+<!-- <link href="/modal-template/css/style.css" rel="stylesheet"> -->
 <style>
 /*@media (min-width: 1024px) {
             header .header_inner {
@@ -157,12 +157,9 @@ img {
 				<div
 					class="lg:w/8/12 flex-1 flex flex-col lg:items-start items-center">
 
-					<h2 class="font-semibold lg:text-2xl text-lg mb-2">Stella
-						Jonathan</h2>
+					<h2 class="font-semibold lg:text-2xl text-lg mb-2">[[${selects.nickName}]]</h2>
 					<p class="lg:text-left mb-2 text-center  dark:text-gray-100">
-						Nam liber tempor cum soluta nobis eleifend option congue nihil
-						imperdiet doming id quod mazim placerat facer possim assum</p>
-
+						[[${selects.grade}]]
 					<div class="flex font-semibold mb-3 space-x-2  dark:text-gray-10">
 						<a href="#story-modal2" uk-toggle>포인트</a> , <a href="#">Sports</a>
 						, <a href="#">Movies</a>
@@ -512,6 +509,7 @@ function atCk(){
 		.then(data => isCheckResult(data));
 }
 function isCheckResult(data){
+	console.log(data)
 	if(data == "true") {
 		alert("출석");
 	}else if(data == "false"){
