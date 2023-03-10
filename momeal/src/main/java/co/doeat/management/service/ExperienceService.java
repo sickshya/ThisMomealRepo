@@ -18,7 +18,8 @@ public interface ExperienceService {
 
 	public Map<String, Object> expSelect(int no); // 체험단 select
 
-	public Map<String, Object> expOrderList(int no); // 체험단 정보 조회
+	// 체험단-조회
+	public List<ExprParticipantsVO> expOrderList(); // 배송정보 전체조회
 
 	// 관리자 +++++++++++++++++++++++++++++++++++
 	List<ExperienceVO> adminExperienceGroup();

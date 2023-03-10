@@ -74,12 +74,12 @@ public class ExperienceController {
 	}
 
 	// 체험단(조회)
-	@RequestMapping("/expOrderList")
+	@RequestMapping("/expr/expOrderList")
 	public String expOrderList(HttpServletRequest request, ExprParticipantsVO vo, Model model, ExperienceVO evo) {
 		HttpSession session = request.getSession();
 		session.getAttribute("userId");
-		//model.addAttribute("expOrderList", experienceService.expOrderList());
-		return "purchase/pchOrderList";
+		model.addAttribute("expAplyList", experienceService.expOrderList());
+		return "experience/expOrderList";
 	}
 
 	// 관리자 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
