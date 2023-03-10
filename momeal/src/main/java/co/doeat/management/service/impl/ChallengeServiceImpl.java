@@ -1,15 +1,14 @@
 package co.doeat.management.service.impl;
 
 import java.util.List;
-
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.doeat.management.mapper.ChallengeMapper;
-import co.doeat.management.mapper.GroupPurchaseMapper;
 import co.doeat.management.service.ChallengeParticipationVO;
+import co.doeat.management.service.ChallengeReviewVO;
 import co.doeat.management.service.ChallengeSearchVO;
 import co.doeat.management.service.ChallengeService;
 import co.doeat.management.service.ChallengeVO;
@@ -90,9 +89,33 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public List<Map<String, Object>> getMyEndChallList(String userId) {
 		return challengeMapper.getMyEndChallList(userId);
 	}
+	
+	// 종료 - 후기 단건조회
+	@Override
+	public ChallengeReviewVO getReviewOne(String userId, int no) {
+		return challengeMapper.getReviewOne(userId, no);
+	}
+	
+	// 종료 - 후기 등록
+	@Override
+	public int insertReview(ChallengeReviewVO vo) {
+		return challengeMapper.insertReview(vo);
+	}
+	
+	// 종료 - 후기 수정
+	@Override
+	public int updateReview(ChallengeReviewVO vo) {
+		return challengeMapper.updateReview(vo);
+	}
+	
+	// 종료 - 후기 삭제
+	@Override
+	public int deleteReview(ChallengeReviewVO vo) {
+		return challengeMapper.deleteReview(vo);
+	}
 
 	
-	// ▶ 관리자======================================================
+	// ▶ 관리자 ======================================================
 
 	@Override
 	public List<ChallengeVO> adminChalList(ChallengeSearchVO svo) {

@@ -1,6 +1,5 @@
 package co.doeat.management.controller;
 
-import java.awt.Image;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +24,7 @@ import co.doeat.Paging;
 import co.doeat.common.service.ImageService;
 import co.doeat.common.service.ImageVO;
 import co.doeat.management.service.ChallengeParticipationVO;
+import co.doeat.management.service.ChallengeReviewVO;
 import co.doeat.management.service.ChallengeSearchVO;
 import co.doeat.management.service.ChallengeService;
 import co.doeat.management.service.ChallengeVO;
@@ -131,6 +131,34 @@ public class ChallengeController {
 	}
 
 	// ▶ 나의 챌린지 - 종료 ◀
+	// 종료 - 후기 단건조회
+	@PostMapping("/challReview/{no}")
+	@ResponseBody
+	public ChallengeReviewVO getReviewOne(@PathVariable int no, HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
+		return challengeService.getReviewOne(userId, no);
+	}
+	
+	// 종료 - 후기 등록
+	@PostMapping("/insertReview")
+	@ResponseBody
+	public int insertReview(ChallengeReviewVO vo) {
+		return challengeService.insertReview(vo);
+	}
+	
+	// 종료 - 후기 수정
+	@PostMapping("/updateReview")
+	@ResponseBody
+	public int updateReview(ChallengeReviewVO vo) {
+		return challengeService.updateReview(vo);
+	}
+	
+	// 종료 - 후기 삭제
+	@PostMapping("/deleteReview")
+	@ResponseBody
+	public int deleteReview(ChallengeReviewVO vo) {
+		return challengeService.deleteReview(vo);
+	}
 
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
 	// 챌린지 관리자

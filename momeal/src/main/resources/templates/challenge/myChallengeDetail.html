@@ -43,29 +43,29 @@
 <link href="/modal-template/css/style.css" rel="stylesheet">
 
 <style>
-#frm fieldset{
+#reviewForm fieldset{
     display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
     direction: rtl; /* 이모지 순서 반전 */
     border: 0; /* 필드셋 테두리 제거 */
 }
-#frm fieldset legend{
+#reviewForm fieldset legend{
     text-align: left;
 }
-#frm input[type=radio]{
+#reviewForm input[type=radio]{
     display: none; /* 라디오박스 감춤 */
 }
-#frm label{
+#reviewForm label{
     font-size: 30px; /* 이모지 크기 */
     color: transparent; /* 기존 이모지 컬러 제거 */
     text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
 }
-#frm label:hover{
+#reviewForm label:hover{
     text-shadow: 0 0 0 #FFE324; /* 마우스 호버 */
 }
-#frm label:hover ~ label{
+#reviewForm label:hover ~ label{
     text-shadow: 0 0 0 #FFE324; /* 마우스 호버 뒤에오는 이모지들 */
 }
-#frm input[type=radio]:checked ~ label{
+#reviewForm input[type=radio]:checked ~ label{
     text-shadow: 0 0 0 #FFE324; /* 마우스 클릭 체크 */
 }
 </style>
@@ -87,7 +87,7 @@
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6">
-						<div class="product__details__text">
+						<div class="product__details__text" id="challInfo">
 							<h3>[[ ${chall.TITLE} ]]</h3>
 							<p>챌린지 조건 있어야함!!(매일, 2주동안 이런거)</p>
 							<!-- 							<div class="product__details__price">오늘부터 시작</div> -->
@@ -108,8 +108,14 @@
 									data-toggle="modal" data-target="#Modal-2" onclick="modal()">인증하기</a>
 							</th:block>
 							<th:block th:unless="${chall.CODE_ID == '0'}">
-							<a href="#" class="primary-btn"
-								data-toggle="modal" data-target="#review" onclick="reviewModal()">리뷰쓰기</a>
+								<th:block th:if="${chall.REVIEW_CHECK == 0}">
+									<a href="#" class="primary-btn"
+										data-toggle="modal" data-target="#review" th:id="|reviewBtn${chall.NO}|">후기쓰기</a>
+								</th:block>
+								<th:block th:unless="${chall.REVIEW_CHECK == 0}">
+									<a href="#" class="primary-btn"
+										data-toggle="modal" data-target="#review" id="reviewBtn" th:onclick="reviewModal([[${chall.NO}]])">후기관리</a>
+								</th:block>
 							</th:block>
 						</div>
 					</div>
@@ -389,7 +395,7 @@
 							
 							
 							<!-- 후기 등록 모달 -->
-							<form id="frm" method="post">
+							<form id="reviewForm" method="post">
 								<div class="modal fade" id="review" tabindex="-1" role="dialog"
 									aria-labelledby="Modal-label-1" align="center">
 									<div class="modal-dialog" role="document">
@@ -412,13 +418,18 @@
 											    <br><br>
 											    <textarea id="subject" name="subject" rows="2" cols="10" placeholder="후기를 작성해주세요."></textarea>
 												<div id="text_cnt">(0 / 100)</div>
-<!-- 											    <input type="text" placeholder="후기를 입력해주세요." maxlength="100"> -->
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-default" id="insertBtn" onclick="reviewInsert()">등록</button>
+												<th:block th:if="${chall.REVIEW_CHECK == 0}">
+													<button type="button" class="btn btn-default" id="insertBtn" th:onclick="reviewInsert([[${chall.NO}]])">등록</button>
+												</th:block>
+												<th:block th:unless="${chall.REVIEW_CHECK == 0}">
+													<button type="button" class="btn btn-default" id="updateBtn" onclick="reviewUpdate()">수정</button>
+													<button type="button" class="btn btn-default" id="deleteBtn" th:onclick="reviewDelete([[${chall.NO}]])">삭제</button>
+												</th:block>
 											</div>
 											<input type="hidden" id="userId" name="userId" th:value="${session.userId}">
-											<input type="hidden" id="chalNo" name="no" th:value="${chall.NO}">
+											<input type="hidden" id="no" name="no" th:value="${chall.NO}">
 										</div>
 									</div>
 								</div>
@@ -494,13 +505,15 @@
 
 			var formData = new FormData($('#frm')[0])
 			
-				if (confirm("인증사진은 등록 후 수정, 삭제가 불가능합니다. \n정말로 등록하시겠습니까?") == true){ 
-					   //true는 확인버튼을 눌렀을 때 코드 작성
-					   alert("인증사진이 등록되었습니다.");
-					 }else{
-					   // false는 취소버튼을 눌렀을 때, 취소됨
-					   return;
-					 }
+			if(confirm("인증사진은 등록 후 수정, 삭제가 불가능합니다. \n정말로 등록하시겠습니까?") == true){ 
+				   //true는 확인버튼을 눌렀을 때 코드 작성
+				   alert("인증사진이 등록되었습니다.");
+			 }else{
+			   // false는 취소버튼을 눌렀을 때, 취소됨
+			   return;
+			 }
+			
+			// ajax 처리
 			$.ajax({
 				url: "/insertMyChallImg",
 				type: "post",
@@ -562,9 +575,114 @@
 		});
 		
 		// ▶ 후기 등록
-		function reviewInsert() {
+		function reviewInsert(no) {
+			let reviewInfo = $("form[id=reviewForm]").serialize();
 			
+			if($('input:radio[name="star"]').is(':checked') == false) {
+				alert("별점을 선택해주세요.")
+				return;
+			}
+			if($("#subject").val().length == 0) {
+				alert("후기 내용을 입력해주세요.")
+				return;
+			}
+			
+			$.ajax({
+				url: "/insertReview",
+				type: "post",
+				data : reviewInfo,
+				dataType : "json"
+			})
+			.then(result => {
+				if(result != 0) {
+					alert("후기가 등록되었습니다.")
+					
+// 					// 모달창 닫기
+// 					$("#review").modal("hide");
+					
+// 					// 리뷰작성 버튼 삭제 후 리뷰관리 버튼 달기
+// 					$("#reviewBtn" + no).remove();
+// 					$("#challInfo").append(
+// 						`
+// 						<a href="#" class="primary-btn"
+// 						   data-toggle="modal" data-target="#review" id="reviewBtn" th:onclick="reviewModal(${no})">후기관리</a>
+// 						`		
+// 					)
+					
+					location.reload();
+				}
+			})
 		}
+		
+		// ▶ 후기관리 버튼 클릭시 후기 내용 호출
+		function reviewModal(no) {
+			$.ajax({
+				url: "/challReview/" + no,
+				type: "post"
+			})
+			.then(result => {
+				$(":radio[name='star'][value='" + result.star + "']").attr('checked', true);
+				$("#subject").val(result.subject);
+			})
+		}
+		
+		// ▶ 후기 수정
+		function reviewUpdate() {
+			let reviewInfo = $("form[id=reviewForm]").serialize();
+			
+			$.ajax({
+				url: "/updateReview",
+				type: "post",
+				data : reviewInfo,
+				dataType : 'json'
+			})
+			.then(result => {
+				alert("후기가 수정되었습니다.")
+				
+// 				// 모달창 닫기
+// 				$('#review').modal('hide');
+				
+				location.reload();
+			})
+		}
+		
+		// ▶ 후기 삭제
+		function reviewDelete(no) {
+			let reviewInfo = $("form[id=reviewForm]").serialize();
+			
+			if(confirm("후기를 삭제하시겠습니까?") == true){ 
+				   //true는 확인버튼을 눌렀을 때 코드 작성
+				   alert("후기가 삭제되었습니다.");
+			 }else{
+			   // false는 취소버튼을 눌렀을 때, 취소됨
+			   return;
+			 }
+			
+			$.ajax({
+				url: "/deleteReview",
+				type: "post",
+				data : reviewInfo,
+				dataType : 'json'
+			})
+			.then(result => {
+// 				// 모달창 닫기
+// 				$('#review').modal('hide');
+				
+
+				location.reload();
+				
+				// 후기관리 버튼 삭제 후 후기쓰기 버튼 달기
+// 				$("#reviewBtn").remove();
+// 				$("#challInfo").append(
+// 					`
+// 					<a href="#" class="primary-btn"
+// 						data-toggle="modal" data-target="#review" id="reviewBtn${no}">후기쓰기</a>
+// 					`		
+// 				)
+				
+			})
+		}
+		
 
 		
 		</script>
