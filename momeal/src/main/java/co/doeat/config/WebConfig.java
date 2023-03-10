@@ -18,11 +18,11 @@ public class WebConfig implements WebMvcConfigurer {
 	}
 
 	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/").setViewName("base/home");
 		registry.addViewController("/home").setViewName("/base/home");
 		registry.addViewController("/main").setViewName("/base/home");
-		registry.addViewController("/").setViewName("base/home");
-		registry.addViewController("/login").setViewName("myPages/form-login");
 
+		registry.addViewController("/login").setViewName("users/loginFrm");
 		registry.addRedirectViewController("/logout", "/login");
 	}
 

@@ -43,9 +43,9 @@
 
                         <div
                             class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
-                            <a href="form-login.html" class="py-3 px-4">Login</a>
+                            <a href="/login" class="py-3 px-4">Login</a>
                             <a
-                                href="form-register.html"
+                                href="/signup/signupFrm"
                                 class="bg-green-500 green-500 px-6 py-3 rounded-md shadow text-white">Register</a>
                         </div>
 
@@ -92,7 +92,7 @@
                         <div class="text-center mt-5 space-x-2">
                             <p class="text-base">
                                 Not registered?
-                                <a href="form-register.html" class="">
+                                <a href="/signup/signupFrm" class="">
                                     Create a account
                                 </a>
                             </p>
@@ -129,9 +129,7 @@
 
             function fnSubmit() {
                 frm.submit();
-            }
-        
-            (function (window, document, undefined) {
+            }(function (window, document, undefined) {
                 'use strict';
                 if (!('localStorage' in window)) 
                     return;
@@ -173,7 +171,6 @@
 
         <!-- Scripts ================================================== -->
         <script src="assets/js/tippy.all.min.js"></script>
-        <script src="assets/js/jquery-3.3.1.min.js"></script>
         <script src="assets/js/uikit.js"></script>
         <script src="assets/js/simplebar.js"></script>
         <script src="assets/js/custom.js"></script>
