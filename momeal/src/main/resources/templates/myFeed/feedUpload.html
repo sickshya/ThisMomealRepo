@@ -147,6 +147,7 @@
 														<!-- 버튼 -->
 														<div align=center>
 															<button type="button" onclick="MealInsert()">등록</button>
+															<input type="hidden" id="feedUserId" th:value="${session.userId}">
 														</div>
 
 											</form>
@@ -195,7 +196,10 @@
 			</script>
 			<script>
 		function MealInsert(){
+			let userId = $("#feedUserId").val()
+			
 			console.log("클릭")
+			
 			var formData = new FormData($('#frm')[0])
 			$.ajax({
 				url:"/insertMeal",
@@ -206,7 +210,7 @@
 				success: function(res){
 					console.log(res)
 					alert("등록되었습니다")
-					location.href="/myFeed"
+					location.href="/myFeed/" + userId
 				},
 				error: function(err){
 					console.log(err)

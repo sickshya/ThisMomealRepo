@@ -1,12 +1,14 @@
 package co.doeat.management.service.impl;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.doeat.management.mapper.ChallengeMapper;
+import co.doeat.management.mapper.GroupPurchaseMapper;
 import co.doeat.management.service.ChallengeParticipationVO;
 import co.doeat.management.service.ChallengeSearchVO;
 import co.doeat.management.service.ChallengeService;
@@ -69,10 +71,17 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeMapper.getMyChallImg(userId, no);
 	}
 	
+	// 진행중 - 인증 사진 단건 조회
+	@Override
+	public ChallengeValidationVO getMyChallImgOne(int no) {
+		return challengeMapper.getMyChallImgOne(no);
+	}
+	
 	// 진행중 - 인증 사진 등록
 	@Override
 	public ChallengeValidationVO insertMyChallImg(ChallengeValidationVO vo) {
-		return challengeMapper.insertMyChallImg(vo);
+		challengeMapper.insertMyChallImg(vo);
+		return challengeMapper.getMyChallImgOne(vo.getNo());
 	}
 	
 	// ▶ 나의 챌린지 - 종료
@@ -109,6 +118,16 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Override
 	public int adminCHDelete(int no) {
 		return challengeMapper.adminCHDelete(no);
+	}
+
+	@Override
+	public int adminCHReInsert(ChallengeVO vo) {
+		return challengeMapper.adminCHReInsert(vo);
+	}
+
+	@Override
+	public int adminCHUpdate(ChallengeVO vo) {
+		return challengeMapper.adminCHUpdate(vo);
 	}
 
 }

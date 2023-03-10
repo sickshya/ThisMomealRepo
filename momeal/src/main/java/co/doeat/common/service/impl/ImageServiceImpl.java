@@ -82,14 +82,15 @@ public class ImageServiceImpl implements ImageService {
 		return imageMapper.adminGPIDelete(postNo, boardCode);
 	}
 
-	@Override
-	public int adminCHIDelete(ImageVO vo) {
-		return imageMapper.adminCHIDelete(vo);
-	}
 
 	@Override
 	public List<ImageVO> imageList(String boardCode, int postNo) {
 		return imageMapper.imageList(boardCode, postNo);
+	}
+
+	@Override
+	public int adminCHIDelete(int postNo, String boardCode) {
+		return imageMapper.adminGPIDelete(postNo, boardCode);
 	}
 
 }

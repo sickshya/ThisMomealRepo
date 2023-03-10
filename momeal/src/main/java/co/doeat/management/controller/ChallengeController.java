@@ -1,12 +1,12 @@
 package co.doeat.management.controller;
 
+import java.awt.Image;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,6 @@ import co.doeat.management.service.ChallengeSearchVO;
 import co.doeat.management.service.ChallengeService;
 import co.doeat.management.service.ChallengeVO;
 import co.doeat.management.service.ChallengeValidationVO;
-import co.doeat.management.service.GroupPurchaseListVO;
 
 @Controller
 public class ChallengeController {
@@ -42,6 +41,7 @@ public class ChallengeController {
 	@Value("${momeal.saveImg}")
 	private String saveImg;
 
+
 	// ▶ 챌린지 ◀
 	// 전체조회
 	// 세션에 아이디 값도 담아두기(임시)
@@ -49,7 +49,7 @@ public class ChallengeController {
 	public String challengeMain(Model model, HttpSession session) {
 		// 임시로 세션에 ID 값 담기
 		String id = (String) session.getAttribute("userId");
-		
+
 		// 전체조회
 		model.addAttribute("challList", challengeService.getChallList(id));
 		// 인기순(좋아요 많은 순) 조회
@@ -92,19 +92,16 @@ public class ChallengeController {
 	@GetMapping("/myChallenge/{chalNo}")
 	public String myChallengOne(Model model, @PathVariable int chalNo, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
-		
+
 		// 챌린지 정보 select
 		model.addAttribute("chall", challengeService.getMyChall(userId, chalNo));
-		
-		System.out.println("어케 담아오는데 ▶ ====== " + challengeService.getMyChall(userId, chalNo));
+
 		// 챌린지 인증 이미지 select
 		model.addAttribute("valImg", challengeService.getMyChallImg(userId, chalNo));
-		
-		System.out.println("이미지 ▶ ====== " + challengeService.getMyChallImg(userId, chalNo));
-		
+
 		return "challenge/myChallengeDetail";
 	}
-	
+
 	// 진행중 - 인증 사진 등록
 	@RequestMapping("/insertMyChallImg")
 	@ResponseBody
@@ -121,18 +118,20 @@ public class ChallengeController {
 			vo.setChalImg(file.getOriginalFilename()); // 원본 파일명
 			vo.setFileDir("/mm_images/" + fileName); // 디렉토리 포함 원본 파일
 		}
-		challengeService.insertMyChallImg(vo);
-		
-		System.out.println("결과 ====== " + challengeService.insertMyChallImg(vo));
-		
+
 		return challengeService.insertMyChallImg(vo);
 	}
 	
-	
+	// 진행중 - 인증 사진 단건 조회
+	@RequestMapping("/myChallImg/{no}")
+	@ResponseBody
+	public ChallengeValidationVO getMyChallImgOne(@PathVariable int no) {
+		System.out.println("이미지 상세 ▶ ===== " + challengeService.getMyChallImgOne(no));
+		return challengeService.getMyChallImgOne(no);
+	}
+
 	// ▶ 나의 챌린지 - 종료 ◀
 
-
-	
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
 	// 챌린지 관리자
 	// 페이징
@@ -146,7 +145,7 @@ public class ChallengeController {
 	}
 
 	// 관리자 챌린지 등록 폼
-	@RequestMapping("/adminCHInsertForm")
+	@RequestMapping("/admin/adminCHInsertForm")
 	public String adminCHInsertForm() {
 		return "admin/adminCHInsertForm";
 	}
@@ -154,7 +153,7 @@ public class ChallengeController {
 	// 관리자 챌린지등록
 	@RequestMapping("/adminCHInsert")
 	@ResponseBody
-	public String adminCHInsert(ChallengeVO vo, ImageVO evo, List<MultipartFile> files, MultipartFile tfile) {
+	public String adminCHInsert(ChallengeVO vo, ImageVO ivo, List<MultipartFile> files, MultipartFile tfile) {
 		if (!tfile.isEmpty()) {// 첨부파일이 존재하면
 			String fileName = UUID.randomUUID().toString();
 			fileName = fileName + tfile.getOriginalFilename();
@@ -172,26 +171,68 @@ public class ChallengeController {
 		int atchNo = imageService.fileUpload(files, no, boardCode);
 
 		if (atchNo > 0) {
-			evo.setAtchNo(atchNo);
+			ivo.setAtchNo(atchNo);
 		}
 		return "true";
 
 	}
 
 	// 관리자 챌린지 단건조회
-	@RequestMapping("/adminCHSelect/{no}")
-	public String adminCHInsert(@PathVariable int no, Model model) {
+	@RequestMapping("/admin/adminCHSelect/{no}")
+	public String adminCHInsert(@PathVariable int no, Model model, ChallengeVO vo) {
 		model.addAttribute("selects", challengeService.adminCHSelect(no));
+		String boardCode = "CT01";
+		int postNo = vo.getNo();
+		model.addAttribute("imgselect", imageService.imageList(boardCode, postNo));
 		return "admin/adminCHSelect";
 	}
 
 	// 관리자 챌린지 삭제
-	@RequestMapping("/adminCHDelete/{no}")
+	@RequestMapping("/admin/adminCHDelete/{no}")
 	public String adminCHDelete(@PathVariable int no, Model model, ChallengeVO vo, ImageVO evo) {
 		String boardCode = "CT01";
 		int postNo = vo.getNo();
 		imageService.adminGPIDelete(postNo, boardCode);
 		challengeService.adminCHDelete(no);
-		return "redirect:/adminCHDelete";
+		return "redirect:/admin/adminCHDelete";
 	}
+	
+	//관리자 챌린지 update폼
+	@RequestMapping("/admin/adminCHUpdateForm/{no")
+	public String adminCHUpdateForm(ChallengeVO vo, Model model, @PathVariable int no) {
+		model.addAttribute("updates", challengeService.adminCHSelect(no));
+		String boardCode="CT01";
+		int postNo = vo.getNo();
+		model.addAttribute("iupdates", imageService.imageList(boardCode, postNo));
+		
+		return "admin/adminCHUpdateForm";
+	}
+	
+	//관리자 챌린지 update
+	@RequestMapping("/adminCHUpdate")
+	@ResponseBody
+	public String adminCHUpdate(ChallengeVO vo, ImageVO ivo, Model model, List<MultipartFile> files, MultipartFile tfile) {
+		if (!tfile.isEmpty()) {// 첨부파일이 존재하면
+			String fileName = UUID.randomUUID().toString();
+			fileName = fileName + tfile.getOriginalFilename();
+			File uploadFile = new File(saveImg, fileName);
+			try {
+				tfile.transferTo(uploadFile); // 파일저장하긴
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			vo.setThumbnailImg(tfile.getOriginalFilename());// 원본파일명
+			vo.setThumbnailImgPath("/mm_images/" + fileName);// 디렉토리 포함 원본파일
+	}
+	challengeService.adminCHUpdate(vo);
+	String boardCode = "CT01";
+	int postNo = vo.getNo();
+	imageService.adminCHIDelete(postNo, boardCode);
+	int atchNo = imageService.fileUpload(files, vo.getNo(), boardCode);
+	if (atchNo > 0) {
+		ivo.setAtchNo(atchNo);
+	}
+	return "true";
+	}	
+
 }

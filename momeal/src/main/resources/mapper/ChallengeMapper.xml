@@ -5,13 +5,13 @@
 	<!-- 챌린지 전체조회(최신 등록순 조회) -->
 	<select id="getChallList" resultType="map">
 		SELECT C.*,
-            NVL((SELECT L.NO
-                 FROM LIKES L
-                WHERE L.POST_NO = C.NO 
-                  AND L.USER_ID = #{userId} 
-                  AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO
-        FROM CHALLENGES C
-       ORDER BY C.NO DESC
+			   NVL((SELECT L.NO
+					  FROM LIKES L
+					 WHERE L.POST_NO = C.NO 
+					   AND L.USER_ID = #{userId} 
+					   AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO
+		  FROM CHALLENGES C
+		 ORDER BY C.NO DESC
 	</select>
 
 	<!-- 챌린지 인기순 조회(좋아요 상위 7개까지) -->
@@ -148,11 +148,11 @@
 	
 	<!-- 참여중 - 챌린지별 인증사진 단건조회 -->
 	<select id="getMyChallImgOne" resultType="co.doeat.management.service.ChallengeValidationVO">
-		SELECT *
-		  FROM CHALLENGE_VALIDATION
-		 WHERE NO = #{no}
-		   AND USER_ID = #{userId}
-		   AND TRUNC(VLD_DATE) = TO_DATE(#{vldDate},'YYYYMMDD')
+		SELECT CV.*, U.NICK_NAME
+		FROM CHALLENGE_VALIDATION CV
+	    JOIN USERS U
+	    ON CV.USER_ID = U.USER_ID
+		WHERE NO = #{no}
 	</select>
 	
 	<!-- 참여중 - 인증사진 등록 -->
@@ -186,6 +186,12 @@
 	  	 ORDER BY C.CHAL_START_DATE DESC, 
 	   		  	  C.CHAL_END_DATE DESC
 	</select>
+	
+	<!-- 종료 - 리뷰 등록 -->
+	<insert id="">
+		INSERT INTO CHALLENGE_REVIEW
+		VALUES(#{userId}, #{no}, TO_DATE(SYSDATE,'YYYY-MM-DD'), #{subject}, #{star})
+	</insert>
 
 	<!-- +++++++++++++++++++++++++++관리자++++++++++++++++++++++++++ -->
 	<!-- 관리자 챌린지 리스트 -->

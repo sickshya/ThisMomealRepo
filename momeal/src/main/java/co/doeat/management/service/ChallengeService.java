@@ -1,6 +1,7 @@
 package co.doeat.management.service;
 
 import java.util.List;
+
 import java.util.Map;
 
 public interface ChallengeService {
@@ -20,15 +21,16 @@ public interface ChallengeService {
 	public List<Map<String, Object>> getMyChallList(String userId); // 진행중인 챌린지 전체조회
 
 	public Map<String, Object> getMyChall(String userId, int no); // 단건조회
-	
+
 	public List<ChallengeValidationVO> getMyChallImg(String userId, int chalNo); // 챌린지별 인증 사진 조회
 	
-	public ChallengeValidationVO insertMyChallImg(ChallengeValidationVO vo); // 인증 사진 등록
+	public ChallengeValidationVO getMyChallImgOne(int no); // 인증 사진 단건조회
 	
+	public ChallengeValidationVO insertMyChallImg(ChallengeValidationVO vo); // 인증 사진 등록
+
 	// 2. 종료된 챌린지
 	public List<Map<String, Object>> getMyEndChallList(String userId); // 진행중인 챌린지 전체조회
 
-	
 	// ===================관리자===========================
 	// ▶ 관리자 챌린지
 	// 관리자 챌린지 리스트
@@ -38,7 +40,9 @@ public interface ChallengeService {
 
 	// 챌린지 등록하기
 	int adminCHInsert(ChallengeVO vo);
+
 	// 챌린지 재등록하기
+	int adminCHReInsert(ChallengeVO vo);
 
 	// 챌린지 단건조회 select
 	ChallengeVO adminCHSelect(int no);
@@ -46,4 +50,6 @@ public interface ChallengeService {
 	// 챌린지 삭제
 	int adminCHDelete(int no);
 
+	// 챌린지 수정
+	int adminCHUpdate(ChallengeVO vo);
 }

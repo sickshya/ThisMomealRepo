@@ -15,8 +15,8 @@ public interface ExperienceMapper {
 	// 체험단-상세
 	public List<ExperienceVO> ExperOne(int no); // 단건조회
 	
-	// 체험단-주문하기 form
-	public int ExpInsert(ExprParticipantsVO vo); // 배송정보 저장
+	// 체험단-신청
+	public int ExpInsert(ExperienceVO vo); // 체험단 신청하기
 	
   
 	// 관리자 +++++++++++++++++++++++++++++++++++

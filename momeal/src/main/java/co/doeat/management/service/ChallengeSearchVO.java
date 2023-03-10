@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ChallengeSearchVO extends ChallengeVO {
-	private int first;
-	private int last;
-	private String keyword;
+	int first;
+	int last;
+	String keyword;
 }
