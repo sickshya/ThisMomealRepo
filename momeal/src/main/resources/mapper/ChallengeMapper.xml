@@ -127,7 +127,11 @@
 			   C.PARTICIR, 
 			   C.SUM_PARTICIR, 
 			   C.DEDUCT_POINT, 
-			   C.THUMBNAIL_IMG_PATH
+			   C.THUMBNAIL_IMG_PATH,
+			   (SELECT COUNT(*) 
+			      FROM CHALLENGE_REVIEW R 
+			     WHERE R.USER_ID=#{userId} 
+			       AND R.NO = #{no}) AS REVIEW_CHECK
 		FROM CHALLENGE_PARTICIPATION P 
 		LEFT JOIN CHALLENGES C
 		  ON (P.NO = C.NO)
@@ -149,10 +153,10 @@
 	<!-- 참여중 - 챌린지별 인증사진 단건조회 -->
 	<select id="getMyChallImgOne" resultType="co.doeat.management.service.ChallengeValidationVO">
 		SELECT CV.*, U.NICK_NAME
-		FROM CHALLENGE_VALIDATION CV
-	    JOIN USERS U
-	    ON CV.USER_ID = U.USER_ID
-		WHERE NO = #{no}
+		  FROM CHALLENGE_VALIDATION CV
+	      JOIN USERS U
+	        ON CV.USER_ID = U.USER_ID
+	 	 WHERE NO = #{no}
 	</select>
 	
 	<!-- 참여중 - 인증사진 등록 -->
@@ -187,11 +191,38 @@
 	   		  	  C.CHAL_END_DATE DESC
 	</select>
 	
+	<!-- 종료 - 리뷰 단건조회 -->
+	<select id="getReviewOne" resultType="co.doeat.management.service.ChallengeReviewVO">
+		SELECT R.*, U.NICK_NAME, U.PROFILE_IMG_PATH
+          FROM CHALLENGE_REVIEW R
+          JOIN USERS U
+            ON R.USER_ID = U.USER_ID
+         WHERE R.USER_ID = #{userId}
+           AND R.NO = #{no}
+	</select>
+	
 	<!-- 종료 - 리뷰 등록 -->
-	<insert id="">
+	<insert id="insertReview">
 		INSERT INTO CHALLENGE_REVIEW
 		VALUES(#{userId}, #{no}, TO_DATE(SYSDATE,'YYYY-MM-DD'), #{subject}, #{star})
 	</insert>
+	
+	<!-- 종료 - 리뷰 수정 -->
+	<update id="updateReview">
+		UPDATE CHALLENGE_REVIEW
+           SET SUBJECT = #{subject}, 
+           	   STAR = #{star}
+         WHERE USER_ID = #{userId} 
+           AND NO = #{no}
+	</update>
+	
+	<!-- 종료 - 리뷰 삭제 -->
+	<delete id="deleteReview">
+		DELETE 
+		  FROM CHALLENGE_REVIEW 
+		 WHERE USER_ID = #{userId}
+		   AND NO = #{no}
+	</delete>
 
 	<!-- +++++++++++++++++++++++++++관리자++++++++++++++++++++++++++ -->
 	<!-- 관리자 챌린지 리스트 -->

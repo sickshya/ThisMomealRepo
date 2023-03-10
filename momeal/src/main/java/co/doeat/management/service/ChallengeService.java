@@ -29,7 +29,15 @@ public interface ChallengeService {
 	public ChallengeValidationVO insertMyChallImg(ChallengeValidationVO vo); // 인증 사진 등록
 
 	// 2. 종료된 챌린지
-	public List<Map<String, Object>> getMyEndChallList(String userId); // 진행중인 챌린지 전체조회
+	public List<Map<String, Object>> getMyEndChallList(String userId); // 종료된 챌린지 전체조회
+	
+	public ChallengeReviewVO getReviewOne(String userId, int no); // 후기 단건조회
+	
+	public int insertReview(ChallengeReviewVO vo); // 후기 등록
+	
+	public int updateReview(ChallengeReviewVO vo); // 후기 수정
+	
+	public int deleteReview(ChallengeReviewVO vo); // 후기 삭제
 
 	// ===================관리자===========================
 	// ▶ 관리자 챌린지
