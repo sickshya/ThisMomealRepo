@@ -69,9 +69,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 //===============================================================체험단==========================
+
+
 	@Override
-	public int selectExpUser(UsersVO vo) {
-		return userMapper.selectExpUser(vo);
+	public int ExpSelectUser(UsersVO vo) {
+		return userMapper.ExpSelectUser(vo);
 	}
 
 	@Override

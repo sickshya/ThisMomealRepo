@@ -2,6 +2,8 @@ package co.doeat.management.service;
 
 import java.util.List;
 
+import co.doeat.community.service.UsersVO;
+
 
 public interface ExperienceService {
 
@@ -11,10 +13,10 @@ public interface ExperienceService {
 	public List<ExperienceVO> getExperiencing(); // 진행중조회
 
 	// 체험단-상세
-	List<ExperienceVO> ExperOne(int no); // 단건조회
+	public List<ExperienceVO> ExperOne(int no); // 단건조회
 	
 	// 체험단-신청
-	public int ExpInsert(ExprParticipantsVO vo); // 배송정보 저장
+	public int ExpInsert(ExperienceVO vo); // 체험단 신청하기
 
 	// 관리자 +++++++++++++++++++++++++++++++++++
 	List<ExperienceVO> adminExperienceGroup();

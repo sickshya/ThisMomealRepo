@@ -67,7 +67,7 @@
 						<section class="section-margin calc-60px">
 							<div class="container">
 								<div class="row">
-									<div class="col-md-10 col-lg-12 col-xl-10"
+									<div class="col-md-6 col-lg-4 col-xl-6"
 										th:each="getExp:${ExpingList}">
 										<div class="card text-center card-product">
 											<div class="card-product__img">
@@ -91,7 +91,7 @@
 												</h4>
 												<!-- 													<span th:text="${getExp.subject}"></span> -->
 												<p th:unless="${getExp.expeStartDate == '0'}"
-													style="color: green;">마감기한 : [[ ${getExp.startDate} ]]</p>
+													style="color: green;">마감기한 : D[[ ${getExp.startDate} ]]</p>
 												<p style="color: red;">신청인원 :
 													[[${getExp.ordCnt}]]/[[${getExp.lmtAplyt}]]</p>
 											</div>
@@ -111,7 +111,7 @@
 							<section class="section-margin calc-60px">
 								<div class="container">
 									<div class="row">
-										<div class="col-md-10 col-lg-12 col-xl-10"
+										<div class="col-md-6 col-lg-4 col-xl-6"
 											th:each="getExp:${ExpList}">
 											<div class="card text-center card-product">
 												<div class="card-product__img">
@@ -134,7 +134,7 @@
 														<a th:text="${getExp.title}"></a>
 													</h4>
 													<p th:unless="${getExp.expeStartDate == '0'}"
-														style="color: green;">마감기한 : [[ ${getExp.startDate} ]]</p>
+														style="color: green;">마감기한 : D[[ ${getExp.startDate} ]]</p>
 													<p style="color: red;">신청인원 :
 														[[${getExp.ordCnt}]]/[[${getExp.lmtAplyt}]]</p>
 												</div>
