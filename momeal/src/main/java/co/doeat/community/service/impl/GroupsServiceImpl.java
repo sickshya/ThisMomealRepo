@@ -52,4 +52,9 @@ public class GroupsServiceImpl implements GroupsService {
 		return groupsMapper.membInsert(vo);
 	}
 
+	@Override
+	public int membInsert(GroupsVO vo) {
+		return groupsMapper.membInsert(vo);
+	}
+
 }

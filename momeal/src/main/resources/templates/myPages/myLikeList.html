@@ -65,10 +65,10 @@
 						<div class="tab-pane active" id="community" role="tabpanel">
 							<div class="product__details__tab__desc">
 								<br>
-								<button type="button"
-									style="border: 1; border: solid; border-color: lightgray; border-radius: 20px; font-size: 15px; margin: 10px; background: white; padding: 10px 20px 10px 20px;">
-									<b>[[ ${#lists.size(myPageLike)} ]]개</b>
-								</button>
+<!-- 								<button type="button" -->
+<!-- 									style="border: 1; border: solid; border-color: lightgray; border-radius: 20px; font-size: 15px; margin: 10px; background: white; padding: 10px 20px 10px 20px;"> -->
+<!-- 									<b>[[ ${#lists.size(myPageLike)} ]]개</b> -->
+<!-- 								</button> -->
 								<br> <br> <br>
 								<div
 									class="my-3 grid lg:grid-cols-4 grid-cols-2 gap-3 hover:text-yellow-700 uk-link-reset">
@@ -196,16 +196,16 @@
 						<div class="tab-pane" id="challenge" role="tabpanel">
 							<div class="product__details__tab__desc">
 								<br>
-								<button type="button"
-									style="border: 1; border: solid; border-color: lightgray; border-radius: 20px; font-size: 15px; margin: 10px; background: white; padding: 10px 20px 10px 20px;">
-									<b>[[ ${#lists.size(challLike)} ]]개</b>
-								</button>
+<!-- 								<button type="button" -->
+<!-- 									style="border: 1; border: solid; border-color: lightgray; border-radius: 20px; font-size: 15px; margin: 10px; background: white; padding: 10px 20px 10px 20px;"> -->
+<!-- 									<b>[[ ${#lists.size(challLike)} ]]개</b> -->
+<!-- 								</button> -->
 								<br> <br> <br>
 								<div
 									class="my-3 grid lg:grid-cols-4 grid-cols-2 gap-3 hover:text-yellow-700 uk-link-reset">
 									<!-- 챌린지 리스트 출력 -->
 									<div th:each="myChallLike : ${challLike}">
-										<div th:data-no="${myChallLike.NO}"
+										<div th:data-no="${myChallLike.NO}" class="tabHeart"
 											th:onclick="'location.href=\''+ @{/challenge/{no}(no = ${myChallLike.POST_NO})} + '\''">
 											<div
 												class="lg:h-56 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
@@ -265,6 +265,7 @@
 			
 				
 			$(".fullHeart").on("click", function(){
+					let divHeart = $(this);
 					let no = $(this).data("no");
 					event.stopPropagation() // 이벤트 전파중지(현재 이벤트가 상위로 전파되지 않도록 한다)
 					
@@ -274,7 +275,8 @@
 					})
 					.then(obj => {
 						console.log("========================결과" + obj);
-						location.reload();
+						divHeart.closest(".tabHeart").remove()
+
 					});
 			});
 		});

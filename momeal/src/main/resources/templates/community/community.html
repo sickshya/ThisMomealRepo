@@ -27,7 +27,7 @@
 				<ul
 					class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-5@m uk-grid-small">
 					<li th:each="cmnt : ${cmntList}">
-						<div class="oneCmnt" th:data-cmntno="${cmnt.NO}"
+						<div class="oneCmnt" th:data-cmntno="${cmnt.NO}" 
 							th:data-sessionid="${session.userId}">
 							<!-- th:data-여기대문자적으면안됨! -->
 							<div
@@ -36,29 +36,24 @@
 									th:src="${cmnt.FILE_DIR}"
 									class="w-full h-full absolute object-cover inset-0">
 								</a>
-								<!-- 좋아요 처리 -->
-								<div th:if="${session.userId != null}" class="heart">
-									<th:block th:if="${cmnt.LIKE_NO != 0}">
-										<a href="#" class="fullHeart"> <!-- class="heart-click heart_icon${rec.LIKE_NO }" -->
-											<svg xmlns="http://www.w3.org/2000/svg" width="30"
-												height="30" fill="currentColor"
-												class="bi bi-suit-heart-fill" viewBox="0 0 16 16"
-												style="color: red;">
-	                           						<path
-													d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z" />
-	                            					</svg>
-										</a>
-									</th:block>
-									<th:block th:unless="${cmnt.LIKE_NO != 0}">
-										<a href="#" class="emptyHeart"> <!-- class="heart-click heart_icon${rec.LIKE_NO }" -->
-											<svg xmlns="http://www.w3.org/2000/svg" width="30"
-												height="30" fill="currentColor" class="bi bi-suit-heart"
-												viewBox="0 0 16 16" style="color: white;">
-					                                  <path
-													d="M8 6.236l-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
-					                                </svg>
-										</a>
-									</th:block>
+								<div
+									class="absolut absolute bottom-0 flex items-center justify-between px-4 py-3 space-x-2 text-white w-full">
+									<div class="flex space-x-3">
+										<!-- 좋아요 하트 붙일 곳 -->
+										<!-- 좋아요 처리 -->
+										<div th:if="${session.userId != null}" class="heart" th:data-likeno="${cmnt.LIKE_NO}">
+											<th:block th:if="${cmnt.LIKE_NO != 0}">
+												
+													<img src="/assets/images/heart.svg" class="fullHeart">
+									
+											</th:block>
+											<th:block th:unless="${cmnt.LIKE_NO != 0}">
+												
+													<img src="/assets/images/emptyHeart.svg"  class="emptyHeart">
+											
+											</th:block>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -86,38 +81,34 @@
 		<div
 			class="my-3 grid lg:grid-cols-5 grid-cols-2 gap-3 hover:text-yellow-700 uk-link-reset">
 			<!-- 한 블럭 시작 -->
-			<div th:each="cmnt : ${cmntList}" class="oneCmnt"
-				th:data-cmntno="${cmnt.NO}" th:data-sessionid="${session.userId}">
+			<div th:each="cmnt : ${cmntList}" class="oneCmnt" th:data-cmntno="${cmnt.NO}" th:data-sessionid="${session.userId}" >
 				<div
 					class="bg-blue-400 max-w-full lg:h-64 h-40 rounded-md relative overflow-hidden shadow-sm">
 					<a href="#story-modal" uk-toggle> <img
 						th:src="${cmnt.FILE_DIR}"
 						class="w-full h-full absolute object-cover inset-0">
 					</a>
-
-					<div th:if="${session.userId != null}" class="heart">
-						<!-- 좋아요 한 커뮤니티는 빨간 하트 -->
-						<th:block th:if="${cmnt.LIKE_NO != 0}">
-							<a href="#" class="fullHeart"> <!--  class="heart-click heart_icon${rec.LIKE_NO }" -->
-								<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-									fill="currentColor" class="bi bi-suit-heart-fill"
-									viewBox="0 0 16 16" style="color: red;">
-                           						<path
-										d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z" />
-                            					</svg>
-							</a>
-						</th:block>
-						<!-- 좋아요 안 한 챌린지는 빨간 하트 -->
-						<th:block th:unless="${cmnt.LIKE_NO != 0}">
-							<a href="#" class="emptyHeart"> <!-- class="heart-click heart_icon${rec.LIKE_NO }" -->
-								<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-									fill="currentColor" class="bi bi-suit-heart"
-									viewBox="0 0 16 16" style="color: white;">
-				                                  <path
-										d="M8 6.236l-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
-				                                </svg>
-							</a>
-						</th:block>
+					<div
+						class="absolut absolute bottom-0 flex items-center justify-between px-4 py-3 space-x-2 text-white w-full">
+						<div class="flex space-x-3">
+							<!-- 좋아요 하트 붙일 곳 -->
+							<!-- 좋아요 처리 -->
+							<!-- 로그인 유무에 따라 하트 표시하기(로그인 한 경우만 하트 표시) -->
+							<div th:if="${session.userId != null}" class="heart"  th:data-likeno="${cmnt.LIKE_NO}">
+								<!-- 좋아요 한 챌린지는 빨간 하트 -->
+								<th:block th:if="${cmnt.LIKE_NO != 0}">
+									
+										<img src="/assets/images/heart.svg" class="fullHeart">
+								
+								</th:block>
+								<!-- 좋아요 안 한 챌린지는 빨간 하트 -->
+								<th:block th:unless="${cmnt.LIKE_NO != 0}">
+								
+										<img src="/assets/images/emptyHeart.svg" class="emptyHeart">
+									
+								</th:block>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -144,7 +135,7 @@
 						<div
 							class="border-b flex items-center justify-between px-5 py-3 dark:border-gray-600">
 							<div class="flex flex-1 items-center space-x-4">
-								<a href="/myFeed">
+								<a href="">
 									<div
 										class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
 										<img id="feedFrofile" src=""
@@ -152,31 +143,34 @@
 									</div>
 								</a> <span id="nickName" class="block text-lg font-semibold"></span>
 							</div>
-							<!-- 							<input type="hidden" th:data> -->
+							<!--                      <input type="hidden" th:data> -->
 							<th:block th:if="${session.userId != null}">
-								<!-- 								<a href="">  -->
+								<!--                         <a href="">  -->
 								<!-- 팔로우  -->
-								<!-- 									<th:block th:if ="" id="followChk"> -->
-								<!-- 									<div id="sessionId"> -->
+								<!--                            <th:block th:if ="" id="followChk"> -->
+								<!--                            <div id="sessionId"> -->
 								<button type="button" class="follow"></button>
-								<!-- 									</div> -->
-								<!-- 									</th:block> -->
-								<!-- 								</a> -->
+								<!--                            </div> -->
+								<!--                            </th:block> -->
+								<!--                         </a> -->
 							</th:block>
 						</div>
-						<div class="story-content p-4" data-simplebar id="scrollDiv">
+						<div class="story-content p-4 oneCmnt" data-simplebar id="scrollDiv">
 
 							<div id="subject"></div>
 
 							<div class="py-4 ">
 								<div class="flex justify-around">
 									<a href="#" class="flex items-center space-x-3">
-										<div class="flex font-bold items-baseline">
-											<i class="uil-heart mr-1"> </i> Like
-										</div>
+									
+										<div class="flex font-bold items-baseline modalHeart heart ">
+										
+										  <!-- 모달안에 좋아요 -->
+									  </div>
+										
 									</a> <a href="#" class="flex items-center space-x-3">
 										<div class="flex font-bold items-baseline">
-											<i class="uil-heart mr-1"> </i> Comment
+											<i class="uil-comment mr-1"> </i> Comment
 										</div>
 									</a>
 								</div>
@@ -209,395 +203,409 @@
 		</div>
 		<!-- 스토리 모달 끝 -->
 		<script>
-		
-		// ▶ 현재 로그인 중인 아이디(세션에 담긴 아이디)
-		let sessionId = $(".oneCmnt").data("sessionid");
-		
-	
-		// ▶ 커뮤니티 게시글 단건 조회
-		$(".oneCmnt").on("click", function() {
-			console.log("왔니...........");
-			console.log($(this));
-			let no = $(this).data("cmntno"); // 대소문자 구분 안됨. cmntno는 변수가 아니니까(?) ""안에 넣어주기
-			console.log(no);
+      
+      // ▶ 현재 로그인 중인 아이디(세션에 담긴 아이디)
+      let sessionId = $(".oneCmnt").data("sessionid");
+      
+   
+      // ▶ 커뮤니티 게시글 단건 조회
+      $(".oneCmnt").on("click", function() {
+    	  if( $(event.target).hasClass("fullHeart") || $(event.target).hasClass("emptyHeart")){
+    		  return
+    	  }
+    	  event.preventDefault() // a, submit (페이지 이동 막음)
+		  event.stopPropagation()
+    	  
+         console.log("왔니...........");
+         console.log($(this));
+         let no = $(this).data("cmntno"); // 대소문자 구분 안됨. cmntno는 변수가 아니니까(?) ""안에 넣어주기
+         console.log(no);
 
-			let sessionId = $(this).data("sessionid");
-			let dataDiv = $(this);
-			
-			// ajax 처리
-			$.ajax({
-				url: "/community/" + no
-			})
-			.then(obj => { // 넘어오는 결과값 자체가 json 타입
-				console.log("팔로우 아이디 챙겨왓나용 ===== " + obj.userId);
-				console.log("세션 아이디 받았나용 ======= " + sessionId);
-				$("#cmntImg").attr("src", obj.fileDir);
-				$("#subject").text(obj.subject);
-				$("#nickName").text(obj.nickName);
-				$("#feedFrofile").attr("src", obj.profileImgPath);
-				$("#postNo").val(obj.no);
-				
-				if(obj.userId == sessionId) {
-// 					$(".follow").attr("id", "myBtn");
-// 					$(".follow").attr("value", obj.userId);
-// 					$(".follow").text("내스토리");	
-					$(".follow").empty();	
-				}else {
-					if(obj.userId == obj.followeeId) {
-						$(".follow").attr("id", "unfollowBtn");
-						$(".follow").attr("value", obj.userId);
-						$(".follow").attr("onclick", "unfollow('" + obj.userId + "')");
-						$(".follow").text("언팔로우");
-					}else{
-						$(".follow").attr("id", "followBtn");
-						$(".follow").attr("value", obj.userId);
-						$(".follow").attr("onclick", "follow('" + obj.userId + "')");
-						$(".follow").text("팔로우");
-					}
-				}
-				
-			commentList(no);
-		});
-	});
-		
+         let sessionId = $(this).data("sessionid");
+         let dataDiv = $(this);
+         
+         $(".modalHeart").empty()
+         
+         // ajax 처리
+         $.ajax({
+            url: "/community/" + no
+         })
+         .then(obj => { // 넘어오는 결과값 자체가 json 타입
+        	console.log("결과 ======" + obj.followeeId)
+            console.log("팔로우 아이디 챙겨왓나용 ===== " + obj.userId);
+            console.log("세션 아이디 받았나용 ======= " + sessionId);
+            $("#cmntImg").attr("src", obj.fileDir);
+            $("#subject").text(obj.subject);
+            $("#nickName").text(obj.nickName);
+            $("#feedFrofile").attr("src", obj.profileImgPath);
+            $("#postNo").val(obj.no);
+            
+            if(obj.userId == sessionId) {
+//                $(".follow").attr("id", "myBtn");
+//                $(".follow").attr("value", obj.userId);
+//                $(".follow").text("내스토리");   
+               $(".follow").empty();   
+            }else {
+               if(obj.userId == obj.followeeId) {
+                  $(".follow").attr("id", "unfollowBtn");
+                  $(".follow").attr("value", obj.userId);
+                  $(".follow").attr("onclick", "unfollow('" + obj.userId + "')");
+                  $(".follow").text("언팔로우");
+               }else{
+                  $(".follow").attr("id", "followBtn");
+                  $(".follow").attr("value", obj.userId);
+                  $(".follow").attr("onclick", "follow('" + obj.userId + "')");
+                  $(".follow").text("팔로우");
+               }
+            }
+            
+            // 모달안에 좋아요
+            if(obj.likeNo != 0) {     
+            	$(".modalHeart").append(	`<img src="/assets/images/heart.svg" class="fullHeart">`          	)
+            	$(".modalHeart").data("likeno", obj.likeNo);
+            } else {
+            	$(".modalHeart").append( 	`<img src="/assets/images/emptyHeart.svg" class="emptyHeart">`        	)
+            	$(".modalHeart").closest(".oneCmnt").data("cmntno", obj.no);
+            }
+            
+         commentList(no);
+      });
+   });
+      
 
-		// ▶ 댓글, 대댓글 리스트 출력 ajax
-		function commentList(postNo) {
-// 			let sessionId = $(".oneCmnt").data("sessionid");
-// 			console.log("로그인 아이디 ===== " + sessionId)
-			
-			console.log("글번호 =========" + postNo)
-			$.ajax({
-				url: "/comment/" + postNo,
-				type: 'post',
-				dataType: 'json',   // 데이터 타입을 Json으로 변경
-				contentType: 'application/json'   // Content-Type을 Json으로 변경
-			})
-			.then(data => {
-				console.log("댓글 ======== " + data);
-				
-				// 댓글창 비우기
-				$("#reply").empty()
-				
-				// 댓글창 채우기
-				$(data).each(function(index, item) {
-					console.log(item.profileImgPath);
-					// 댓글일때
-					// 댓글 쓴 아이디가 세션의 아이디와 같다면 수정, 삭제 기능 / 다르다면 답글 기능
-					if(item.cmmtClass == 0) {
-						$("#reply").append(
-							`<div class="flex flex-1 space-x-2" id="comment${item.no}">
-								<img src="${item.profileImgPath}"
-									class="rounded-full w-8 h-8">
-								<div class="flex-1" id="one${item.no}"><p id="p${item.no}"><b>${item.nickName}</b>
-								${item.userId == sessionId ? 
-									`<button type="button" style="float: right; font-size:12px;" onclick="cmmtDelete(${item.no})">삭제</button>&nbsp;
-									 <button type="button" style="float: right; font-size:12px;" onclick="updateBox('${item.subject}', ${item.cmmtGroup}, ${item.no})">수정</button>
-									 <button type="button" style="float: right; font-size:12px;" id="cmmtReply${item.no}" onclick="reply(${item.cmmtGroup}, ${item.no})">답글</button>`
-									: `<button type="button" style="float: right; font-size:12px;" id="cmmtReply${item.no}" onclick="reply(${item.cmmtGroup}, ${item.no})">답글</button>`}</p>
-								<div id="subject${item.no}"><p>${item.subject}</p></div></div>
-								<input type="hidden" id="cmmtClass${item.no}" value="0">
-								<input type="hidden" id="cmmtOrder${item.no}" value="${item.cmmtOrder}">
-							</div>`
-						)
-					}
-					// 대댓글일때
-					// 대댓글 쓴 아이디가 세션의 아이디와 같다면 수정, 삭제 기능
-					if(item.cmmtClass != 0) {
-						$("#reply").append(
-							`<div class="flex flex-1 space-x-2" style="padding-left:25px;">
-								<img src="${item.profileImgPath}"
-									class="rounded-full w-8 h-8">
-								<div class="flex-1" id="replyOne${item.no}"><p id="p${item.no}"><b>${item.nickName}</b>
-								${item.userId == sessionId ? 
-									`<button type="button" style="float: right; font-size:12px;" onclick="cmmtDelete(${item.no})">삭제</button>&nbsp;
-									<button type="button" style="float: right; font-size:12px;" onclick="updateBox('${item.subject}', ${item.cmmtGroup}, ${item.no})">수정</button>` : ``}</p>
-									<div id="subject${item.no}"><p>${item.subject}</p></div></div>
-									<input type="hidden" id="cmmtClass${item.no}" value="1">
-									<input type="hidden" id="cmmtOrder${item.no}" value="${item.cmmtOrder}">
-							</div> `
-						)
-					}
-				});
-				
-			})
-		};
-		
-		
-		// ▶ 댓글 등록
-		function cmmtInsert() {
-			
-			event.preventDefault()
-			
-			let cmmtSubject = $('#cmmtSubject').val();
-			let postNo = $('#postNo').val();
-			let scrollDiv = $('#scrollDiv');
-			
-			// 내용이 없을 경우 ajax 이동 차단
-			if(cmmtSubject == '') {
-				alert("내용을 입력해주세요.")
-				return false;
-			}
-			
-			// ajax 처리
-			$.ajax ({
-				type: 'post',
-				url: '/insertComment/' + postNo,
-// 				dataType: 'json',
-				data: {"subject":cmmtSubject}
-// 				contentType: 'application/json'
-			})
-			.then(result => {
-				console.log(result)
-				$('#cmmtSubject').val("");
-				commentList(postNo);
-				// 스크롤 안 됨..... 현재 높이 구하는게 따로 있음
-				$("#scrollDiv .simplebar-content").scrollTop($("#scrollDiv .simplebar-content")[0].scrollHeight);
-			})
-			
-		}
+      // ▶ 댓글, 대댓글 리스트 출력 ajax
+      function commentList(postNo) {
+//          let sessionId = $(".oneCmnt").data("sessionid");
+//          console.log("로그인 아이디 ===== " + sessionId)
+         
+         console.log("글번호 =========" + postNo)
+         $.ajax({
+            url: "/comment/" + postNo,
+            type: 'post',
+            dataType: 'json',   // 데이터 타입을 Json으로 변경
+            contentType: 'application/json'   // Content-Type을 Json으로 변경
+         })
+         .then(data => {
+            console.log("댓글 ======== " + data);
+            
+            // 댓글창 비우기
+            $("#reply").empty()
+            
+            // 댓글창 채우기
+            $(data).each(function(index, item) {
+               console.log(item.profileImgPath);
+               // 댓글일때
+               // 댓글 쓴 아이디가 세션의 아이디와 같다면 수정, 삭제 기능 / 다르다면 답글 기능
+               if(item.cmmtClass == 0) {
+                  $("#reply").append(
+                     `<div class="flex flex-1 space-x-2" id="comment${item.no}">
+                        <img src="${item.profileImgPath}"
+                           class="rounded-full w-8 h-8">
+                        <div class="flex-1" id="one${item.no}"><p id="p${item.no}"><b>${item.nickName}</b>
+                        ${item.userId == sessionId ? 
+                           `<button type="button" style="float: right; font-size:12px;" onclick="cmmtDelete(${item.no})">삭제</button>&nbsp;
+                            <button type="button" style="float: right; font-size:12px;" onclick="updateBox('${item.subject}', ${item.cmmtGroup}, ${item.no})">수정</button>
+                            <button type="button" style="float: right; font-size:12px;" id="cmmtReply${item.no}" onclick="reply(${item.cmmtGroup}, ${item.no})">답글</button>`
+                           : `<button type="button" style="float: right; font-size:12px;" id="cmmtReply${item.no}" onclick="reply(${item.cmmtGroup}, ${item.no})">답글</button>`}</p>
+                        <div id="subject${item.no}"><p>${item.subject}</p></div></div>
+                        <input type="hidden" id="cmmtClass${item.no}" value="0">
+                        <input type="hidden" id="cmmtOrder${item.no}" value="${item.cmmtOrder}">
+                     </div>`
+                  )
+               }
+               // 대댓글일때
+               // 대댓글 쓴 아이디가 세션의 아이디와 같다면 수정, 삭제 기능
+               if(item.cmmtClass != 0) {
+                  $("#reply").append(
+                     `<div class="flex flex-1 space-x-2" style="padding-left:25px;">
+                        <img src="${item.profileImgPath}"
+                           class="rounded-full w-8 h-8">
+                        <div class="flex-1" id="replyOne${item.no}"><p id="p${item.no}"><b>${item.nickName}</b>
+                        ${item.userId == sessionId ? 
+                           `<button type="button" style="float: right; font-size:12px;" onclick="cmmtDelete(${item.no})">삭제</button>&nbsp;
+                           <button type="button" style="float: right; font-size:12px;" onclick="updateBox('${item.subject}', ${item.cmmtGroup}, ${item.no})">수정</button>` : ``}</p>
+                           <div id="subject${item.no}"><p>${item.subject}</p></div></div>
+                           <input type="hidden" id="cmmtClass${item.no}" value="1">
+                           <input type="hidden" id="cmmtOrder${item.no}" value="${item.cmmtOrder}">
+                     </div> `
+                  )
+               }
+            });
+            
+         })
+      };
+      
+      
+      // ▶ 댓글 등록
+      function cmmtInsert() {
+         
+         event.preventDefault()
+         
+         let cmmtSubject = $('#cmmtSubject').val();
+         let postNo = $('#postNo').val();
+         let scrollDiv = $('#scrollDiv');
+         
+         // 내용이 없을 경우 ajax 이동 차단
+         if(cmmtSubject == '') {
+            alert("내용을 입력해주세요.")
+            return false;
+         }
+         
+         // ajax 처리
+         $.ajax ({
+            type: 'post',
+            url: '/insertComment/' + postNo,
+//             dataType: 'json',
+            data: {"subject":cmmtSubject}
+//             contentType: 'application/json'
+         })
+         .then(result => {
+            console.log(result)
+            $('#cmmtSubject').val("");
+            commentList(postNo);
+            // 스크롤 안 됨..... 현재 높이 구하는게 따로 있음
+            $("#scrollDiv .simplebar-content").scrollTop($("#scrollDiv .simplebar-content")[0].scrollHeight);
+         })
+         
+      }
 
-		// 답글 등록
-		function replyInsert(cmmtGroup, no) {
-			
-			event.preventDefault()
-			
-			let replySubject = $('#replySubject').val();
-			let postNo = $('#postNo').val();
-			let scrollDiv = $('#scrollDiv');
-			
-			// 내용이 없을 경우 ajax 이동 차단
-			if(replySubject == '') {
-				alert("내용을 입력해주세요.")
-				return false;
-			}
+      // 답글 등록
+      function replyInsert(cmmtGroup, no) {
+         
+         event.preventDefault()
+         
+         let replySubject = $('#replySubject').val();
+         let postNo = $('#postNo').val();
+         let scrollDiv = $('#scrollDiv');
+         
+         // 내용이 없을 경우 ajax 이동 차단
+         if(replySubject == '') {
+            alert("내용을 입력해주세요.")
+            return false;
+         }
 
-			// ajax 처리
-			$.ajax ({
-				type: 'post',
-				url: '/insertReply/' + postNo,
-				data: {"subject":replySubject, "cmmtGroup":cmmtGroup}
-			})
-			.then(result => {
-				console.log(result)
-				$('#replyBox' + no).remove();
-				commentList(postNo);
-				// 답글은 제일 밑으로 내려가면 안되는데..ㅠ
-// 				$("#scrollDiv .simplebar-content").scrollTop($("#scrollDiv .simplebar-content")[0].scrollHeight);
-			})
-		}
-		
-		
-		// ▶ 답글창 생성
-		function reply(cmmtGroup, no) {
-			let postNo = $('#postNo').val();
-			let comment = $('#one' + no);
-			let reply = $('#cmmtReply' + no);
-			
-			// 답글창 붙이기
-			comment.append(
-			`<div class="p-3 border-t dark:border-gray-600" id="replyBox${no}">
-				<div
-					class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
-					<input type="text" placeholder="댓글을 입력하세요."
-						class="bg-transparent max-h-8 shadow-none" id="replySubject">
-					<div
-						class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
-						<a href=""><button type="button" style="font-size:10px;" onclick="replyInsert(${cmmtGroup}, ${no})">등록</button></a>
-					</div>
-				</div>
-			</div>`		
-			)
-			
-			reply.attr("onclick", "unreply(" + cmmtGroup + "," + no + ")")
-			
-		}
+         // ajax 처리
+         $.ajax ({
+            type: 'post',
+            url: '/insertReply/' + postNo,
+            data: {"subject":replySubject, "cmmtGroup":cmmtGroup}
+         })
+         .then(result => {
+            console.log(result)
+            $('#replyBox' + no).remove();
+            commentList(postNo);
+            // 답글은 제일 밑으로 내려가면 안되는데..ㅠ
+//             $("#scrollDiv .simplebar-content").scrollTop($("#scrollDiv .simplebar-content")[0].scrollHeight);
+         })
+      }
+      
+      
+      // ▶ 답글창 생성
+      function reply(cmmtGroup, no) {
+         let postNo = $('#postNo').val();
+         let comment = $('#one' + no);
+         let reply = $('#cmmtReply' + no);
+         
+         // 답글창 붙이기
+         comment.append(
+         `<div class="p-3 border-t dark:border-gray-600" id="replyBox${no}">
+            <div
+               class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
+               <input type="text" placeholder="댓글을 입력하세요."
+                  class="bg-transparent max-h-8 shadow-none" id="replySubject">
+               <div
+                  class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
+                  <a href=""><button type="button" style="font-size:10px;" onclick="replyInsert(${cmmtGroup}, ${no})">등록</button></a>
+               </div>
+            </div>
+         </div>`      
+         )
+         
+         reply.attr("onclick", "unreply(" + cmmtGroup + "," + no + ")")
+         
+      }
 
-		
-		// ▶ 답글창 닫기
-		function unreply(cmmtGroup, no) {
-			let comment = $('#one' + no);
-			let reply = $('#cmmtReply' + no);
-			let replyBox = $('#replyBox' + no);
+      
+      // ▶ 답글창 닫기
+      function unreply(cmmtGroup, no) {
+         let comment = $('#one' + no);
+         let reply = $('#cmmtReply' + no);
+         let replyBox = $('#replyBox' + no);
 
-			replyBox.remove()
-			reply.attr("onclick", "reply(" + cmmtGroup + "," + no + ")")
-		}
-		
+         replyBox.remove()
+         reply.attr("onclick", "reply(" + cmmtGroup + "," + no + ")")
+      }
+      
 
-		// ▶ 댓글 수정창 열기
-		function updateBox(subject, cmmtGroup, no) {
+      // ▶ 댓글 수정창 열기
+      function updateBox(subject, cmmtGroup, no) {
 
-			let commentBox = $('#subject' + no);
-			let comment = commentBox.text();
-			commentBox.empty()
-			
-			let cmmtClass = $('#cmmtClass' + no).val();
-			console.log("댓글 클래스 =====" + cmmtClass);
+         let commentBox = $('#subject' + no);
+         let comment = commentBox.text();
+         commentBox.empty()
+         
+         let cmmtClass = $('#cmmtClass' + no).val();
+         console.log("댓글 클래스 =====" + cmmtClass);
 
-			// 버튼 지우기
-			if($('#cmmtClass' + no).val() == 0) {				
-				$('#one' + no).find('button').remove();
-			}else {
-				$('#replyOne' + no).find('button').remove();
-			}
+         // 버튼 지우기
+         if($('#cmmtClass' + no).val() == 0) {            
+            $('#one' + no).find('button').remove();
+         }else {
+            $('#replyOne' + no).find('button').remove();
+         }
 
-			// 취소 버튼 추가
-			$('#p' + no).append(
-				`<button type="button" style="float: right; font-size:12px;" onclick="noUpdate('${subject}', ${no})">취소</button>`
-			)
+         // 취소 버튼 추가
+         $('#p' + no).append(
+            `<button type="button" style="float: right; font-size:12px;" onclick="noUpdate('${subject}', ${no})">취소</button>`
+         )
 
-			// 댓글 수정창 생성
-			commentBox.append(
-				`<div id="updateBox${no}">
-					<div
-						class="bg-gray-200 rounded-full rounded-md relative">
-						<input type="text" placeholder="댓글을 입력하세요."
-							class="bg-transparent max-h-8 shadow-none" id="updateSubject" value="${comment}">
-						<div
-							class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
-							<a href=""><button type="button" style="font-size:10px;" onclick="commentUpdate(${no})">수정</button></a>
-						</div>
-					</div>
-				</div>`	
-			)
-		}
-		
-		
-		// ▶ 댓글 수정 기능 (수정)
-		function commentUpdate(no) {
-// 			debugger
-			event.preventDefault()
-			
-			let updateSubject = $('#updateSubject').val();
-			let postNo = $('#postNo').val();
-			
-			// 내용이 없을 경우 ajax 이동 차단
-			if(updateSubject == '') {
-				alert("내용을 입력해주세요.")
-				return false;
-			}
+         // 댓글 수정창 생성
+         commentBox.append(
+            `<div id="updateBox${no}">
+               <div
+                  class="bg-gray-200 rounded-full rounded-md relative">
+                  <input type="text" placeholder="댓글을 입력하세요."
+                     class="bg-transparent max-h-8 shadow-none" id="updateSubject" value="${comment}">
+                  <div
+                     class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
+                     <a href=""><button type="button" style="font-size:10px;" onclick="commentUpdate(${no})">수정</button></a>
+                  </div>
+               </div>
+            </div>`   
+         )
+      }
+      
+      
+      // ▶ 댓글 수정 기능 (수정)
+      function commentUpdate(no) {
+//          debugger
+         event.preventDefault()
+         
+         let updateSubject = $('#updateSubject').val();
+         let postNo = $('#postNo').val();
+         
+         // 내용이 없을 경우 ajax 이동 차단
+         if(updateSubject == '') {
+            alert("내용을 입력해주세요.")
+            return false;
+         }
 
-			// ajax 처리
-			$.ajax ({
-				type: 'post',
-				url: '/updateComment/' + no,
-				data: {"subject":updateSubject, "no":no}
-			})
-			.then(result => {
-				console.log(result)
-				
-				commentList(postNo);
-			})
-		}
-		
-		
-		// ▶ 댓글 수정 취소
-		function noUpdate(subject, no) {
-			
-			event.preventDefault()
-			
-			let postNo = $('#postNo').val();
-			
-			// ajax 처리 (기존의 댓글 내용으로 그냥 수정 처리함)
-			$.ajax ({
-				type: 'post',
-				url: '/updateComment/' + no,
-				data: {"subject":subject, "no":no}
-			})
-			.then(result => {
-				console.log(result)
-				
-				commentList(postNo);
-			})
-		}
+         // ajax 처리
+         $.ajax ({
+            type: 'post',
+            url: '/updateComment/' + no,
+            data: {"subject":updateSubject, "no":no}
+         })
+         .then(result => {
+            console.log(result)
+            
+            commentList(postNo);
+         })
+      }
+      
+      
+      // ▶ 댓글 수정 취소
+      function noUpdate(subject, no) {
+         
+         event.preventDefault()
+         
+         let postNo = $('#postNo').val();
+         
+         // ajax 처리 (기존의 댓글 내용으로 그냥 수정 처리함)
+         $.ajax ({
+            type: 'post',
+            url: '/updateComment/' + no,
+            data: {"subject":subject, "no":no}
+         })
+         .then(result => {
+            console.log(result)
+            
+            commentList(postNo);
+         })
+      }
 
-		
-		// ▶ 댓글 삭제
-		function cmmtDelete(no) {
-			let postNo = $('#postNo').val();
-			
-			// ajax 처리
-			$.ajax ({
-				type: 'post',
-				url: '/deleteComment/' + no
-			})
-			.then(result => {
-				console.log(result)
-				commentList(postNo);
-			})
-		}
-		
+      
+      // ▶ 댓글 삭제
+      function cmmtDelete(no) {
+         let postNo = $('#postNo').val();
+         
+         // ajax 처리
+         $.ajax ({
+            type: 'post',
+            url: '/deleteComment/' + no
+         })
+         .then(result => {
+            console.log(result)
+            commentList(postNo);
+         })
+      }
+      
 
-		// ▶ 팔로우 처리
-		function follow(userId) {
-// 			debugger
-			event.preventDefault()
-			
-			console.log("아작스에도 왔남요 ===== " + userId);
-			
-			// ajax 처리
-			$.ajax ({
-				type: 'post',
-				url: '/follow/' + userId, // 피드 유저의 id를 넘겨줘야함
-				//dataType: 'json',   // 데이터 타입을 Json으로 변경 // 넘겨주는 값이 JSON타입이 아니라 plain 텍스트인데, JSON으로 넘겨서 애가 인식을 못 한 거임!!!
-				contentType: 'application/json'   // Content-Type을 Json으로 변경
-			})
-			.then(result => {
-				console.log("팔로우 신청 결과 ===== " + result.followeeId)
-				$(".follow").attr("id", "unfollowBtn");
-				$(".follow").attr("value", result.followeeId);
-				$(".follow").attr("onclick", "unfollow('" + result.followeeId + "')");
-				$(".follow").text("언팔로우");
-			})
-		}
-		
-		
-		// ▶ 언팔로우 처리
-		function unfollow(userId) {
-			console.log("언팔할 아이디 가져왔어? ===== " + userId);
-			
-			// ajax 처리
-			$.ajax ({
-				type: 'post',
-				url: '/unfollow/' + userId, // 피드 유저의 id를 넘겨줘야함
-				contentType: 'application/json'   // Content-Type을 Json으로 변경
-			})
-			.then(result => {
-				console.log("언팔로우 결과 ===== " + result.followeeId)
-					$(".follow").attr("id", "followBtn");
-					$(".follow").attr("value", result.followeeId);
-					$(".follow").attr("onclick", "follow('" + result.followeeId + "')");
-					$(".follow").text("팔로우");
-			})
-		};
-		
-		
-$(function(){
+      // ▶ 팔로우 처리
+      function follow(userId) {
+//          debugger
+         event.preventDefault()
+         
+         console.log("아작스에도 왔남요 ===== " + userId);
+         
+         // ajax 처리
+         $.ajax ({
+            type: 'post',
+            url: '/follow/' + userId, // 피드 유저의 id를 넘겨줘야함
+            //dataType: 'json',   // 데이터 타입을 Json으로 변경 // 넘겨주는 값이 JSON타입이 아니라 plain 텍스트인데, JSON으로 넘겨서 애가 인식을 못 한 거임!!!
+            contentType: 'application/json'   // Content-Type을 Json으로 변경
+         })
+         .then(result => {
+            console.log("팔로우 신청 결과 ===== " + result.followeeId)
+            $(".follow").attr("id", "unfollowBtn");
+            $(".follow").attr("value", result.followeeId);
+            $(".follow").attr("onclick", "unfollow('" + result.followeeId + "')");
+            $(".follow").text("언팔로우");
+         })
+      }
+      
+      
+      // ▶ 언팔로우 처리
+      function unfollow(userId) {
+         console.log("언팔할 아이디 가져왔어? ===== " + userId);
+         
+         // ajax 처리
+         $.ajax ({
+            type: 'post',
+            url: '/unfollow/' + userId, // 피드 유저의 id를 넘겨줘야함
+            contentType: 'application/json'   // Content-Type을 Json으로 변경
+         })
+         .then(result => {
+            console.log("언팔로우 결과 ===== " + result.followeeId)
+               $(".follow").attr("id", "followBtn");
+               $(".follow").attr("value", result.followeeId);
+               $(".follow").attr("onclick", "follow('" + result.followeeId + "')");
+               $(".follow").text("팔로우");
+         })
+      };
+      
+      
+      $(function(){
 			
 			// 좋아요 인서트
-			$(".heart").on("click", ".emptyHeart", function(){
-				let oneChall = $(this).closest(".oneChall")
-				let no = $(this).closest(".oneChall").data("challno");
-				let heart = $(this).parent(".heart")
-				
+			$(document).on("click", ".emptyHeart", function(){
 				event.preventDefault() // a, submit (페이지 이동 막음)
 				event.stopPropagation()
+				
+				let oneCmnt = $(this).closest(".oneCmnt")
+				let no = $(this).closest(".oneCmnt").data("cmntno");
+				let heart = $(this).parent(".heart")
+
 				console.log(no);
 				
 				$.ajax({
 					type: 'POST',
-					url: "/insertLikeChall/" + no,
+					url: "/insertLikeMeal/" + no,
 				})
 					.then(result => {
-					oneChall.data("likeno", result.no);
-						
-							heart.html(`<a href="#" class="fullHeart">
-									<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16" style="color: red;">
-               						<path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z" />
-                					</svg>
-									</a>`) // 빨간하트
-				    location.reload();
+						oneCmnt.data("likeno", result.no);
+							heart.html(`<img src="/assets/images/heart.svg" class="fullHeart">`) // 빨간하트
+				//    location.reload();
 					
 					});
 				});
@@ -605,8 +613,8 @@ $(function(){
 			
 			
 			// 좋아요 삭제
-			$(".heart").on("click", ".fullHeart", function(){
-				let no = $(this).closest(".oneChall").data("likeno");
+			$(document).on("click", ".fullHeart", function(){
+				let no = $(this).parent(".heart").data("likeno");
 				let heart = $(this).parent(".heart")
 				
 				event.preventDefault()
@@ -618,22 +626,16 @@ $(function(){
 				})
 					.then(result => {
 						console.log(result)
-						heart.html(`<a href="#" class="emptyHeart">
-								<svg xmlns="http://www.w3.org/2000/svg" width="30"
-								height="30" fill="currentColor" class="bi bi-suit-heart"
-								viewBox="0 0 16 16" style="color: white;">
-                          <path
-									d="M8 6.236l-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
-                        </svg>
-						</a>`)// 빈 하트
-                   location.reload();
+						heart.html(`<img src="/assets/images/emptyHeart.svg" class="emptyHeart">`)// 빈 하트
+           //      location.reload();
 					});
 				});
 			});
-		
-		
+      
+      
+				
 
-	</script>
+   </script>
 	</div>
 </body>
 </html>

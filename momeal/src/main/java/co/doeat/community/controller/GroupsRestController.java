@@ -57,4 +57,14 @@ public class GroupsRestController {
 		groupsService.grpInsert(vo);
 		return vo;
 	}
+	
+	// 그룹 참여하기
+		@PostMapping("/membInsert")
+		public GroupsVO membInsert(GroupsVO vo, HttpSession session) {
+			String userId = (String) session.getAttribute("userId");
+			vo.setUserId(userId);
+
+			groupsService.membInsert(vo);
+			return vo;
+		}
 }

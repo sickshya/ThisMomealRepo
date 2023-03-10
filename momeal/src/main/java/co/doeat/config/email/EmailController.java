@@ -1,4 +1,4 @@
-/*package co.doeat.config.email;
+package co.doeat.config.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,5 +19,12 @@ public class EmailController {
 		log.info("인증하기위한 code : " + code);
 		return code;
 	}
+	
+//	@PostMapping("login/mailConfirm")
+//	String invitemailConfirm(@RequestParam("email") String email) throws Exception {
+//		String code = registerMail.sendSimpleMessage(email);
+//		log.info("인증하기위한 code : " + code);
+//		return code;
+//	}
+	
 }
-*/

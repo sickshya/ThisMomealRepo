@@ -91,12 +91,40 @@
 					<div class="modal-body" id="memList" style="padding: 20px;">
 					</div>
 					<div class="modal-footer">
-						<button type="button" onclick="inviteMem()" class="btn btn-default">초대하기</button>
+						<button type="button" onclick="inviteMem()" class="btn btn-default primary-btn" data-toggle="modal" data-target="#inviteModal">초대하기</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- 멤버리스트 모달 끝 -->
+		
+		
+		<!-- 멤버 초대 모달 -->
+		<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog"
+			aria-labelledby="Modal-label-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="Modal-label-1">초대하기</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" id="memList" style="padding: 20px;">
+					
+						<label>이메일을 입력하세요</label> 
+							<input type="text" id="grpName" name="grpName">
+					
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default primary-btn" >확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 멤버 초대 모달 끝 -->
+		
 
 
 		<!-- 그룹 만들기 모달 -->
@@ -113,9 +141,9 @@
 							</button>
 						</div>
 						<div class="modal-body" id="" style="padding: 20px;">
-							<input type="hidden" id="grpLeader" name="grpLeader"
-								th:value="${session.userId}"> <label>이름을 입력하세요</label> <input
-								type="text" id="grpName" name="grpName">
+							<input type="hidden" id="grpLeader" name="grpLeader" th:value="${session.userId}"> 
+							<label>이름을 입력하세요</label> 
+							<input type="text" id="grpName" name="grpName">
 
 						</div>
 						<div class="modal-footer">
@@ -203,12 +231,18 @@
 							               </a>
 	             						<span class="block text-lg font-semibold" id="nickName">${memb.NICK_NAME}</span>
 						            </div>
-						         </div>`
+						         </div>
+						         `
 							)
 						}
 						
 					})
 				});
+			}
+			
+			// 멤버 초대하기
+			function inviteMem() {
+				$('#listModal').modal('hide');
 			}
 			
 			
@@ -263,9 +297,9 @@
 			}
 			
 			// 초대코드로 그룹 참여
-		//	function joinGrp() {
+			function joinGrp() {
 				
-		//	}
+		s	}
 			
 		</script>
 	</div>

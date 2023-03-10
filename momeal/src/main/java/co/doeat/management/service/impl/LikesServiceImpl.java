@@ -35,11 +35,11 @@ public class LikesServiceImpl implements LikesService {
 	public List<Map<String, Object>> myChallList(String userId) {
 		return likesMapper.myChallList(userId);
 	}
-//
-//	@Override
-//	public int insertLikeMeal(LikesVO vo) {
-//		return likesMapper.insertLikeMeal(vo);
-//	}
+
+	@Override
+	public int insertLikeMeal(LikesVO vo) {
+		return likesMapper.insertLikeMeal(vo);
+	}
 
 	@Override
 	public int insertLikeChall(LikesVO vo) {
