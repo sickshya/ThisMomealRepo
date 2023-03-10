@@ -36,7 +36,7 @@ public class ExperienceServiceImpl implements ExperienceService {
 	
 	// 체험단-신청
 	@Override
-	public int ExpInsert(ExprParticipantsVO vo) {
+	public int ExpInsert(ExperienceVO vo) {
 		return experienceMapper.ExpInsert(vo);
 	}
 	
@@ -45,6 +45,8 @@ public class ExperienceServiceImpl implements ExperienceService {
 	public List<ExperienceVO> adminExperienceGroup() {
 		return experienceMapper.adminExperienceGroup();
 	}
+
+
 
 
 

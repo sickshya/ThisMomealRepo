@@ -1,5 +1,6 @@
 package co.doeat.management.controller;
 
+import java.awt.Image;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,7 @@ public class ChallengeController {
 	private ImageService imageService;
 	@Value("${momeal.saveImg}")
 	private String saveImg;
+
 
 	// ▶ 챌린지 ◀
 	// 전체조회
@@ -143,7 +145,7 @@ public class ChallengeController {
 	}
 
 	// 관리자 챌린지 등록 폼
-	@RequestMapping("/adminCHInsertForm")
+	@RequestMapping("/admin/adminCHInsertForm")
 	public String adminCHInsertForm() {
 		return "admin/adminCHInsertForm";
 	}
@@ -151,7 +153,7 @@ public class ChallengeController {
 	// 관리자 챌린지등록
 	@RequestMapping("/adminCHInsert")
 	@ResponseBody
-	public String adminCHInsert(ChallengeVO vo, ImageVO evo, List<MultipartFile> files, MultipartFile tfile) {
+	public String adminCHInsert(ChallengeVO vo, ImageVO ivo, List<MultipartFile> files, MultipartFile tfile) {
 		if (!tfile.isEmpty()) {// 첨부파일이 존재하면
 			String fileName = UUID.randomUUID().toString();
 			fileName = fileName + tfile.getOriginalFilename();
@@ -169,26 +171,68 @@ public class ChallengeController {
 		int atchNo = imageService.fileUpload(files, no, boardCode);
 
 		if (atchNo > 0) {
-			evo.setAtchNo(atchNo);
+			ivo.setAtchNo(atchNo);
 		}
 		return "true";
 
 	}
 
 	// 관리자 챌린지 단건조회
-	@RequestMapping("/adminCHSelect/{no}")
-	public String adminCHInsert(@PathVariable int no, Model model) {
+	@RequestMapping("/admin/adminCHSelect/{no}")
+	public String adminCHInsert(@PathVariable int no, Model model, ChallengeVO vo) {
 		model.addAttribute("selects", challengeService.adminCHSelect(no));
+		String boardCode = "CT01";
+		int postNo = vo.getNo();
+		model.addAttribute("imgselect", imageService.imageList(boardCode, postNo));
 		return "admin/adminCHSelect";
 	}
 
 	// 관리자 챌린지 삭제
-	@RequestMapping("/adminCHDelete/{no}")
+	@RequestMapping("/admin/adminCHDelete/{no}")
 	public String adminCHDelete(@PathVariable int no, Model model, ChallengeVO vo, ImageVO evo) {
 		String boardCode = "CT01";
 		int postNo = vo.getNo();
 		imageService.adminGPIDelete(postNo, boardCode);
 		challengeService.adminCHDelete(no);
-		return "redirect:/adminCHDelete";
+		return "redirect:/admin/adminCHDelete";
 	}
+	
+	//관리자 챌린지 update폼
+	@RequestMapping("/admin/adminCHUpdateForm/{no")
+	public String adminCHUpdateForm(ChallengeVO vo, Model model, @PathVariable int no) {
+		model.addAttribute("updates", challengeService.adminCHSelect(no));
+		String boardCode="CT01";
+		int postNo = vo.getNo();
+		model.addAttribute("iupdates", imageService.imageList(boardCode, postNo));
+		
+		return "admin/adminCHUpdateForm";
+	}
+	
+	//관리자 챌린지 update
+	@RequestMapping("/adminCHUpdate")
+	@ResponseBody
+	public String adminCHUpdate(ChallengeVO vo, ImageVO ivo, Model model, List<MultipartFile> files, MultipartFile tfile) {
+		if (!tfile.isEmpty()) {// 첨부파일이 존재하면
+			String fileName = UUID.randomUUID().toString();
+			fileName = fileName + tfile.getOriginalFilename();
+			File uploadFile = new File(saveImg, fileName);
+			try {
+				tfile.transferTo(uploadFile); // 파일저장하긴
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			vo.setThumbnailImg(tfile.getOriginalFilename());// 원본파일명
+			vo.setThumbnailImgPath("/mm_images/" + fileName);// 디렉토리 포함 원본파일
+	}
+	challengeService.adminCHUpdate(vo);
+	String boardCode = "CT01";
+	int postNo = vo.getNo();
+	imageService.adminCHIDelete(postNo, boardCode);
+	int atchNo = imageService.fileUpload(files, vo.getNo(), boardCode);
+	if (atchNo > 0) {
+		ivo.setAtchNo(atchNo);
+	}
+	return "true";
+	}	
+
 }

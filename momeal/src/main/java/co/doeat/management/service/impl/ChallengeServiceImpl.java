@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.doeat.management.mapper.ChallengeMapper;
+import co.doeat.management.mapper.GroupPurchaseMapper;
 import co.doeat.management.service.ChallengeParticipationVO;
 import co.doeat.management.service.ChallengeSearchVO;
 import co.doeat.management.service.ChallengeService;
@@ -117,6 +118,16 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Override
 	public int adminCHDelete(int no) {
 		return challengeMapper.adminCHDelete(no);
+	}
+
+	@Override
+	public int adminCHReInsert(ChallengeVO vo) {
+		return challengeMapper.adminCHReInsert(vo);
+	}
+
+	@Override
+	public int adminCHUpdate(ChallengeVO vo) {
+		return challengeMapper.adminCHUpdate(vo);
 	}
 
 }

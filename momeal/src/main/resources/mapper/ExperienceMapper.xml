@@ -11,7 +11,7 @@
 		        ,EG.LMT_APLYT
 		        ,EG.NESS_GRD
 		        ,EG.SAVE_POINT
-		        ,(EG.EXPE_START_DATE- TRUNC(SYSDATE)) as START_DATE 
+		        ,(EG.EXPE_START_DATE - TRUNC(SYSDATE)) as START_DATE 
 		        ,EG.EXPE_END_DATE
 		        ,EG.REVIEW_START_DATE
 		        ,EG.REVIEW_END_DATE
@@ -45,7 +45,7 @@
 		        ,EG.LMT_APLYT
 		        ,EG.NESS_GRD
 		        ,EG.SAVE_POINT
-		        ,(EG.EXPE_START_DATE- TRUNC(SYSDATE)) as START_DATE 
+		        ,(EG.EXPE_START_DATE - TRUNC(SYSDATE)) as START_DATE 
 		        ,EG.EXPE_END_DATE
 		        ,EG.REVIEW_START_DATE
 		        ,EG.REVIEW_END_DATE
@@ -78,7 +78,7 @@
 		SELECT  g.NO,
 		        g.TITLE,
 		        g.SUBJECT,
-		        (g.NOW_APLYT - g.LMT_APLYT) AS APLYT,
+		        g.NOW_APLYT - g.LMT_APLYT AS APLYT,
 		        g.LMT_APLYT,
 		        g.NESS_GRD,
 		        g.SAVE_POINT,
@@ -101,7 +101,7 @@
 	</select>
 	
 	<!-- 배송정보 입력 -->
-	<insert id="selectExpUser" parameterType="ExprParticipantsVO">
+	<insert id="ExpInsert" parameterType="ExperienceVO">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			SELECT	MAX(NO)+1
 			FROM EXPERIENCE_PARTICIPANTS

@@ -6,7 +6,7 @@ import co.doeat.community.service.UserSearchVO;
 import co.doeat.community.service.UsersVO;
 import co.doeat.management.service.GroupPurchaseListVO;
 
-public interface UserMapper {
+public interfssssssssss
 	boolean isIdCheck(String id); // 아이디 중복 체크
 
 	// 유저

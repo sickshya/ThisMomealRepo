@@ -46,11 +46,14 @@ public interface ChallengeMapper {
 	// 챌린지 등록하기
 	int adminCHInsert(ChallengeVO vo);
 	// 챌린지 재등록하기
-
+	int adminCHReInsert(ChallengeVO vo);
 	// 챌린지 단건조회 select
 	ChallengeVO adminCHSelect(int no);
 
 	// 챌린지 삭제
 	int adminCHDelete(int no);
+	
+	//챌린지 수정
+	int adminCHUpdate(ChallengeVO vo);
 
 }
