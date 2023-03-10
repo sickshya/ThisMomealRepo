@@ -13,7 +13,7 @@ public class EmailController {
 
 	@Autowired RegisterMail registerMail;
 	
-	@PostMapping("login/mailConfirm")
+	@PostMapping("/signup/mailConfirm.do")
 	String mailConfirm(@RequestParam("email") String email) throws Exception {
 		String code = registerMail.sendSimpleMessage(email);
 		log.info("인증하기위한 code : " + code);

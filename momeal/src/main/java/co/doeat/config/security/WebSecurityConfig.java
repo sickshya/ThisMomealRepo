@@ -34,11 +34,8 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((requests) -> requests.antMatchers("/", "home", "/pch/**", "/userJoinForm").permitAll() // 설정된
-				// url은
-				// 인증되지
-				// 않더라도 누구나 접근
-				// 가능
+		http.authorizeHttpRequests((requests) -> requests.antMatchers("/", "home", "/pch/**", "/signup/**").permitAll()
+				// ▲ 설정된 url은 인증되지 않더라도 누구나 접근 가능
 				.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // /admin 이하의 접근은 인증되어야함을 명시, 관리자권한 요구
 				.anyRequest().authenticated() // 어떤 요청에도 보안검사를 한다?
 		).rememberMe((remember) -> remember.tokenValiditySeconds(86400 + 43200) // token 유효시간, 36시간
@@ -65,4 +62,10 @@ public class WebSecurityConfig {
 					"/modal-template/**", "/second-template/**");
 		};
 	}
+	
+	// static에 있는 파일은 시큐리티를 무시해주는 설정인데 일단 후처리
+//	@Bean
+//	public void configure(WebSecurity web) throws Exception {
+//	       web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+//	   }
 }
