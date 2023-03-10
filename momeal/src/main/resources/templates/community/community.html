@@ -144,7 +144,7 @@
 						<div
 							class="border-b flex items-center justify-between px-5 py-3 dark:border-gray-600">
 							<div class="flex flex-1 items-center space-x-4">
-								<a href="/myFeed">
+								<a href="" id="feedUserId">
 									<div
 										class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
 										<img id="feedFrofile" src=""
@@ -233,6 +233,7 @@
 				console.log("세션 아이디 받았나용 ======= " + sessionId);
 				$("#cmntImg").attr("src", obj.fileDir);
 				$("#subject").text(obj.subject);
+				$("#feedUserId").attr("href", "/myFeed/" + obj.userId);
 				$("#nickName").text(obj.nickName);
 				$("#feedFrofile").attr("src", obj.profileImgPath);
 				$("#postNo").val(obj.no);

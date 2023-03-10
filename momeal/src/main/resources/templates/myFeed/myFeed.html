@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{feedLayout}">
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{feedLayout}">
 
 <head>
 <meta charset="UTF-8">
@@ -16,7 +16,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description"
-	content="Instello - Sharing Photos platform HTML Template">
+   content="Instello - Sharing Photos platform HTML Template">
 
 <!-- icons
         ================================================== -->
@@ -41,86 +41,86 @@
             }
         }*/
 .card {
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-	transition: 0.3s;
-	/*width: 40%;*/
-	width: auto;
-	height: auto;
-	border-radius: 5px;
-	text-align: center;
-	margin: 0 auto;
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+   transition: 0.3s;
+   /*width: 40%;*/
+   width: auto;
+   height: auto;
+   border-radius: 5px;
+   text-align: center;
+   margin: 0 auto;
 }
 
 .card:hover {
-	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 img {
-	border-radius: 5px 5px 0 0;
+   border-radius: 5px 5px 0 0;
 }
 
 .Cardcontainer {
-	padding: 2px 16px;
+   padding: 2px 16px;
 }
 
 .Calendar {
-	text-align: center;
-	margin-right: 0px;
-	margin: 0 auto;
-	width: 500px;
+   text-align: center;
+   margin-right: 0px;
+   margin: 0 auto;
+   width: 500px;
 }
 
 .Calendar>thead {
-	width: 500px
+   width: 500px
 }
 
 .Calendar>tbody {
-	width: 500px
+   width: 500px
 }
 
 .Calendar>thead>tr {
-	text-align: center;
+   text-align: center;
 }
 
 .calendar>tbody>tr {
-	width: 1500px;
+   width: 1500px;
 }
 
 .Calendar>thead>tr:first-child>td {
-	font-family: 'Questrial', sans-serif;
-	font-size: 1.1em;
-	font-weight: bold;
-	width: auto;
-	text-align: center;
+   font-family: 'Questrial', sans-serif;
+   font-size: 1.1em;
+   font-weight: bold;
+   width: auto;
+   text-align: center;
 }
 
 .Calendar>thead>tr:last-child>td {
-	font-family: 'Questrial', sans-serif;
-	font-weight: 600;
-	width: auto;
-	text-align: center;
+   font-family: 'Questrial', sans-serif;
+   font-weight: 600;
+   width: auto;
+   text-align: center;
 }
 
 .Calendar>tbody>tr>td>p {
-	font-family: 'Montserrat', sans-serif;
-	height: 45px;
-	width: 45px;
-	border-radius: 45px;
-	transition-duration: .2s;
-	line-height: 45px;
-	margin: 2.5px;
-	display: block;
-	text-align: center;
+   font-family: 'Montserrat', sans-serif;
+   height: 45px;
+   width: 45px;
+   border-radius: 45px;
+   transition-duration: .2s;
+   line-height: 45px;
+   margin: 2.5px;
+   display: block;
+   text-align: center;
 }
 
 .Cal {
-	height: auto;
-	width: auto;
-	margin: 0px;
-	padding: 0px;
-	margin: 0 auto;
-	border-radius: 5px;
-	text-align: center;
+   height: auto;
+   width: auto;
+   margin: 0px;
+   padding: 0px;
+   margin: 0 auto;
+   border-radius: 5px;
+   text-align: center;
 }
 </style>
 
@@ -129,274 +129,275 @@ img {
 </head>
 
 <body>
-	<div layout:fragment="content">
+   <div layout:fragment="content">
 
-		<!--<div id="wrapper">-->
+      <!--<div id="wrapper">-->
 
-		<!-- btn night mode -->
+      <!-- btn night mode -->
 
-		<!-- Logo -->
+      <!-- Logo -->
 
-		<!-- Messages -->
-
-
-		<div class="container pro-container m-auto">
-
-			<!-- profile-cover-->
-			<div
-				class="flex lg:flex-row flex-col items-center lg:py-8 lg:space-x-8">
-
-				<div>
-					<div
-						class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full m-0.5 mr-2  w-56 h-56 relative overflow-hidden uk-transition-toggle">
-						<img src="assets/images/avatars/avatar-7.jpg"
-							class="bg-gray-200 border-4 border-white rounded-full w-full h-full dark:border-gray-900">
-					</div>
-				</div>
-
-				<div
-					class="lg:w/8/12 flex-1 flex flex-col lg:items-start items-center">
-
-					<h2 class="font-semibold lg:text-2xl text-lg mb-2">[[${selects.nickName}]]</h2>
-					<p class="lg:text-left mb-2 text-center  dark:text-gray-100">
-						[[${selects.grade}]]
-					<div class="flex font-semibold mb-3 space-x-2  dark:text-gray-10">
-						<a href="#story-modal2" uk-toggle>포인트</a> , <a href="#">Sports</a>
-						, <a href="#">Movies</a>
-					</div>
+      <!-- Messages -->
 
 
-					<div
-						class="capitalize flex font-semibold space-x-3 text-center text-sm my-2">
-						<a href="feedUpload"
-							class="bg-gray-300 shadow-sm p-2 px-6 rounded-md dark:bg-gray-700">
-							식단기록</a> 
-							<a   href="javascript:atCk();"
-							class="bg-pink-500 shadow-sm p-2 pink-500 px-6 rounded-md text-white hover:text-white hover:bg-pink-600">
-							출석체크</a>
+      <div class="container pro-container m-auto">
 
-					</div>
+         <!-- profile-cover-->
+         <div
+            class="flex lg:flex-row flex-col items-center lg:py-8 lg:space-x-8">
 
-					<div
-						class="divide-gray-300 divide-transparent divide-x grid grid-cols-3 lg:text-left lg:text-lg mt-3 text-center w-full dark:text-gray-100">
-						<div class="flex lg:flex-row flex-col" style="cursor: pointer"
-							onclick="">
-							120k <strong class="lg:pl-2">게시글</strong>
-						</div>
-						<div class="lg:pl-4 flex lg:flex-row flex-col" style="cursor: pointer" data-toggle="modal" data-target="#followerModal" th:onclick="followerList([[${session.userId}]])">
-							[[ ${follow.FOLLOWEE_CNT} ]] <strong class="lg:pl-2">팔로워</strong>
-						</div>
-						<div class="lg:pl-4 flex lg:flex-row flex-col" style="cursor: pointer" data-toggle="modal" data-target="#followerModal" th:onclick="followingList([[${session.userId}]])">
-							[[ ${follow.FOLLOWER_CNT} ]] <strong class="lg:pl-2">팔로잉</strong>
-						</div>
-					</div>
+            <div>
+               <div
+                  class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full m-0.5 mr-2  w-56 h-56 relative overflow-hidden uk-transition-toggle">
+                  <img src="assets/images/avatars/avatar-7.jpg"
+                     class="bg-gray-200 border-4 border-white rounded-full w-full h-full dark:border-gray-900">
+               </div>
+            </div>
 
-				</div>
+            <div
+               class="lg:w/8/12 flex-1 flex flex-col lg:items-start items-center">
+               <input type="hidden" id="feedUserId" th:value="${selects.userId}">
 
-				<div class="w-20"></div>
-
-			</div>
-
-			<!-- </div>-->
+               <h2 class="font-semibold lg:text-2xl text-lg mb-2">[[${selects.nickName}]]</h2>
+               <p class="lg:text-left mb-2 text-center  dark:text-gray-100">
+                  [[${selects.grade}]]
+               <div class="flex font-semibold mb-3 space-x-2  dark:text-gray-10">
+                  <a href="#story-modal2" uk-toggle>포인트</a> , <a href="#">Sports</a>
+                  , <a href="#">Movies</a>
+               </div>
 
 
-			<!--날짜 표시부분-->
-			<div class="Cal">
-				<table class="Calendar">
-					<thead>
-						<tr>
-							<td style="width: 100px"></td>
-							<td onclick="prevCalendar();" style="cursor: pointer;">&#60;</td>
-							<td style="width: 500px"><span id="calYear"></span>- <span
-								id="calMonth"></span>- <span id="calDate"></span></td>
-							<td onclick="nextCalendar();" style="cursor: pointer;">&#62;</td>
-							<td style="width: 100px"></td>
-						</tr>
-					</thead>
-					<tbody id="tbd">
-					</tbody>
+               <div
+                  class="capitalize flex font-semibold space-x-3 text-center text-sm my-2">
+                  <a href="/feedUpload"
+                     class="bg-gray-300 shadow-sm p-2 px-6 rounded-md dark:bg-gray-700">
+                     식단기록</a> 
+                     <a   href="javascript:atCk();"
+                     class="bg-pink-500 shadow-sm p-2 pink-500 px-6 rounded-md text-white hover:text-white hover:bg-pink-600">
+                     출석체크</a>
+
+               </div>
+
+               <div
+                  class="divide-gray-300 divide-transparent divide-x grid grid-cols-3 lg:text-left lg:text-lg mt-3 text-center w-full dark:text-gray-100">
+                  <div class="flex lg:flex-row flex-col" style="cursor: pointer"
+                     onclick="">
+                     120k <strong class="lg:pl-2">게시글</strong>
+                  </div>
+                  <div class="lg:pl-4 flex lg:flex-row flex-col" style="cursor: pointer" data-toggle="modal" data-target="#followerModal" th:onclick="followerList([[${selects.userId}]])">
+                     [[ ${follow.FOLLOWEE_CNT} ]] <strong class="lg:pl-2">팔로워</strong>
+                  </div>
+                  <div class="lg:pl-4 flex lg:flex-row flex-col" style="cursor: pointer" data-toggle="modal" data-target="#followerModal" th:onclick="followingList([[${selects.userId}]])">
+                     [[ ${follow.FOLLOWER_CNT} ]] <strong class="lg:pl-2">팔로잉</strong>
+                  </div>
+               </div>
+
+            </div>
+
+            <div class="w-20"></div>
+
+         </div>
+
+         <!-- </div>-->
 
 
-					<!--             <tbody> -->
-					<!--             	<tr> -->
-					<!--             		<td colspan="6"> -->
-					<!--             	    <div class="card"> -->
-					<!--         				<a href="#story-modal" uk-toggle> -->
-					<!--         				<img src="assets/images/momeal.png" alt="Avatar" style="width:100%"> -->
-					<!--         				</a> -->
-					<!--         				<div class="Cardcontainer"> -->
-					<!-- 				          	<h4><b>아침</b></h4>  -->
-					<!-- 				          	<p>식사량</p>  -->
-					<!-- 				          	<p>1</p>  -->
-					<!-- 				          	<p>2</p>  -->
-					<!-- 				        </div> -->
-					<!-- 				      </div>   -->
-					<!--             	</td> -->
-					<!--             	</tr> -->
-
-					<!--             </tbody> -->
-				</table>
-			</div>
+         <!--날짜 표시부분-->
+         <div class="Cal">
+            <table class="Calendar">
+               <thead>
+                  <tr>
+                     <td style="width: 100px"></td>
+                     <td onclick="prevCalendar();" style="cursor: pointer;">&#60;</td>
+                     <td style="width: 500px"><span id="calYear"></span>- <span
+                        id="calMonth"></span>- <span id="calDate"></span></td>
+                     <td onclick="nextCalendar();" style="cursor: pointer;">&#62;</td>
+                     <td style="width: 100px"></td>
+                  </tr>
+               </thead>
+               <tbody id="tbd">
+               </tbody>
 
 
-			<!--사진보여주는 부분 for문 돌리기-->
+               <!--             <tbody> -->
+               <!--                <tr> -->
+               <!--                   <td colspan="6"> -->
+               <!--                    <div class="card"> -->
+               <!--                     <a href="#story-modal" uk-toggle> -->
+               <!--                     <img src="assets/images/momeal.png" alt="Avatar" style="width:100%"> -->
+               <!--                     </a> -->
+               <!--                     <div class="Cardcontainer"> -->
+               <!--                          <h4><b>아침</b></h4>  -->
+               <!--                          <p>식사량</p>  -->
+               <!--                          <p>1</p>  -->
+               <!--                          <p>2</p>  -->
+               <!--                     </div> -->
+               <!--                   </div>   -->
+               <!--                </td> -->
+               <!--                </tr> -->
 
-			<!--     <div class="card"> -->
-			<!--         <a href="#story-modal" uk-toggle> -->
-			<!--         <img src="img_avatar2.png" alt="Avatar" style="width:100%"> -->
-			<!--         </a> -->
-			<!--         <div class="Cardcontainer"> -->
-			<!--           <h4><b>${meal.typeCode}</b></h4>  -->
-			<!--           <p>식사량 : ${meal.mealAmount} </p>  -->
-			<!--           <p>2${meal.mealTime}</p>  -->
-			<!--           <p>3${meal.subject}</p>  -->
-
-			<!--         </div> -->
-			<!--       </div> -->
-		</div>
-
-
-		<!-- Story modal -->
-		<form  action="mealSelect">
-		<div id="story-modal" class="uk-modal-container" uk-modal>
-					
-			<div class="uk-modal-dialog story-modal">
-				<button
-					class="uk-modal-close-default lg:-mt-9 lg:-mr-9 -mt-5 -mr-5 shadow-lg bg-white rounded-full p-4 transition dark:bg-gray-600 dark:text-white"
-					type="button" uk-close></button>
-
-				<div class="story-modal-media">
-					<img src="" alt=""
-						class="inset-0 h-full w-full object-cover" id="mealImg">
-				</div>
-				<div class="flex-1 bg-white dark:bg-gray-900 dark:text-gray-100">
-
-					<!-- post header-->
-					<div
-						class="border-b flex items-center justify-between px-5 py-3 dark:border-gray-600">
-						<div class="flex flex-1 items-center space-x-4">
-							<a href="#">
-								<div
-									class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
-									<img src="assets/images/avatars/avatar-2.jpg"
-										class="bg-gray-200 border border-white rounded-full w-8 h-8">
-								</div>
-							</a> <span class="block text-lg font-semibold"> Johnson smith
-							</span>
-						</div>
-						<a href="#"> <i
-							class="icon-feather-more-horizontal text-2xl rounded-full p-2 transition -mr-1"></i>
-						</a>
-					</div>
-					<div class="story-content p-4" data-simplebar>
-							<div><p id="mealScore">식단점수</p></div>
-							<input type="hidden" id="no">
-						<div class="py-4 ">
-							<div class="flex justify-around">
-								<a href="#" class="flex items-center space-x-3">
-									<div class="flex font-bold items-baseline">
-										<i class="uil-heart mr-1"> </i> Like
-									</div>
-								</a>
-								<button type="button">글수정</button>
-								<button type="button"  onclick="feedDel();">글삭제</button>
-
-							</div>
-							<hr class="-mx-4 my-3">
-							<div class="flex items-center space-x-3">
-								<div class="flex items-center">
-									<img src="assets/images/avatars/avatar-1.jpg" alt=""
-										class="w-6 h-6 rounded-full border-2 border-white"> <img
-										src="assets/images/avatars/avatar-4.jpg" alt=""
-										class="w-6 h-6 rounded-full border-2 border-white -ml-2">
-									<img src="assets/images/avatars/avatar-2.jpg" alt=""
-										class="w-6 h-6 rounded-full border-2 border-white -ml-2">
-								</div>
-								<div>
-									Liked <strong> Johnson</strong> and <strong> 209
-										Others </strong>
-								</div>
-							</div>
-						</div>
-
-						<div class="-mt-1 space-y-1">
-							<div class="flex flex-1 items-center space-x-2">
-								<img src="assets/images/avatars/avatar-2.jpg"
-									class="rounded-full w-8 h-8">
-								<div class="flex-1 p-2">consectetuer adipiscing elit, sed
-									diam nonummy nibh euismod</div>
-							</div>
-
-							<div class="flex flex-1 items-center space-x-2">
-								<img src="assets/images/avatars/avatar-4.jpg"
-									class="rounded-full w-8 h-8">
-								<div class="flex-1 p-2">consectetuer adipiscing elit</div>
-							</div>
-
-						</div>
+               <!--             </tbody> -->
+            </table>
+         </div>
 
 
-					</div>
-					<div class="p-3 border-t dark:border-gray-600">
-						<div
-							class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
-							<input type="text" placeholder="Add your Comment.."
-								class="bg-transparent max-h-8 shadow-none">
-							<div
-								class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
-								<a href="#"> <i class="uil-image"></i></a> <a href="#"> <i
-									class="uil-video"></i></a>
-							</div>
-						</div>
-					</div>
+         <!--사진보여주는 부분 for문 돌리기-->
 
-				</div>
+         <!--     <div class="card"> -->
+         <!--         <a href="#story-modal" uk-toggle> -->
+         <!--         <img src="img_avatar2.png" alt="Avatar" style="width:100%"> -->
+         <!--         </a> -->
+         <!--         <div class="Cardcontainer"> -->
+         <!--           <h4><b>${meal.typeCode}</b></h4>  -->
+         <!--           <p>식사량 : ${meal.mealAmount} </p>  -->
+         <!--           <p>2${meal.mealTime}</p>  -->
+         <!--           <p>3${meal.subject}</p>  -->
 
-			</div>
-		</div>
-	</form>
+         <!--         </div> -->
+         <!--       </div> -->
+      </div>
 
 
-		<!-- 포인트 모달 -->
-		<!-- Story modal -->
-		<div id="story-modal2" class="uk-modal-container" uk-modal>
-			<div class="uk-modal-dialog story-modal">
-				<button
-					class="uk-modal-close-default lg:-mt-9 lg:-mr-9 -mt-5 -mr-5 shadow-lg bg-white rounded-full p-4 transition dark:bg-gray-600 dark:text-white"
-					type="button" uk-close></button>
-			</div>
-		</div>
-		
-		
-		<!-- 팔로우 리스트 모달 -->
-		<div class="modal fade" id="followerModal" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
-			<div class="modal-dialog" role="document" style="width:400px;">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="Modal-label-1"></h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body" id="followList" style="padding: 20px;">
-						<!-- ajax 반복문 돌려서 리스트 띄우는 곳 -->
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 팔로우 리스트 모달 끝 -->
+      <!-- Story modal -->
+      <form  action="mealSelect">
+      <div id="story-modal" class="uk-modal-container" uk-modal>
+               
+         <div class="uk-modal-dialog story-modal">
+            <button
+               class="uk-modal-close-default lg:-mt-9 lg:-mr-9 -mt-5 -mr-5 shadow-lg bg-white rounded-full p-4 transition dark:bg-gray-600 dark:text-white"
+               type="button" uk-close></button>
 
-		<!-- Scripts
+            <div class="story-modal-media">
+               <img src="" alt=""
+                  class="inset-0 h-full w-full object-cover" id="mealImg">
+            </div>
+            <div class="flex-1 bg-white dark:bg-gray-900 dark:text-gray-100">
+
+               <!-- post header-->
+               <div
+                  class="border-b flex items-center justify-between px-5 py-3 dark:border-gray-600">
+                  <div class="flex flex-1 items-center space-x-4">
+                     <a href="#">
+                        <div
+                           class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
+                           <img src="assets/images/avatars/avatar-2.jpg"
+                              class="bg-gray-200 border border-white rounded-full w-8 h-8">
+                        </div>
+                     </a> <span class="block text-lg font-semibold"> Johnson smith
+                     </span>
+                  </div>
+                  <a href="#"> <i
+                     class="icon-feather-more-horizontal text-2xl rounded-full p-2 transition -mr-1"></i>
+                  </a>
+               </div>
+               <div class="story-content p-4" data-simplebar>
+                     <div><p id="mealScore">식단점수</p></div>
+                     <input type="hidden" id="no">
+                  <div class="py-4 ">
+                     <div class="flex justify-around">
+                        <a href="#" class="flex items-center space-x-3">
+                           <div class="flex font-bold items-baseline">
+                              <i class="uil-heart mr-1"> </i> Like
+                           </div>
+                        </a>
+                        <button type="button">글수정</button>
+                        <button type="button"  onclick="feedDel();">글삭제</button>
+
+                     </div>
+                     <hr class="-mx-4 my-3">
+                     <div class="flex items-center space-x-3">
+                        <div class="flex items-center">
+                           <img src="assets/images/avatars/avatar-1.jpg" alt=""
+                              class="w-6 h-6 rounded-full border-2 border-white"> <img
+                              src="assets/images/avatars/avatar-4.jpg" alt=""
+                              class="w-6 h-6 rounded-full border-2 border-white -ml-2">
+                           <img src="assets/images/avatars/avatar-2.jpg" alt=""
+                              class="w-6 h-6 rounded-full border-2 border-white -ml-2">
+                        </div>
+                        <div>
+                           Liked <strong> Johnson</strong> and <strong> 209
+                              Others </strong>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="-mt-1 space-y-1">
+                     <div class="flex flex-1 items-center space-x-2">
+                        <img src="assets/images/avatars/avatar-2.jpg"
+                           class="rounded-full w-8 h-8">
+                        <div class="flex-1 p-2">consectetuer adipiscing elit, sed
+                           diam nonummy nibh euismod</div>
+                     </div>
+
+                     <div class="flex flex-1 items-center space-x-2">
+                        <img src="assets/images/avatars/avatar-4.jpg"
+                           class="rounded-full w-8 h-8">
+                        <div class="flex-1 p-2">consectetuer adipiscing elit</div>
+                     </div>
+
+                  </div>
+
+
+               </div>
+               <div class="p-3 border-t dark:border-gray-600">
+                  <div
+                     class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
+                     <input type="text" placeholder="Add your Comment.."
+                        class="bg-transparent max-h-8 shadow-none">
+                     <div
+                        class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
+                        <a href="#"> <i class="uil-image"></i></a> <a href="#"> <i
+                           class="uil-video"></i></a>
+                     </div>
+                  </div>
+               </div>
+
+            </div>
+
+         </div>
+      </div>
+   </form>
+
+
+      <!-- 포인트 모달 -->
+      <!-- Story modal -->
+      <div id="story-modal2" class="uk-modal-container" uk-modal>
+         <div class="uk-modal-dialog story-modal">
+            <button
+               class="uk-modal-close-default lg:-mt-9 lg:-mr-9 -mt-5 -mr-5 shadow-lg bg-white rounded-full p-4 transition dark:bg-gray-600 dark:text-white"
+               type="button" uk-close></button>
+         </div>
+      </div>
+      
+      
+      <!-- 팔로우 리스트 모달 -->
+      <div class="modal fade" id="followerModal" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
+         <div class="modal-dialog" role="document" style="width:400px;">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="Modal-label-1"></h5>
+                  <button type="button" class="close" data-dismiss="modal"
+                     aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body" id="followList" style="padding: 20px;">
+                  <!-- ajax 반복문 돌려서 리스트 띄우는 곳 -->
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- 팔로우 리스트 모달 끝 -->
+
+      <!-- Scripts
     ================================================== -->
-		<script src="assets/js/tippy.all.min.js"></script>
-		<script src="assets/js/jquery-3.3.1.min.js"></script>
-		<script src="assets/js/uikit.js"></script>
-		<script src="assets/js/simplebar.js"></script>
-		<script src="assets/js/custom.js"></script>
+      <script src="assets/js/tippy.all.min.js"></script>
+      <script src="assets/js/jquery-3.3.1.min.js"></script>
+      <script src="assets/js/uikit.js"></script>
+      <script src="assets/js/simplebar.js"></script>
+      <script src="assets/js/custom.js"></script>
 
 
-		<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+      <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 
 
 
@@ -407,6 +408,8 @@ window.onload = function () { buildCalendar(); }    // 웹 페이지가 로드�
 let today = new Date();     // 페이지를 로드한 날짜를 저장
 today.setHours(0, 0, 0, 0);  // 비교 편의를 위해 today의 시간을 초기화
 
+let userId = $("#feedUserId").val(); // 피드 주인의 아이디 저장
+
 // 피드생성
 function buildCalendar() {
 
@@ -414,44 +417,44 @@ function buildCalendar() {
     document.getElementById("calYear").innerText = today.getFullYear();            
     document.getElementById("calMonth").innerText = leftPad(today.getMonth() + 1);
     document.getElementById("calDate").innerText = leftPad(today.getDate()); 
-	
-   	let year =document.getElementById("calYear").innerText
+   
+      let year =document.getElementById("calYear").innerText
      let month =document.getElementById("calMonth").innerText
      let date =document.getElementById("calDate").innerText
      let thisDay = year +  month + date
      console.log(thisDay)
-   
+     
      $.ajax({
-    	url:"/myFeed/"+thisDay,
+       url:"/myFeed/"+ userId + "/" + thisDay,
 
-    	success:function(res){
-    		$('#tbd').empty()
-			//console.log(res[0].typeCode)
-			$(res).each(function(i, res){
-				console.log(res)
-				
-			let tr = `
-			<tr>
-        		<td colspan="6">
-        	    <div class="card" >
-    				<a href="#story-modal" class="show" uk-toggle data-no="${res.no}"">
-    				<img src="${res.fileDir}" alt="Avatar" style="width:100%">
-    				</a>
-    				<div class="Cardcontainer">
-			          	<div>${res.typeCode}<b></b></div> 
-  			          	<div>식사량: ${res.mealAmount}</div> 
- 			          	<div>${res.subject}</div> 
-			        </div>
-			      </div>  
-        	</tr>
-			`
-				
-			$('#tbd').append(tr)
-			
-	
-			})
-    		
-    	}
+       success:function(res){
+          $('#tbd').empty()
+         //console.log(res[0].typeCode)
+         $(res).each(function(i, res){
+            console.log(res)
+            
+         let tr = `
+         <tr>
+              <td colspan="6">
+               <div class="card" >
+                <a href="#story-modal" class="show" uk-toggle data-no="${res.no}"">
+                <img src="${res.fileDir}" alt="Avatar" style="width:100%">
+                </a>
+                <div class="Cardcontainer">
+                      <div>${res.typeCode}<b></b></div> 
+                        <div>식사량: ${res.mealAmount}</div> 
+                       <div>${res.subject}</div> 
+                 </div>
+               </div>  
+           </tr>
+         `
+            
+         $('#tbd').append(tr)
+         
+   
+         })
+          
+       }
      })
 }
 
@@ -467,15 +470,15 @@ function prevCalendar() {
 
 // 다음 버튼 클릭
 function nextCalendar() {
-	 nextday = new Date(today.getFullYear(), today.getMonth() , today.getDate()+1);
-	 var currentDate = new Date();
-	 currentDate.setHours(0, 0, 0, 0);
-	 if (nextday > currentDate) {
-		    return; 
-	}
-	today = new Date(today.getFullYear(), today.getMonth() , today.getDate()+1); 
-	buildCalendar();    // 폼 다시 생성	    
-	    
+    nextday = new Date(today.getFullYear(), today.getMonth() , today.getDate()+1);
+    var currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    if (nextday > currentDate) {
+          return; 
+   }
+   today = new Date(today.getFullYear(), today.getMonth() , today.getDate()+1); 
+   buildCalendar();    // 폼 다시 생성       
+       
 }
 
 
@@ -490,47 +493,47 @@ function leftPad(value) {
 
 //상세보기
 $('#tbd').on("click",".show",function(){
-	let no = $(this).data("no")
-	$.ajax({
-		url: "/mealSelect/" +no
-	})
-	.then(obj => {
-		$("#mealImg").attr("src", obj.fileDir);
-		$("#mealScore").text(obj.mealScore);
-		$('#no').val(obj.no);
-		
-	});
+   let no = $(this).data("no")
+   $.ajax({
+      url: "/mealSelect/" +no
+   })
+   .then(obj => {
+      $("#mealImg").attr("src", obj.fileDir);
+      $("#mealScore").text(obj.mealScore);
+      $('#no').val(obj.no);
+      
+   });
 })
 
 //출석중복체크
 function atCk(){
-	fetch("ajaxAtCheck")
-		.then(response => response.text())
-		.then(data => isCheckResult(data));
+   fetch("/ajaxAtCheck")
+      .then(response => response.text())
+      .then(data => isCheckResult(data));
 }
 function isCheckResult(data){
-	console.log(data)
-	if(data == "true") {
-		alert("출석");
-	}else if(data == "false"){
-		alert("이미 출석을 완료했습니다");
-	}
+   console.log(data)
+   if(data == "true") {
+      alert("이미 출석을 완료했습니다");
+   }else if(data == "false"){
+      alert("출석");
+   }
 }
 
 //피드삭제
 function feedDel(){
-	let no = $('#no').val()
-	console.log(no);
-	$.ajax({
-		url : "/mealDelete/" +no,
-		success: function(res){
-			alert("삭제 되었습니다")
-			location.href = "/myFeed"			
-		},
-		error:function(err){
-			console.log(err)
-		}
-	})
+   let no = $('#no').val()
+   console.log(no);
+   $.ajax({
+      url : "/mealDelete/" +no,
+      success: function(res){
+         alert("삭제 되었습니다")
+         location.href = "/myFeed/" + userId         
+      },
+      error:function(err){
+         console.log(err)
+      }
+   })
 
 }
 
@@ -538,72 +541,72 @@ function feedDel(){
 //▶ 팔로우 관련
 // 팔로워 리스트 출력
 function followerList(userId) {
-	// 제목 생성
-	$(".modal-title").text("팔로워")
+   // 제목 생성
+   $(".modal-title").text("팔로워")
 
-	// 리스트 비우기
-	$("#followList").empty()
-	
-	// ajax 처리
-	$.ajax ({
-		url: "/follower/" + userId,
-		type: "post"
-	})
-	.then(result => {
-		// 리스트 목록 반복문 돌려서 붙이기
-		$(result).each(function(index, item) {
-			$("#followList").append(
-			`
-			<div class="py-2" style="padding-left: 30px;">
-				<div class="flex flex-1 items-center space-x-4">
-					<a href="#">
-						<div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
-							<img src="${item.profileImgPath}" class="bg-gray-200 border border-white rounded-full w-8 h-8">
-						</div>
-					</a>
-					<span class="block text-lg font-semibold">${item.nickName}</span>
-				</div>
-			</div>
-			`
-			)
-		})
-	})
+   // 리스트 비우기
+   $("#followList").empty()
+   
+   // ajax 처리
+   $.ajax ({
+      url: "/follower/" + userId,
+      type: "post"
+   })
+   .then(result => {
+      // 리스트 목록 반복문 돌려서 붙이기
+      $(result).each(function(index, item) {
+         $("#followList").append(
+         `
+         <div class="py-2" style="padding-left: 30px;">
+            <div class="flex flex-1 items-center space-x-4">
+               <a href="#">
+                  <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
+                     <img src="${item.profileImgPath}" class="bg-gray-200 border border-white rounded-full w-8 h-8">
+                  </div>
+               </a>
+               <span class="block text-lg font-semibold">${item.nickName}</span>
+            </div>
+         </div>
+         `
+         )
+      })
+   })
 }
 
 // 팔로잉 리스트 출력
 function followingList(userId) {
-	// 제목 생성
-	$(".modal-title").text("팔로잉")
-	
-	// 리스트 비우기
-	$("#followList").empty()
-	
-	// ajax 처리
-	$.ajax ({
-		url: "/following/" + userId,
-		type: "post"
-	})
-	.then(result => {
-		// 리스트 목록 반복문 돌려서 붙이기
-		$(result).each(function(index, item) {
-			$("#followList").append(
-			`
-			<div class="py-2" style="padding-left: 30px;">
-				<div class="flex flex-1 items-center space-x-4">
-					<a href="#">
-						<div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
-							<img src="${item.profileImgPath}" class="bg-gray-200 border border-white rounded-full w-8 h-8">
-						</div>
-					</a>
-					<span class="block text-lg font-semibold">${item.nickName}</span>
-				</div>
-			</div>
-			`
-			)
-		})
-	})
+   // 제목 생성
+   $(".modal-title").text("팔로잉")
+   
+   // 리스트 비우기
+   $("#followList").empty()
+   
+   // ajax 처리
+   $.ajax ({
+      url: "/following/" + userId,
+      type: "post"
+   })
+   .then(result => {
+      // 리스트 목록 반복문 돌려서 붙이기
+      $(result).each(function(index, item) {
+         $("#followList").append(
+         `
+         <div class="py-2" style="padding-left: 30px;">
+            <div class="flex flex-1 items-center space-x-4">
+               <a href="#">
+                  <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
+                     <img src="${item.profileImgPath}" class="bg-gray-200 border border-white rounded-full w-8 h-8">
+                  </div>
+               </a>
+               <span class="block text-lg font-semibold">${item.nickName}</span>
+            </div>
+         </div>
+         `
+         )
+      })
+   })
 }
 </script>
-	</div>
+   </div>
 </body>
 </html>
