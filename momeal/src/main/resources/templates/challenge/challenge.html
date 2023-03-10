@@ -41,30 +41,22 @@
 						<!-- onclick으로 페이지 이동 걸 때는 요렇게 -->
 						<li th:each="rec : ${challRec}"
 							th:onclick="'location.href=\''+ @{/challenge/{no}(no = ${rec.NO})} + '\''">
-							<div th:data-challno="${rec.NO}" th:data-likeno="${rec.LIKE_NO}"
-								class="oneChall">
-								<div
-									class="bg-red-400 max-w-full lg:h-56 h-48 rounded-lg relative overflow-hidden uk-transition-toggle">
+							<div th:data-challno="${rec.NO}" th:data-likeno="${rec.LIKE_NO}" class="oneChall">
+								<div class="bg-red-400 max-w-full lg:h-56 h-48 rounded-lg relative overflow-hidden uk-transition-toggle">
 									<img th:src="${rec.THUMBNAIL_IMG_PATH}"
 										class="w-full h-full absolute object-cover inset-0 scale-150">
 									<!-- transform 지우니까 이미지가 더 작게 나옴!-->
-
-									<div
-										class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white">
+									
+									<div class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white">
 										<!-- 마우스 오버로 하트 보이게 하려면 추가하기 custom-overly1 uk-transition-slide-bottom-medium -->
-										<div
-											class="flex space-x-2 flex-1 lg:flex-initial justify-around">
+										<div class="flex space-x-2 flex-1 lg:flex-initial justify-around">
 
 											<!-- 좋아요 처리 -->
 											<div th:if="${session.userId != null}" class="heart">
 												<th:block th:if="${rec.LIKE_NO != 0}">
 													<a href="#" class="fullHeart"> <!-- class="heart-click heart_icon${rec.LIKE_NO }" -->
-														<svg xmlns="http://www.w3.org/2000/svg" width="30"
-															height="30" fill="currentColor"
-															class="bi bi-suit-heart-fill" viewBox="0 0 16 16"
-															style="color: red;">
-	                           						<path
-																d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z" />
+														<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16" style="color: red;">
+	                           						<path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z" />
 	                            					</svg>
 													</a>
 												</th:block>

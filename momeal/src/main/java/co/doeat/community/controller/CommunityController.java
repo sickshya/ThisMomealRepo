@@ -44,7 +44,7 @@ public class CommunityController {
 		map.put("userId", session.getAttribute("userId"));
 		map.put("no", no);
 		
-		System.out.println(communityService.getCommunity(map));
+		System.out.println("단건조회 === " + communityService.getCommunity(map));
 		
 		return communityService.getCommunity(map);
 	}

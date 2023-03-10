@@ -51,15 +51,17 @@ public class LikesRestController {
 		likesService.insertLikeChall(vo);
 		return vo;
 	}
+	
+	// 마이페이지 - 식단 좋아요 추가
+		@PostMapping("/insertLikeMeal/{postNo}")
+		public LikesVO insertLikeMeal(LikesVO vo, @PathVariable int postNo, HttpSession session, HttpServletRequest request) {
+			session = request.getSession();
 
-//	// 마이페이지 - 챌린지 좋아요 취소
-//	@PostMapping("/delLikeChall/{no}")
-//	public int delLikeChall(LikesVO vo, @PathVariable int no, HttpSession session, HttpServletRequest request) {
-//		session = request.getSession();
-//		session.setAttribute("userId", "user1");
-//		
-//		vo.setNo(no);
-//		return likesService.delLikeChall(vo);
-//	}
+			vo.setUserId((String) session.getAttribute("userId"));
+			vo.setPostNo(postNo);
+			vo.setBoardCode("CT04");
+			likesService.insertLikeMeal(vo);
+			return vo;
+		}
 
 }

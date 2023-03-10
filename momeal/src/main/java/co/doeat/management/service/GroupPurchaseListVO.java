@@ -34,7 +34,7 @@ public class GroupPurchaseListVO extends ImageVO {
 	private String gpstatus; // 날짜에 따른 공동구매 진행상태
 	private String deliveryAddr; // 공동구매 물품배송지
 	private int zipcode;
-	private int tel;
+	private String tel;
 
 	// 이미지
 	private String atchPath; // 첨부이미지 경로

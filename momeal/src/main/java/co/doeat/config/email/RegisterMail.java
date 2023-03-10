@@ -1,4 +1,4 @@
-/*package co.doeat.config.email;
+package co.doeat.config.email;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
@@ -54,6 +54,38 @@ public class RegisterMail {
 
 		return message;
 	}
+	
+	// 그룹 초대 메일 내용 작성
+	public MimeMessage sendMessage(String to) throws MessagingException, UnsupportedEncodingException {
+		log.info("받을 대상 ?? : " + to);
+		log.info("인증 번호 : " + ePw);
+		MimeMessage message = emailsender.createMimeMessage();
+
+		message.addRecipients(RecipientType.TO, to); // 보내는 대상
+		message.setSubject(" MO : MEAL 그룹참여 이메일 인증"); // 제목
+
+		String msgg = "";
+		msgg += "<div style='margin:100px;'>";
+		msgg += "<h1> 안녕하세요. 회원님! </h1>";
+		msgg += "<h1> 다이어트는 식단 기록부터! 모두의 식단기록 Moment of Meal 입니다.</h1>";
+		msgg += "<br>";
+		msgg += "<p>아래 코드를 참여하기 창으로 돌아가 입력해주세요<p>";
+		msgg += "<br>";
+		msgg += "<p>항상 당신의 다이어트를 응원합니다. 감사합니다!<p>";
+		msgg += "<br>";
+		msgg += "<div align='center' style='border:1px solid black; font-family:verdana';>";
+		msgg += "<h3 style='color:blue;'>그룹참여 인증 코드입니다.</h3>";
+		msgg += "<div style='font-size:130%'>";
+		msgg += "CODE : <strong>";
+		msgg += ePw + "</strong><div><br/> "; // 메일에 인증번호 넣기
+		msgg += "</div>";
+		message.setText(msgg, "utf-8", "html"); // 내용, charset 타입, subtype
+		// 보내는 사람의 이메일 주소, 보내는 사람 이름
+		message.setFrom(new InternetAddress("momeal_support@naver.com", "Momeal_support")); // 보내는 사람
+
+		return message;
+	}
+	
 
 	// 랜덤의 인증코드 생성후 반환
 	public String createKey() {
@@ -102,4 +134,3 @@ public class RegisterMail {
 		return ePw; // 메일로 보냈던 인증 코드를 서버로 반환
 	}
 }
-*/
