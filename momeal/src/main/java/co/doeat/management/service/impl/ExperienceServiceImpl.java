@@ -1,6 +1,7 @@
 package co.doeat.management.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,21 +34,27 @@ public class ExperienceServiceImpl implements ExperienceService {
 	public List<ExperienceVO> ExperOne(int no) {
 		return experienceMapper.ExperOne(no);
 	}
-	
+
 	// 체험단-신청
 	@Override
-	public int ExpInsert(ExperienceVO vo) {
-		return experienceMapper.ExpInsert(vo);
+	public int expInsert(ExprParticipantsVO vo) {
+		return experienceMapper.expInsert(vo);
 	}
-	
+
+	@Override
+	public Map<String, Object> expSelect(int no) {
+		return experienceMapper.expSelect(no);
+	}
+
+	@Override
+	public Map<String, Object> expOrderList(int no) {
+		return experienceMapper.expOrderList(no);
+	}
+
 	// 관리자 +++++++++++++++++++++++++++++++++++
 	@Override
 	public List<ExperienceVO> adminExperienceGroup() {
 		return experienceMapper.adminExperienceGroup();
 	}
-
-
-
-
 
 }

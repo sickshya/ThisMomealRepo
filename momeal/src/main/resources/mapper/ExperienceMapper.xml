@@ -100,24 +100,29 @@
 		ORDER BY g.NO
 	</select>
 	
-	<!-- 배송정보 입력 -->
-	<insert id="ExpInsert" parameterType="ExperienceVO">
-		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-			SELECT	MAX(NO)+1
-			FROM EXPERIENCE_PARTICIPANTS
-		</selectKey>
-		insert into EXPERIENCE_PARTICIPANTS
-        		(NO,
-       			 USER_ID,
-       			 APL_DATE,
-       			 ADDR
-       			 )
-		values( #{no},
-        		#{userId}, 
-       			#{aplDate},
-        		#{addr}
-        		)
+		<!-- 배송정보 입력 -->
+	<insert id="expInsert" parameterType="ExprParticipantsVO" >
+        INSERT INTO EXPERIENCE_PARTICIPANTS
+		VALUES(#{no}, 
+			   #{userId}, 
+			   TO_DATE(SYSDATE,'YYYY-MM-DD'),
+			   #{addr})
 	</insert>
+	
+   <!-- 배송정보입력 내 유저 정보 조회 -->
+	<select id="expSelect" parameterType="ExprParticipantsVO" resultType="map">
+		SELECT u.USER_ID, 
+	       u.TEL,
+	       u.ADDR,
+	       u.ZIPCODE,
+	       g.TITLE,
+	       g.REVIEW_START_DATE,
+	       g.REVIEW_END_DATE
+		FROM
+		USERS u, EXPERIENCE_GROUP g
+		WHERE USER_ID = #{userId}
+		ORDER BY g.NO
+	</select>
 	
 	<!-- 관리자 +++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 	<!-- 공동구매 전체리스트 출력 -->

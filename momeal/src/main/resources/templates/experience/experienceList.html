@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout}">
+	layout:decorate="~{storelayout}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -91,7 +91,7 @@
 												</h4>
 												<!-- 													<span th:text="${getExp.subject}"></span> -->
 												<p th:unless="${getExp.expeStartDate == '0'}"
-													style="color: green;">마감기한 : D[[ ${getExp.startDate} ]]</p>
+													style="color: green;">마감기한 : D [[ ${getExp.startDate} ]]</p>
 												<p style="color: red;">신청인원 :
 													[[${getExp.ordCnt}]]/[[${getExp.lmtAplyt}]]</p>
 											</div>
@@ -134,7 +134,7 @@
 														<a th:text="${getExp.title}"></a>
 													</h4>
 													<p th:unless="${getExp.expeStartDate == '0'}"
-														style="color: green;">마감기한 : D[[ ${getExp.startDate} ]]</p>
+														style="color: green;">마감기한 : D [[ ${getExp.startDate} ]]</p>
 													<p style="color: red;">신청인원 :
 														[[${getExp.ordCnt}]]/[[${getExp.lmtAplyt}]]</p>
 												</div>

@@ -198,7 +198,7 @@ public class ChallengeController {
 	}
 	
 	//관리자 챌린지 update폼
-	@RequestMapping("/admin/adminCHUpdateForm/{no")
+	@RequestMapping("/admin/adminCHUpdateForm/{no}")
 	public String adminCHUpdateForm(ChallengeVO vo, Model model, @PathVariable int no) {
 		model.addAttribute("updates", challengeService.adminCHSelect(no));
 		String boardCode="CT01";

@@ -68,17 +68,12 @@ public class UserServiceImpl implements UserService {
 		return userMapper.grpSelect(userId);
 	}
 
-//===============================================================체험단==========================
-
-
-	@Override
-	public int ExpSelectUser(UsersVO vo) {
-		return userMapper.ExpSelectUser(vo);
-	}
 
 	@Override
 	public UsersVO myFeedUserSelect(String id) {
 		return userMapper.myFeedUserSelect(id);
 	}
+
+
 
 }
