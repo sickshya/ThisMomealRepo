@@ -139,7 +139,7 @@ public class GroupPurchaseController {
 	// 공동구매등록
 	@RequestMapping("/adminGPInsert")
 	@ResponseBody
-	public String adminGPInsert(GroupPurchaseListVO vo, ImageVO evo, List<MultipartFile> files, MultipartFile tfile) {
+	public String adminGPInsert(GroupPurchaseListVO vo, ImageVO ivo, List<MultipartFile> files, MultipartFile tfile) {
 		if (!tfile.isEmpty()) {// 첨부파일이 존재하면
 			String fileName = UUID.randomUUID().toString();
 			fileName = fileName + tfile.getOriginalFilename();
@@ -158,7 +158,7 @@ public class GroupPurchaseController {
 		int atchNo = imageService.fileUpload(files, no, boardCode);
 
 		if (atchNo > 0) {
-			evo.setAtchNo(atchNo);
+			ivo.setAtchNo(atchNo);
 		}
 
 		return "true";
@@ -177,7 +177,7 @@ public class GroupPurchaseController {
 
 	// 관리자 공동구매 delete
 	@RequestMapping("/admin/adminGPDelete/{no}")
-	public String adminGPDelete(@PathVariable int no, Model model, GroupPurchaseListVO vo, ImageVO evo) {
+	public String adminGPDelete(@PathVariable int no, Model model, GroupPurchaseListVO vo, ImageVO ivo) {
 		String boardCode = "CT03";
 		int postNo = vo.getNo();
 		imageService.adminGPIDelete(postNo, boardCode);
@@ -198,7 +198,7 @@ public class GroupPurchaseController {
 
 	@RequestMapping("/adminGPUpdate")
 	@ResponseBody
-	public String adminGPUpdate(GroupPurchaseListVO vo, ImageVO evo, Model model, List<MultipartFile> files,
+	public String adminGPUpdate(GroupPurchaseListVO vo, ImageVO ivo, Model model, List<MultipartFile> files,
 			MultipartFile tfile) {
 		if (!tfile.isEmpty()) {// 첨부파일이 존재하면
 			String fileName = UUID.randomUUID().toString();
@@ -221,7 +221,7 @@ public class GroupPurchaseController {
 		int atchNo = imageService.fileUpload(files, vo.getNo(), boardCode);
 
 		if (atchNo > 0) {
-			evo.setAtchNo(atchNo);
+			ivo.setAtchNo(atchNo);
 		}
 
 		return "true";

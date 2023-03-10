@@ -30,9 +30,8 @@ public class MealRestController {
 	private String saveImg;
 
 	// 날짜에 따른 피드 불러오기
-	@RequestMapping("/myFeed/{postDate}")
-	public List<MealVO> myFeedList(@PathVariable String postDate, HttpSession session) {
-		String userId = (String) session.getAttribute("userId");
+	@RequestMapping("/myFeed/{userId}/{postDate}")
+	public List<MealVO> myFeedList(@PathVariable String postDate, @PathVariable String userId) {
 		return mealService.myFeedList(postDate,userId);
 	}
 	

@@ -77,7 +77,7 @@
 			</div>
 			<div class="right-side uk-visible@s">
 				<ul class="header_menu" uk-scrollspy-nav="closest: li; scroll: true">
-					<li><a href="/myFeed"> STORY </a></li>
+					<li><a th:href="@{/myFeed/{userId}(userId = ${session.userId})}">STORY </a></li>
 					<li><a href="/community"> COMMUNITY </a></li>
 					<li><a href="/challenge"> CHALLENGE </a></li>
 					<li><a href="/pch/pchMain"> STROE </a></li>

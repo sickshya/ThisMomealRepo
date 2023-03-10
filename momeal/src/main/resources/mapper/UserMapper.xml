@@ -39,7 +39,7 @@
 	<select id="userSelect"
 		resultType="co.doeat.community.service.UsersVO">
 		SELECT user_id, password, user_name, nick_name, email, tel,
-		addr, zipcode 'ROLE_'|| user_role user_role
+		addr, zipcode, 'ROLE_'|| user_role user_role
 		FROM USERS
 		WHERE USER_ID =
 		#{userId }
@@ -109,8 +109,9 @@
 		WHERE USER_ID = #{userId}
 	</select>
 
-	<!-- 출석체크 회원테이블 누적 포인트 업데이트 -->
-	<update id="updateATPoint" parameterType="co.doeat.community.service.UsersVO" >
+	<!-- 출석체크 회원테이블 누적 포인트 업데이트, -->
+	<update id="updateATPoint">
+		BEGIN
 	<selectKey keyProperty="attendanceCnt" resultType="int" order="BEFORE">
 			SELECT
   				<![CDATA[CASE WHEN attendance_cnt < 9 THEN attendance_cnt + 1]]>
@@ -120,8 +121,14 @@
 			WHERE user_id = #{userId}
 		</selectKey>
 		UPDATE USERS
-		SET TOTAL_POINT = TOTAL_POINT+5, ATTENDANCE_CNT=#{attendanceCnt}
-		WHERE USER_ID=#{userId}
+		SET ATTENDANCE_CNT=#{attendanceCnt}
+		WHERE USER_ID=#{userId};
+		
+		UPDATE USERS
+		SET  TOTAL_POINT = CASE WHEN ATTENDANCE_CNT =0 THEN TOTAL_POINT+55 
+		ELSE TOTAL_POINT+5 End
+		WHERE USER_ID = #{userId};
+        END;
 	</update>
 	
 	<select id="myFeedUserSelect" resultType="co.doeat.community.service.UsersVO">
