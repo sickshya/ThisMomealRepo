@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout}">
+	layout:decorate="~{storelayout}">
 <head>
 <meta charset="UTF-8">
 <meta name="description" content="Ogani Template">
@@ -75,10 +75,21 @@ textarea {
 									'MM-dd')}]]([[${#dates.dayOfWeekName(ExpOne[0].reviewEndDate)}]])</span></li>
 						</ul>
 						<br>
-						<form class="purchaseBtn" action="/expr/exprAply.do" >
-							<input type="hidden" id="no" name="no" th:value="${ExpOne[0].no}"></a>
-							<button class="primary-btn" >신청하기</button>
+						<form class="purchaseBtn" th:action="@{/expr/exprFrm/{no}(no = ${ExpOne[0].no})}">
+<!-- /*							<input type="hidden" id="no" name="no" th:value="${ExpOne[0].no}"></a> */ -->
+							<button type="submit" class="primary-btn">신청하기</button>
 						</form>
+						
+						
+						
+<!-- 						<form class="purchaseBtn" action="/experienceForm" > -->
+<!-- 							<input type="number" name="totalGd" min="1" id="totalGd" size="2" -->
+<!-- 								maxlength="12" value="1" title="" class="input-text qty"> -->
+<!-- 							<input type="hidden" id="no" name="no" th:value="${ExpOne[0].no}"></a> -->
+<!-- 							<br> -->
+<!-- 							<button class="primary-btn">신청하기</button> -->
+<!-- 						</form> -->
+
 
 					</div>
 				</div>
@@ -97,7 +108,7 @@ textarea {
 							<div class="tab-pane active" id="detail" role="tabpanel">
 								<div class="product__details__tab__desc">
 									<img class="product__details__pic__item--large"
-										th:each="expOneImg:${ExpOne}" th:src="${expOneImg.atchPath}">
+										th:each="exponeImg:${ExpOne}" th:src="${exponeImg.atchPath}">
 								</div>
 							</div>
 							<!--                      상세 탭 끝 후기 탭 시작 -->
@@ -115,7 +126,7 @@ textarea {
 
 
 										<div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
-											<button type="submit" class="primary-btn">전송하기</button>
+											<button type="button" class="primary-btn">전송하기</button>
 										</div>
 									</div>
 								</div>

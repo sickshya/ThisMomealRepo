@@ -4,9 +4,8 @@ import java.util.List;
 
 import co.doeat.community.service.UserSearchVO;
 import co.doeat.community.service.UsersVO;
-import co.doeat.management.service.GroupPurchaseListVO;
 
-public interfssssssssss
+public interface UserMapper {
 	boolean isIdCheck(String id); // 아이디 중복 체크
 
 	// 유저
@@ -34,8 +33,6 @@ public interfssssssssss
 	// 출석체크 포인트 업데이트
 	int updateATPoint(UsersVO uvo);
 
-	// 체험단
-	int selectExpUser(UsersVO vo); //유저정보 select
 	
 	//myFeed회원정보
 	UsersVO myFeedUserSelect(String id);
