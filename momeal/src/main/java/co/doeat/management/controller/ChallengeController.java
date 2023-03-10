@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,6 @@ import co.doeat.management.service.ChallengeSearchVO;
 import co.doeat.management.service.ChallengeService;
 import co.doeat.management.service.ChallengeVO;
 import co.doeat.management.service.ChallengeValidationVO;
-import co.doeat.management.service.GroupPurchaseListVO;
 
 @Controller
 public class ChallengeController {
@@ -49,7 +47,7 @@ public class ChallengeController {
 	public String challengeMain(Model model, HttpSession session) {
 		// 임시로 세션에 ID 값 담기
 		String id = (String) session.getAttribute("userId");
-		
+
 		// 전체조회
 		model.addAttribute("challList", challengeService.getChallList(id));
 		// 인기순(좋아요 많은 순) 조회
@@ -92,19 +90,16 @@ public class ChallengeController {
 	@GetMapping("/myChallenge/{chalNo}")
 	public String myChallengOne(Model model, @PathVariable int chalNo, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
-		
+
 		// 챌린지 정보 select
 		model.addAttribute("chall", challengeService.getMyChall(userId, chalNo));
-		
-		System.out.println("어케 담아오는데 ▶ ====== " + challengeService.getMyChall(userId, chalNo));
+
 		// 챌린지 인증 이미지 select
 		model.addAttribute("valImg", challengeService.getMyChallImg(userId, chalNo));
-		
-		System.out.println("이미지 ▶ ====== " + challengeService.getMyChallImg(userId, chalNo));
-		
+
 		return "challenge/myChallengeDetail";
 	}
-	
+
 	// 진행중 - 인증 사진 등록
 	@RequestMapping("/insertMyChallImg")
 	@ResponseBody
@@ -121,18 +116,20 @@ public class ChallengeController {
 			vo.setChalImg(file.getOriginalFilename()); // 원본 파일명
 			vo.setFileDir("/mm_images/" + fileName); // 디렉토리 포함 원본 파일
 		}
-		challengeService.insertMyChallImg(vo);
-		
-		System.out.println("결과 ====== " + challengeService.insertMyChallImg(vo));
-		
+
 		return challengeService.insertMyChallImg(vo);
 	}
 	
-	
+	// 진행중 - 인증 사진 단건 조회
+	@RequestMapping("/myChallImg/{no}")
+	@ResponseBody
+	public ChallengeValidationVO getMyChallImgOne(@PathVariable int no) {
+		System.out.println("이미지 상세 ▶ ===== " + challengeService.getMyChallImgOne(no));
+		return challengeService.getMyChallImgOne(no);
+	}
+
 	// ▶ 나의 챌린지 - 종료 ◀
 
-
-	
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
 	// 챌린지 관리자
 	// 페이징

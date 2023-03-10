@@ -124,11 +124,11 @@
 			<div class="right-side uk-visible@s">
 
 				<ul class="header_menu" uk-scrollspy-nav="closest: li; scroll: true">
-					<li><a href="/myFeed"> STORY </a></li>
+					<li><a th:href="@{/myFeed/{userId}(userId = ${session.userId})}"> STORY </a></li>
 					<li><a href="/community"> COMMUNITY </a></li>
 					<li><a href="/challenge"> CHALLENGE </a></li>
 					<li><a href="/purchaseList"> STROE </a></li>
-					<li><a href="#features" uk-scroll> BOARD </a></li>
+					<li><a href="/myChallenge"> BOARD </a></li>
 					<li><a href="/myPage" uk-scroll> MYPAGE </a></li>
 					<li th:if="${session.userId == null}"><a href="/login" uk-scroll> LOGIN </a></li>
 					<li th:if="${session.userId != null}"><a href="/logout" uk-scroll> LOGOUT </a></li>
@@ -299,7 +299,7 @@
 	
 		<div class="sidenav" style="margin: 50px; width: 200px;" >
 			<br> <br> <br> <br> <br> <br>
-			<a href="/myFeed">내 스토리</a>
+			<a th:href="@{/myFeed/{userId}(userId = ${session.userId})}">내 스토리</a>
 			<a href="/groupsList">참여중인 그룹</a>
 			<a href="/myChallenge">참여중인 챌린지</a>
 		</div>

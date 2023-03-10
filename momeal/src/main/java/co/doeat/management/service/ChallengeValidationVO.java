@@ -18,4 +18,6 @@ public class ChallengeValidationVO {
 	private Date vldDate; // 인증 날짜
 	private String chalImg; // 인증 사진 이름
 	private String fileDir; // 인증 사진 주소
+	
+	private String nickName; // 사진 올린 회원의 닉네임
 }
