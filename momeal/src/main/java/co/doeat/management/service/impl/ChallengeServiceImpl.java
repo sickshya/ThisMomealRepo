@@ -1,6 +1,7 @@
 package co.doeat.management.service.impl;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,10 +71,17 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeMapper.getMyChallImg(userId, no);
 	}
 	
+	// 진행중 - 인증 사진 단건 조회
+	@Override
+	public ChallengeValidationVO getMyChallImgOne(int no) {
+		return challengeMapper.getMyChallImgOne(no);
+	}
+	
 	// 진행중 - 인증 사진 등록
 	@Override
 	public ChallengeValidationVO insertMyChallImg(ChallengeValidationVO vo) {
-		return challengeMapper.insertMyChallImg(vo);
+		challengeMapper.insertMyChallImg(vo);
+		return challengeMapper.getMyChallImgOne(vo.getNo());
 	}
 	
 	// ▶ 나의 챌린지 - 종료

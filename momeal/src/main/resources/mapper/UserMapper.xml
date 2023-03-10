@@ -42,7 +42,7 @@
 		addr, zipcode, 'ROLE_'|| user_role user_role
 		FROM USERS
 		WHERE USER_ID =
-		#{userId }
+		#{userId}
 	</select>
 
 	<!-- 회원탈퇴신청시 컬럼값 변경 -->

@@ -42,6 +42,33 @@
 <!-- 인증 모달 -->
 <link href="/modal-template/css/style.css" rel="stylesheet">
 
+<style>
+#frm fieldset{
+    display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+    direction: rtl; /* 이모지 순서 반전 */
+    border: 0; /* 필드셋 테두리 제거 */
+}
+#frm fieldset legend{
+    text-align: left;
+}
+#frm input[type=radio]{
+    display: none; /* 라디오박스 감춤 */
+}
+#frm label{
+    font-size: 30px; /* 이모지 크기 */
+    color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
+}
+#frm label:hover{
+    text-shadow: 0 0 0 #FFE324; /* 마우스 호버 */
+}
+#frm label:hover ~ label{
+    text-shadow: 0 0 0 #FFE324; /* 마우스 호버 뒤에오는 이모지들 */
+}
+#frm input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 #FFE324; /* 마우스 클릭 체크 */
+}
+</style>
 </head>
 
 <body>
@@ -82,7 +109,7 @@
 							</th:block>
 							<th:block th:unless="${chall.CODE_ID == '0'}">
 							<a href="#" class="primary-btn"
-								data-toggle="modal" data-target="#Modal-3" onclick="reviewModal()">리뷰쓰기</a>
+								data-toggle="modal" data-target="#review" onclick="reviewModal()">리뷰쓰기</a>
 							</th:block>
 						</div>
 					</div>
@@ -100,7 +127,7 @@
 
 							<!-- 탭 내용들 -->
 							<div class="tab-content">
-								<!-- 상세 탭 시작 -->
+								<!-- 나의 챌린지 탭 시작 -->
 								<div class="tab-pane active" id="myAuthentication"
 									role="tabpanel">
 									<div class="product__details__tab__desc">
@@ -158,10 +185,10 @@
 											</h4>
 
 											<!-- 인증샷 반복문 돌리기 -->
-											<div class="row row-0-gutter">
+											<div class="row row-0-gutter" id="myValImg">
 												<div th:each="img : ${valImg}" class="col-md-3 col-0-gutter text-center">
 													<div class="mz-module-about">
-														<a href="#" data-toggle="modal" data-target="#Modal-3">
+														<a href="#" data-toggle="modal" data-target="#imgDetail" th:onclick="imgDetail([[${img.no}]])">
 															<img th:src="${img.fileDir}" style="width: 200px; height: 200px;">
 														</a>
 													</div>
@@ -172,9 +199,9 @@
 										</div>
 									</div>
 								</div>
-								<!-- 상세 탭 끝 -->
+								<!-- 나의 챌린지 탭 끝 -->
 
-								<!-- 후기 탭 시작 -->
+								<!-- 챌린지 참가자 탭 시작 -->
 								<div class="tab-pane" id="authentication" role="tabpanel">
 									<section id="about" class="mz-module">
 										<div class="row">
@@ -270,7 +297,7 @@
 										</div>
 									</section>
 								</div>
-								<!-- 후기 탭 끝 -->
+								<!-- 챌린지 참가자 탭 끝 -->
 							</div>
 
 							<!-- 인증방법 모달 -->
@@ -330,32 +357,73 @@
 							<!-- 인증창 모달 끝 -->
 							
 							<!-- 인증 이미지 상세 확인 모달 -->
-							<div class="modal fade" id="Modal-3" tabindex="-1" role="dialog"
+							<div class="modal fade" id="imgDetail" tabindex="-1" role="dialog"
 								aria-labelledby="Modal-label-1">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h4 class="modal-title" id="Modal-label-1">인증하기</h4>
+											<h4 class="modal-title" id="Modal-label-1">인증사진</h4>
 											<button type="button" class="close" data-dismiss="modal"
 												aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
 										<div class="modal-body">
-											<img th:src="${chall.THUMBNAIL_IMG_PATH}" alt="img01"
+											<p id="imgDate"></p>
+											<p id="userNickName"></p>
+											<img src="" alt="img01" id="oneImg"
 												class="img-responsive" style="width: 500px; height: 500px;" />
+											<th:block th:if="${session.userId} != ${chall.USER_ID}">
 											<div class="modal-works" align="right">
-												<span>인증사진 올리기</span>
+												<span>신고</span>
 											</div>
-											<p>인증사진을 올려주세여</p>
+											</th:block>
 										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default">등록</button>
-										</div>
+<!-- 										<div class="modal-footer"> -->
+<!-- 											<button type="button" class="btn btn-default">닫기</button> -->
+<!-- 										</div> -->
 									</div>
 								</div>
 							</div>
-							<!-- 인증창 모달 끝 -->
+							<!-- 인증 이미지 상세 확인 모달 끝 -->
+							
+							
+							<!-- 후기 등록 모달 -->
+							<form id="frm" method="post">
+								<div class="modal fade" id="review" tabindex="-1" role="dialog"
+									aria-labelledby="Modal-label-1" align="center">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title" id="Modal-label-1">후기</h4>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body" id="myChallReview" style="padding:30px">
+											    <fieldset>
+											        <input type="radio" name="star" value="5" id="rate1"><label for="rate1">⭐</label>
+											        <input type="radio" name="star" value="4" id="rate2"><label for="rate2">⭐</label>
+											        <input type="radio" name="star" value="3" id="rate3"><label for="rate3">⭐</label>
+											        <input type="radio" name="star" value="2" id="rate4"><label for="rate4">⭐</label>
+											        <input type="radio" name="star" value="1" id="rate5"><label for="rate5">⭐</label>
+											    </fieldset>
+											    <br><br>
+											    <textarea id="subject" name="subject" rows="2" cols="10" placeholder="후기를 작성해주세요."></textarea>
+												<div id="text_cnt">(0 / 100)</div>
+<!-- 											    <input type="text" placeholder="후기를 입력해주세요." maxlength="100"> -->
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default" id="insertBtn" onclick="reviewInsert()">등록</button>
+											</div>
+											<input type="hidden" id="userId" name="userId" th:value="${session.userId}">
+											<input type="hidden" id="chalNo" name="no" th:value="${chall.NO}">
+										</div>
+									</div>
+								</div>
+							</form>
+							<!-- 후기 등록 끝 -->
 						</div>
 					</div>
 				</div>
@@ -418,7 +486,7 @@
             }
 		}
 			
-		// 인증사진 등록
+		// ▶ 인증사진 등록
 		function myChallImgInsert() {
 			// serialize 왜 안 돼....? form에 있는 userId가 문자열로 안 바껴서 넘어감 ㅠ
 // 			let data = $('#frm').serialize();
@@ -442,19 +510,62 @@
 			})
 			.then(result => {
 				console.log(result);
+// 				$('#uploadBtn').attr('data-dismiss', 'modal');
 				
 				// 모달창 닫기
 				$('#Modal-2').modal('hide');
 				
-				
-			
-				
-				
+				// insert한 인증사진을 리스트에 붙이기
+				$("#myValImg").prepend(
+					`
+					<div class="col-md-3 col-0-gutter text-center">
+						<div class="mz-module-about">
+							<a href="#" data-toggle="modal" data-target="#imgDetail" onclick="imgDetail(${result.no})">
+								<img src="${result.fileDir}" style="width: 200px; height: 200px;">
+							</a>
+						</div>
+					</div>
+					`
+				)
 				
 // 				location.reload();
 			})
 			
 		}
+		
+		// ▶ 인증사진 상세
+		function imgDetail(no) {
+			
+			$.ajax({
+				url: "/myChallImg/" + no,
+				type: "post",
+			})
+			.then(result => {
+				console.log(result)
+				$("#oneImg").attr("src", result.fileDir);
+				$("#imgDate").text(result.vldDate);
+				$("#userNickName").text(result.nickName);
+			})
+		}
+		
+		
+		// ▶ 후기 글자수 제한
+		$(function() {
+		    $('#subject').on('keyup', function() {
+		        $('#text_cnt').html("(" + $(this).val().length + " / 100)");
+		 
+		        if($(this).val().length > 100) {
+		            $(this).val($(this).val().substring(0, 100));
+		            $('#text_cnt').html("(100 / 100)");
+		        }
+		    });
+		});
+		
+		// ▶ 후기 등록
+		function reviewInsert() {
+			
+		}
+
 		
 		</script>
 <!-- 		</section> -->

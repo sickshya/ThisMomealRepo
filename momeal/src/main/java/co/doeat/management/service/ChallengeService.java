@@ -1,6 +1,7 @@
 package co.doeat.management.service;
 
 import java.util.List;
+
 import java.util.Map;
 
 public interface ChallengeService {
@@ -22,7 +23,9 @@ public interface ChallengeService {
 	public Map<String, Object> getMyChall(String userId, int no); // 단건조회
 
 	public List<ChallengeValidationVO> getMyChallImg(String userId, int chalNo); // 챌린지별 인증 사진 조회
-
+	
+	public ChallengeValidationVO getMyChallImgOne(int no); // 인증 사진 단건조회
+	
 	public ChallengeValidationVO insertMyChallImg(ChallengeValidationVO vo); // 인증 사진 등록
 
 	// 2. 종료된 챌린지
