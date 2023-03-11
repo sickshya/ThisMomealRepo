@@ -31,10 +31,10 @@ public class UserController {
 		return "users/signupFrm";
 	}
 
-	// 마이페이지 접근을 위해 비밀번호 입력창 호출
-	@RequestMapping("/userpw")
+	// 마이페이지 접근을 위해서, 본인확인용 비밀번호 입력창 호출
+	@RequestMapping("/usrs/endterMypage")
 	public String membpw(UsersVO vo) {
-		return "users/userPwdForm";
+		return "users/chkPwdFrm";
 	}
 
 	// 회원정보 수정폼 호출
