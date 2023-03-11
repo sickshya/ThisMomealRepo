@@ -32,7 +32,7 @@ public class UserController {
 	}
 
 	// 마이페이지 접근을 위해서, 본인확인용 비밀번호 입력창 호출
-	@RequestMapping("/usrs/endterMypage")
+	@RequestMapping("/usrs/enterMypage")
 	public String membpw(UsersVO vo) {
 		return "users/chkPwdFrm";
 	}
@@ -49,7 +49,7 @@ public class UserController {
 	// 회원정보 수정시 .. 재확인필요
 	@RequestMapping("/userEdit")
 	public String userEdit(UsersVO vo, Model model, HttpSession session) {
-
+ 
 		String id = (String) session.getAttribute("userId");
 		vo = userService.userSelect(id);
 		if (vo != null) {
