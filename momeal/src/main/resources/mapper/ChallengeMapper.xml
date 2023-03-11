@@ -288,7 +288,6 @@
 		DEDUCT_POINT,
 		VLD_START_TIME,
 		VLD_END_TIME,
-		VLD_POSB_DATE,
 		THUMBNAIL_IMG,
 		THUMBNAIL_IMG_PATH
 		)
@@ -302,7 +301,6 @@
 		#{deductPoint},
 		#{vldStartTime},
 		#{vldEndTime},
-		#{vldPosbDate},
 		#{thumbnailImg},
 		#{thumbnailImgPath})
 	</insert>
@@ -312,8 +310,28 @@
 		parameterType="co.doeat.management.service.ChallengeVO">
 		DELETE FROM CHALLENGES WHERE NO=#{no}
 	</delete>
+	
+	<!-- 챌린지 수정 -->
+	<update id="adminCHUpdate">
+		UPDATE CHALLENGES
+		<set>
+			<if test="title != null">TITLE = #{title},</if>
+			<if test="subject != null">SUBJECT = #{subject},</if>
+			<if test="chalStartDate != null">CHAL_START_DATE = #{chalStartDate},</if>
+			<if test="chalEndDate != null">CHAL_END_DATE = #{chalEndDate},</if>
+			<if test="round != null">ROUND = #{round},</if>
+			<if test="particir != null">PARTICIR = #{particir},</if>
+			<if test="deductPoint != null">DEDUCT_POINT = #{deductPoint},</if>
+			<if test="vldStartTime != null">VAL_START_TIME = #{vldStartTime},</if>
+			<if test="vldEndTime != null">VAL_END_TIME = #{vldEndTime},</if>
+			<if test="thumbnailImg != null">THUMBNAIL_IMG =#{thumbnailImg},</if>
+			<if test="thumbnailImgPath != null">THUMBNIL_IMG_PATH =#{thumbnailImgPath}</if>
+		</set>
+		WHERE NO = #{no}
+	
+	</update>
 
-	<!-- 챌린지 맵 -->
+	<!-- 챌린지 맵
 	<resultMap type="co.doeat.management.service.ChallengeVO"
 		id="chListMap">
 		<id property="no" column="no" />
@@ -333,23 +351,58 @@
 		<collection property="imgPath" resultMap="imgMap"></collection>
 	</resultMap>
 
-	<!-- 챌린지 단건 이미지이름 맵 -->
+	챌린지 단건 이미지이름 맵
 	<resultMap type="co.doeat.common.service.ImageVO" id="imgMap">
 		<result property="postNo" column="post_No" />
 		<result property="boardCode" column="board_Code" />
 		<result property="atchPath" column="atch_Path" />
-	</resultMap>
+	</resultMap> -->
 
 	<!-- 관리자용 단건조회 (이미지다수, 글 하나) -->
-	<select id="adminCHSelect" parameterType="int"
-		resultMap="chListMap">
-		SELECT ch.*, img.*
-		FROM CHALLENGES ch
-		LEFT OUTER JOIN IMAGES
-		img ON ch.no = img.post_no
-		WHERE ch.no = #{no} AND
-		img.board_Code =
-		'CT01'
+	<select id="adminCHSelect" resultType="co.doeat.management.service.ChallengeVO">
+		SELECT *
+		FROM CHALLENGES
+		WHERE NO = #{no}
 	</select>
-
+	
+	<!-- 관리자용 챌린지재등록 -->
+<insert id="adminCHReInsert"
+		parameterType="co.doeat.management.service.ChallengeVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT
+			MAX(NO)+1 FROM CHALLENGES
+		</selectKey>
+		<selectKey keyProperty="round" resultType="int" order="BEFORE">
+			SELECT
+			MAX(round)+1 FROM CHALLENGES
+			WHERE TITLE = #{title}
+		</selectKey>
+		INSERT INTO CHALLENGES(
+		NO,
+		TITLE,
+		SUBJECT,
+		CHAL_START_DATE,
+		CHAL_END_DATE,
+		ROUND,
+		PARTICIR,
+		SUM_PARTICIR,
+		DEDUCT_POINT,
+		VLD_START_TIME,
+		VLD_END_TIME,
+		THUMBNAIL_IMG,
+		THUMBNAIL_IMG_PATH
+		)
+		VALUES(#{no},
+		#{title},
+		#{subject},
+		#{chalStartDate},
+		#{chalEndDate},
+		#{round},
+		#{particir},
+		#{deductPoint},
+		#{vldStartTime},
+		#{vldEndTime},
+		#{thumbnailImg},
+		#{thumbnailImgPath})
+	</insert>
 </mapper>

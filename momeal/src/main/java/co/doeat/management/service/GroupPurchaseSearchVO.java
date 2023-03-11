@@ -7,4 +7,6 @@ public class GroupPurchaseSearchVO extends GroupPurchaseListVO {
 	int first;
 	int last;
 	String keyword;
+	String typeArr;
+	String type;
 }

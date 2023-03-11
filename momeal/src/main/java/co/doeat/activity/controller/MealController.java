@@ -57,4 +57,10 @@ public class MealController {
 		return "myFeed/feedUpload";
 	}
 	
+	@RequestMapping("/feedUpdateForm/{no}")
+	public String feedUpdateForm(@PathVariable int no, Model model ) {
+		model.addAttribute("updates", mealService.mealSelect(no));
+		return "myFeed/feedUpdateForm";
+	}
+	
 }

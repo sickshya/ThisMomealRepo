@@ -59,5 +59,22 @@
 	<delete id="mealDelete" parameterType="co.doeat.activity.service.MealVO">
 	DELETE FROM MEALS WHERE NO = #{no}
 	</delete>
+	
+	<!-- 식단 update -->
+	<update id="updateMeal" >
+		UPDATE MEALS
+		<set>
+			<if test="userId != null">user_id = #{userId},</if>
+			<if test="subject != null">subject = #{subject},</if>
+			<if test="img != null">img = #{img},</if>
+			<if test="fileDir != null">file_dir = #{fileDir},</if>
+			<if test="mealScore != null">meal_score = #{mealScore},</if>
+			<if test="typeCode != null">type_code = #{typeCode},</if>
+			<if test="mealTime != null">meal_time = #{mealTime},</if>
+			<if test="mealAmount != null">meal_amount = #{mealAmount},</if>
+			<if test="postDate != null">post_date = sysdate</if>
+		</set>
+		WHERE NO = #{no}
+	</update>
 
 </mapper>
