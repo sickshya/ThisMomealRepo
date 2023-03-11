@@ -40,45 +40,36 @@ public class UserController {
 
 	// 회원정보 수정폼 호출
 	@RequestMapping("/userEditForm")
-	public String userEditForm(UsersVO vo, Model model) {
+	public String userEditForm(UsersVO vo, Model model, HttpSession session) {
 
-		model.addAttribute("userInfo", userService.userSelect("user2"));
+		model.addAttribute("userInfo", userService.userSelect((String)session.getAttribute("userId")));
 
 		return "myPages/userEditForm";
 	}
 
 	// 회원정보 수정시 .. 재확인필요
 	@RequestMapping("/userEdit")
-	public String userEdit(UsersVO vo, Model model, HttpSession session) {
+	public String userEdit(UsersVO vo) {
 
-		String id = (String) session.getAttribute("userId");
-		vo = userService.userSelect(id);
-		if (vo != null) {
-			session.setAttribute("id", vo.getUserId());
-			session.setAttribute("userName", vo.getUserName());
-			session.setAttribute("nickName", vo.getNickName());
-			session.setAttribute("tel", vo.getTel());
-			session.setAttribute("email", vo.getEmail());
-			session.setAttribute("zipcode", vo.getZipcode());
-			session.setAttribute("addr", vo.getAddr());
-		}
-		return "myPages/userEdit";
+		userService.updateUserInfo(vo);
+		System.out.println("========================" + userService.updateUserInfo(vo));
+		
+		return "redirect:/userEditForm";
 	}
 
 	// 회원탈퇴신청폼 호출
 	@RequestMapping("/userWithdrawForm")
-	public String userWithdrawForm(UsersVO vo) {
+	public String userWithdrawForm(UsersVO vo, HttpSession session, Model model) {
+		model.addAttribute("userInfo", userService.userSelect((String)session.getAttribute("userId")));
 		return "myPages/userWithdrawForm";
 	}
 
 	// 회원탈퇴신청 동작
 	@RequestMapping("/userWithdraw")
-	public String userWithdraw(UsersVO vo, HttpSession session, HttpServletRequest request) {
-		session = request.getSession();
-		session.setAttribute("userId", "user1");
-
+	public String userWithdraw(UsersVO vo) {
+		
 		userService.updateWithdraw(vo);
-		return "myPages/userWithdraw";
+		return "myPages/form-login";
 	}
 
 	// =============관리자 유저=================================

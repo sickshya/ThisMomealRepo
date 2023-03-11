@@ -30,7 +30,8 @@
 		<h1>회원탈퇴</h1>
 		<br>
 		<br>
-		<form id="frm" action="memberEdit" method="post" onsubmit="return formCheck()">
+		<form id="frm" action="/userWithdraw" method="post" onsubmit="return formCheck()">
+		<input type="hidden" id="userId" name="userId" th:value="${session.userId}" required> 
 			<div>
 				<div class="col-lg-7">
 					<br>

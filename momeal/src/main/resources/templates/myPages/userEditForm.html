@@ -41,12 +41,13 @@
 
 		<h1 align="center">회원정보수정</h1>
 		<div id="wrapper">
-			<form id="frm" action="/userEditForm" method="post"
+			<form id="frm" action="/userEdit" method="post"
 				onsubmit="return formCheck()">
 				<div class="mt-10 gap-6">
 					<div class="bg-white rounded-md lg:shadow-lg shadow"
 						style="width: 700px; margin: auto;">
 						<div class="grid grid-cols-1 gap-3 lg:p-5 p-10">
+							<input type="hidden" id="userId" name="userId" th:value="${session.userId}" required> 
 							<div>
 								<label for="name">이름</label> <input type="text" id="userName"
 									name="userName" th:value="${userInfo.userName}" required="required"
@@ -101,8 +102,7 @@
 								<button type="submit" class="button bg-blue-700">수정</button>
 								<button type="reset" class="p-2 px-4 rounded bg-gray-50"
 									onclick="location.href='main'">취소</button>
-								<button type="submit" class="p-2 px-4 rounded bg-gray-50"
-									onclick="location.href='userWithdrawForm'">회원탈퇴</button>
+								<button type="button" class="p-2 px-4 rounded bg-gray-50" onclick="location.href='/userWithdrawForm'">회원탈퇴</button>
 							</div>
 						</div>
 					</div>
