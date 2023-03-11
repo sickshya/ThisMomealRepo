@@ -36,16 +36,24 @@ public class UserRestController {
 		return result;
 	}
 
+	// 폼에 입력된 값들로 회원가입
+	@PostMapping("/signup/register.do")
+	public String userJoin(UsersVO uvo, Model model) {
+		uvo.setPassword(bcryptEncoder.encode(uvo.getPassword()));
+		userService.insertUserInfo(uvo);
+		return "redirect:/login"; // 임의값
+	}
+
 	// 비밀번호 일치하는지 확인
 	// 수정 예정
 	@GetMapping("/userPwdForm")
 	public boolean userPwdForm(UsersVO vo, Model model, HttpSession session, HttpServletRequest request) {
 		boolean a = false;
-		 session = request.getSession();
-		 session.setAttribute("userId", "user1");
-		 
+		session = request.getSession();
+		session.setAttribute("userId", "user1");
+
 		String id = (String) session.getAttribute("userId");
-		
+
 		UsersVO uvo = userService.userSelect(id);
 
 		if (uvo != null) {
@@ -54,14 +62,6 @@ public class UserRestController {
 			}
 		}
 		return a;
-	}
-
-	// 폼에 입력된 값들로 회원가입
-	@PostMapping("/signup/register.do")
-	public String userJoin(UsersVO uvo, Model model) {
-		uvo.setPassword(bcryptEncoder.encode(uvo.getPassword()));
-		userService.insertUserInfo(uvo);
-		return "/login"; // 임의값
 	}
 
 }
