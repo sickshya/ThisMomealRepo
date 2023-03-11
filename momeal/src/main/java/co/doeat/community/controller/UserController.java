@@ -21,10 +21,9 @@ import lombok.extern.log4j.Log4j2;
 public class UserController {
 
 	@Autowired
-	private UserService userService;
-
+	private UserService userService; 
 	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 
 	// 회원가입 폼 호출
 	@RequestMapping("/signup/signupFrm")
@@ -35,7 +34,7 @@ public class UserController {
 	// 마이페이지 접근을 위해 비밀번호 입력창 호출
 	@RequestMapping("/userpw")
 	public String membpw(UsersVO vo) {
-		return "myPages/userPwdForm";
+		return "users/userPwdForm";
 	}
 
 	// 회원정보 수정폼 호출
@@ -44,7 +43,7 @@ public class UserController {
 
 		model.addAttribute("userInfo", userService.userSelect("user2"));
 
-		return "myPages/userEditForm";
+		return "users/userEditForm";
 	}
 
 	// 회원정보 수정시 .. 재확인필요
