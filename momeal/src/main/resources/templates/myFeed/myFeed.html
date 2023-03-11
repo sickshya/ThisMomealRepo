@@ -268,7 +268,7 @@ img {
 
             <div class="story-modal-media">
                <img src="" alt=""
-                  class="inset-0 h-full w-full object-cover" id="mealImg">
+                  class="inset-0 h-full w-full object-cover" id="mealImg" style="width : 820px;">
             </div>
             <div class="flex-1 bg-white dark:bg-gray-900 dark:text-gray-100">
 
@@ -299,7 +299,7 @@ img {
                               <i class="uil-heart mr-1"> </i> Like
                            </div>
                         </a>
-                        <button type="button">글수정</button>
+                        <button type="button" onclick = "feedUpdteForm();">글수정</button>
                         <button type="button"  onclick="feedDel();">글삭제</button>
 
                      </div>
@@ -409,7 +409,7 @@ let today = new Date();     // 페이지를 로드한 날짜를 저장
 today.setHours(0, 0, 0, 0);  // 비교 편의를 위해 today의 시간을 초기화
 
 let userId = $("#feedUserId").val(); // 피드 주인의 아이디 저장
-
+let no = $('#no').val(); //게시글 번호
 // 피드생성
 function buildCalendar() {
 
@@ -491,7 +491,7 @@ function leftPad(value) {
     return value;
 }
 
-//상세보기
+//상세보기 ///+++++++++++++++++++++++++++++++++++++++++++++상세보기 모달 좋아요!!!!! .then 밑에 넣어
 $('#tbd').on("click",".show",function(){
    let no = $(this).data("no")
    $.ajax({
@@ -536,6 +536,13 @@ function feedDel(){
    })
 
 }
+
+function feedUpdteForm(){
+	   let no = $('#no').val()
+	   location.href = "/feedUpdateForm/" + no
+}
+
+
 
 
 //▶ 팔로우 관련

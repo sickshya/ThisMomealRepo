@@ -3,6 +3,7 @@ package co.doeat.management.mapper;
 import java.util.List;
 import java.util.Map;
 
+import co.doeat.management.service.ExperienceSearchVO;
 import co.doeat.management.service.ExperienceVO;
 import co.doeat.management.service.ExprParticipantsVO;
 import co.doeat.management.service.GroupPurchaseSettlementVO;
@@ -26,5 +27,19 @@ public interface ExperienceMapper {
 	public List<ExprParticipantsVO> expOrderList(); // 배송정보 전체조회
 
 	// 관리자 +++++++++++++++++++++++++++++++++++
-	List<ExperienceVO> adminExperienceGroup();
+	List<ExperienceVO> adminExperienceGroupList(ExperienceSearchVO svo);
+
+	int getCountTotal(ExperienceSearchVO svo);
+
+	// 체험단 - 물품등록
+	int adminEXInsert(ExperienceVO vo);
+
+	// 체험단 단건조회 select
+	ExperienceVO adminEXSelect(int no);
+
+	// 체험단 삭제
+	int adminEXDelete(int no);
+
+	// 체험단 update
+	int adminEXUpdate(ExperienceVO vo);
 }

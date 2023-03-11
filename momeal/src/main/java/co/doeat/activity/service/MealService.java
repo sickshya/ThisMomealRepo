@@ -17,4 +17,7 @@ public interface MealService {
 	
 	//식단 삭제
 	int mealDelete(int no);
+	
+	//식단 수정
+	int updateMeal(MealVO vo);
 }

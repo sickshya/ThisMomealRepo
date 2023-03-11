@@ -44,7 +44,7 @@ public class ChallengeVO extends ImageVO {
 	private int attendNo; // 챌린지 참여 유무 체크 (참여한 상태 = 1 / 아니면 = 0)
 
 	private List<ImageVO> imgPath; // 관리자 상세조회 시, 이미지 경로값
-	private String gpstatus; // 날짜에 따른 공동구매 진행상태
+	private String chstatus; // 날짜에 따른 공동구매 진행상태
 
 
 
