@@ -69,7 +69,6 @@ public class ExperienceController {
 	public String exprAply(HttpSession session, Model model, ExprParticipantsVO pvo, ExperienceVO evo) {
 		String userId = (String) session.getAttribute("userId");
 		experienceService.expInsert(pvo);
-
 		return "신청이 완료되었습니다.";
 	}
 
@@ -79,6 +78,7 @@ public class ExperienceController {
 		HttpSession session = request.getSession();
 		session.getAttribute("userId");
 		model.addAttribute("expAplyList", experienceService.expOrderList());
+		System.out.println(experienceService.expOrderList());
 		return "experience/expOrderList";
 	}
 

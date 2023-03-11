@@ -57,8 +57,9 @@
 						<!-- 							</td> -->
 						<!-- 						</tr> -->
 						<tr>
-							<th>신청일자</th>
-							<td><input type="date" id="aplDate" name="aplDate" required>
+<!-- 							<th>신청일자</th> -->
+							<td onclick="nextCalendar();" style="cursor: pointer;">
+							<input type="hidden" id="aplDate" name="aplDate" required>
 							</td>
 						</tr>
 
@@ -146,10 +147,6 @@
 							}).open();
 				}
 
-				// 신청일자 오늘날짜 기준으로 받기 
-// 				document.getElementById('aplDate').value = new Date()
-// 						.toISOString().substring(0, 10);
-// 				;
 
 				//체험단 insert
 				$("#EXPinsert").click(function() {
@@ -181,6 +178,14 @@
 					})
 
 				})
+				
+				//신청일자 오늘기준으로 받기
+				function nextCalendar() {
+				var currentDate = new Date();
+    			currentDate.setHours(0, 0, 0, 0);
+				}
+				
+				
 			</script>
 
 

@@ -33,7 +33,7 @@
 			<div id="wrapper">
 				<div class="col-lg-7">
 					<ul>
-						<li th:each="order : ${orderlist}"
+						<li th:each="expFrm : ${expAplyList}"
 							th:onclick="'location.href=\''+ @{/orderlist/{no}(no = ${order.no})} + '\''">
 							<div align="left">
 								<p class="truncate"></p>
