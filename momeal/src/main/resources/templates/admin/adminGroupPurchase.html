@@ -73,7 +73,14 @@
                             <div class="col-12">
                                 <div class="row">
                                     <!-- 회원리스트 -->
-
+              <form id="searchFrm">
+                            <select name="type">
+                              <option value="G" th:selected="${paging.type == 'G'}">제품명</option>
+                              <option value="N" th:selected="${paging.type == 'N'}">상태</option>
+                            </select>
+                            <input type="text" name="keyword" th:value="${paging.keyword}">
+                            <button type="submit">검색</button>
+                          </form>
                                     <!-- 표 시작 Striped rows -->
                                     <div class="col-md-20 my-4">
                                         <div class="card shadow">

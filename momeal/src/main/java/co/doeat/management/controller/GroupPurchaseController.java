@@ -198,8 +198,7 @@ public class GroupPurchaseController {
 
 	@RequestMapping("/adminGPUpdate")
 	@ResponseBody
-	public String adminGPUpdate(GroupPurchaseListVO vo, ImageVO ivo, Model model, List<MultipartFile> files,
-			MultipartFile tfile) {
+	public String adminGPUpdate(GroupPurchaseListVO vo, ImageVO ivo, Model model, List<MultipartFile> files, MultipartFile tfile) {
 		if (!tfile.isEmpty()) {// 첨부파일이 존재하면
 			String fileName = UUID.randomUUID().toString();
 			fileName = fileName + tfile.getOriginalFilename();

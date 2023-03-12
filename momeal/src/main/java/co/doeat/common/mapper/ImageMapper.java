@@ -12,7 +12,9 @@ public interface ImageMapper {
 
 	int adminGPIDelete(int postNo, String boardCode);
 
-	int adminCHIDelete(ImageVO vo);
-	
+	int adminCHIDelete(int postNo, String boardCode);
+
+	int adminEXIDelete(int postNo, String boardCode);
+
 	List<ImageVO> imageList(String boardCode, int postNo);
 }

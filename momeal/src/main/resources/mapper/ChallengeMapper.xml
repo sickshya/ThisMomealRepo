@@ -244,23 +244,27 @@
 
 	<!-- +++++++++++++++++++++++++++관리자++++++++++++++++++++++++++ -->
 	<!-- 관리자 챌린지 리스트 -->
-	<sql id="creiteria">
-		<where>
-			<if test="title != null and title != '' ">
-				title = #{title}
-			</if>
-			<if test="chalEndDate != null and chalEndDate != '' ">
-				AND chal_end_date = #{chalEndDate}
-			</if>
-		</where>
+	
+		<sql id="creiteria">
+		<choose>
+			<when test="type == 'G'.toString()">
+				title like '%'||#{keyword}||'%'
+			</when>
+			<when test="type == 'N'.toString()">
+				chstatus like '%'||#{keyword}||'%'
+			</when>
+		</choose>
 	</sql>
+	
 
 	<select id="getCountTotal"
 		parameterType="co.doeat.management.service.ChallengeVO"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM CHALLENGES
+		<where>
 		<include refid="creiteria"></include>
+		</where>
 	</select>
 
 	<select id="adminChalList"
@@ -279,7 +283,9 @@
 	            Else '진행전' END as chstatus
  		]]>
 		FROM CHALLENGES
+		<where>
 		<include refid="creiteria"></include>
+		</where>
 		order by no
 		<![CDATA[
 		 )a where rownum <= #{last}) b where rn  >= #{first}
@@ -304,8 +310,6 @@
 		PARTICIR,
 		SUM_PARTICIR,
 		DEDUCT_POINT,
-		VLD_START_TIME,
-		VLD_END_TIME,
 		THUMBNAIL_IMG,
 		THUMBNAIL_IMG_PATH
 		)
@@ -317,8 +321,6 @@
 		#{round},
 		#{particir},
 		#{deductPoint},
-		#{vldStartTime},
-		#{vldEndTime},
 		#{thumbnailImg},
 		#{thumbnailImgPath})
 	</insert>
@@ -340,8 +342,6 @@
 			<if test="round != null">ROUND = #{round},</if>
 			<if test="particir != null">PARTICIR = #{particir},</if>
 			<if test="deductPoint != null">DEDUCT_POINT = #{deductPoint},</if>
-			<if test="vldStartTime != null">VAL_START_TIME = #{vldStartTime},</if>
-			<if test="vldEndTime != null">VAL_END_TIME = #{vldEndTime},</if>
 			<if test="thumbnailImg != null">THUMBNAIL_IMG =#{thumbnailImg},</if>
 			<if test="thumbnailImgPath != null">THUMBNIL_IMG_PATH =#{thumbnailImgPath}</if>
 		</set>
@@ -386,7 +386,7 @@
 	<!-- 관리자용 챌린지재등록 -->
 <insert id="adminCHReInsert"
 		parameterType="co.doeat.management.service.ChallengeVO">
-		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+		<selectKey keyProperty="no,round" resultType="co.doeat.management.service.ChallengeVO" order="BEFORE">
 			SELECT
 			MAX(NO)+1 FROM CHALLENGES
 		</selectKey>
@@ -405,8 +405,6 @@
 		PARTICIR,
 		SUM_PARTICIR,
 		DEDUCT_POINT,
-		VLD_START_TIME,
-		VLD_END_TIME,
 		THUMBNAIL_IMG,
 		THUMBNAIL_IMG_PATH
 		)
@@ -418,8 +416,6 @@
 		#{round},
 		#{particir},
 		#{deductPoint},
-		#{vldStartTime},
-		#{vldEndTime},
 		#{thumbnailImg},
 		#{thumbnailImgPath})
 	</insert>

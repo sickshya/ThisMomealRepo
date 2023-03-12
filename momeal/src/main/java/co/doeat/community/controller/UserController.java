@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.doeat.Paging;
+import co.doeat.common.service.CommonCodeVO;
 import co.doeat.community.service.UserSearchVO;
 import co.doeat.community.service.UserService;
 import co.doeat.community.service.UsersVO;
+import co.doeat.record.service.PointLogVO;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -83,6 +85,15 @@ public class UserController {
 
 		return "admin/allUserList";
 
+	}
+	
+	//마이페이지 포인트
+	@RequestMapping("/myPoint")
+	public String myPoint(CommonCodeVO cvo, PointLogVO pvo, Model model, HttpSession session) {
+		String userId= (String)session.getAttribute("userId");
+		
+		model.addAttribute("pointList", userService.pointList(userId));
+		return "myPages/myPoint";
 	}
 
 }
