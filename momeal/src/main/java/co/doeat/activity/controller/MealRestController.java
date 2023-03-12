@@ -61,12 +61,33 @@ public class MealRestController {
 		return "true";
 	}
 
+	//식단 update
+	@RequestMapping("/updateMeal/{no}")
+	public String mealUpdate(@PathVariable int no, MealVO vo, MultipartFile file, HttpSession session) {
+		vo.setUserId((String) session.getAttribute("userId"));
+		if (!file.isEmpty()) {// 첨부파일이 존재하면
+			String fileName = UUID.randomUUID().toString();
+			fileName = fileName + file.getOriginalFilename();
+			File uploadFile = new File(saveImg, fileName);
+			try {
+				file.transferTo(uploadFile); // 파일저장하긴
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			vo.setImg(file.getOriginalFilename());// 원본파일명
+			vo.setFileDir("/mm_images/" + fileName);// 디렉토리 포함 원본파일
+		}
+		mealService.updateMeal(vo);//db 저장 
+		return "true";
+	}
 	
 	//식단 삭제
 	@RequestMapping("/mealDelete/{no}")
-	public int mealDelete(@PathVariable int no, GroupPurchaseListVO vo) {
+	public int mealDelete(@PathVariable int no, MealVO vo) {
 		return mealService.mealDelete(no);
 		
 	}
+	
+
 	
 }

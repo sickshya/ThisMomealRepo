@@ -7,4 +7,6 @@ public class ChallengeSearchVO extends ChallengeVO {
 	int first;
 	int last;
 	String keyword;
+	String typeArr;
+	String type;
 }

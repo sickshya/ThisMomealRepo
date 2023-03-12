@@ -20,5 +20,7 @@ public interface MealMapper {
 	
 	//식단 삭제
 	int mealDelete(int no);
+	
+	int updateMeal(MealVO vo);
 
 }
