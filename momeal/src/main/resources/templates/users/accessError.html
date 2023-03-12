@@ -1,34 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{frame/myPage}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{frame/myPage}">
+
 <head>
-<!-- Favicon -->
-<link href="assets/images/favicon.png" rel="icon" type="image/png">
+    <!-- Favicon -->
+    <link href="assets/images/favicon.png" rel="icon" type="image/png">
 
-<!-- Basic Page Needs
-    ================================================== -->
-<title>Access Denied page</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description"
-	content="Instello - Sharing Photos platform HTML Template">
+    <!-- Basic Page Needs ================================================== -->
+    <title>Access Denied page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Instello - Sharing Photos platform HTML Template">
 
-<!-- icons
-    ================================================== -->
-<link rel="stylesheet" href="assets/css/icons.css">
+    <!-- icons ================================================== -->
+    <link rel="stylesheet" href="assets/css/icons.css">
 
-<!-- CSS 
-    ================================================== -->
-<link rel="stylesheet" href="assets/css/uikit.css">
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/tailwind-dark.css">
+    <!-- CSS ================================================== -->
+    <link rel="stylesheet" href="assets/css/uikit.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/tailwind-dark.css">
 </head>
 
 <body>
-	<h1>Access Denied Page</h1>
+    <h1>Access Denied Page</h1>
 
     <h2 th:value="${SPRING_SECURITY_403_EXCEPTION.getMessage()}"></h2>
-    
+
 </body>
+
 </html>

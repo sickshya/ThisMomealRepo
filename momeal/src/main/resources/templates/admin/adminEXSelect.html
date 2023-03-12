@@ -1,76 +1,74 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{frame/administrator}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{frame/administrator}">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="favicon.ico">
-<title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
-<!-- Simple bar CSS -->
-<link rel="stylesheet" href="css/simplebar.css">
-<!-- Fonts CSS -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
-	rel="stylesheet">
-<!-- Icons CSS -->
-<link rel="stylesheet" href="css/feather.css">
-<!-- Date Range Picker CSS -->
-<link rel="stylesheet" href="css/daterangepicker.css">
-<!-- App CSS -->
-<link rel="stylesheet" href="css/app-light.css" id="lightTheme">
-<link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
-<style>
-#att_zone {
-	width: 550px;
-	min-height: 150px;
-	padding: 10px;
-	border: 1px dotted #00f;
-}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+    <!-- Simple bar CSS -->
+    <link rel="stylesheet" href="css/simplebar.css">
+    <!-- Fonts CSS -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- Icons CSS -->
+    <link rel="stylesheet" href="css/feather.css">
+    <!-- Date Range Picker CSS -->
+    <link rel="stylesheet" href="css/daterangepicker.css">
+    <!-- App CSS -->
+    <link rel="stylesheet" href="css/app-light.css" id="lightTheme">
+    <link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled="disabled">
+    <style>
+        #att_zone {
+            width: 550px;
+            min-height: 150px;
+            padding: 10px;
+            border: 1px dotted #00f;
+        }
 
-#att_zone:empty:before {
-	content: attr(data-placeholder);
-	color: #999;
-	font-size: .9em;
-}
-</style>
+        #att_zone:empty:before {
+            content: attr(data-placeholder);
+            color: #999;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
+
 <body class="vertical  light  ">
-	<div layout:fragment="content">
-		<div class="wrapper">
+    <div layout:fragment="content">
+        <div class="wrapper">
 
+            <main role="main" class="main-content">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h2 class="page-title">체험단 상세보기</h2>
+                            <p class="text-muted">Demo for form control styles, layout options, and custom
+                                components for creating a wide variety of forms.</p>
+                            <div class="card-deck" style="width: 600px">
 
-			<main role="main" class="main-content">
-				<div class="container-fluid">
-					<div class="row justify-content-center">
-						<div class="col-12">
-							<h2 class="page-title">체험단 상세보기</h2>
-							<p class="text-muted">Demo for form control styles, layout
-								options, and custom components for creating a wide variety of
-								forms.</p>
-							<div class="card-deck" style="width: 600px">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header" style="width: 500px">
+                                        <strong class="card-title">공동구매 상세보기</strong>
+                                    </div>
+                                    <div class="card-body" style="width: 500px" id="myForm">
 
-								<div class="card shadow mb-4">
-									<div class="card-header" style="width: 500px">
-										<strong class="card-title">공동구매 상세보기</strong>
-									</div>
-									<div class="card-body" style="width: 500px" id="myForm">
-
-										<form id="frm" method="post" enctype="multipart/form-data">
-											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">체험상품명</label>
-												<div class="col-sm-9">[[${selects.title}]]</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">인원제한수</label>
-												<div class="col-sm-9">[[${selects.lmtAplyt}]]</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">시작일자</label>
-												<div class="col-sm-9">[[${#dates.format(selects.expeStartDate,'yyyy-MM-dd' ) }]]</div>
+                                        <form id="frm" method="post" enctype="multipart/form-data">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">체험상품명</label>
+                                                <div class="col-sm-9">[[${selects.title}]]</div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">인원제한수</label>
+                                                <div class="col-sm-9">[[${selects.lmtAplyt}]]</div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">시작일자</label>
+                                                <div class="col-sm-9">[[${#dates.format(selects.expeStartDate,'yyyy-MM-dd' ) }]]</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">종료일자</label>
