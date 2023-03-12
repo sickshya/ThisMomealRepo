@@ -129,11 +129,21 @@
 		ELSE TOTAL_POINT+5 End
 		WHERE USER_ID = #{userId};
         END;
+        
+       
 	</update>
 	
 	<select id="myFeedUserSelect" resultType="co.doeat.community.service.UsersVO">
 		SELECT *
 		FROM USERS
 		WHERE USER_ID = #{userId}
+	</select>
+	
+	
+	<!-- 포인트로그 -->
+	<select id="pointList" resultType="map">
+		select c.cd_desct, c.point, p.save_date
+		from common_code c, point_log p
+		where p.reason_code=c.cd_nm and user_id=#{uesrId}
 	</select>
 </mapper>

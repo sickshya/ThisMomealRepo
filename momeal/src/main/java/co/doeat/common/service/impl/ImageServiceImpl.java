@@ -93,4 +93,9 @@ public class ImageServiceImpl implements ImageService {
 		return imageMapper.adminGPIDelete(postNo, boardCode);
 	}
 
+	@Override
+	public int adminEXIDelete(int postNo, String boardCode) {
+		return imageMapper.adminEXIDelete(postNo, boardCode);
+	}
+
 }

@@ -53,8 +53,8 @@ layout:decorate="~{frame/administrator}">
 		<script>
 			function gopage(page) {
 				location.href = "adminGroupPurchase?page=" + page;
-				frmSearch.page.value = page;
-				frmSearch.submit();
+				searchFrm.page.value = page;
+				searchFrm.submit();
 			}
 		</script>
 
@@ -65,7 +65,16 @@ layout:decorate="~{frame/administrator}">
 						<div class="col-12">
 							<div class="row">
 								<!-- 회원리스트 -->
-
+								
+							<form id="searchFrm">
+								<select name="type">
+									<option value="G" th:selected="${paging.type == 'G'}">제품명</option>
+									<option value="N" th:selected="${paging.type == 'N'}">상태</option>
+								</select>
+								<input type="text" name="keyword" th:value="${paging.keyword}">
+								<button type="submit">검색</button>
+							</form>
+							
 
 
 

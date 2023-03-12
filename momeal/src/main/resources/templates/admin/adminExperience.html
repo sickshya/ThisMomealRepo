@@ -57,8 +57,8 @@ layout:decorate="~{frame/administrator}">
 						<script>
 							function gopage(page) {
 								location.href = "adminExperienceGroup?page=" + page;
-								frmSearch.page.value = page;
-								frmSearch.submit();
+								searchFrm.page.value = page;
+								searchFrm.submit();
 							}
 						</script>
 
@@ -67,6 +67,16 @@ layout:decorate="~{frame/administrator}">
 
 
 								<!-- 체험단 리스트 출력 -->
+								
+								<form id="searchFrm">
+								<select name="type">
+									<option value="G" th:selected="${paging.type == 'G'}">상품명</option>
+									<option value="N" th:selected="${paging.type == 'N'}">현황</option>
+									<option value="R" th:selected="${paging.type == 'R'}">필요등급</option>
+								</select>
+								<input type="text" name="keyword" th:value="${paging.keyword}">
+								<button type="submit">검색</button>
+							</form>
 								<!-- 표 시작 Striped rows -->
 
 								<div class="col-md-20 my-4">
@@ -75,7 +85,7 @@ layout:decorate="~{frame/administrator}">
 											<h5 class="card-title">등록된 챌린지 리스트</h5>
 											<p class="card-text">
 												<input type="button" value="등록하기"
-													onclick="location.href='adminExpGrpInsert.do'">
+													onclick="location.href='adminEXInsertForm'">
 											</p>
 											<table class="table table-striped table-hover">
 												<thead>
@@ -86,20 +96,24 @@ layout:decorate="~{frame/administrator}">
 														<th>상품설명</th>
 														<th>인원제한수</th>
 														<th>필요등급</th>
-														<th>적립포인트</th>
+														<th>시작일</th>
+														<th>종료일</th>
+														<th>현황</th>
 														<th>Action</th>
 													</tr>
 												</thead>
 												<tbody>
 
-													<tr th:each="expr : ${exprList}">
+													<tr th:each="expr : ${expList}">
 														<td><input type="checkbox"></td>
 														<td th:text="${expr.no}"></td>
 														<td th:text="${expr.title}"></td>
 														<td th:text="${expr.subject}"></td>
 														<td th:text="${expr.lmtAplyt}"></td>
-														<td th:text="${expr.need}"></td>
-														<td th:text="${expr.chstatus}"></td>
+														<td th:text="${expr.nessGrd}"></td>
+														<td th:text="${expr.expeStartDate}"></td>
+														<td th:text="${expr.expeEndDate}"></td>
+														<td th:text="${expr.exstatus}"></td>
 														<td>
 															<div class="dropdown">
 																<button class="btn btn-sm dropdown-toggle" type="button"
@@ -109,19 +123,13 @@ layout:decorate="~{frame/administrator}">
 																</button>
 																<div class="dropdown-menu dropdown-menu-right"
 																	aria-labelledby="dr2">
-																	<a class="dropdown-item" href="#">재등록</a> <a
-																		class="dropdown-item" href="#">수정</a> <a
-																		class="dropdown-item"
-																		th:href="|adminCHDelete/${expr.no}|">삭제</a> <a
-																		class="dropdown-item"
-																		href="|adminCHSelect/${expr.no}|">상세보기</a>
+																<a class="dropdown-item" th:href="|adminEXUpdateForm/${expr.no}|">수정</a> 
+																<a class="dropdown-item" th:href="|adminEXDelete/${expr.no}|">삭제</a>
+															 	<a class="dropdown-item" th:href="|adminEXSelect/${expr.no}|">상세보기</a>
 																</div>
 															</div>
 														</td>
 													</tr>
-
-
-
 												</tbody>
 											</table>
 											<div class="pagination">
@@ -138,50 +146,6 @@ layout:decorate="~{frame/administrator}">
 								<br>
  
 
-								<!-- 챌린지 상세 -->
-								<!-- 챌린지리스트 -->
-								<!-- 표 시작 Striped rows -->
-								<br> <br>
-
-								<div class="col-md-20 my-4">
-									<div class="card shadow">
-										<div class="card-body">
-											<h5 class="card-title">챌린지상세</h5>
-											<p class="card-text">With supporting text below as a
-												natural lead-in to additional content.</p>
-											<table class="table table-striped table-hover">
-												<thead>
-													<tr>
-														<th><input type="checkbox"></th>
-														<th>순번</th>
-														<th>챌린지명</th>
-														<th>챌린지포인트</th>
-														<th>참여회원</th>
-														<th>상태</th>
-														<th>획득포인트</th>
-
-													</tr>
-												</thead>
-												<tbody>
-
-													<tr>
-														<td><input type="checkbox"></td>
-														<td>2786</td>
-														<td>Leblanc, Yoshio V.</td>
-														<td>287-8300 Nisl. St.</td>
-														<td>(899) 881-3833</td>
-														<td>04/05/2019</td>
-														<td>포인트</td>
-													</tr>
- 
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-								<!-- Striped rows --> 
-
-
 							</div>
 						</div>
 					</div>
@@ -191,17 +155,17 @@ layout:decorate="~{frame/administrator}">
 		</div>
 		<!-- .wrapper -->
 
-		<script src="js/jquery.min.js"></script>
-		<script src="js/popper.min.js"></script>
-		<script src="js/moment.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/simplebar.min.js"></script>
-		<script src='js/daterangepicker.js'></script>
-		<script src='js/jquery.stickOnScroll.js'></script>
-		<script src="js/tinycolor-min.js"></script>
-		<script src="js/config.js"></script>
-		<script src='js/jquery.dataTables.min.js'></script>
-		<script src='js/dataTables.bootstrap4.min.js'></script>
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/popper.min.js"></script>
+		<script src="/js/moment.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/simplebar.min.js"></script>
+		<script src='/js/daterangepicker.js'></script>
+		<script src='/js/jquery.stickOnScroll.js'></script>
+		<script src="/js/tinycolor-min.js"></script>
+		<script src="/js/config.js"></script>
+		<script src='/js/jquery.dataTables.min.js'></script>
+		<script src='/js/dataTables.bootstrap4.min.js'></script>
 
 
 	</div>

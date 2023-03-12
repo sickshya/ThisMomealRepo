@@ -52,8 +52,8 @@
 		<script>
 		function gopage(page) {
 			location.href = "adminChallenge?page=" + page;
-			frmSearch.page.value = page;
-			frmSearch.submit();
+			searchFrm.page.value = page;
+			searchFrm.submit();
 		}
 		
 		</script>
@@ -67,6 +67,14 @@
 
 
 								<!-- 챌린지리스트 -->
+								<form id="searchFrm">
+								<select name="type">
+									<option value="G" th:selected="${paging.type == 'G'}">챌린지명</option>
+									<option value="N" th:selected="${paging.type == 'N'}">현황</option>
+								</select>
+								<input type="text" name="keyword" th:value="${paging.keyword}">
+								<button type="submit">검색</button>
+							</form>
 								<!-- 표 시작 Striped rows -->
 
 								<div class="col-md-20 my-4">
