@@ -31,6 +31,8 @@ public interface ChallengeService {
 	// 2. 종료된 챌린지
 	public List<Map<String, Object>> getMyEndChallList(String userId); // 종료된 챌린지 전체조회
 	
+	public List<ChallengeReviewVO> getReviewList(int no); // 챌린지별 후기 전체조회
+	
 	public ChallengeReviewVO getReviewOne(String userId, int no); // 후기 단건조회
 	
 	public int insertReview(ChallengeReviewVO vo); // 후기 등록

@@ -617,7 +617,7 @@
 		// ▶ 후기관리 버튼 클릭시 후기 내용 호출
 		function reviewModal(no) {
 			$.ajax({
-				url: "/challReview/" + no,
+				url: "/challOneReview/" + no,
 				type: "post"
 			})
 			.then(result => {

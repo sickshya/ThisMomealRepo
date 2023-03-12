@@ -131,8 +131,15 @@ public class ChallengeController {
 	}
 
 	// ▶ 나의 챌린지 - 종료 ◀
+	// 종료 - 후기 전체조회
+	@PostMapping("/challengeReview/{no}")
+	@ResponseBody
+	public List<ChallengeReviewVO> getReviewList(@PathVariable int no) {
+		return challengeService.getReviewList(no);
+	}
+	
 	// 종료 - 후기 단건조회
-	@PostMapping("/challReview/{no}")
+	@PostMapping("/challOneReview/{no}")
 	@ResponseBody
 	public ChallengeReviewVO getReviewOne(@PathVariable int no, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");

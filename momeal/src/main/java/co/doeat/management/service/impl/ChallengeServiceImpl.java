@@ -90,6 +90,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeMapper.getMyEndChallList(userId);
 	}
 	
+	// 종료 - 챌린지별 후기 전체조회
+	@Override
+	public List<ChallengeReviewVO> getReviewList(int no) {
+		return challengeMapper.getReviewList(no);
+	}
+	
 	// 종료 - 후기 단건조회
 	@Override
 	public ChallengeReviewVO getReviewOne(String userId, int no) {

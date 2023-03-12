@@ -143,7 +143,8 @@
 									data-toggle="tab" href="#detail" role="tab"
 									aria-selected="true">상세설명</a></li>
 								<li class="nav-item"><a class="nav-link" data-toggle="tab"
-									href="#review" role="tab" aria-selected="false">후기</a></li>
+									href="#review" role="tab" aria-selected="false"
+									th:onclick="reviewList([[${chall.no}]])">후기</a></li>
 
 							</ul>
 
@@ -159,36 +160,7 @@
 								<!-- 상세 탭 끝 -->
 
 								<!-- 후기 탭 시작 -->
-								<div class="tab-pane" id="review" role="tabpanel">
-									<div class="product__details__tab__desc">
-										<h6>Products Infomation</h6>
-										<div class="review_item">
-											<div class="media">
-												<div class="media-body">
-													<h4>닉네임</h4>
-													<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-														class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-														class="fa fa-star"></i>
-												</div>
-											</div>
-										</div>
-										<p>후기내용 적어여</p>
-									</div>
-									<div class="product__details__tab__desc">
-										<h6>Products Infomation</h6>
-										<div class="review_item">
-											<div class="media">
-												<div class="media-body">
-													<h4>닉네임</h4>
-													<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-														class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-														class="fa fa-star"></i>
-												</div>
-											</div>
-										</div>
-										<p>후기내용 적어여</p>
-									</div>
-								</div>
+								<div class="tab-pane" id="review" role="tabpanel"></div>
 								<!-- 후기 탭 끝 -->
 							</div>
 
@@ -205,8 +177,8 @@
 											</button>
 										</div>
 										<div class="modal-body">
-	<!--                                  <img src="" alt="img01" -->
-	<!--                                     class="img-responsive" style="width: 500px; height: 500px;" /> -->
+											<!--                                  <img src="" alt="img01" -->
+											<!--                                     class="img-responsive" style="width: 500px; height: 500px;" /> -->
 											<div class="modal-works" align="right"></div>
 											<br>
 											<p>
@@ -236,7 +208,7 @@
 		</div>
 
 		<script>
-		// 로그인 유무 & 챌린지 참여 여부 판단 후 모달 띄우기
+		// ▶ 로그인 유무 & 챌린지 참여 여부 판단 후 모달 띄우기
         function loginChk() {
            let userId = $('#userId').val();
            let attendNo = $('#attendNo').val();
@@ -258,7 +230,7 @@
         }
      
      
-        // 챌린지 참여신청
+        // ▶ 챌린지 참여신청
         function attedChall() {
 //            debugger
               $('#attendfrm').submit();
@@ -267,6 +239,47 @@
                
 //            // 모달창 닫기
 //            $('#attend').attr('data-dismiss', 'modal');
+
+		// ▶ 챌린지 리뷰 조회
+		function reviewList(no) {
+			$("#review").empty()
+			
+			$.ajax({
+				url: "/challengeReview/" + no,
+				type: "post"
+			})
+			.then(result => {
+				console.log("도착??????????")
+				$(result).each(function(index, item) {
+					$("#review").append(
+					`
+					<div class="product__details__tab__desc">
+						<div class="review_item">
+							<div class="media">
+								<div class="media-body">
+									<div class="flex flex-1 space-x-2">
+                        				<img src="${item.profileImgPath}" class="rounded-full w-8 h-8">
+                        				<div class="flex-1" id="one${item.no}"><b>${item.nickName}</b></p>`
+				                        +  (item.star == 1 ? '<i class="fa fa-star"></i>':'')
+										+  (item.star == 2 ? '<i class="fa fa-star"></i><i class="fa fa-star"></i>':'')
+										+  (item.star == 3 ? '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>':'')
+										+  (item.star == 4 ? '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>':'')
+										+  (item.star == 5 ? '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>':'')
+										+
+				                        	`<div><p>${item.subject}</p></div>
+				                        </div>
+				                     </div>
+			                     </div>
+		                     </div>
+	                     </div>
+					</div>
+					`
+					)
+					
+				})
+			})
+			}
+			
 			
 		
 	$(function(){
