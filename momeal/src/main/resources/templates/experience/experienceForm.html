@@ -48,19 +48,18 @@
 							<td><input type="text" id="userId" name="userId"
 								th:value="${session.userId}" required></td>
 						</tr>
-						
 
-						<!--  						<tr> -->
-						<!--  							<th>상품명</th> -->
-						<!--  							<td><input type="text" id="name" name="name" -->
-						<!--  								th:value="${expSelect.title}" required>  -->
-						<!-- 							</td> -->
-						<!-- 						</tr> -->
+
+<!--  						<tr> -->
+<!--  							<th>상품명</th> -->
+<!--  							<td><input type="text" id="name" name="name" -->
+<!--  								th:value="${expSelect.title}" required>  -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
 						<tr>
-<!-- 							<th>신청일자</th> -->
-							<td onclick="nextCalendar();" style="cursor: pointer;">
-							<input type="hidden" id="aplDate" name="aplDate" required>
-							</td>
+							<!-- 							<th>신청일자</th> -->
+							<td onclick="nextCalendar();" style="cursor: pointer;"><input
+								type="hidden" id="aplDate" name="aplDate" required></td>
 						</tr>
 
 <!--  						<tr>  -->
@@ -73,13 +72,12 @@
 						<!-- 우편번호 api 시작 -->
 						<tr>
 							<th>배송지</th>
-							<td for="streetaddress"><br> <input type="text"
-								id="sample6_postcode" name="zipcode" placeholder="우편번호">
-								<input type="button" onclick="sample6_execDaumPostcode()"
-								value="우편번호 찾기"><br> <input type="text"
-								id="addr" name="addr" placeholder="주소"><br>
-								<input type="text" id="sample6_detailAddress" name="addr" placeholder="상세주소">
-								<input type="text" id="sample6_extraAddress" placeholder="참고항목"></td>
+							<td for="streetaddress"><br> 
+							<input type="text" id="sample6_postcode" name="zipcode" placeholder="우편번호">
+								<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br> 
+								<input type="text" id="addr" name="addr" placeholder="주소"><br> 
+								<input type="text" id="sample6_detailAddress" name="addr" placeholder="상세주소"> 
+<!-- 								<input type="text" id="sample6_extraAddress" placeholder="참고항목"></td> -->
 						</tr>
 						<!-- 우편번호 api 끝 -->
 
@@ -147,7 +145,6 @@
 							}).open();
 				}
 
-
 				//체험단 insert
 				$("#EXPinsert").click(function() {
 					let userId = $('#userId').val();
@@ -178,14 +175,12 @@
 					})
 
 				})
-				
+
 				//신청일자 오늘기준으로 받기
 				function nextCalendar() {
-				var currentDate = new Date();
-    			currentDate.setHours(0, 0, 0, 0);
+					var currentDate = new Date();
+					currentDate.setHours(0, 0, 0, 0);
 				}
-				
-				
 			</script>
 
 

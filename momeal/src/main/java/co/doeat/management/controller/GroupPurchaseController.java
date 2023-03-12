@@ -71,10 +71,10 @@ public class GroupPurchaseController {
 						GroupPurchaseSettlementVO vo,
 						@RequestParam int totalGd) {
 		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("userId");
 		List<GroupPurchaseListVO> gvo = groupPurchaseService.pchDetail(vo.getNo());
 		model.addAttribute("purOne", gvo);
-		model.addAttribute("userInfo", userService.userSelect(id));
+		model.addAttribute("userInfo", userService.userSelect(userId));
 		model.addAttribute("totalPrice", totalGd * gvo.get(0).getPrice()); // totalPrice 구하기
 		return "purchase/pchOrderFrm";
 	}

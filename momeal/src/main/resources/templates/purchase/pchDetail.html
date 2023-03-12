@@ -60,7 +60,7 @@ textarea {
 						<p th:if="${pchDetail[0].grpStartDate == '0'}" style="color: red;"></p>
 						<p th:unless="${pchDetail[0].grpStartDate == '0'}"
 							style="color: red;">[[${#dates.format(pchDetail[0].grpStartDate,'MM-dd')}]]일
-							뒤 시작</p>
+						에 시작해요!</p>
 						<div class="product__details__price">[[${pchDetail[0].price}]]</div>
 						<ul>
 							<li><b>주문자 수</b> <span>[[${pchDetail[0].ordCnt}]]명</span></li>
