@@ -390,11 +390,11 @@
 			SELECT
 			MAX(NO)+1 FROM CHALLENGES
 		</selectKey>
-		<selectKey keyProperty="round" resultType="int" order="BEFORE">
-			SELECT
-			MAX(round)+1 FROM CHALLENGES
-			WHERE TITLE = #{title}
-		</selectKey>
+<!-- 		<selectKey keyProperty="round" resultType="int" order="BEFORE"> -->
+<!-- 			SELECT -->
+<!-- 			MAX(round)+1 FROM CHALLENGES -->
+<!-- 			WHERE TITLE = #{title} -->
+<!-- 		</selectKey> -->
 		INSERT INTO CHALLENGES(
 		NO,
 		TITLE,

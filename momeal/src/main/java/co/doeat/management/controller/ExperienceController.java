@@ -108,9 +108,9 @@ public class ExperienceController {
 	}
 	
 	//체험단등록
-	@RequestMapping("/adminGPInsert")
+	@RequestMapping("/adminexInsert")
 	@ResponseBody
-	public String adminGPInsert(ExperienceVO vo, ImageVO ivo, List<MultipartFile> files, MultipartFile tfile) {
+	public String adminexInsert(ExperienceVO vo, ImageVO ivo, List<MultipartFile> files, MultipartFile tfile) {
 		if (!tfile.isEmpty()) {// 첨부파일이 존재하면
 			String fileName = UUID.randomUUID().toString();
 			fileName = fileName + tfile.getOriginalFilename();
