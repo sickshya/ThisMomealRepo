@@ -31,6 +31,8 @@ public class ExperienceVO extends ImageVO {
 	private String thumbnailImg; // 썸네일이미지 이름
 	private String thumbnailImgPath; // 썸네일이미지 경로
 	private int startDate; //체험단시작날짜 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	
 	
 	// 이미지
 	private String atchPath; // 첨부이미지 경로

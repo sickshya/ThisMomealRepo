@@ -13,6 +13,5 @@ public class ExprParticipantsVO {
 	String userId; //아이디
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date aplDate; //신청일자
-	String addr; //배송받을 주소
-	
+	String addr; //배송받을 주소	
 }
