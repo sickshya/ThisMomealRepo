@@ -46,11 +46,9 @@ public class UserRestController {
 
 	// 비밀번호 일치하는지 확인
 	// 수정 예정
-	@GetMapping("/userPwdForm")
-	public boolean userPwdForm(UsersVO vo, Model model, HttpSession session, HttpServletRequest request) {
+	@GetMapping("/chkPwdFrm")
+	public boolean userPwdForm(UsersVO vo, Model model, HttpSession session) {
 		boolean a = false;
-		session = request.getSession();
-		session.setAttribute("userId", "user1");
 
 		String id = (String) session.getAttribute("userId");
 
