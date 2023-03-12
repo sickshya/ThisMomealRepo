@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.activity.mapper.FollowMapper">
-	
-	<!-- 팔로우 하기 (세션에 있는 아이디, 팔로우 할 대상 유저 아이디, 팔로우 수락 유무)-->
-	<select id="follow" resultType="co.doeat.activity.service.FollowVO">
-		INSERT INTO FOLLOW
-		VALUES (#{followerId}, #{followeeId}, 'N')
-	</select>
-	
-	<!-- 언팔로우 하기 FOLLOWER_ID = 세션에 있는 아이디 / FOLLOWEE_ID = 언팔 대상 유저의 아이디 -->
-	<select id="unfollow" resultType="co.doeat.activity.service.FollowVO">
-		DELETE FROM FOLLOW
-		WHERE FOLLOWER_ID = #{followerId}
-		AND FOLLOWEE_ID = #{followeeId}
-	</select>
-	
-	<!-- 팔로잉 유무 (팔로우 중 = 1, 팔로우 안 함 = 0) -->
-	<select id="isFollow" resultType="int">
-		SELECT COUNT(*) 
-		FROM FOLLOW 
-		WHERE FOLLOWER_ID = 'user3' 
-		AND FOLLOWEE_ID = 'user1'
-	</select>
-	
-	<!-- 팔로워 리스트 조회(로그인 한 회원을 팔로우한 회원들) -->
-	<select id="selectFollowerList" resultType="FollowVO">
-		SELECT F.*,U.NICK_NAME, U.PROFILE_IMG_PATH
-		FROM FOLLOW F JOIN USERS U
-		ON F.FOLLOWER_ID = U.USER_ID
-		WHERE F.FOLLOWEE_ID = #{userId}
-	</select>	
-	
-	<!-- 팔로잉 리스트 조회(로그인 한 회원이 팔로우 한 회원들) -->
-	<select id="selectFollowingList" resultType="FollowVO">
-		SELECT F.*, U.NICK_NAME, U.PROFILE_IMG_PATH
-		FROM FOLLOW F JOIN USERS U
-		ON F.FOLLOWEE_ID = U.USER_ID
-		WHERE F.FOLLOWER_ID = #{userId}
-	</select>
-	
-	<!-- 팔로워, 팔로잉 회원 수 카운트 -->
-	<select id="followCount" resultType="map">
-		SELECT COUNT(CASE WHEN FOLLOWER_ID = #{userId} THEN 1 END) AS FOLLOWER_CNT,
-		COUNT(CASE WHEN FOLLOWEE_ID = #{userId} THEN 1 END) AS FOLLOWEE_CNT
-		FROM FOLLOW
-	</select>
-	
-	<!-- 탈퇴시 팔로우 목록 전체 삭제 (userId는 세션의 아이디를 넣어줘야 함) -->
-	<delete id="deleteAllFollow">
-		DELETE FROM FOLLOW
-		WHERE FOLLOWER_ID = 'user3'
-		OR FOLLOWEE_ID = 'user3'
-	</delete>
-	
+   
+   <!-- 팔로우 하기 (세션에 있는 아이디, 팔로우 할 대상 유저 아이디, 팔로우 수락 유무)-->
+   <select id="follow" resultType="co.doeat.activity.service.FollowVO">
+      INSERT INTO FOLLOW
+      VALUES (#{followerId}, #{followeeId}, 'N')
+   </select>
+   
+   <!-- 언팔로우 하기 FOLLOWER_ID = 세션에 있는 아이디 / FOLLOWEE_ID = 언팔 대상 유저의 아이디 -->
+   <select id="unfollow" resultType="co.doeat.activity.service.FollowVO">
+      DELETE FROM FOLLOW
+      WHERE FOLLOWER_ID = #{followerId}
+      AND FOLLOWEE_ID = #{followeeId}
+   </select>
+   
+   <!-- 팔로잉 유무 (팔로우 중 = 1, 팔로우 안 함 = 0) -->
+   <select id="isFollow" resultType="int">
+      SELECT COUNT(*) 
+      FROM FOLLOW 
+      WHERE FOLLOWER_ID = 'user3' 
+      AND FOLLOWEE_ID = 'user1'
+   </select>
+   
+   <!-- 팔로워 리스트 조회(로그인 한 회원을 팔로우한 회원들) -->
+   <select id="selectFollowerList" resultType="FollowVO">
+      SELECT F.*,U.NICK_NAME, U.PROFILE_IMG_PATH
+      FROM FOLLOW F JOIN USERS U
+      ON F.FOLLOWER_ID = U.USER_ID
+      WHERE F.FOLLOWEE_ID = #{userId}
+   </select>   
+   
+   <!-- 팔로잉 리스트 조회(로그인 한 회원이 팔로우 한 회원들) -->
+   <select id="selectFollowingList" resultType="FollowVO">
+      SELECT F.*, U.NICK_NAME, U.PROFILE_IMG_PATH
+      FROM FOLLOW F JOIN USERS U
+      ON F.FOLLOWEE_ID = U.USER_ID
+      WHERE F.FOLLOWER_ID = #{userId}
+   </select>
+   
+   <!-- 팔로워, 팔로잉 회원 수 카운트 -->
+   <select id="followCount" resultType="map">
+      SELECT COUNT(CASE WHEN FOLLOWER_ID = #{userId} THEN 1 END) AS FOLLOWER_CNT,
+      COUNT(CASE WHEN FOLLOWEE_ID = #{userId} THEN 1 END) AS FOLLOWEE_CNT
+      FROM FOLLOW
+   </select>
+   
+   <!-- 탈퇴시 팔로우 목록 전체 삭제 (userId는 세션의 아이디를 넣어줘야 함) -->
+   <delete id="deleteAllFollow">
+      DELETE FROM FOLLOW
+      WHERE FOLLOWER_ID = 'user3'
+      OR FOLLOWEE_ID = 'user3'
+   </delete>
+   
 </mapper>
