@@ -1,114 +1,107 @@
 <!doctype html>
-<html
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{frame/administrator}">
 
-    <head>
-        <meta charset="utf-8">
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="icon" href="favicon.ico">
-        <title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
-        <!-- Simple bar CSS -->
-        <link rel="stylesheet" href="css/simplebar.css">
-        <!-- Fonts CSS -->
-        <link
-            href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
-            rel="stylesheet">
-        <!-- Icons CSS -->
-        <link rel="stylesheet" href="/css/feather.css">
-        <link rel="stylesheet" href="/css/dataTables.bootstrap4.css">
-        <!-- Date Range Picker CSS -->
-        <link rel="stylesheet" href="/css/daterangepicker.css">
-        <!-- App CSS -->
-        <link rel="stylesheet" href="/css/app-light.css" id="lightTheme">
-        <link
-            rel="stylesheet"
-            href="/css/app-dark.css"
-            id="darkTheme"
-            disabled="disabled">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+    <!-- Simple bar CSS -->
+    <link rel="stylesheet" href="css/simplebar.css">
+    <!-- Fonts CSS -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- Icons CSS -->
+    <link rel="stylesheet" href="/css/feather.css">
+    <link rel="stylesheet" href="/css/dataTables.bootstrap4.css">
+    <!-- Date Range Picker CSS -->
+    <link rel="stylesheet" href="/css/daterangepicker.css">
+    <!-- App CSS -->
+    <link rel="stylesheet" href="/css/app-light.css" id="lightTheme">
+    <link rel="stylesheet" href="/css/app-dark.css" id="darkTheme" disabled="disabled">
 
-        <style>
-            .pagination {
-                display: inline-block;
+    <style>
+        .pagination {
+            display: inline-block;
+        }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+    </style>
+
+</head>
+
+<body class="vertical  light  ">
+    <div layout:fragment="content">
+        <script>
+            function gopage(page) {
+                location.href = "adminGroupPurchase?page=" + page;
+                frmSearch.page.value = page;
+                frmSearch.submit();
             }
+        </script>
 
-            .pagination a {
-                color: black;
-                float: left;
-                padding: 8px 16px;
-                text-decoration: none;
-            }
-
-            .pagination a.active {
-                background-color: #4CAF50;
-                color: white;
-            }
-
-            .pagination a:hover:not(.active) {
-                background-color: #ddd;
-            }
-        </style>
-
-    </head>
-
-    <body class="vertical  light  ">
-        <div layout:fragment="content">
-            <script>
-                function gopage(page) {
-                    location.href = "adminGroupPurchase?page=" + page;
-                    frmSearch.page.value = page;
-                    frmSearch.submit();
-                }
-            </script>
-
-            <div class="wrapper">
-                <main role="main" class="main-content">
-                    <div class="container-fluid">
-                        <div class="row justify-content-center">
-                            <div class="col-12">
-                                <div class="row">
-                                    <!-- 회원리스트 -->
-              <form id="searchFrm">
-                            <select name="type">
-                              <option value="G" th:selected="${paging.type == 'G'}">제품명</option>
-                              <option value="N" th:selected="${paging.type == 'N'}">상태</option>
-                            </select>
-                            <input type="text" name="keyword" th:value="${paging.keyword}">
-                            <button type="submit">검색</button>
-                          </form>
-                                    <!-- 표 시작 Striped rows -->
-                                    <div class="col-md-20 my-4">
-                                        <div class="card shadow">
-                                            <div class="card-body">
-                                                <h5 class="card-title">공동구매</h5>
-                                                <p class="card-text">
-                                                    <input type="button" value="등록하기" onclick="location.href='adminGPInsertFrom'">
-                                                </p>
-                                                <table class="table table-striped table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th><input type="checkbox"></th>
-                                                            <th>순번</th>
-                                                            <th>회사명</th>
-                                                            <th>제품명</th>
-                                                            <th>시작일</th>
-                                                            <th>종료일</th>
-                                                            <th>상태</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr th:each="gp : ${getAdminGroupPurchaseList}">
-                                                            <td><input type="checkbox"></td>
-                                                            <td th:text="${gp.no}"></td>
-                                                            <td th:text="${gp.coName}"></td>
-                                                            <td th:text="${gp.name}"></td>
-                                                            <td th:text="${#dates.format(gp.grpStartDate, 'yyyy-MM-dd')}"></td>
+        <div class="wrapper">
+            <main role="main" class="main-content">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <div class="row">
+                                <!-- 회원리스트 -->
+                                <form id="searchFrm">
+                                    <select name="type">
+                                        <option value="G" th:selected="${paging.type == 'G'}">제품명</option>
+                                        <option value="N" th:selected="${paging.type == 'N'}">상태</option>
+                                    </select>
+                                    <input type="text" name="keyword" th:value="${paging.keyword}">
+                                    <button type="submit">검색</button>
+                                </form>
+                                <!-- 표 시작 Striped rows -->
+                                <div class="col-md-20 my-4">
+                                    <div class="card shadow">
+                                        <div class="card-body">
+                                            <h5 class="card-title">공동구매</h5>
+                                            <p class="card-text">
+                                                <input type="button" value="등록하기"
+                                                    onclick="location.href='adminGPInsertFrom'">
+                                            </p>
+                                            <table class="table table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th><input type="checkbox"></th>
+                                                        <th>순번</th>
+                                                        <th>회사명</th>
+                                                        <th>제품명</th>
+                                                        <th>시작일</th>
+                                                        <th>종료일</th>
+                                                        <th>상태</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="gp : ${getAdminGroupPurchaseList}">
+                                                        <td><input type="checkbox"></td>
+                                                        <td th:text="${gp.no}"></td>
+                                                        <td th:text="${gp.coName}"></td>
+                                                        <td th:text="${gp.name}"></td>
+                                                        <td th:text="${#dates.format(gp.grpStartDate, 'yyyy-MM-dd')}"></td>
                                                             <td th:text="${#dates.format(gp.grpEndDate, 'yyyy-MM-dd')}"></td>
                                                             <td th:text="${gp.gpstatus}"></td>
                                                             <td>

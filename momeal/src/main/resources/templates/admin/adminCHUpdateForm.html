@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{frame/administrator}">
+	layout:decorate="~{frame/administrator}">
 
 <head>
 	<meta charset="utf-8">
@@ -21,7 +21,7 @@ layout:decorate="~{frame/administrator}">
 	<link rel="stylesheet" href="css/daterangepicker.css">
 	<!-- App CSS -->
 	<link rel="stylesheet" href="css/app-light.css" id="lightTheme">
-	<link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
+	<link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled="disabled">
 	<style>
 		#att_zone {
 			width: 550px;
@@ -33,25 +33,23 @@ layout:decorate="~{frame/administrator}">
 		#att_zone:empty:before {
 			content: attr(data-placeholder);
 			color: #999;
-			font-size: .9em;
+			font-size: 0.9em;
 		}
 	</style>
 </head>
 
 <body class="vertical  light  ">
 	<div layout:fragment="content">
-	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 		<div class="wrapper">
-
 
 			<main role="main" class="main-content">
 				<div class="container-fluid">
 					<div class="row justify-content-center">
 						<div class="col-12">
 							<h2 class="page-title">챌린지 수정</h2>
-							<p class="text-muted">Demo for form control styles, layout
-								options, and custom components for creating a wide variety of
-								forms.</p>
+							<p class="text-muted">Demo for form control styles, layout options, and custom
+								components for creating a wide variety of forms.</p>
 							<div class="card-deck" style="width: 600px">
 
 								<div class="card shadow mb-4">
@@ -59,18 +57,20 @@ layout:decorate="~{frame/administrator}">
 										<strong class="card-title">챌린지 수정하기</strong>
 									</div>
 									<div class="card-body" style="width: 500px" id="myForm">
-	
+
 										<form id="frm" method="post" enctype="multipart/form-data">
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">챌린지명</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="title" name="title" th:value="${updates.title}">
+													<input type="text" class="form-control" id="title" name="title"
+														th:value="${updates.title}">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">참여포인트</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="deductPoint" name="deductPoint" th:value="${updates.deductPoint}">
+													<input type="text" class="form-control" id="deductPoint"
+														name="deductPoint" th:value="${updates.deductPoint}">
 												</div>
 											</div>
 											<div class="form-group row">
@@ -87,7 +87,7 @@ layout:decorate="~{frame/administrator}">
 														name="chalEndDate">
 												</div>
 											</div>
-												<div class="form-group row">
+											<div class="form-group row">
 												<label class="col-sm-3" for="exampleFormControlTextarea1">상세설명</label>
 												<div class="col-sm-9">
 													<textarea class="form-control" id="subject" name="subject"
@@ -97,7 +97,8 @@ layout:decorate="~{frame/administrator}">
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">썸네일 등록</label>
 												<div class="col-sm-9">
-													<input class="form-control" id="file" type="file" name="tfile" th:value="${updates.thumbnailImg }">
+													<input class="form-control" id="file" type="file" name="tfile"
+														th:value="${updates.thumbnailImg }">
 
 												</div>
 											</div>
@@ -107,14 +108,14 @@ layout:decorate="~{frame/administrator}">
 													<input type='file' id='btnAtt' name="file" multiple='multiple' />
 													<div id='att_zone'
 														data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
-											
 													</div>
 												</div>
 											</div>
 
 											<div class="form-group mb-2">
-												<input type="hidden" id="no" name="no" th:value="${updates.no }"/>
-												<button type="button" onclick="CHUpdate()" class="btn btn-primary" >수정</button>
+												<input type="hidden" id="no" name="no" th:value="${updates.no }" />
+												<button type="button" onclick="CHUpdate()"
+													class="btn btn-primary">수정</button>
 											</div>
 										</form>
 									</div>
@@ -139,7 +140,6 @@ layout:decorate="~{frame/administrator}">
 		<script src="js/config.js"></script>
 		<script src="js/apps.js"></script>
 
-
 		<!-- 다중파일업로드 -->
 		<script>
 			var sel_files = [];
@@ -150,22 +150,24 @@ layout:decorate="~{frame/administrator}">
 					var btnAtt = document.getElementById(btn)
 
 					// 이미지와 체크 박스를 감싸고 있는 div 속성
-					var div_style = 'display:inline-block;position:relative;' +
-						'width:150px;height:120px;margin:5px;border:1px solid #00f;z-index:1';
+					var div_style = 'display:inline-block;position:relative;width:150px;height:120px;margin:5px;bor' +
+						'der:1px solid #00f;z-index:1';
 					// 미리보기 이미지 속성
 					var img_style = 'width:100%;height:100%;z-index:none';
 					// 이미지안에 표시되는 체크박스의 속성
-					var chk_style = 'width:30px;height:30px;position:absolute;font-size:24px;' +
-						'right:0px;bottom:0px;z-index:999;background-color:rgba(255,255,255,0.1);color:#f00';
+					var chk_style = 'width:30px;height:30px;position:absolute;font-size:24px;right:0px;bottom:0px;z' +
+						'-index:999;background-color:rgba(255,255,255,0.1);color:#f00';
 
 					btnAtt.onchange = function (e) {
 						var files = e.target.files;
-						var fileArr = Array.prototype.slice.call(files)
+						var fileArr = Array
+							.prototype
+							.slice
+							.call(files)
 						for (f of fileArr) {
 							imageLoader(f);
 						}
 					}
-
 
 					// 탐색기에서 드래그앤 드롭 사용
 					attZone.addEventListener('dragenter', function (e) {
@@ -190,8 +192,6 @@ layout:decorate="~{frame/administrator}">
 						}
 
 					}, false)
-
-
 
 					/*첨부된 이미지를을 배열에 넣고 미리보기 */
 					imageLoader = function (file) {
@@ -229,7 +229,9 @@ layout:decorate="~{frame/administrator}">
 							dt = new DataTransfer();
 							for (f in sel_files) {
 								var file = sel_files[f];
-								dt.items.add(file);
+								dt
+									.items
+									.add(file);
 							}
 							btnAtt.files = dt.files;
 							var p = ele.parentNode;
@@ -239,15 +241,14 @@ layout:decorate="~{frame/administrator}">
 						div.appendChild(btn)
 						return div
 					}
-				}
-			)('att_zone', 'btnAtt')
-			
+				})('att_zone', 'btnAtt')
+
 			function CHUpdate() {
 				var formData = new FormData($('#frm')[0])
 				for (let i = 0; i < sel_files.length; i++) {
 					formData.append("files", sel_files[i])
 				}
-				
+
 				$.ajax({
 					url: "/adminCHUpdate",
 					type: "post",
@@ -265,8 +266,6 @@ layout:decorate="~{frame/administrator}">
 				})
 			}
 		</script>
-
-
 
 	</div>
 </body>
