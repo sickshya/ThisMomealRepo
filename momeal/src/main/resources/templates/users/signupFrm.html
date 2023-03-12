@@ -186,6 +186,7 @@
                             placeholder="나머지주소"
                             class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
                             style="border: 1px solid #d3d5d8 !important;">
+                        <input type="hidden" id="addr" name="addr" value="">
                         <div class="flex justify-start my-4 space-x-1">
                             <div class="checkbox">
                                 <input type="checkbox" id="chekcbox1" checked="checked">
@@ -334,11 +335,14 @@
 
                             // 우편번호와 주소 정보를 해당 필드에 넣는다.
                             $("#postcode").val(data.zonecode);
-                            $('#address').val(addr);
+                            $('#address').val(addr + extraAddr);
                             $('#extraAddress').val(extraAddr);
+                            
 
                             // 커서를 상세주소 필드로 이동한다.
                             $("detailAddress").focus();
+                            
+                            $('#addr').val() = addr + ' ' + extraAddr + ' ' + $('detailAddress').val();
                         }
                     })
                     .open();

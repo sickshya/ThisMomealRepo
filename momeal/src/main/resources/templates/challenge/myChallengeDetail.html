@@ -1,97 +1,115 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{frame/usual}">
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{frame/usual}">
 
-<head>
-<meta charset="UTF-8">
-<meta name="description" content="Ogani Template">
-<meta name="keywords" content="Ogani, unica, creative, html">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>My challenge</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Ogani Template">
+        <meta name="keywords" content="Ogani, unica, creative, html">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>My challenge</title>
 
-<!-- Google Font -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
-	rel="stylesheet">
+        <!-- Google Font -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+            rel="stylesheet">
 
-<!-- Css Styles -->
-<link rel="stylesheet" href="/second-template/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/second-template/css/font-awesome.min.css"
-	type="text/css">
-<!-- <link rel="stylesheet" href="/ogani-master/css/elegant-icons.css" -->
-<!-- 	type="text/css"> -->
-<!-- <link rel="stylesheet" href="/ogani-master/css/nice-select.css" -->
-<!-- 	type="text/css"> -->
-<!-- <link rel="stylesheet" href="/ogani-master/css/jquery-ui.min.css" -->
-<!-- 	type="text/css"> -->
-<!-- <link rel="stylesheet" href="/ogani-master/css/owl.carousel.min.css" -->
-<!-- 	type="text/css"> -->
-<!-- <link rel="stylesheet" href="/ogani-master/css/slicknav.min.css" -->
-<!-- 	type="text/css"> -->
-<link rel="stylesheet" href="/second-template/css/style.css"
-	type="text/css">
+        <!-- Css Styles -->
+        <link
+            rel="stylesheet"
+            href="/second-template/css/bootstrap.min.css"
+            type="text/css">
+        <link
+            rel="stylesheet"
+            href="/second-template/css/font-awesome.min.css"
+            type="text/css">
+        <!-- <link rel="stylesheet" href="/ogani-master/css/elegant-icons.css" -->
+        <!-- type="text/css"> -->
+        <!-- <link rel="stylesheet" href="/ogani-master/css/nice-select.css" -->
+        <!-- type="text/css"> -->
+        <!-- <link rel="stylesheet" href="/ogani-master/css/jquery-ui.min.css" -->
+        <!-- type="text/css"> -->
+        <!-- <link rel="stylesheet" href="/ogani-master/css/owl.carousel.min.css" -->
+        <!-- type="text/css"> -->
+        <!-- <link rel="stylesheet" href="/ogani-master/css/slicknav.min.css" -->
+        <!-- type="text/css"> -->
+        <link rel="stylesheet" href="/second-template/css/style.css" type="text/css">
 
-<!-- 리뷰 탭 -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/assets/css/bootstrap.min_grp.css">
-<link rel="stylesheet" href="/assets/css/style_grp.css">
+        <!-- 리뷰 탭 -->
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/assets/css/bootstrap.min_grp.css">
+        <link rel="stylesheet" href="/assets/css/style_grp.css">
 
-<!-- 인증 모달 -->
-<link href="/modal-template/css/style.css" rel="stylesheet">
+        <!-- 인증 모달 -->
+        <link href="/modal-template/css/style.css" rel="stylesheet">
 
-<style>
-#reviewForm fieldset{
-    display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
-    direction: rtl; /* 이모지 순서 반전 */
-    border: 0; /* 필드셋 테두리 제거 */
-}
-#reviewForm fieldset legend{
-    text-align: left;
-}
-#reviewForm input[type=radio]{
-    display: none; /* 라디오박스 감춤 */
-}
-#reviewForm label{
-    font-size: 30px; /* 이모지 크기 */
-    color: transparent; /* 기존 이모지 컬러 제거 */
-    text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
-}
-#reviewForm label:hover{
-    text-shadow: 0 0 0 #FFE324; /* 마우스 호버 */
-}
-#reviewForm label:hover ~ label{
-    text-shadow: 0 0 0 #FFE324; /* 마우스 호버 뒤에오는 이모지들 */
-}
-#reviewForm input[type=radio]:checked ~ label{
-    text-shadow: 0 0 0 #FFE324; /* 마우스 클릭 체크 */
-}
-</style>
-</head>
+        <style>
+            #reviewForm fieldset {
+                display: inline-block;
+                /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+                direction: rtl;
+                /* 이모지 순서 반전 */
+                border: 0;
+                /* 필드셋 테두리 제거 */
+            }
+            #reviewForm fieldset legend {
+                text-align: left;
+            }
+            #reviewForm input[type=radio] {
+                display: none;
+                /* 라디오박스 감춤 */
+            }
+            #reviewForm label {
+                font-size: 30px;
+                /* 이모지 크기 */
+                color: transparent;
+                /* 기존 이모지 컬러 제거 */
+                text-shadow: 0 0 0 #f0f0f0;
+                /* 새 이모지 색상 부여 */
+            }
+            #reviewForm label:hover {
+                text-shadow: 0 0 0 #FFE324;
+                /* 마우스 호버 */
+            }
+            #reviewForm label:hover ~ label {
+                text-shadow: 0 0 0 #FFE324;
+                /* 마우스 호버 뒤에오는 이모지들 */
+            }
+            #reviewForm input[type=radio]:checked ~ label {
+                text-shadow: 0 0 0 #FFE324;
+                /* 마우스 클릭 체크 */
+            }
+        </style>
+    </head>
 
-<body>
-	<div layout:fragment="content">
-		<!-- Product Details Section Begin -->
-<!-- 		<section class="product-details spad"> -->
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-6 col-md-6">
-						<div class="product__details__pic" align="center">
-<!-- 							<div class="product__details__pic__item"> -->
-								<img class="product__details__pic__item--large"
-									th:src="${chall.THUMBNAIL_IMG_PATH}" alt="" style="width:330px; height:330px;">
-<!-- 							</div> -->
+    <body>
+        <div layout:fragment="content">
+            <!-- Product Details Section Begin -->
+            <!-- <section class="product-details spad"> -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="product__details__pic" align="center">
+                            <!-- <div class="product__details__pic__item"> -->
+                            <img
+                                class="product__details__pic__item--large"
+                                th:src="${chall.THUMBNAIL_IMG_PATH}"
+                                alt=""
+                                style="width:330px; height:330px;">
+                            <!-- </div> -->
 
-						</div>
-					</div>
-					<div class="col-lg-6 col-md-6">
-						<div class="product__details__text" id="challInfo">
-							<h3>[[ ${chall.TITLE} ]]</h3>
-							<p>챌린지 조건 있어야함!!(매일, 2주동안 이런거)</p>
-							<!-- 							<div class="product__details__price">오늘부터 시작</div> -->
-							<p>[[ ${#dates.format(chall.CHAL_START_DATE, 'MM-dd')} ]]([[
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="product__details__text" id="challInfo">
+                            <h3>[[ ${chall.TITLE} ]]</h3>
+                            <p>챌린지 조건 있어야함!!(매일, 2주동안 이런거)</p>
+                            <!-- <div class="product__details__price">오늘부터 시작</div> -->
+                            <p>[[ ${#dates.format(chall.CHAL_START_DATE, 'MM-dd')} ]]([[
 								${#dates.dayOfWeekName(chall.CHAL_START_DATE)} ]]) ~ [[
 								${#dates.format(chall.CHAL_END_DATE, 'MM-dd')} ]]([[
 								${#dates.dayOfWeekName(chall.CHAL_END_DATE)} ]])</p>

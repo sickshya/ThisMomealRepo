@@ -85,21 +85,19 @@
 
 	<!-- 페이징 할 리스트 -->
 	<select id="getAdminUserList" parameterType="UsersVO"
-		resultType="UsersVO">
-
-		SELECT * FROM( SELECT ROWNUM RN, A.* FROM(
-
-		SELECT * FROM USERS
-		<where>
-			<include refid="creiteria"></include>
-		</where>
-
-		ORDER BY USER_ID
-		
-		<![CDATA[
- 		)A WHERE ROWNUM <= #{last}) B WHERE RN  >= #{first}
-			
-		]]>
+		resultType="UsersVO"> 
+		SELECT * 
+		  FROM( SELECT 	ROWNUM RN, 
+		  				A.* 
+		  		  FROM(	SELECT * 
+		  		  		  FROM USERS
+				<where>
+				<include refid="creiteria"></include>
+				</where>
+			   		ORDER BY USER_ID
+					<![CDATA[
+	 		)A WHERE ROWNUM <= #{last}) B 
+ 		 WHERE RN >= #{first} ]]>
 	</select>
 
 	<select id="grpSelect"

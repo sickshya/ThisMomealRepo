@@ -73,15 +73,15 @@ public class UserController {
 
 	// =============관리자 유저=================================
 	// 페이징
-	@RequestMapping("/adminUser")
-	public String adminUser(Model model, @ModelAttribute("esvo") UserSearchVO svo, Paging paging) {
+	@RequestMapping("/admin/usrList")
+	public String adminUserList(Model model, @ModelAttribute("esvo") UserSearchVO svo, Paging paging) {
 		svo.setFirst(paging.getFirst());
 		svo.setLast(paging.getLast());
 		paging.setTotalRecord(userService.getCountTotal(svo));
 
-		model.addAttribute("getadminUserList", userService.getAdminUserList(svo));
+		model.addAttribute("allUser", userService.getAdminUserList(svo));
 
-		return "admin/adminUser";
+		return "admin/allUserList";
 
 	}
 
