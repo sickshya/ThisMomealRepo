@@ -20,4 +20,5 @@ public class ChallengeValidationVO {
 	private String fileDir; // 인증 사진 주소
 	
 	private String nickName; // 사진 올린 회원의 닉네임
+	private String profileImgPath; // 사진 올린 회원의 프로필 사진 주소
 }

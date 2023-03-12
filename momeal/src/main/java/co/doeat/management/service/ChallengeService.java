@@ -20,9 +20,11 @@ public interface ChallengeService {
 	// 1. 진행중인 챌린지
 	public List<Map<String, Object>> getMyChallList(String userId); // 진행중인 챌린지 전체조회
 
-	public Map<String, Object> getMyChall(String userId, int no); // 단건조회
+	public Map<String, Object> getMyChall(String userId, int no); // 진행중인 챌린지 단건조회
+	
+	public List<ChallengeValidationVO> getChallImgList(String userId, int chalNo); // 챌린지별 참여자 인증 사진 조회
 
-	public List<ChallengeValidationVO> getMyChallImg(String userId, int chalNo); // 챌린지별 인증 사진 조회
+	public List<ChallengeValidationVO> getMyChallImg(String userId, int chalNo); // 챌린지별 나의 인증 사진 조회
 	
 	public ChallengeValidationVO getMyChallImgOne(int no); // 인증 사진 단건조회
 	
