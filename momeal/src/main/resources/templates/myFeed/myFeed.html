@@ -268,7 +268,7 @@ img {
 
             <div class="story-modal-media">
                <img src="" alt=""
-                  class="inset-0 h-full w-full object-cover" id="mealImg" style="width : 820px;">
+                  class="inset-0 h-full w-full object-cover" id="mealImg" style="width: 820px;">
             </div>
             <div class="flex-1 bg-white dark:bg-gray-900 dark:text-gray-100">
 
@@ -277,8 +277,7 @@ img {
                   class="border-b flex items-center justify-between px-5 py-3 dark:border-gray-600">
                   <div class="flex flex-1 items-center space-x-4">
                      <a href="#">
-                        <div
-                           class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
+                        <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
                            <img src="assets/images/avatars/avatar-2.jpg"
                               class="bg-gray-200 border border-white rounded-full w-8 h-8">
                         </div>
@@ -289,17 +288,17 @@ img {
                      class="icon-feather-more-horizontal text-2xl rounded-full p-2 transition -mr-1"></i>
                   </a>
                </div>
-               <div class="story-content p-4" data-simplebar>
+               <div class="story-content p-4 oneFeed" data-simplebar>
                      <div><p id="mealScore">식단점수</p></div>
                      <input type="hidden" id="no">
                   <div class="py-4 ">
                      <div class="flex justify-around">
                         <a href="#" class="flex items-center space-x-3">
-                           <div class="flex font-bold items-baseline">
-                              <i class="uil-heart mr-1"> </i> Like
+                           <div class="flex font-bold items-baseline modalHeart heart ">
+                             <!-- 좋아요 들어간 자리 -->
                            </div>
                         </a>
-                        <button type="button" onclick = "feedUpdteForm();">글수정</button>
+                        <button type="button">글수정</button>
                         <button type="button"  onclick="feedDel();">글삭제</button>
 
                      </div>
@@ -409,7 +408,7 @@ let today = new Date();     // 페이지를 로드한 날짜를 저장
 today.setHours(0, 0, 0, 0);  // 비교 편의를 위해 today의 시간을 초기화
 
 let userId = $("#feedUserId").val(); // 피드 주인의 아이디 저장
-let no = $('#no').val(); //게시글 번호
+
 // 피드생성
 function buildCalendar() {
 
@@ -437,7 +436,7 @@ function buildCalendar() {
          <tr>
               <td colspan="6">
                <div class="card" >
-                <a href="#story-modal" class="show" uk-toggle data-no="${res.no}"">
+                <a href="#story-modal" class="show" uk-toggle data-no="${res.no}">
                 <img src="${res.fileDir}" alt="Avatar" style="width:100%">
                 </a>
                 <div class="Cardcontainer">
@@ -484,6 +483,10 @@ function nextCalendar() {
 
 // input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수
 function leftPad(value) {
+	
+	event.preventDefault() // a, submit (페이지 이동 막음)
+	event.stopPropagation()
+	
     if (value < 10) {
         value = "0" + value;
         return value;
@@ -491,9 +494,13 @@ function leftPad(value) {
     return value;
 }
 
-//상세보기 ///+++++++++++++++++++++++++++++++++++++++++++++상세보기 모달 좋아요!!!!! .then 밑에 넣어
+
+//상세보기
 $('#tbd').on("click",".show",function(){
    let no = $(this).data("no")
+   
+   $(".modalHeart").empty()
+   
    $.ajax({
       url: "/mealSelect/" +no
    })
@@ -502,8 +509,66 @@ $('#tbd').on("click",".show",function(){
       $("#mealScore").text(obj.mealScore);
       $('#no').val(obj.no);
       
+   // 모달안에 좋아요
+      if(obj.likeNo != 0) {     
+      	$(".modalHeart").append(	`<img src="/assets/images/heart.svg" class="fullHeart">`          	)
+      	$(".modalHeart").data("likeno", obj.likeNo);
+      } else {
+      	$(".modalHeart").append( 	`<img src="/assets/images/emptyHeart.svg" class="emptyHeart">`        	)
+      	$(".modalHeart").closest(".oneFeed").data("no", no);
+      }
+   
    });
 })
+
+
+ $(function(){
+			
+			// 좋아요 인서트
+			$(document).on("click", ".emptyHeart", function(){
+				event.preventDefault() // a, submit (페이지 이동 막음)
+				event.stopPropagation()
+				
+				let oneFeed = $(this).closest(".oneFeed")
+				let no = $(this).closest(".oneFeed").data("no");
+				let heart = $(this).parent(".heart")
+
+				console.log(no);
+				
+				$.ajax({
+					type: 'POST',
+					url: "/insertLikeMeal/" + no,
+				})
+					.then(result => {
+						oneFeed.data("likeno", result.no);
+							heart.html(`<img src="/assets/images/heart.svg" class="fullHeart">`) // 빨간하트
+				//    location.reload();
+					
+					});
+				});
+				
+			
+			
+			// 좋아요 삭제
+			$(document).on("click", ".fullHeart", function(){
+				let no = $(this).parent(".heart").data("likeno");
+				let heart = $(this).parent(".heart")
+				
+				event.preventDefault()
+				event.stopPropagation()
+
+				$.ajax({
+					type: 'POST',
+					url: "/myLikeDel/" + no,
+				})
+					.then(result => {
+						console.log(result)
+						heart.html(`<img src="/assets/images/emptyHeart.svg" class="emptyHeart">`)// 빈 하트
+           //      location.reload();
+					});
+				});
+			});
+
 
 //출석중복체크
 function atCk(){
@@ -536,13 +601,6 @@ function feedDel(){
    })
 
 }
-
-function feedUpdteForm(){
-	   let no = $('#no').val()
-	   location.href = "/feedUpdateForm/" + no
-}
-
-
 
 
 //▶ 팔로우 관련
