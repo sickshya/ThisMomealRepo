@@ -1,5 +1,6 @@
 package co.doeat.community.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.doeat.activity.service.MealVO;
@@ -29,11 +31,24 @@ public class CommunityController {
 		
 		String id = (String) session.getAttribute("userId");
 		
-		model.addAttribute("cmntList", communityService.getCmntList(id));
+		// 전체조회
+//		model.addAttribute("cmntList", communityService.getCmntList(id));
 		
-		System.out.println("====== 결과 ▶ " + communityService.getCmntList(id));
+		// 인기순 조회
+		model.addAttribute("cmntRec", communityService.likeRankCmntList(id));
+		
+		System.out.println("====== 결과 ▶ " + communityService.likeRankCmntList(id));
 		
 		return "community/community";
+	}
+	
+	// 전체조회 + 페이징
+	@RequestMapping("/communityList")
+	@ResponseBody
+	public List<Map<String, Object>> communityList(MealVO vo, HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
+		vo.setUserId(userId);
+		return communityService.getCmntList(vo);
 	}
 	
 	// 단건조회(ajax)
