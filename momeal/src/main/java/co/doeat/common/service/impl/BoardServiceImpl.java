@@ -21,11 +21,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public BoardVO faqSelect(BoardVO vo) {
-		return boardMapper.faqSelect(vo);
-	}
-
-	@Override
 	public int faqInsert(BoardVO vo) {
 		return boardMapper.faqInsert(vo);
 	}
@@ -40,4 +35,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.faqDelete(vo);
 	}
 
+	@Override
+	public BoardVO faqSelect(BoardVO vo) {
+		return boardMapper.faqSelect(vo);
+	}
+
+	
 }
