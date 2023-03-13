@@ -96,8 +96,11 @@ public class ChallengeController {
 		// 챌린지 정보 select
 		model.addAttribute("chall", challengeService.getMyChall(userId, chalNo));
 
-		// 챌린지 인증 이미지 select
+		// 챌린지 나의 인증 이미지 select
 		model.addAttribute("valImg", challengeService.getMyChallImg(userId, chalNo));
+		
+		// 챌린지 참여자 인증 이미지 select
+		model.addAttribute("userValImg", challengeService.getChallImgList(userId, chalNo));
 
 		return "challenge/myChallengeDetail";
 	}

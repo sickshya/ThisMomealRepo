@@ -284,35 +284,12 @@
 											</h4>
 
 											<!-- 인증샷 반복문 돌리기 -->
-											<div class="row row-0-gutter">
-												<div class="col-md-3 col-0-gutter text-center">
+											<div class="row row-0-gutter" id="userValImg">
+												<div th:each="userImg : ${userValImg}" class="col-md-3 col-0-gutter text-center">
 													<div class="mz-module-about">
-														<img th:src="${chall.THUMBNAIL_IMG_PATH}"
-															style="width: 200px; height: 200px;">
-													</div>
-												</div>
-												<div class="col-md-3 col-0-gutter text-center">
-													<div class="mz-module-about">
-														<img th:src="${chall.THUMBNAIL_IMG_PATH}"
-															style="width: 200px; height: 200px;">
-													</div>
-												</div>
-												<div class="col-md-3 col-0-gutter text-center">
-													<div class="mz-module-about">
-														<img th:src="${chall.THUMBNAIL_IMG_PATH}"
-															style="width: 200px; height: 200px;">
-													</div>
-												</div>
-												<div class="col-md-3 col-0-gutter text-center">
-													<div class="mz-module-about">
-														<img th:src="${chall.THUMBNAIL_IMG_PATH}"
-															style="width: 200px; height: 200px;">
-													</div>
-												</div>
-												<div class="col-md-3 col-0-gutter text-center">
-													<div class="mz-module-about">
-														<img th:src="${chall.THUMBNAIL_IMG_PATH}"
-															style="width: 200px; height: 200px;">
+														<a href="#" data-toggle="modal" data-target="#imgDetail" th:onclick="imgDetail([[${userImg.no}]])">
+															<img th:src="${userImg.fileDir}" style="width: 200px; height: 200px;">
+														</a>
 													</div>
 												</div>
 											</div>
@@ -577,6 +554,22 @@
 				$("#imgDate").text(result.vldDate);
 				$("#userNickName").text(result.nickName);
 			})
+		}
+		
+		// ▶ 인증 중복체크
+		function imgCheck() {
+		   fetch("/ajaxAtCheck")
+		      .then(response => response.text())
+		      .then(data => isCheckResult(data));
+		}
+		
+		function isCheckResult(data) {
+		   console.log(data)
+		   if(data == "true") {
+		      alert("이미 출석을 완료했습니다");
+		   }else if(data == "false"){
+		      alert("출석");
+		   }
 		}
 		
 		

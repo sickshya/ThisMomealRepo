@@ -141,12 +141,15 @@
 	     AND P.NO = #{no}
 	</select>
 	
-	<!-- 참여중 - 챌린지별 모든 회원의 인증사진 전체조회 -->
-	<select id="">
-		SELECT *
-		  FROM CHALLENGE_VALIDATION
-		 WHERE CHAL_NO = 3
-           AND USER_ID NOT IN #{userId}
+	<!-- 참여중 - 챌린지별 참여자 인증사진 전체조회 -->
+	<select id="getChallImgList" resultType="co.doeat.management.service.ChallengeValidationVO">
+		SELECT CV.*, 
+			   U.NICK_NAME
+		  FROM CHALLENGE_VALIDATION CV
+          JOIN USERS U
+            ON CV.USER_ID = U.USER_ID
+		 WHERE CHAL_NO = #{chalNo}
+           AND CV.USER_ID NOT IN #{userId}
 		 ORDER BY NO DESC
 	</select>
 	

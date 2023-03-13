@@ -237,6 +237,7 @@
             $("#cmntImg").attr("src", obj.fileDir);
             $("#subject").text(obj.subject);
             $("#nickName").text(obj.nickName);
+            $("#feedUserId").attr("href", "/myFeed/" + obj.userId);
             $("#feedFrofile").attr("src", obj.profileImgPath);
             $("#postNo").val(obj.no);
             
@@ -299,8 +300,9 @@
                if(item.cmmtClass == 0) {
                   $("#reply").append(
                      `<div class="flex flex-1 space-x-2" id="comment${item.no}">
-                        <img src="${item.profileImgPath}"
-                           class="rounded-full w-8 h-8">
+                     <a href="/myFeed/${item.userId}">   
+                     <img src="${item.profileImgPath}"
+                           class="rounded-full w-8 h-8"></a>
                         <div class="flex-1" id="one${item.no}"><p id="p${item.no}"><b>${item.nickName}</b>
                         ${item.userId == sessionId ? 
                            `<button type="button" style="float: right; font-size:12px;" onclick="cmmtDelete(${item.no})">삭제</button>&nbsp;
