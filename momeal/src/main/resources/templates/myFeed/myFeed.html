@@ -149,7 +149,7 @@ img {
             <div>
                <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full m-0.5 mr-2  w-56 h-56 relative overflow-hidden uk-transition-toggle">
-                  <img src="assets/images/avatars/avatar-7.jpg"
+                  <img src=${selects.profileImgPath}
                      class="bg-gray-200 border-4 border-white rounded-full w-full h-full dark:border-gray-900">
                </div>
             </div>
@@ -162,8 +162,8 @@ img {
                <p class="lg:text-left mb-2 text-center  dark:text-gray-100">
                   [[${selects.grade}]]
                <div class="flex font-semibold mb-3 space-x-2  dark:text-gray-10">
-                  <a href="#story-modal2" uk-toggle>포인트</a> , <a href="#">Sports</a>
-                  , <a href="#">Movies</a>
+<!--                   <a href="#story-modal2" uk-toggle>포인트</a> , <a href="#">Sports</a> -->
+<!--                   , <a href="#">Movies</a> -->
                </div>
 
 
@@ -181,8 +181,8 @@ img {
                <div
                   class="divide-gray-300 divide-transparent divide-x grid grid-cols-3 lg:text-left lg:text-lg mt-3 text-center w-full dark:text-gray-100">
                   <div class="flex lg:flex-row flex-col" style="cursor: pointer"
-                     onclick="">
-                     120k <strong class="lg:pl-2">게시글</strong>
+                     onclick="">[[${mealcnt.POST_CNT}]]
+                   <strong class="lg:pl-2">게시글</strong>
                   </div>
                   <div class="lg:pl-4 flex lg:flex-row flex-col" style="cursor: pointer" data-toggle="modal" data-target="#followerModal" th:onclick="followerList([[${selects.userId}]])">
                      [[ ${follow.FOLLOWEE_CNT} ]] <strong class="lg:pl-2">팔로워</strong>
@@ -289,8 +289,12 @@ img {
                   </a>
                </div>
                <div class="story-content p-4 oneFeed" data-simplebar>
-                     <div><p id="mealScore">식단점수</p></div>
+                     <span>식단점수<p id="mealScore"></p></span> <span>식사<p id="typeCode">식단점수</p></span>
                      <input type="hidden" id="no">
+                     
+                     <span>시간<p id="mealTime">식단점수</p></span>
+                      <span>얼마만큼?<p id="mealAmount">식단점수</p></span>
+                      <span><p id="subject">식단점수</p></span>
                   <div class="py-4 ">
                      <div class="flex justify-around">
                         <a href="#" class="flex items-center space-x-3">
@@ -298,7 +302,7 @@ img {
                              <!-- 좋아요 들어간 자리 -->
                            </div>
                         </a>
-                        <button type="button">글수정</button>
+                        <button type="button" onclick = "feedUpdteForm();">글수정</button>
                         <button type="button"  onclick="feedDel();">글삭제</button>
 
                      </div>
@@ -508,7 +512,10 @@ $('#tbd').on("click",".show",function(){
       $("#mealImg").attr("src", obj.fileDir);
       $("#mealScore").text(obj.mealScore);
       $('#no').val(obj.no);
-      
+      $('#typeCode').text(obj.typeCode);
+      $('#mealTime').text(obj.mealTime);
+	  $('#mealAmount').text(obj.mealAmount);  
+	  $('#subject').text(obj.subject);
    // 모달안에 좋아요
       if(obj.likeNo != 0) {     
       	$(".modalHeart").append(	`<img src="/assets/images/heart.svg" class="fullHeart">`          	)
@@ -601,6 +608,12 @@ function feedDel(){
    })
 
 }
+
+function feedUpdteForm(){
+	   let no = $('#no').val()
+	   location.href = "/feedUpdateForm/" + no
+}
+
 
 
 //▶ 팔로우 관련
