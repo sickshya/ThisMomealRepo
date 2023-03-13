@@ -164,7 +164,7 @@ public class ExperienceController {
 		int postNo = vo.getNo();
 		model.addAttribute("imgselect", imageService.imageList(boardCode, postNo));
 		
-		return "amin/adminEXSelect";
+		return "admin/adminEXSelect";
 	}
 	
 	//관리자 체험단 삭제

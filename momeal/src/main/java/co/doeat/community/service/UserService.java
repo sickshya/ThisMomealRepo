@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import co.doeat.record.service.PointLogVO;
+
 @Service
 public interface UserService {
 	boolean isIdCheck(String id); // 아이디 중복 체크
@@ -36,10 +38,12 @@ public interface UserService {
 	// 출석체크 포인트 업데이트
 	int updateATPoint(UsersVO uvo);
 
-
 	// myFeed회원정보
 	UsersVO myFeedUserSelect(String id);
-	
-	//포인트조회
-	List<Map<String,Object>> pointList(String userId);
+
+	// 포인트조회
+	List<PointLogVO> pointList(String userId);
+
+	// 누적포인트
+	UsersVO myPoint(String userId);
 }

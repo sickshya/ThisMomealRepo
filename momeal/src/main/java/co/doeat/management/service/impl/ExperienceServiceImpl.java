@@ -72,6 +72,7 @@ public class ExperienceServiceImpl implements ExperienceService {
 
 	@Override
 	public int adminEXInsert(ExperienceVO vo) {
+		experienceMapper.adminEXInsert(vo);
 		return vo.getNo();
 	}
 

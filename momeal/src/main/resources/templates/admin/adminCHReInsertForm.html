@@ -46,7 +46,7 @@
 				<div class="container-fluid">
 					<div class="row justify-content-center">
 						<div class="col-12">
-							<h2 class="page-title">공동구매 등록</h2>
+							<h2 class="page-title">챌린지 재등록</h2>
 							<p class="text-muted">Demo for form control styles, layout options, and custom
 								components for creating a wide variety of forms.</p>
 							<div class="card-deck" style="width: 600px">
@@ -61,41 +61,41 @@
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">챌린지명</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="name" name="name">
+													<input type="text" class="form-control" id="title" name="title" th:value="${reupdates.title}">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">참여포인트</label>
 												<div class="col-sm-9">
 													<input type="text" class="form-control" id="deductPoint"
-														name="deductPoint">
+														name="deductPoint" th:value="${reupdates.deductPoint}">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">시작일자</label>
 												<div class="col-sm-9">
 													<input type="date" class="form-control" id="chalStartDate"
-														name="chalStartDate">
+														name="chalStartDate" th:value="${#dates.format(reupdates.chalStartDate, 'yyyy-MM-dd')}">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">종료일자</label>
 												<div class="col-sm-9">
 													<input type="date" class="form-control" id="chalEndDate"
-														name="chalEndDate">
+														name="chalEndDate" th:value="${#dates.format(reupdates.chalEndDate, 'yyyy-MM-dd')}">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3" for="exampleFormControlTextarea1">상세설명</label>
 												<div class="col-sm-9">
 													<textarea class="form-control" id="subject" name="subject"
-														rows="2"></textarea>
+														rows="2" >[[${reupdates.subject}]]</textarea>
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">썸네일</label>
 												<div class="col-sm-9">
-													<input class="form-control" id="file" type="file" name="tfile">
+												<div th:value="${reupdates.thumbnailImg}"></div> &nbsp;<input class="form-control" id="file" type="file" name="tfile" >
 
 												</div>
 											</div>
@@ -130,7 +130,8 @@
 			<!-- main -->
 		</div>
 		<!-- .wrapper -->
-		<script src="js/jquery.min.js"></script>
+		<script src="/assets/js/jquery-3.3.1.min.js"></script>
+		<script src="/js/jquery.min.js"></script>
 		<script src="js/popper.min.js"></script>
 		<script src="js/moment.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
@@ -250,7 +251,7 @@
 					formData.append("files", sel_files[i])
 				}
 				$.ajax({
-					url: "/adminCHInsert",
+					url: "/adminCHReInsert",
 					type: "post",
 					data: formData,
 					contentType: false,

@@ -63,32 +63,11 @@
 		   AND I.BOARD_CODE='CT01'
 	</select>
 
-	<!-- 챌린지 등록 -->
-	<insert id="insertChallenge">
-		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-			SELECT seq_board.NEXTVAL AS NO 
-			  FROM DUAL
-		</selectKey>
-		INSERT INTO CHALLENGES
-		VALUES(#{no}, 
-			   #{title}, 
-			   #{subject},
-			   #{chalStartDate}, 
-			   #{chalEndDate}, 
-			   #{round},
-			   #{particir},
-			   #{sumParticir}, 
-			   #{deductPoint}, 
-			   #{vldStartTime}, 
-			   #{vldEndTime},
-			   #{vldPosbDate})
-	</insert>
-
 	<!-- 챌린지 참여 -->
 	<insert id="attendChall"
 		parameterType="co.doeat.management.service.ChallengeParticipationVO">
 		INSERT INTO CHALLENGE_PARTICIPATION
-		VALUES (#{userId}, #{no}, #{round}, null)
+		VALUES (#{userId}, #{no}, #{chalRound}, null)
 		<!-- <selectKey keyProperty="USER_ID" resultType="java.util.HashMap" order="AFTER"> -->
 		<!-- SELECT USER_ID FROM CHALLENGE_PARTICIPATION WHERE NO = #{no} -->
 		<!-- </selectKey> -->
@@ -119,7 +98,7 @@
 			   U.TOTAL_POINT, 
 			   P.USER_ID, 
 			   P.NO, 
-			   P.ROUND, 
+			   P.CHAL_ROUND, 
 			   NVL(P.CODE_ID, '0') as code_id, 
 			   C.TITLE, 
 			   C.CHAL_START_DATE, 
@@ -254,7 +233,7 @@
 				title like '%'||#{keyword}||'%'
 			</when>
 			<when test="type == 'N'.toString()">
-				chstatus like '%'||#{keyword}||'%'
+				chal_round like '%'||#{keyword}||'%'
 			</when>
 		</choose>
 	</sql>
@@ -277,7 +256,7 @@
 		from(
 
 		SELECT
-		no,title,deduct_point,chal_start_date,chal_end_date,
+		no,title,deduct_point,chal_start_date,chal_end_date,chal_round,
 		<![CDATA[
 	        CASE WHEN chal_start_date <=trunc(current_date) 
 	        		AND chal_end_date <= trunc(current_date) THEN '완료'
@@ -309,7 +288,7 @@
 		SUBJECT,
 		CHAL_START_DATE,
 		CHAL_END_DATE,
-		ROUND,
+		CHAL_ROUND,
 		PARTICIR,
 		SUM_PARTICIR,
 		DEDUCT_POINT,
@@ -321,7 +300,7 @@
 		#{subject},
 		#{chalStartDate},
 		#{chalEndDate},
-		#{round},
+		#{chalRound},
 		#{particir},
 		#{deductPoint},
 		#{thumbnailImg},
@@ -342,11 +321,10 @@
 			<if test="subject != null">SUBJECT = #{subject},</if>
 			<if test="chalStartDate != null">CHAL_START_DATE = #{chalStartDate},</if>
 			<if test="chalEndDate != null">CHAL_END_DATE = #{chalEndDate},</if>
-			<if test="round != null">ROUND = #{round},</if>
 			<if test="particir != null">PARTICIR = #{particir},</if>
 			<if test="deductPoint != null">DEDUCT_POINT = #{deductPoint},</if>
 			<if test="thumbnailImg != null">THUMBNAIL_IMG =#{thumbnailImg},</if>
-			<if test="thumbnailImgPath != null">THUMBNIL_IMG_PATH =#{thumbnailImgPath}</if>
+			<if test="thumbnailImgPath != null">THUMBNAIL_IMG_PATH =#{thumbnailImgPath}</if>
 		</set>
 		WHERE NO = #{no}
 	
@@ -389,24 +367,20 @@
 	<!-- 관리자용 챌린지재등록 -->
 <insert id="adminCHReInsert"
 		parameterType="co.doeat.management.service.ChallengeVO">
-		<selectKey keyProperty="no,round" resultType="co.doeat.management.service.ChallengeVO" order="BEFORE">
+
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			SELECT
-			MAX(NO)+1 FROM CHALLENGES
-		</selectKey>
-<!-- 		<selectKey keyProperty="round" resultType="int" order="BEFORE"> -->
-<!-- 			SELECT -->
-<!-- 			MAX(round)+1 FROM CHALLENGES -->
-<!-- 			WHERE TITLE = #{title} -->
-<!-- 		</selectKey> -->
+			MAX(NO)+1
+			FROM CHALLENGES
+		</selectKey>		
+		
 		INSERT INTO CHALLENGES(
 		NO,
 		TITLE,
 		SUBJECT,
 		CHAL_START_DATE,
 		CHAL_END_DATE,
-		ROUND,
-		PARTICIR,
-		SUM_PARTICIR,
+		CHAL_ROUND,
 		DEDUCT_POINT,
 		THUMBNAIL_IMG,
 		THUMBNAIL_IMG_PATH
@@ -416,10 +390,11 @@
 		#{subject},
 		#{chalStartDate},
 		#{chalEndDate},
-		#{round},
-		#{particir},
+		select_chalround(#{title})+1,
 		#{deductPoint},
 		#{thumbnailImg},
 		#{thumbnailImgPath})
+
+
 	</insert>
 </mapper>
