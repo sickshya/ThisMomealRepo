@@ -16,14 +16,13 @@
         href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <!-- Icons CSS -->
-    <link rel="stylesheet" href="/css/feather.css">
-    <link rel="stylesheet" href="/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="css/feather.css">
+    <link rel="stylesheet" href="css/dataTables.bootstrap4.css">
     <!-- Date Range Picker CSS -->
-    <link rel="stylesheet" href="/css/daterangepicker.css">
+    <link rel="stylesheet" href="css/daterangepicker.css">
     <!-- App CSS -->
-    <link rel="stylesheet" href="/css/app-light.css" id="lightTheme">
-    <link rel="stylesheet" href="/css/app-dark.css" id="darkTheme" disabled="disabled">
-
+    <link rel="stylesheet" href="css/app-light.css" id="lightTheme">
+    <link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled="disabled">
     <style>
         .pagination {
             display: inline-block;
@@ -50,101 +49,106 @@
 
 <body class="vertical  light  ">
     <div layout:fragment="content">
-        <script>
-            function gopage(page) {
-                location.href = "adminGroupPurchase?page=" + page;
-                frmSearch.page.value = page;
-                frmSearch.submit();
-            }
-        </script>
-
         <div class="wrapper">
+
             <main role="main" class="main-content">
                 <div class="container-fluid">
                     <div class="row justify-content-center">
+                        <script>
+                            function gopage(page) {
+                                location.href = "adminExperienceGroup?page=" + page;
+                                searchFrm.page.value = page;
+                                searchFrm.submit();
+                            }
+                        </script>
+
                         <div class="col-12">
                             <div class="row">
-                                <!-- 회원리스트 -->
+
+                                <!-- 체험단 리스트 출력 -->
+
                                 <form id="searchFrm">
                                     <select name="type">
-                                        <option value="G" th:selected="${paging.type == 'G'}">제품명</option>
-                                        <option value="N" th:selected="${paging.type == 'N'}">상태</option>
+                                        <option value="G" th:selected="${paging.type == 'G'}">상품명</option>
+                                        <option value="N" th:selected="${paging.type == 'N'}">현황</option>
+                                        <option value="R" th:selected="${paging.type == 'R'}">필요등급</option>
                                     </select>
                                     <input type="text" name="keyword" th:value="${paging.keyword}">
                                     <button type="submit">검색</button>
                                 </form>
                                 <!-- 표 시작 Striped rows -->
+
                                 <div class="col-md-20 my-4">
                                     <div class="card shadow">
                                         <div class="card-body">
-                                            <h5 class="card-title">공동구매</h5>
+                                            <h5 class="card-title">등록된 챌린지 리스트</h5>
                                             <p class="card-text">
                                                 <input type="button" value="등록하기"
-                                                    onclick="location.href='adminGPInsertFrom'">
+                                                    onclick="location.href='adminEXInsertForm'">
                                             </p>
                                             <table class="table table-striped table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th><input type="checkbox"></th>
                                                         <th>순번</th>
-                                                        <th>회사명</th>
-                                                        <th>제품명</th>
+                                                        <th>체험상품명</th>
+                                                        <th>상품설명</th>
+                                                        <th>인원제한수</th>
+                                                        <th>필요등급</th>
                                                         <th>시작일</th>
                                                         <th>종료일</th>
-                                                        <th>상태</th>
+                                                        <th>현황</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr th:each="gp : ${getAdminGroupPurchaseList}">
+
+                                                    <tr th:each="expr : ${expList}">
                                                         <td><input type="checkbox"></td>
-                                                        <td th:text="${gp.no}"></td>
-                                                        <td th:text="${gp.coName}"></td>
-                                                        <td th:text="${gp.name}"></td>
-                                                        <td th:text="${#dates.format(gp.grpStartDate, 'yyyy-MM-dd')}"></td>
-                                                            <td th:text="${#dates.format(gp.grpEndDate, 'yyyy-MM-dd')}"></td>
-                                                            <td th:text="${gp.gpstatus}"></td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <button
-                                                                        class="btn btn-sm dropdown-toggle"
-                                                                        type="button"
-                                                                        id="dr2"
-                                                                        data-toggle="dropdown"
-                                                                        aria-haspopup="true"
-                                                                        aria-expanded="false">
-                                                                        <span class="text-muted sr-only">Action</span>
-                                                                    </button>
-                                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr2">
-                                                                        <a class="dropdown-item" th:href="|adminGPUpdateForm/${gp.no}|">수정</a>
-                                                                        <a class="dropdown-item" th:href="|adminGPDelete/${gp.no}|">
-                                                                            삭제
-                                                                        </a>
-                                                                        <a class="dropdown-item" th:href="|adminGPSelect/${gp.no}|">상세보기</a>
-                                                                    </div>
+                                                        <td th:text="${expr.no}"></td>
+                                                        <td th:text="${expr.title}"></td>
+                                                        <td th:text="${expr.subject}"></td>
+                                                        <td th:text="${expr.lmtAplyt}"></td>
+                                                        <td th:text="${expr.nessGrd}"></td>
+                                                        <td th:text="${expr.expeStartDate}"></td>
+                                                        <td th:text="${expr.expeEndDate}"></td>
+                                                        <td th:text="${expr.exstatus}"></td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-sm dropdown-toggle" type="button"
+                                                                    id="dr2" data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                    <span class="text-muted sr-only">Action</span>
+                                                                </button>
+                                                                <div class="dropdown-menu dropdown-menu-right"
+                                                                    aria-labelledby="dr2">
+                                                                    <a class="dropdown-item"
+                                                                        th:href="|adminEXUpdateForm/${expr.no}|">수정</a>
+                                                                    <a class="dropdown-item"
+                                                                        th:href="|adminEXDelete/${expr.no}|">삭제</a>
+                                                                    <a class="dropdown-item"
+                                                                        th:href="|adminEXSelect/${expr.no}|">상세보기</a>
                                                                 </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <div>
-                                                    <form id="hiddenFrm" action="adminGPSelect" method="post">
-                                                        <input type="hidden" name="no" id="no">
-                                                    </form>
-                                                </div>
-                                                <div class="pagination">
-                                                    <a href="#">&laquo;</a>
-                                                    <a
-                                                        th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}"
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="pagination">
+                                                <a href="#">&laquo;</a>
+                                                <a th:each="num : *{#numbers.sequence(paging.startPage, paging.endPage)}"
                                                         th:href="|javascript:gopage(${num})|"
                                                         th:class="${paging.page}==${num} ? 'active'">[[${num}]]
                                                     </a>
                                                     <a href="#">&raquo;</a>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
                                     <!-- Striped rows -->
+                                    <br>
+
                                 </div>
                             </div>
                         </div>

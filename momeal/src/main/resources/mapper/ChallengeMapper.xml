@@ -141,7 +141,16 @@
 	     AND P.NO = #{no}
 	</select>
 	
-	<!-- 참여중 - 챌린지별 인증사진 전체조회 -->
+	<!-- 참여중 - 챌린지별 모든 회원의 인증사진 전체조회 -->
+	<select id="">
+		SELECT *
+		  FROM CHALLENGE_VALIDATION
+		 WHERE CHAL_NO = 3
+           AND USER_ID NOT IN #{userId}
+		 ORDER BY NO DESC
+	</select>
+	
+	<!-- 참여중 - 챌린지별 나의 인증사진 전체조회 -->
 	<select id="getMyChallImg" resultType="co.doeat.management.service.ChallengeValidationVO">
 		SELECT *
 		  FROM CHALLENGE_VALIDATION
@@ -191,7 +200,16 @@
 	   		  	  C.CHAL_END_DATE DESC
 	</select>
 	
-	<!-- 종료 - 리뷰 단건조회 -->
+	<!-- 종료 - 챌린지별 후기 전체조회 -->
+	<select id="getReviewList" resultType="co.doeat.management.service.ChallengeReviewVO">
+		SELECT R.*, U.NICK_NAME, U.PROFILE_IMG_PATH
+          FROM CHALLENGE_REVIEW R
+          JOIN USERS U
+            ON R.USER_ID = U.USER_ID
+         WHERE R.NO = #{no}
+	</select>
+	
+	<!-- 종료 - 후기 단건조회 -->
 	<select id="getReviewOne" resultType="co.doeat.management.service.ChallengeReviewVO">
 		SELECT R.*, U.NICK_NAME, U.PROFILE_IMG_PATH
           FROM CHALLENGE_REVIEW R
@@ -201,13 +219,13 @@
            AND R.NO = #{no}
 	</select>
 	
-	<!-- 종료 - 리뷰 등록 -->
+	<!-- 종료 - 후기 등록 -->
 	<insert id="insertReview">
 		INSERT INTO CHALLENGE_REVIEW
 		VALUES(#{userId}, #{no}, TO_DATE(SYSDATE,'YYYY-MM-DD'), #{subject}, #{star})
 	</insert>
 	
-	<!-- 종료 - 리뷰 수정 -->
+	<!-- 종료 - 후기 수정 -->
 	<update id="updateReview">
 		UPDATE CHALLENGE_REVIEW
            SET SUBJECT = #{subject}, 
@@ -216,7 +234,7 @@
            AND NO = #{no}
 	</update>
 	
-	<!-- 종료 - 리뷰 삭제 -->
+	<!-- 종료 - 후기 삭제 -->
 	<delete id="deleteReview">
 		DELETE 
 		  FROM CHALLENGE_REVIEW 
@@ -226,23 +244,27 @@
 
 	<!-- +++++++++++++++++++++++++++관리자++++++++++++++++++++++++++ -->
 	<!-- 관리자 챌린지 리스트 -->
-	<sql id="creiteria">
-		<where>
-			<if test="title != null and title != '' ">
-				title = #{title}
-			</if>
-			<if test="chalEndDate != null and chalEndDate != '' ">
-				AND chal_end_date = #{chalEndDate}
-			</if>
-		</where>
+	
+		<sql id="creiteria">
+		<choose>
+			<when test="type == 'G'.toString()">
+				title like '%'||#{keyword}||'%'
+			</when>
+			<when test="type == 'N'.toString()">
+				chstatus like '%'||#{keyword}||'%'
+			</when>
+		</choose>
 	</sql>
+	
 
 	<select id="getCountTotal"
 		parameterType="co.doeat.management.service.ChallengeVO"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM CHALLENGES
+		<where>
 		<include refid="creiteria"></include>
+		</where>
 	</select>
 
 	<select id="adminChalList"
@@ -261,7 +283,9 @@
 	            Else '진행전' END as chstatus
  		]]>
 		FROM CHALLENGES
+		<where>
 		<include refid="creiteria"></include>
+		</where>
 		order by no
 		<![CDATA[
 		 )a where rownum <= #{last}) b where rn  >= #{first}
@@ -286,9 +310,6 @@
 		PARTICIR,
 		SUM_PARTICIR,
 		DEDUCT_POINT,
-		VLD_START_TIME,
-		VLD_END_TIME,
-		VLD_POSB_DATE,
 		THUMBNAIL_IMG,
 		THUMBNAIL_IMG_PATH
 		)
@@ -300,9 +321,6 @@
 		#{round},
 		#{particir},
 		#{deductPoint},
-		#{vldStartTime},
-		#{vldEndTime},
-		#{vldPosbDate},
 		#{thumbnailImg},
 		#{thumbnailImgPath})
 	</insert>
@@ -312,8 +330,26 @@
 		parameterType="co.doeat.management.service.ChallengeVO">
 		DELETE FROM CHALLENGES WHERE NO=#{no}
 	</delete>
+	
+	<!-- 챌린지 수정 -->
+	<update id="adminCHUpdate">
+		UPDATE CHALLENGES
+		<set>
+			<if test="title != null">TITLE = #{title},</if>
+			<if test="subject != null">SUBJECT = #{subject},</if>
+			<if test="chalStartDate != null">CHAL_START_DATE = #{chalStartDate},</if>
+			<if test="chalEndDate != null">CHAL_END_DATE = #{chalEndDate},</if>
+			<if test="round != null">ROUND = #{round},</if>
+			<if test="particir != null">PARTICIR = #{particir},</if>
+			<if test="deductPoint != null">DEDUCT_POINT = #{deductPoint},</if>
+			<if test="thumbnailImg != null">THUMBNAIL_IMG =#{thumbnailImg},</if>
+			<if test="thumbnailImgPath != null">THUMBNIL_IMG_PATH =#{thumbnailImgPath}</if>
+		</set>
+		WHERE NO = #{no}
+	
+	</update>
 
-	<!-- 챌린지 맵 -->
+	<!-- 챌린지 맵
 	<resultMap type="co.doeat.management.service.ChallengeVO"
 		id="chListMap">
 		<id property="no" column="no" />
@@ -333,23 +369,54 @@
 		<collection property="imgPath" resultMap="imgMap"></collection>
 	</resultMap>
 
-	<!-- 챌린지 단건 이미지이름 맵 -->
+	챌린지 단건 이미지이름 맵
 	<resultMap type="co.doeat.common.service.ImageVO" id="imgMap">
 		<result property="postNo" column="post_No" />
 		<result property="boardCode" column="board_Code" />
 		<result property="atchPath" column="atch_Path" />
-	</resultMap>
+	</resultMap> -->
 
 	<!-- 관리자용 단건조회 (이미지다수, 글 하나) -->
-	<select id="adminCHSelect" parameterType="int"
-		resultMap="chListMap">
-		SELECT ch.*, img.*
-		FROM CHALLENGES ch
-		LEFT OUTER JOIN IMAGES
-		img ON ch.no = img.post_no
-		WHERE ch.no = #{no} AND
-		img.board_Code =
-		'CT01'
+	<select id="adminCHSelect" resultType="co.doeat.management.service.ChallengeVO">
+		SELECT *
+		FROM CHALLENGES
+		WHERE NO = #{no}
 	</select>
-
+	
+	<!-- 관리자용 챌린지재등록 -->
+<insert id="adminCHReInsert"
+		parameterType="co.doeat.management.service.ChallengeVO">
+		<selectKey keyProperty="no,round" resultType="co.doeat.management.service.ChallengeVO" order="BEFORE">
+			SELECT
+			MAX(NO)+1 FROM CHALLENGES
+		</selectKey>
+<!-- 		<selectKey keyProperty="round" resultType="int" order="BEFORE"> -->
+<!-- 			SELECT -->
+<!-- 			MAX(round)+1 FROM CHALLENGES -->
+<!-- 			WHERE TITLE = #{title} -->
+<!-- 		</selectKey> -->
+		INSERT INTO CHALLENGES(
+		NO,
+		TITLE,
+		SUBJECT,
+		CHAL_START_DATE,
+		CHAL_END_DATE,
+		ROUND,
+		PARTICIR,
+		SUM_PARTICIR,
+		DEDUCT_POINT,
+		THUMBNAIL_IMG,
+		THUMBNAIL_IMG_PATH
+		)
+		VALUES(#{no},
+		#{title},
+		#{subject},
+		#{chalStartDate},
+		#{chalEndDate},
+		#{round},
+		#{particir},
+		#{deductPoint},
+		#{thumbnailImg},
+		#{thumbnailImgPath})
+	</insert>
 </mapper>

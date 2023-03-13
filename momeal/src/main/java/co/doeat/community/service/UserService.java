@@ -1,6 +1,7 @@
 package co.doeat.community.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -38,4 +39,7 @@ public interface UserService {
 
 	// myFeed회원정보
 	UsersVO myFeedUserSelect(String id);
+	
+	//포인트조회
+	List<Map<String,Object>> pointList(String userId);
 }

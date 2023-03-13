@@ -40,20 +40,21 @@
 
 <body class="vertical  light  ">
 	<div layout:fragment="content">
+		<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 		<div class="wrapper">
 
 			<main role="main" class="main-content">
 				<div class="container-fluid">
 					<div class="row justify-content-center">
 						<div class="col-12">
-							<h2 class="page-title">공동구매 등록</h2>
+							<h2 class="page-title">챌린지 수정</h2>
 							<p class="text-muted">Demo for form control styles, layout options, and custom
 								components for creating a wide variety of forms.</p>
 							<div class="card-deck" style="width: 600px">
 
 								<div class="card shadow mb-4">
 									<div class="card-header" style="width: 500px">
-										<strong class="card-title">공동구매 추가하기</strong>
+										<strong class="card-title">챌린지 수정하기</strong>
 									</div>
 									<div class="card-body" style="width: 500px" id="myForm">
 
@@ -61,14 +62,15 @@
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">챌린지명</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="name" name="name">
+													<input type="text" class="form-control" id="title" name="title"
+														th:value="${updates.title}">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">참여포인트</label>
 												<div class="col-sm-9">
 													<input type="text" class="form-control" id="deductPoint"
-														name="deductPoint">
+														name="deductPoint" th:value="${updates.deductPoint}">
 												</div>
 											</div>
 											<div class="form-group row">
@@ -89,13 +91,14 @@
 												<label class="col-sm-3" for="exampleFormControlTextarea1">상세설명</label>
 												<div class="col-sm-9">
 													<textarea class="form-control" id="subject" name="subject"
-														rows="2"></textarea>
+														rows="2">[[${updates.subject }]]</textarea>
 												</div>
 											</div>
 											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">썸네일</label>
+												<label class="col-sm-3 col-form-label">썸네일 등록</label>
 												<div class="col-sm-9">
-													<input class="form-control" id="file" type="file" name="tfile">
+													<input class="form-control" id="file" type="file" name="tfile"
+														th:value="${updates.thumbnailImg }">
 
 												</div>
 											</div>
@@ -110,13 +113,9 @@
 											</div>
 
 											<div class="form-group mb-2">
-												<!-- <input type="hidden" name="${images.atchNo}"> -->
-												<!-- <input type="hidden" name="${groupPurchaseList.no}"> -->
-												<!-- <input type="hidden" name="${images.postNo}"
-                                                    value="${groupPurchaseList.no}"> -->
-												<!-- <input type="hidden" name="${images.boardCode}" value="CT03"> -->
-												<button type="button" onclick="CHinsert()"
-													class="btn btn-primary">등록</button>
+												<input type="hidden" id="no" name="no" th:value="${updates.no }" />
+												<button type="button" onclick="CHUpdate()"
+													class="btn btn-primary">수정</button>
 											</div>
 										</form>
 									</div>
@@ -244,26 +243,26 @@
 					}
 				})('att_zone', 'btnAtt')
 
-			function CHinsert() {
+			function CHUpdate() {
 				var formData = new FormData($('#frm')[0])
 				for (let i = 0; i < sel_files.length; i++) {
 					formData.append("files", sel_files[i])
 				}
+
 				$.ajax({
-					url: "/adminCHInsert",
+					url: "/adminCHUpdate",
 					type: "post",
 					data: formData,
 					contentType: false,
 					processData: false,
 					success: function (res) {
 						console.log(res)
-						alert("등록되었습니다")
-						location.href = "adminChallenge"
+						alert("수정되었습니다")
+						location.href = "/admin/adminChallenge"
 					},
 					error: function (err) {
 						console.log(err)
 					}
-
 				})
 			}
 		</script>

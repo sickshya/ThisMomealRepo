@@ -147,16 +147,15 @@
 	<!-- +++++++++++++++++관리자+++++++++++++++++++++++++++++++ -->
 	<!-- 관리자 -공동구매 물품 리스트 -->
 	<sql id="creiteria">
-		<where>
-			<if test="grpStartDate != null and grpStartDate != '' ">
-				grp_start_date = #{grpStartDate}
-			</if>
-			<if test="grpEndDate != null and grpEndDate != '' ">
-				AND grp_end_date = #{grpEndDate}
-			</if>
-		</where>
+		<choose>
+			<when test="type == 'G'.toString()">
+				NAME like '%'||#{keyword}||'%'
+			</when>
+			<when test="type == 'N'.toString()">
+				gpstatus like '%'||#{keyword}||'%'
+			</when>
+		</choose>
 	</sql>
-
 	<select id="getCountTotal"
 		parameterType="co.doeat.management.service.GroupPurchaseListVO"
 		resultType="int">

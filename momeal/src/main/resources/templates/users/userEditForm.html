@@ -1,242 +1,196 @@
 <!DOCTYPE html>
-<html
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{frame/myPage}">
-    <head>
-        <!-- Favicon -->
-        <link href="assets/images/favicon.png" rel="icon" type="image/png">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{frame/myPage}">
 
-        <!-- Basic Page Needs ================================================== -->
-        <title>Password</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta
-            name="description"
-            content="Instello - Sharing Photos platform HTML Template">
+<head>
+	<!-- Favicon -->
+	<link href="assets/images/favicon.png" rel="icon" type="image/png">
 
-        <!-- icons ================================================== -->
-        <link rel="stylesheet" href="assets/css/icons.css">
+	<!-- Basic Page Needs ================================================== -->
+	<title>Password</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Instello - Sharing Photos platform HTML Template">
 
-        <!-- CSS ================================================== -->
-        <link rel="stylesheet" href="assets/css/uikit.css">
-        <link rel="stylesheet" href="assets/css/style.css">
-        <link rel="stylesheet" href="assets/css/tailwind-dark.css">
-    </head>
+	<!-- icons ================================================== -->
+	<link rel="stylesheet" href="assets/css/icons.css">
 
-    <body>
-        <!-- 마이페이지 회원정보 수정폼 -->
-        <div layout:fragment="content">
+	<!-- CSS ================================================== -->
+	<link rel="stylesheet" href="assets/css/uikit.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/tailwind-dark.css">
+</head>
 
-            <!-- Scripts ================================================== -->
-            <script src="assets/js/tippy.all.min.js"></script>
-            <script src="assets/js/jquery-3.3.1.min.js"></script>
-            <script src="assets/js/uikit.js"></script>
-            <script src="assets/js/simplebar.js"></script>
-            <script src="assets/js/custom.js"></script>
+<body>
+	<!-- 마이페이지 회원정보 수정폼 -->
+	<div layout:fragment="content">
 
-            <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+		<!-- Scripts ================================================== -->
+		<script src="assets/js/tippy.all.min.js"></script>
+		<script src="assets/js/jquery-3.3.1.min.js"></script>
+		<script src="assets/js/uikit.js"></script>
+		<script src="assets/js/simplebar.js"></script>
+		<script src="assets/js/custom.js"></script>
 
-            <h1 align="center">회원정보수정</h1>
-            <div id="wrapper">
-                <form
-                    id="frm"
-                    action="userEditForm"
-                    method="post"
-                    onsubmit="return formCheck()">
-                    <div class="mt-10 gap-6">
-                        <div
-                            class="bg-white rounded-md lg:shadow-lg shadow"
-                            style="width: 700px; margin: auto;">
-                            <div class="grid grid-cols-1 gap-3 lg:p-5 p-10">
-                                <div>
-                                    <label for="name">이름</label>
-                                    <input
-                                        type="text"
-                                        id="memberName"
-                                        name="memberName"
-                                        th:value="${userName}"
-                                        required="required"
-                                        style="width: 300px;">
-                                </div>
-                                <div>
-                                    <label for="nickname">닉네임</label>
-                                    <input
-                                        type="text"
-                                        id="memberNick"
-                                        name="memberNick"
-                                        th:value="${nickName}"
-                                        required="required"
-                                        style="width: 300px;">
-                                </div>
-                                <div>
-                                    <label for="password">비밀번호</label>
-                                    <input
-                                        type="password"
-                                        id="memberpw"
-                                        name="memberpw"
-                                        th:value="${pwd}"
-                                        required="required"
-                                        style="width: 300px;">
-                                </div>
-                                <div>
-                                    <label for="password">비밀번호 확인</label>
-                                    <input
-                                        type="password"
-                                        id="pwchk"
-                                        name="pwchk"
-                                        required="required"
-                                        style="width: 300px;">
-                                </div>
-                                <div>
-                                    <label for="email">Email</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        th:value="${email}"
-                                        required="required"
-                                        style="width: 300px;">
-                                </div>
+		<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 
-                                <div>
-                                    <label for="tel">전화번호</label>
-                                    <input
-                                        type="text"
-                                        id="tel"
-                                        name="tel"
-                                        th:value="${tel}"
-                                        required="required"
-                                        style="width: 300px;">
-                                </div>
-                                <div>
-                                    <label>주소</label>
-                                    <input
-                                        type="text"
-                                        id="sample6_postcode"
-                                        th:value="${addr}"
-                                        required="required"
-                                        style="width: 300px;">
-                                </div>
-                                <div>
-                                    <label>&nbsp;&nbsp;</label>
-                                    <input
-                                        type="button"
-                                        onclick="sample6_execDaumPostcode()"
-                                        value="우편번호 찾기"
-                                        style="width: 300px;">
-                                </div>
-                                <div class="col-span-2">
-                                    <label></label>
-                                    <input type="text" id="sample6_address" required="required">
-                                </div>
-                                <div class="col-span-2">
-                                    <input type="text" id="sample6_extraAddress" required="required">
-                                </div>
-                                <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <div class="bg-gray-10">
-                                    <button type="submit" class="button bg-blue-700">수정</button>
-                                    <button
-                                        type="reset"
-                                        class="p-2 px-4 rounded bg-gray-50"
-                                        onclick="location.href='main'">취소</button>
-                                    <button
-                                        type="submit"
-                                        class="p-2 px-4 rounded bg-gray-50"
-                                        onclick="location.href='userWithdrawForm'">회원탈퇴</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <script>
-                function formCheck() {
-                    let pass1 = document
-                        .getElementById("memberpw")
-                        .value;
-                    let pass2 = document
-                        .getElementById("pwchk")
-                        .value;
+		<h1 align="center">회원정보수정</h1>
+		<div id="wrapper">
+			<form id="frm" action="/userEdit" method="post" onsubmit="return formCheck()">
+				<div class="mt-10 gap-6">
+					<div class="bg-white rounded-md lg:shadow-lg shadow" style="width: 700px; margin: auto;">
+						<div class="grid grid-cols-1 gap-3 lg:p-5 p-10">
+							<input type="hidden" id="userId" name="userId" th:value="${session.userId}"
+								required="required">
+							<div>
+								<label for="name">이름</label>
+								<input type="text" id="userName" name="userName" th:value="${userInfo.userName}"
+									required="required" style="width: 300px;">
+							</div>
+							<div>
+								<label for="nickname">닉네임</label>
+								<input type="text" id="nickName" name="nickName" th:value="${userInfo.nickName}"
+									required="required" style="width: 300px;">
+							</div>
+							<div>
+								<label for="password">비밀번호</label>
+								<input type="password" id="password" name="password" required="required"
+									style="width: 300px;">
+							</div>
+							<div>
+								<label for="password">비밀번호 확인</label>
+								<input type="password" id="pwdchk" name="pwdchk" required="required"
+									style="width: 300px;">
+							</div>
+							<div>
+								<label for="email">Email</label>
+								<input type="email" id="email" name="email" th:value="${userInfo.email}"
+									required="required" style="width: 300px;">
+							</div>
 
-                    if (pass1 != pass2) {
-                        alert("패스워드가 일치하지 않습니다");
-                        document
-                            .getElementById("memberPassword")
-                            .value = "";
-                        document
-                            .getElementById("passwordChk")
-                            .value = "";
-                        document
-                            .getElementById("memberPassword")
-                            .focus();
-                        return false;
-                    }
+							<div>
+								<label for="tel">전화번호</label>
+								<input type="text" id="tel" name="tel" th:value="${userInfo.tel}" required="required"
+									style="width: 300px;">
+							</div>
+							<div>
+								<label>주소</label>
+								<input type="text" id="sample6_postcode" th:value="${userInfo.addr}" required="required"
+									style="width: 300px;">
+							</div>
+							<div>
+								<label>&nbsp;&nbsp;</label>
+								<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"
+									style="width: 300px;">
+							</div>
+							<div class="col-span-2">
+								<label></label>
+								<input type="text" id="sample6_address" required="required">
+							</div>
+							<div class="col-span-2">
+								<input type="text" id="sample6_extraAddress" required="required">
+							</div>
+							<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<div class="bg-gray-10">
+								<button type="submit" class="button bg-blue-700">수정</button>
+								<button type="reset" class="p-2 px-4 rounded bg-gray-50"
+									onclick="location.href='main'">취소</button>
+								<button type="button" class="p-2 px-4 rounded bg-gray-50"
+									onclick="location.href='/userWithdrawForm'">회원탈퇴</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<script>
+			function formCheck() {
+				let pass1 = document
+					.getElementById("memberpw")
+					.value;
+				let pass2 = document
+					.getElementById("pwchk")
+					.value;
 
-                    return true;
-                }
+				if (pass1 != pass2) {
+					alert("패스워드가 일치하지 않습니다");
+					document
+						.getElementById("memberPassword")
+						.value = "";
+					document
+						.getElementById("passwordChk")
+						.value = "";
+					document
+						.getElementById("memberPassword")
+						.focus();
+					return false;
+				}
 
-                function sample6_execDaumPostcode() {
-                    new daum
-                        .Postcode({
-                            oncomplete: function (data) {
-                                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분. 각 주소의 노출 규칙에 따라 주소를 조합한다. 내려오는 변수가 값이 없는
-                                // 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                                var addr = ''; // 주소 변수
-                                var extraAddr = ''; // 참고항목 변수
+				return true;
+			}
 
-                                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                                    addr = data.roadAddress;
-                                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                                    addr = data.jibunAddress;
-                                }
+			function sample6_execDaumPostcode() {
+				new daum
+					.Postcode({
+						oncomplete: function (data) {
+							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분. 각 주소의 노출 규칙에 따라 주소를 조합한다. 내려오는 변수가 값이 없는
+							// 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+							var addr = ''; // 주소 변수
+							var extraAddr = ''; // 참고항목 변수
 
-                                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                                if (data.userSelectedType === 'R') {
-                                    // 법정동명이 있을 경우 추가한다. (법정리는 제외) 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                                    if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-                                        extraAddr += data.bname;
-                                    }
-                                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                                    if (data.buildingName !== '' && data.apartment === 'Y') {
-                                        extraAddr += (
-                                            extraAddr !== ''
-                                                ? ', ' + data.buildingName
-                                                : data.buildingName
-                                        );
-                                    }
-                                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                                    if (extraAddr !== '') {
-                                        extraAddr = ' (' + extraAddr + ')';
-                                    }
-                                    // 조합된 참고항목을 해당 필드에 넣는다.
-                                    document
-                                        .getElementById("sample6_extraAddress")
-                                        .value = extraAddr;
+							//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+							if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+								addr = data.roadAddress;
+							} else { // 사용자가 지번 주소를 선택했을 경우(J)
+								addr = data.jibunAddress;
+							}
 
-                                } else {
-                                    document
-                                        .getElementById("sample6_extraAddress")
-                                        .value = '';
-                                }
+							// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+							if (data.userSelectedType === 'R') {
+								// 법정동명이 있을 경우 추가한다. (법정리는 제외) 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+								if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+									extraAddr += data.bname;
+								}
+								// 건물명이 있고, 공동주택일 경우 추가한다.
+								if (data.buildingName !== '' && data.apartment === 'Y') {
+									extraAddr += (
+										extraAddr !== '' ?
+										', ' + data.buildingName :
+										data.buildingName
+									);
+								}
+								// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+								if (extraAddr !== '') {
+									extraAddr = ' (' + extraAddr + ')';
+								}
+								// 조합된 참고항목을 해당 필드에 넣는다.
+								document
+									.getElementById("sample6_extraAddress")
+									.value = extraAddr;
 
-                                var fullAddr =
-                                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                                document
-                                    .getElementById('sample6_postcode')
-                                    .value = data.zonecode;
-                                document
-                                    .getElementById("sample6_address")
-                                    .value = addr;
-                                // 커서를 상세주소 필드로 이동한다.
-                                ("sample6_detailAddress").focus();
-                            }
-                        })
-                        .open();
-                }
-            </script>
-        </div>
-    </body>
+							} else {
+								document
+									.getElementById("sample6_extraAddress")
+									.value = '';
+							}
+
+							var fullAddr =
+								// 우편번호와 주소 정보를 해당 필드에 넣는다.
+								document
+								.getElementById('sample6_postcode')
+								.value = data.zonecode;
+							document
+								.getElementById("sample6_address")
+								.value = addr;
+							// 커서를 상세주소 필드로 이동한다.
+							("sample6_detailAddress").focus();
+						}
+					})
+					.open();
+			}
+		</script>
+	</div>
+</body>
+
 </html>

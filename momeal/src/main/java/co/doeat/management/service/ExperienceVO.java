@@ -1,13 +1,15 @@
 package co.doeat.management.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import co.doeat.common.service.ImageVO;
 import lombok.Data;
 
 @Data
-public class ExperienceVO {
+public class ExperienceVO extends ImageVO {
 	
 	private int no; //체험단등록순번
 	private String title; //글제목
@@ -35,5 +37,8 @@ public class ExperienceVO {
 	// 이미지
 	private String atchPath; // 첨부이미지 경로
 	
+	//관리자
+	private List<ImageVO> imgPath; // 관리자 상세조회 시, 이미지 경로값
+	private String exstatus; // 날짜에 따른 공동구매 진행상태
 	
 }

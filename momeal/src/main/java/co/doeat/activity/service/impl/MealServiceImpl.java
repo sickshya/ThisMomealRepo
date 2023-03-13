@@ -41,6 +41,11 @@ public class MealServiceImpl implements MealService{
 		return mealMapper.mealDelete(no);
 	}
 
+	@Override
+	public int updateMeal(MealVO vo) {
+		return mealMapper.updateMeal(vo);
+	}
+
 
 
 	

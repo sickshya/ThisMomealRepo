@@ -131,8 +131,15 @@ public class ChallengeController {
 	}
 
 	// ▶ 나의 챌린지 - 종료 ◀
+	// 종료 - 후기 전체조회
+	@PostMapping("/challengeReview/{no}")
+	@ResponseBody
+	public List<ChallengeReviewVO> getReviewList(@PathVariable int no) {
+		return challengeService.getReviewList(no);
+	}
+	
 	// 종료 - 후기 단건조회
-	@PostMapping("/challReview/{no}")
+	@PostMapping("/challOneReview/{no}")
 	@ResponseBody
 	public ChallengeReviewVO getReviewOne(@PathVariable int no, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
@@ -262,5 +269,45 @@ public class ChallengeController {
 	}
 	return "true";
 	}	
+	
+	//관리자 챌린지 재등록폼
+		@RequestMapping("/admin/adminCHReInsertForm/{no}")
+		public String adminCHReInsert(ChallengeVO vo, Model model, @PathVariable int no) {
+			model.addAttribute("reupdates", challengeService.adminCHSelect(no));
+			String boardCode="CT01";
+			int postNo = vo.getNo();
+			model.addAttribute("iupdates", imageService.imageList(boardCode, postNo));
+			
+			return "admin/adminCHUpdateForm";
+		}
 
+	// 관리자 챌린지재등록
+		@RequestMapping("/adminCHReInsert")
+		@ResponseBody
+		public String adminCHReInsert(ChallengeVO vo, ImageVO ivo, List<MultipartFile> files, MultipartFile tfile) {
+			if (!tfile.isEmpty()) {// 첨부파일이 존재하면
+				String fileName = UUID.randomUUID().toString();
+				fileName = fileName + tfile.getOriginalFilename();
+				File uploadFile = new File(saveImg, fileName);
+				try {
+					tfile.transferTo(uploadFile); // 파일저장하긴
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				vo.setThumbnailImg(tfile.getOriginalFilename());// 원본파일명
+				vo.setThumbnailImgPath("/mm_images/" + fileName);// 디렉토리 포함 원본파일
+			}
+			int no = challengeService.adminCHReInsert(vo);
+			String boardCode = "CT01";
+			int atchNo = imageService.fileUpload(files, no, boardCode);
+
+			if (atchNo > 0) {
+				ivo.setAtchNo(atchNo);
+			}
+			return "true";
+
+		}
+
+	
+	
 }
