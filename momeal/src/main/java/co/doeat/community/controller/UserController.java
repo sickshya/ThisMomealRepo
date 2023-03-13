@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.doeat.Paging;
+import co.doeat.common.service.CommonCodeVO;
 import co.doeat.community.service.UserSearchVO;
 import co.doeat.community.service.UserService;
 import co.doeat.community.service.UsersVO;
+import co.doeat.record.service.PointLogVO;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -73,16 +75,25 @@ public class UserController {
 
 	// =============관리자 유저=================================
 	// 페이징
-	@RequestMapping("/adminUser")
-	public String adminUser(Model model, @ModelAttribute("esvo") UserSearchVO svo, Paging paging) {
+	@RequestMapping("/admin/usrList")
+	public String adminUserList(Model model, @ModelAttribute("esvo") UserSearchVO svo, Paging paging) {
 		svo.setFirst(paging.getFirst());
 		svo.setLast(paging.getLast());
 		paging.setTotalRecord(userService.getCountTotal(svo));
 
-		model.addAttribute("getadminUserList", userService.getAdminUserList(svo));
+		model.addAttribute("allUser", userService.getAdminUserList(svo));
 
-		return "admin/adminUser";
+		return "admin/allUserList";
 
+	}
+	
+	//마이페이지 포인트
+	@RequestMapping("/myPoint")
+	public String myPoint(CommonCodeVO cvo, PointLogVO pvo, UsersVO uvo, Model model, HttpSession session) {
+		String userId= (String)session.getAttribute("userId");
+		model.addAttribute("pointList", userService.pointList(userId));
+		model.addAttribute("selects", userService.myPoint(userId));
+		return "myPages/myPoint";
 	}
 
 }

@@ -7,8 +7,8 @@ public class GroupPurchaseSettlementVO {
 
 	private int no; // 상품번호
 	private String userId; // 구매자아이디
-	private String deliveryAddr; 
-	private String paymentMthd;
+	private String deliveryAddr; // 배송정보
+	private String paymentMthd; // 카드결제여부
 	private int zipcode; // 우편번호
 	private String tel; // 전화번호
 	private int totalGd; // 구매수량

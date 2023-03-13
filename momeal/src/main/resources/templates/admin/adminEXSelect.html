@@ -46,7 +46,7 @@
                 <div class="container-fluid">
                     <div class="row justify-content-center">
                         <div class="col-12">
-                            <h2 class="page-title">공동구매 상세보기</h2>
+                            <h2 class="page-title">체험단 상세보기</h2>
                             <p class="text-muted">Demo for form control styles, layout options, and custom
                                 components for creating a wide variety of forms.</p>
                             <div class="card-deck" style="width: 600px">
@@ -59,34 +59,32 @@
 
                                         <form id="frm" method="post" enctype="multipart/form-data">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">상품명</label>
-                                                <div class="col-sm-9">[[${selects.name}]]</div>
+                                                <label class="col-sm-3 col-form-label">체험상품명</label>
+                                                <div class="col-sm-9">[[${selects.title}]]</div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">업체명</label>
-                                                <div class="col-sm-9">[[${selects.coName}]]</div>
+                                                <label class="col-sm-3 col-form-label">인원제한수</label>
+                                                <div class="col-sm-9">[[${selects.lmtAplyt}]]</div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">시작일자</label>
-                                                <div class="col-sm-9">[[${#dates.format(selects.grpStartDate,'yyyy-MM-dd' ) }]]</div>
+                                                <div class="col-sm-9">[[${#dates.format(selects.expeStartDate,'yyyy-MM-dd' ) }]]</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">종료일자</label>
-												<div class="col-sm-9">[[${#dates.format(selects.grpEndDate,'yyyy-MM-dd') }]]</div>
+												<div class="col-sm-9">[[${#dates.format(selects.expeEndDate,'yyyy-MM-dd') }]]</div>
 											</div>
 											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">가격</label>
-												<div class="col-sm-9">[[${selects.price }]]</div>
-											</div>
-
-
-											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">최소주문수량</label>
-												<div class="col-sm-9">[[${selects.minGd }]]</div>
+												<label class="col-sm-3 col-form-label">리뷰시작일자</label>
+												<div class="col-sm-9">[[${#dates.format(selects.reviewStartDate,'yyyy-MM-dd' ) }]]</div>
 											</div>
 											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">공급한계수량</label>
-												<div class="col-sm-9">[[${selects.splyGd }]]</div>
+												<label class="col-sm-3 col-form-label">리뷰종료일자</label>
+												<div class="col-sm-9">[[${#dates.format(selects.reviewEndDate,'yyyy-MM-dd') }]]</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">필요등급</label>
+												<div class="col-sm-9">[[${selects.nessGrd }]]</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3" for="exampleFormControlTextarea1">상세설명</label>

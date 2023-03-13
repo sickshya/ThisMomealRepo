@@ -57,6 +57,13 @@ public class ChallengeController {
 
 		return "challenge/challenge";
 	}
+	
+	// 페이징 처리
+	@RequestMapping("/addList")
+	@ResponseBody
+	public String challListAdd() {
+		return "";
+	}
 
 	// 단건조회
 	@GetMapping("/challenge/{no}")
@@ -96,8 +103,11 @@ public class ChallengeController {
 		// 챌린지 정보 select
 		model.addAttribute("chall", challengeService.getMyChall(userId, chalNo));
 
-		// 챌린지 인증 이미지 select
+		// 챌린지 나의 인증 이미지 select
 		model.addAttribute("valImg", challengeService.getMyChallImg(userId, chalNo));
+		
+		// 챌린지 참여자 인증 이미지 select
+		model.addAttribute("userValImg", challengeService.getChallImgList(userId, chalNo));
 
 		return "challenge/myChallengeDetail";
 	}
@@ -229,7 +239,7 @@ public class ChallengeController {
 		int postNo = vo.getNo();
 		imageService.adminGPIDelete(postNo, boardCode);
 		challengeService.adminCHDelete(no);
-		return "redirect:/admin/adminCHDelete";
+		return "redirect:/admin/adminChallenge";
 	}
 	
 	//관리자 챌린지 update폼
@@ -278,7 +288,7 @@ public class ChallengeController {
 			int postNo = vo.getNo();
 			model.addAttribute("iupdates", imageService.imageList(boardCode, postNo));
 			
-			return "admin/adminCHUpdateForm";
+			return "admin/adminCHReInsertForm";
 		}
 
 	// 관리자 챌린지재등록

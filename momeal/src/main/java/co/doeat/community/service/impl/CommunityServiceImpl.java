@@ -18,8 +18,14 @@ public class CommunityServiceImpl implements CommunityService{
 	
 	// 커뮤니티 전체조회
 	@Override
-	public List<Map<String, Object>> getCmntList(String id) {
-		return communityMapper.getCmntList(id);
+	public List<Map<String, Object>> getCmntList(MealVO vo) {
+		return communityMapper.getCmntList(vo);
+	}
+	
+	// 커뮤니티 인기순(좋아요 많은 순) 조회
+	@Override
+	public List<Map<String, Object>> likeRankCmntList(String id) {
+		return communityMapper.likeRankCmntList(id);
 	}
 
 	// 커뮤니티 단건조회

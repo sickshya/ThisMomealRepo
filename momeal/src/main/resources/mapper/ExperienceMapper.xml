@@ -124,11 +124,122 @@
 		ORDER BY g.NO
 	</select>
 	
+		<!-- 배송정보 조회 -->
+	<select id="expOrderList"
+		resultType="co.doeat.management.service.ExperienceVO">
+	    SELECT e.*, p.*
+	    FROM EXPERIENCE_GROUP e 
+	    JOIN EXPERIENCE_PARTICIPANTS p
+	    ON (e.NO = p.NO)
+	    WHERE e.NO = #{no}
+	    ORDER BY e.NO
+	</select>
+	
 	
 	<!-- 관리자 +++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<!-- 공동구매 전체리스트 출력 -->
-	<select id="adminExperienceGroup" resultType="co.doeat.management.service.ExperienceVO">
-		SELECT *
-		FROM experience_group
+	<!-- 관리자 체험단 전체리스트 출력 -->
+	<sql id="creiteria">
+		<choose>
+			<when test="type == 'G'.toString()">
+				title like '%'||#{keyword}||'%'
+			</when>
+			<when test="type == 'R'.toString()">
+				NESS_GRD like '%'||#{keyword}||'%'
+			</when>
+		</choose>
+	</sql>
+	<select id="getCountTotal"
+		parameterType="co.doeat.management.service.ExperienceVO"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM EXPERIENCE_GROUP
+		<where>
+		<include refid="creiteria"></include>
+		</where>
 	</select>
+	<select id="adminExperienceGroupList" parameterType="co.doeat.management.service.ExperienceVO" resultType="co.doeat.management.service.ExperienceVO">
+		SELECT * FROM( SELECT rownum rn, a.*
+		from(
+
+		SELECT
+		no,title,subject,lmt_aplyt,ness_grd,expe_start_date,expe_end_date,
+		<![CDATA[
+	        CASE WHEN expe_start_date <=trunc(current_date) 
+      		  		AND expe_end_date <= trunc(current_date) THEN '완료'
+	            WHEN TRUNC(expe_start_date) <= TRUNC(current_date) 
+	            	And trunc(current_date) <= expe_end_date Then '진행중' 
+	            Else '진행전' END as exstatus
+ 		]]>
+		FROM EXPERIENCE_GROUP
+		<where>
+		<include refid="creiteria"></include>
+		</where>
+		order by no
+		
+		<![CDATA[
+		)a where rownum <= #{last}) b where rn  >= #{first} 
+		]]>
+	</select>
+	
+	<!-- 등록 -->
+	<insert id="adminEXInsert" parameterType="co.doeat.management.service.ExperienceVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT 
+			MAX (NO)+1 FROM EXPERIENCE_GROUP
+		</selectKey>
+		INSERT INTO EXPERIENCE_GROUP(
+				NO,
+				TITLE,
+				SUBJECT,
+				LMT_APLYT,
+				NESS_GRD,
+				EXPE_START_DATE,
+				EXPE_END_DATE,
+				REVIEW_START_DATE,
+				REVIEW_END_DATE,
+				THUMBNAIL_IMG,
+				THUMBNAIL_IMG_PATH)
+				VALUES(#{no},
+				#{title},
+				#{subject},
+				#{lmtAplyt},
+				#{nessGrd},
+				#{expeStartDate},
+				#{expeEndDate},
+				#{reviewStartDate},
+				#{reviewEndDate},
+				#{thumbnailImg},
+				#{thumbnailImgPath})
+	</insert>
+	
+	<!-- 삭제 -->
+	<delete id="adminEXDelete" parameterType="co.doeat.management.service.ExperienceVO">
+		DELETE FROM EXPERIENCE_GROUP WHERE NO = #{no}
+	</delete>
+	
+	<!-- 단건조회 -->
+	<select id="adminEXSelect" resultType="co.doeat.management.service.ExperienceVO">
+		SELECT *
+		FROM EXPERIENCE_GROUP
+		WHERE NO = #{no}
+	</select>
+	
+	<!-- 수정 -->
+	<update id="adminEXUpdate">
+		UPDATE EXPERIENCE_GROUP
+		<set>
+			<if test="title != null">TITLE = #{title},</if>
+			<if test="subject != null">SUBJECT = #{subject},</if>
+			<if test="lmtAplyt != null">LMT_APLYT = #{lmtAplyt},</if>
+			<if test="nessGrd != null">NESS_GRD = #{nessGrd},</if>
+			<if test="expeStartDate != null">EXPE_START_DATE = #{expeStartDate},</if>
+			<if test="reviewEndDate != null">REVIEW_END_DATE = #{reviewEndDate},</if>
+			<if test="thumbnailImg != null">THUMBNAIL_IMG = #{thumbnailImg},</if>
+			<if test="expeEndDate != null">EXPE_END_DATE = #{expeEndDate},</if>
+			<if test="reviewStartDate != null">REVIEW_START_DATE = #{reviewStartDate},</if>
+			<if test="thumbnailImgPath != null">THUMBNAIL_IMG_PATH = #{thumbnailImgPath}</if>
+		</set>
+		where no = #{no}
+	</update>
+	
 </mapper>

@@ -46,61 +46,64 @@
                 <div class="container-fluid">
                     <div class="row justify-content-center">
                         <div class="col-12">
-                            <h2 class="page-title">공동구매 등록</h2>
+                            <h2 class="page-title">체험단 등록</h2>
                             <p class="text-muted">Demo for form control styles, layout options, and custom
                                 components for creating a wide variety of forms.</p>
                             <div class="card-deck" style="width: 600px">
 
                                 <div class="card shadow mb-4">
                                     <div class="card-header" style="width: 500px">
-                                        <strong class="card-title">공동구매 추가하기</strong>
+                                        <strong class="card-title">체험단 추가하기</strong>
                                     </div>
                                     <div class="card-body" style="width: 500px" id="myForm">
 
                                         <form id="frm" method="post" enctype="multipart/form-data">
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">상품명</label>
+                                                <label class="col-sm-3 col-form-label">체험상품명</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="name" name="name">
+                                                    <input type="text" class="form-control" id="title" name="title">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">업체명</label>
+                                                <label class="col-sm-3 col-form-label">인원제한수</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="coName" name="coName">
+                                                    <input type="text" class="form-control" id="lmtAplyt"
+                                                        name="lmtAplyt">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">시작일자</label>
                                                 <div class="col-sm-9">
-                                                    <input type="date"  id="inputDate" class="form-control"
-                                                        name="grpStartDate">
+                                                    <input type="date" class="form-control" id="expeStartDate"
+                                                        name="expeStartDate">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">종료일자</label>
                                                 <div class="col-sm-9">
-                                                    <input type="date" class="form-control" id="grpEndDate"
-                                                        name="grpEndDate">
+                                                    <input type="date" class="form-control" id="expeEndDate"
+                                                        name="expeEndDate">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">가격</label>
+                                                <label class="col-sm-3 col-form-label">필요등급</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="price" name="price">
+                                                    <input type="text" class="form-control" id="nessGrd" name="nessGrd">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">최소주문수량</label>
+                                                <label class="col-sm-3 col-form-label">리뷰시작</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="minGd" name="minGd">
+                                                    <input type="date" class="form-control" id="reviewStartDate"
+                                                        name="reviewStartDate">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">공급한계수량</label>
+                                                <label class="col-sm-3 col-form-label">리뷰종료</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="splyGd" name="splyGd">
+                                                    <input type="date" class="form-control" id="reviewEndDate"
+                                                        name="reviewEndDate">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -129,11 +132,11 @@
 
                                             <div class="form-group mb-2">
                                                 <input type="hidden" name="${images.atchNo}">
-                                                <input type="hidden" name="${groupPurchaseList.no}">
+
                                                 <!-- <input type="hidden" name="${images.postNo}"
                                                     value="${groupPurchaseList.no}"> -->
                                                 <!-- <input type="hidden" name="${images.boardCode}" value="CT03"> -->
-                                                <button type="button" onclick="GPinsert()"
+                                                <button type="button" onclick="EXinsert()"
                                                     class="btn btn-primary">등록</button>
                                             </div>
                                         </form>
@@ -158,22 +161,6 @@
         <script src="/js/tinycolor-min.js"></script>
         <script src="/js/config.js"></script>
         <script src="/js/apps.js"></script>
-        <script>
-    	 // 시작날짜(min 속성)
-        let sDate = new Date();
-       
-        sDate.setDate(sDate.getDate() + 1);     // 시작날짜의 날짜를 +1일 한다.
-       
-
-        let minStr = sDate.toISOString().split('T')[0];
-       
-
-        $("#inputDate").prop("min", minStr);
-       
-
-        console.log('시작날짜 : ',minStr);
-        
-    	</script>
 
         <!-- 다중파일업로드 -->
         <script>
@@ -278,13 +265,13 @@
                     }
                 })('att_zone', 'btnAtt')
 
-            function GPinsert() {
+            function EXinsert() {
                 var formData = new FormData($('#frm')[0])
                 for (let i = 0; i < sel_files.length; i++) {
                     formData.append("files", sel_files[i])
                 }
                 $.ajax({
-                    url: "/adminGPInsert",
+                    url: "/adminEXInsert",
                     type: "post",
                     data: formData,
                     contentType: false,
@@ -292,7 +279,7 @@
                     success: function (res) {
                         console.log(res)
                         alert("등록되었습니다")
-                        location.href = "adminGroupPurchase"
+                        location.href = "adminExperience"
                     },
                     error: function (err) {
                         console.log(err)

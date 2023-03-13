@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -86,7 +87,7 @@ public class ExperienceController {
 		return "신청이 완료되었습니다.";
 	}
 
-	// 체험단(조회)
+	// 체험단(신청내역조회)
 	@RequestMapping("/expr/expOrderList")
 	public String expOrderList(HttpServletRequest request, ExprParticipantsVO vo, Model model, ExperienceVO evo) {
 		HttpSession session = request.getSession();
@@ -106,17 +107,21 @@ public class ExperienceController {
 		model.addAttribute("expList", experienceService.adminExperienceGroupList(svo));
 		return "admin/adminExperience";
 	}
-	
+	//체험단 등록 폼
+	@RequestMapping("/admin/adminEXInsertForm")
+	public String adminEXInsertForm() {
+		return "admin/adminEXInsertForm";
+	}
 	//체험단등록
-	@RequestMapping("/adminexInsert")
+	@RequestMapping("/adminEXInsert")
 	@ResponseBody
-	public String adminexInsert(ExperienceVO vo, ImageVO ivo, List<MultipartFile> files, MultipartFile tfile) {
+	public String adminEXInsert(ExperienceVO vo, ImageVO ivo, List<MultipartFile> files, MultipartFile tfile) {
 		if (!tfile.isEmpty()) {// 첨부파일이 존재하면
 			String fileName = UUID.randomUUID().toString();
 			fileName = fileName + tfile.getOriginalFilename();
 			File uploadFile = new File(saveImg, fileName);
 			try {
-				tfile.transferTo(uploadFile); // 파일저장하긴
+				tfile.transferTo(uploadFile); // 파일저장하기
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -134,4 +139,66 @@ public class ExperienceController {
 
 		return "true";
 	}
+	
+	@RequestMapping("/admin/adminEXSelect/{no}")
+	public String adminEXSelect(@PathVariable int no, Model model, ExperienceVO vo) {
+		model.addAttribute("selects", experienceService.adminEXSelect(no));
+		String boardCode = "CT02";
+		int postNo = vo.getNo();
+		model.addAttribute("imgselect", imageService.imageList(boardCode, postNo));
+		
+		return "admin/adminEXSelect";
+	}
+	
+	//관리자 체험단 삭제
+	@RequestMapping("/admin/adminEXDelete/{no}")
+	public String adminEXDelete(@PathVariable int no, Model model, ExperienceVO vo, ImageVO ivo) {
+		String boardCode = "CT02";
+		int postNo = vo.getNo();
+		imageService.adminEXIDelete(postNo, boardCode);
+		experienceService.adminEXDelete(no);
+		return "redirect:/admin/adminExperience";
+	}
+	
+	//관리자 체험단 수정
+	@RequestMapping("/admin/adminEXUpdateForm/{no}")
+	public String adminEXUPdateForm(ExperienceVO vo, Model model, @PathVariable int no) {
+		model.addAttribute("updates", experienceService.adminEXSelect(no));
+		String boardCode = "CT02";
+		int postNo = vo.getNo();
+		model.addAttribute("iupdates", imageService.imageList(boardCode, postNo));
+		
+		return "admin/adminEXUpdateForm";
+	}
+	
+	
+	@RequestMapping("/adminEXUpdate")
+	@ResponseBody
+	public String adminEXUpdate(ExperienceVO vo, ImageVO ivo, Model model, List<MultipartFile> files, MultipartFile tfile) {
+		if (!tfile.isEmpty()) {// 첨부파일이 존재하면
+			String fileName = UUID.randomUUID().toString();
+			fileName = fileName + tfile.getOriginalFilename();
+			File uploadFile = new File(saveImg, fileName);
+			try {
+				tfile.transferTo(uploadFile); // 파일저장하긴
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			vo.setThumbnailImg(tfile.getOriginalFilename());// 원본파일명
+			vo.setThumbnailImgPath("/mm_images/" + fileName);// 디렉토리 포함 원본파일
+		}
+		experienceService.adminEXUpdate(vo);
+		String boardCode = "CT02";
+		int postNo = vo.getNo();
+		imageService.adminGPIDelete(postNo, boardCode);
+		int atchNo = imageService.fileUpload(files, vo.getNo(), boardCode);
+		
+		if (atchNo > 0) {
+			ivo.setAtchNo(atchNo);
+		}
+
+		return "true";
+		
+	}
+	
 }

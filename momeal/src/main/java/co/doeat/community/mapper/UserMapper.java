@@ -1,9 +1,11 @@
 package co.doeat.community.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import co.doeat.community.service.UserSearchVO;
 import co.doeat.community.service.UsersVO;
+import co.doeat.record.service.PointLogVO;
 
 public interface UserMapper {
 	boolean isIdCheck(String id); // 아이디 중복 체크
@@ -36,5 +38,11 @@ public interface UserMapper {
 	
 	//myFeed회원정보
 	UsersVO myFeedUserSelect(String id);
+	
+	//포인트로그
+	List<PointLogVO> pointList(String userId);
+	
+	//누적포인트
+	UsersVO myPoint(String userId);
 	
 }

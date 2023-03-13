@@ -1,14 +1,17 @@
 package co.doeat.community.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.doeat.common.service.CommonCodeVO;
 import co.doeat.community.mapper.UserMapper;
 import co.doeat.community.service.UserService;
 import co.doeat.community.service.UserSearchVO;
 import co.doeat.community.service.UsersVO;
+import co.doeat.record.service.PointLogVO;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -73,6 +76,22 @@ public class UserServiceImpl implements UserService {
 	public UsersVO myFeedUserSelect(String id) {
 		return userMapper.myFeedUserSelect(id);
 	}
+
+	@Override
+	public List<PointLogVO> pointList(String userId) {
+		return userMapper.pointList(userId);
+	}
+
+	@Override
+	public UsersVO myPoint(String userId) {
+		return userMapper.myPoint(userId);
+	}
+
+
+
+	
+
+
 
 
 

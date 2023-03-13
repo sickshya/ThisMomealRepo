@@ -64,10 +64,16 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return challengeMapper.getMyChall(userId, chalNo);
 	}
 	
+	// 진행중 - 참여자 인증 사진 조회
+	@Override
+	public List<ChallengeValidationVO> getChallImgList(String userId, int chalNo) {
+		return challengeMapper.getChallImgList(userId, chalNo);
+	}
+	
 	// 진행중 - 나의 인증 사진 조회
 	@Override
-	public List<ChallengeValidationVO> getMyChallImg(String userId, int no) {
-		return challengeMapper.getMyChallImg(userId, no);
+	public List<ChallengeValidationVO> getMyChallImg(String userId, int chalNo) {
+		return challengeMapper.getMyChallImg(userId, chalNo);
 	}
 	
 	// 진행중 - 인증 사진 단건 조회

@@ -1,29 +1,25 @@
 <!DOCTYPE html>
-<html
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{frame/myPage}">
 
-    <head>
-        <!-- Favicon -->
-        <link href="assets/images/favicon.png" rel="icon" type="image/png">
+<head>
+    <!-- Favicon -->
+    <link href="assets/images/favicon.png" rel="icon" type="image/png">
 
-        <!-- Basic Page Needs ================================================== -->
-        <title>Delete</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta
-            name="description"
-            content="Instello - Sharing Photos platform HTML Template">
+    <!-- Basic Page Needs ================================================== -->
+    <title>Delete</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Instello - Sharing Photos platform HTML Template">
 
-        <!-- icons ================================================== -->
-        <link rel="stylesheet" href="assets/css/icons.css">
+    <!-- icons ================================================== -->
+    <link rel="stylesheet" href="assets/css/icons.css">
 
-        <!-- CSS ================================================== -->
-        <link rel="stylesheet" href="assets/css/uikit.css">
-        <link rel="stylesheet" href="assets/css/style.css">
-        <link rel="stylesheet" href="assets/css/tailwind-dark.css">
-    </head>
+    <!-- CSS ================================================== -->
+    <link rel="stylesheet" href="assets/css/uikit.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/tailwind-dark.css">
+</head>
 
     <body>
         <!-- 마이페이지 회원탈퇴 약관 및 비밀번호 입력창 -->
@@ -59,49 +55,49 @@
                                 style="width: 20px; height: 20px;">
                         </div>
 
-                        <br>
+                    <br>
 
-                        <div class="col-span-2" style="border: 1px solid #ccc">
-                            <br>
-                            <h3>비밀번호를 입력하세요</h3>
-                            <br><br>
-                            <input type="password" id="memberpassword" name="memberpassword">
-                            <br>
-                            <button type="submit" class="button bg-blue-700">확인</button>
-                            <br>
-                            <br>
-                        </div>
+                    <div class="col-span-2" style="border: 1px solid #ccc">
+                        <br>
+                        <h3>비밀번호를 입력하세요</h3>
+                        <br><br>
+                        <input type="password" id="memberpassword" name="memberpassword">
+                        <br>
+                        <button type="submit" class="button bg-blue-700">확인</button>
+                        <br>
+                        <br>
                     </div>
                 </div>
-            </form>
+            </div>
+        </form>
 
-            <script type="text/javascript">
-                function formCheck() {
+        <script type="text/javascript">
+            function formCheck() {
 
-                    let agree1 = document
-                        .getElementById("agree1")
-                        .checked;
-                    let agree2 = document
-                        .getElementById("agree2")
-                        .checked;
+                let agree1 = document
+                    .getElementById("agree1")
+                    .checked;
+                let agree2 = document
+                    .getElementById("agree2")
+                    .checked;
 
-                    let pwchk = document
-                        .getElementById("memberpassword")
-                        .value;
+                let pwchk = document
+                    .getElementById("memberpassword")
+                    .value;
 
-                    if (agree1, agree2 != true) {
-                        alert("약관에 동의해주세요");
-                        return false;
-                    }
-
-                    if (pwchk == "") {
-                        alert("비밀번호를 입력해주세요");
-                        return false;
-                    }
-                    return true;
+                if (agree1, agree2 != true) {
+                    alert("약관에 동의해주세요");
+                    return false;
                 }
-            </script>
-        </div>
-    </body>
+
+                if (pwchk == "") {
+                    alert("비밀번호를 입력해주세요");
+                    return false;
+                }
+                return true;
+            }
+        </script>
+    </div>
+</body>
 
 </html>

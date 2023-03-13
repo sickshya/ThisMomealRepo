@@ -41,7 +41,7 @@
 				,PL.SUBJECT
 				,PL.MIN_GD
 				,PL.SPLY_GD
-				,PL.GRP_START_DATE
+				,(PL.GRP_START_DATE - TRUNC(SYSDATE)) as StartDate
 				,PL.GRP_END_DATE
 				,PL.THUMBNAIL_IMG
 				,PL.THUMBNAIL_IMG_PATH
@@ -109,15 +109,14 @@
 	<!-- 배송정보 조회 -->
 	<select id="pchOrderList"
 		resultType="GroupPurchaseSettlementVO">
-			SELECT g.*, s.*
-			FROM GROUP_PURCHASE_LISTS g 
-			JOIN GROUP_PURCHASE_SETTLEMENT s
-			ON (g.NO = s.LIST_NO)
-			WHERE g.NO = 4
-			ORDER BY g.NO
+		SELECT g.*, s.*
+		FROM GROUP_PURCHASE_LISTS g 
+		JOIN GROUP_PURCHASE_SETTLEMENT s
+		ON (g.NO = s.LIST_NO)
+		WHERE g.NO = 4
+		ORDER BY g.NO
 	</select>
 
-	
 
 	<!-- +++++++++++++++++마이페이지+++++++++++++++++++++++++++++++ -->
 	<!-- 마이페이지 - 공동구매내역 전체리스트 -->
@@ -148,22 +147,23 @@
 	<!-- +++++++++++++++++관리자+++++++++++++++++++++++++++++++ -->
 	<!-- 관리자 -공동구매 물품 리스트 -->
 	<sql id="creiteria">
-		<where>
-			<if test="grpStartDate != null and grpStartDate != '' ">
-				grp_start_date = #{grpStartDate}
-			</if>
-			<if test="grpEndDate != null and grpEndDate != '' ">
-				AND grp_end_date = #{grpEndDate}
-			</if>
-		</where>
+		<choose>
+			<when test="type == 'G'.toString()">
+				NAME like '%'||#{keyword}||'%'
+			</when>
+			<when test="type == 'N'.toString()">
+				co_name like '%'||#{keyword}||'%'
+			</when>
+		</choose>
 	</sql>
-
 	<select id="getCountTotal"
 		parameterType="co.doeat.management.service.GroupPurchaseListVO"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM GROUP_PURCHASE_LISTS
+		<where>
 		<include refid="creiteria"></include>
+		</where>
 	</select>
 
 	<select id="getAdminGroupPurchaseList"
@@ -182,8 +182,10 @@
 	            Else '진행전' END as gpstatus
  		]]>
 		FROM GROUP_PURCHASE_LISTS
-
+		
+		<where>
 		<include refid="creiteria"></include>
+		</where>
 		order by no
 		
 		<![CDATA[

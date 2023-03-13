@@ -71,10 +71,10 @@ public class GroupPurchaseController {
 						GroupPurchaseSettlementVO vo,
 						@RequestParam int totalGd) {
 		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("userId");
+		String userId = (String) session.getAttribute("userId");
 		List<GroupPurchaseListVO> gvo = groupPurchaseService.pchDetail(vo.getNo());
 		model.addAttribute("purOne", gvo);
-		model.addAttribute("userInfo", userService.userSelect(id));
+		model.addAttribute("userInfo", userService.userSelect(userId));
 		model.addAttribute("totalPrice", totalGd * gvo.get(0).getPrice()); // totalPrice 구하기
 		return "purchase/pchOrderFrm";
 	}
@@ -198,8 +198,7 @@ public class GroupPurchaseController {
 
 	@RequestMapping("/adminGPUpdate")
 	@ResponseBody
-	public String adminGPUpdate(GroupPurchaseListVO vo, ImageVO ivo, Model model, List<MultipartFile> files,
-			MultipartFile tfile) {
+	public String adminGPUpdate(GroupPurchaseListVO vo, ImageVO ivo, Model model, List<MultipartFile> files, MultipartFile tfile) {
 		if (!tfile.isEmpty()) {// 첨부파일이 존재하면
 			String fileName = UUID.randomUUID().toString();
 			fileName = fileName + tfile.getOriginalFilename();
