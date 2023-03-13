@@ -87,7 +87,7 @@ public class ExperienceController {
 		return "신청이 완료되었습니다.";
 	}
 
-	// 체험단(조회)
+	// 체험단(신청내역조회)
 	@RequestMapping("/expr/expOrderList")
 	public String expOrderList(HttpServletRequest request, ExprParticipantsVO vo, Model model, ExperienceVO evo) {
 		HttpSession session = request.getSession();

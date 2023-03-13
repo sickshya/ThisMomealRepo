@@ -124,6 +124,17 @@
 		ORDER BY g.NO
 	</select>
 	
+		<!-- 배송정보 조회 -->
+	<select id="expOrderList"
+		resultType="co.doeat.management.service.ExperienceVO">
+	    SELECT e.*, p.*
+	    FROM EXPERIENCE_GROUP e 
+	    JOIN EXPERIENCE_PARTICIPANTS p
+	    ON (e.NO = p.NO)
+	    WHERE e.NO = #{no}
+	    ORDER BY e.NO
+	</select>
+	
 	
 	<!-- 관리자 +++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 	<!-- 관리자 체험단 전체리스트 출력 -->

@@ -41,7 +41,7 @@
 				,PL.SUBJECT
 				,PL.MIN_GD
 				,PL.SPLY_GD
-				,PL.GRP_START_DATE
+				,(PL.GRP_START_DATE - TRUNC(SYSDATE)) as StartDate
 				,PL.GRP_END_DATE
 				,PL.THUMBNAIL_IMG
 				,PL.THUMBNAIL_IMG_PATH
@@ -109,15 +109,14 @@
 	<!-- 배송정보 조회 -->
 	<select id="pchOrderList"
 		resultType="GroupPurchaseSettlementVO">
-			SELECT g.*, s.*
-			FROM GROUP_PURCHASE_LISTS g 
-			JOIN GROUP_PURCHASE_SETTLEMENT s
-			ON (g.NO = s.LIST_NO)
-			WHERE g.NO = 4
-			ORDER BY g.NO
+		SELECT g.*, s.*
+		FROM GROUP_PURCHASE_LISTS g 
+		JOIN GROUP_PURCHASE_SETTLEMENT s
+		ON (g.NO = s.LIST_NO)
+		WHERE g.NO = 4
+		ORDER BY g.NO
 	</select>
 
-	
 
 	<!-- +++++++++++++++++마이페이지+++++++++++++++++++++++++++++++ -->
 	<!-- 마이페이지 - 공동구매내역 전체리스트 -->
