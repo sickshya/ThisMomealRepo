@@ -76,5 +76,13 @@
 		</set>
 		WHERE NO = #{no}
 	</update>
+	
+	
+	<!--  포스팅 갯수 -->
+	<select id="postList" resultType="map">
+		 SELECT COUNT(CASE WHEN USER_ID = #{userId} THEN 1 END) AS POST_CNT
+		  FROM MEALS
+		 
+	</select>
 
 </mapper>

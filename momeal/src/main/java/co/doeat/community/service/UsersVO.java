@@ -21,6 +21,7 @@ public class UsersVO {
 	private String accessToken;
 	private String userRole;
 	private int attendanceCnt;
+	private String profileImgPath;
 	
 	// 공동구매 
 	private int totalGd;

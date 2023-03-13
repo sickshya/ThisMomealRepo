@@ -1,6 +1,7 @@
 package co.doeat.activity.service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MealService {
 	// 마이피드 식단 불러오기
@@ -20,4 +21,8 @@ public interface MealService {
 	
 	//식단 수정
 	int updateMeal(MealVO vo);
+	
+	Map<String, Object> postList(String userId); //  식단 카운트
+	
+	
 }
