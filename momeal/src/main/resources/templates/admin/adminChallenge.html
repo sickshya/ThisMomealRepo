@@ -68,7 +68,7 @@
 								<form id="searchFrm">
 									<select name="type">
 										<option value="G" th:selected="${paging.type == 'G'}">챌린지명</option>
-										<option value="N" th:selected="${paging.type == 'N'}">현황</option>
+										<option value="N" th:selected="${paging.type == 'N'}">회차</option>
 									</select>
 									<input type="text" name="keyword" th:value="${paging.keyword}">
 									<button type="submit">검색</button>
@@ -93,6 +93,7 @@
 														<th>시작일</th>
 														<th>종료일</th>
 														<th>현황</th>
+														<th>회차</th>
 														<th>Action</th>
 													</tr>
 												</thead>
@@ -106,6 +107,7 @@
 														<td th:text="${chal.chalStartDate}"></td>
 														<td th:text="${chal.chalEndDate}"></td>
 														<td th:text="${chal.chstatus}"></td>
+														<td th:text="${chal.chalRound}"></td>
 														<td>
 															<div class="dropdown">
 																<button class="btn btn-sm dropdown-toggle" type="button"

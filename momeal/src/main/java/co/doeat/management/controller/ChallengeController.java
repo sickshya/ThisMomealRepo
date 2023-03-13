@@ -239,7 +239,7 @@ public class ChallengeController {
 		int postNo = vo.getNo();
 		imageService.adminGPIDelete(postNo, boardCode);
 		challengeService.adminCHDelete(no);
-		return "redirect:/admin/adminCHDelete";
+		return "redirect:/admin/adminChallenge";
 	}
 	
 	//관리자 챌린지 update폼
@@ -288,7 +288,7 @@ public class ChallengeController {
 			int postNo = vo.getNo();
 			model.addAttribute("iupdates", imageService.imageList(boardCode, postNo));
 			
-			return "admin/adminCHUpdateForm";
+			return "admin/adminCHReInsertForm";
 		}
 
 	// 관리자 챌린지재등록

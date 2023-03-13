@@ -78,9 +78,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Map<String, Object>> pointList(String userId) {
+	public List<PointLogVO> pointList(String userId) {
 		return userMapper.pointList(userId);
 	}
+
+	@Override
+	public UsersVO myPoint(String userId) {
+		return userMapper.myPoint(userId);
+	}
+
 
 
 	

@@ -143,9 +143,6 @@
 			<when test="type == 'G'.toString()">
 				title like '%'||#{keyword}||'%'
 			</when>
-			<when test="type == 'N'.toString()">
-				exstatus like '%'||#{keyword}||'%'
-			</when>
 			<when test="type == 'R'.toString()">
 				NESS_GRD like '%'||#{keyword}||'%'
 			</when>
