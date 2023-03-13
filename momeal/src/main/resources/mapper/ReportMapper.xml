@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.record.mapper.ReportMapper">
-
+	<select id="usrRprtAllList" resultType="ReportVO">
+		SELECT *
+		  FROM REPORT_USERS
+	</select>
 	
+	<select id="rprtProcess">
+		BEGIN
+		 usr_rprt_process();
+		END;
+		/
+	</select>
 </mapper>
