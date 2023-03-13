@@ -2,37 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.common.mapper.BoardMapper">
 
-<!-- faq 전체리스트 출력 -->
-	<select id="faqList" resultType="co.doeat.common.service.BoardVO">
-		SELECT * FROM BOARD ORDER BY NO DESC
+	<!-- faq 전체리스트 출력 -->
+	<select id="faqList"
+		resultType="co.doeat.common.service.BoardVO">
+		SELECT * FROM BOARD
+		WHERE BOARD_CODE = 'BD02'
 	</select>
 	
-<!-- faq 단건조회 -->
 	<select id="faqSelect" resultType="co.doeat.common.service.BoardVO">
-		SELECT * FROM BOARD 
-		WHERE USER_ID = 'ADMIN'
+		SELECT * FROM BOARD
+		WHERE NO = #{no}
 	</select>
 
-<!-- faq 추가 -->	
+	<!-- faq 추가 -->
 	<insert id="faqInsert" parameterType="co.doeat.common.service.BoardVO">
-		<selectKey keyProperty="userId" resultType="int" order="BEFORE">
-			SELECT * MAX(USER_ID)+1 FROM BOARD
+		<selectKey keyProperty="no" resultType="int"
+			order="BEFORE">
+			SELECT NVL(MAX(NO)+1, 1) FROM BOARD
 		</selectKey>
-		INSERT INTO BOARD
-		VALUES(#{no}, #{boardTitle}, #{boardSubject}, #{boardDate}, 0, #{boardHit}, #{boardCode}, #{userId} )
+		INSERT INTO BOARD(
+		NO,
+		BOARD_TITLE,
+		BOARD_SUBJECT,
+		BOARD_DATE,
+		BOARD_CODE,
+		USER_ID
+		)
+		VALUES(#{no}, #{boardTitle}, #{boardSubject}, sysdate,
+		'BD02', 'ADMIN' )
 	</insert>
 
-<!-- faq 수정 -->
-	<update id="faqUpdate" parameterType="co.doeat.common.service.BoardVO">
+	<!-- faq 수정 -->
+	<update id="faqUpdate"
+		parameterType="co.doeat.common.service.BoardVO">
 		UPDATE BOARD
 		SET
 		BOARD_TITLE = #{boardTitle},
-		BOARD_SUBJECT = #{boardSubject},
+		BOARD_SUBJECT = #{boardSubject}
+		WHERE NO = #{no}
 	</update>
-	
+
 	<delete id="faqDelete">
-		
+		DELETE FROM BOARD WHERE NO= #{no}
 	</delete>
-	
+
 
 </mapper>

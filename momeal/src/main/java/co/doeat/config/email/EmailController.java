@@ -20,11 +20,11 @@ public class EmailController {
 		return code;
 	}
 	
-//	@PostMapping("login/mailConfirm")
-//	String invitemailConfirm(@RequestParam("email") String email) throws Exception {
-//		String code = registerMail.sendSimpleMessage(email);
-//		log.info("인증하기위한 code : " + code);
-//		return code;
-//	}
+	@PostMapping("/grpInvite/mailConfirm.do")
+	String inviteMailConfirm(@RequestParam("email") String email) throws Exception {
+		String code = registerMail.sendgrpInviteMessage(email);
+		log.info("인증하기위한 code : " + code);
+		return code;
+	}
 	
 }
