@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{frame/store}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div align="center">
+			<div>
+				<h1>공지사항 수정</h1>
+			</div>
+			<div align="center">
+				<form id="frm" action="noticeUpdate" method="post">
+					<!-- 		<form id="frm" action="noticeUpdate" method="post" enctype="multipart/form-data"> -->
+					<div>
+						<table border="1">
+							<tr>
+								<th width="100">작성자</th>
+								<td width="200">${notice.userId }</td>
+								<th width="150">작성일자</th>
+								<td width="200">${notice.boardDate }</td>
+							</tr>
+							<tr>
+								<th>제 목</th>
+								<td colspan="3"><input type="text" size="77"
+									id="boardTitle" name="boardTitle" value="${notice.boardTitle }">
+								</td>
+							</tr>
+							<tr>
+								<th>내 용</th>
+								<td colspan="3"><textarea rows="10" cols="79"
+										id="boardSubject" name="boardSubject">${notice.boardSubject }</textarea>
+								</td>
+							</tr>
+							<!-- 				<tr> -->
+							<!-- 					<th>첨부파일</th> -->
+							<!-- 					<td colspan="3"> -->
+							<!-- 					이거 아닌거갓은대.......... -->
+							<!-- 						${notice.noticeFile } -->
+							<!-- 						<input type="file" id="file" name="file" value="${notice.noticeFile }"> -->
+							<!-- 					</td> -->
+							<!-- 				</tr> -->
+						</table>
+					</div>
+					<br>
+					<div>
+						<input type="hidden" name="userId" id="userId"
+							value="${notice.userId }"> <input type="hidden"
+							name="boardHit" value="${notice.boardHit }">
+						<!-- 			<input type="hidden" name="noticeWriter" value="${notice.noticeWriter }"> -->
+						<input type="submit" value="수정">&nbsp;&nbsp; <input
+							type="button" value="취소" onclick="location.href='notice'">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		window.onload = function() {
+			let message = "${message}"; // model에서 넘어온 변수를 el표현식으로 쓸 수 있음!
+			if (message != "") // 처음엔 메세지가 없으니까 그냥 뜨고, 수정 후에는 message가 담겨오니까 alert을 띄울것!
+				alert(message);
+		}
+	</script>
+</body>
+</html>

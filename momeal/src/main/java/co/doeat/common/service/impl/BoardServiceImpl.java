@@ -15,21 +15,6 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardMapper boardMapper;
 
-  
-	// NOTICE
-	
-	// 전체조회
-	@Override
-	public List<BoardVO> noticeList() {
-		return boardMapper.noticeList();
-	}
-
-	//검색기능
-	@Override
-	public List<BoardVO> noticeSearch(String key, String val) {
-		return boardMapper.noticeSearch(key, val);
-	}
-	
 	// FAQ
 
 	@Override
@@ -56,5 +41,50 @@ public class BoardServiceImpl implements BoardService {
 	public BoardVO faqSelect(BoardVO vo) {
 		return boardMapper.faqSelect(vo);
 	}
+	
+	// NOTICE
+
+	// 전체조회
+	@Override
+	public List<BoardVO> noticeList() {
+		return boardMapper.noticeList();
+	}
+
+	// 검색기능
+	@Override
+	public List<BoardVO> noticeSearch(String key, String val) {
+		return boardMapper.noticeSearch(key, val);
+	}
+
+	// 단건조회
+	@Override
+	public BoardVO noticeSelect(BoardVO vo) {
+		return boardMapper.noticeSelect(vo);
+	}
+
+	@Override //보류
+	public void noticeHitUpdate(String userId) {
+		return;		
+	}
+
+	// 등록
+	@Override
+	public int noticeInsert(BoardVO vo) {
+		return boardMapper.noticeInsert(vo);
+	}
+
+	// 수정
+	@Override
+	public int noticeUpdate(BoardVO vo) {
+		return boardMapper.noticeUpdate(vo);
+	}
+
+	// 삭제
+	@Override
+	public int noticeDelete(BoardVO vo) {
+		return boardMapper.noticeDelete(vo);
+	}
+	
+	
 
 }
