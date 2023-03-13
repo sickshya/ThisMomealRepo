@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +28,6 @@ import co.doeat.management.service.ExperienceSearchVO;
 import co.doeat.management.service.ExperienceService;
 import co.doeat.management.service.ExperienceVO;
 import co.doeat.management.service.ExprParticipantsVO;
-import co.doeat.management.service.GroupPurchaseListVO;
 
 @Controller
 public class ExperienceController {
@@ -70,8 +68,10 @@ public class ExperienceController {
 
 	// 체험단(호출) // select 하는곳 조회먼저.
 	@RequestMapping("/expr/exprFrm/{no}")
-	public String experience(HttpSession session, @PathVariable int no, Model model) {
+	public String experience(HttpSession session, @PathVariable int no, Model model, ExprParticipantsVO vo) {
 		String userId = (String) session.getAttribute("userId");
+		List<ExperienceVO> evo = experienceService.ExperOne(vo.getNo());
+		model.addAttribute("expOne",evo);
 		model.addAttribute("expSelect", experienceService.ExperOne(no));
 		model.addAttribute("userInfo", userService.userSelect(userId));
 		System.out.println(no + "체험단정보" + userId + "유저정보");
@@ -81,9 +81,13 @@ public class ExperienceController {
 	// 체험단(신청) // insert 하는곳 값 불러와야함.
 	@RequestMapping("/expr/exprAply.do")
 	@ResponseBody
-	public String exprAply(HttpSession session, Model model, ExprParticipantsVO pvo, ExperienceVO evo) {
-		String userId = (String) session.getAttribute("userId");
+	public String exprAply(HttpSession session,
+						   ExprParticipantsVO pvo,
+						   ExperienceVO vo,
+						   int no) {
+		//String userId = (String) session.getAttribute("userId");
 		experienceService.expInsert(pvo);
+		experienceService.expUpdate(vo);
 		return "신청이 완료되었습니다.";
 	}
 
@@ -93,9 +97,22 @@ public class ExperienceController {
 		HttpSession session = request.getSession();
 		session.getAttribute("userId");
 		model.addAttribute("expAplyList", experienceService.expOrderList());
-		System.out.println(experienceService.expOrderList());
 		return "experience/expOrderList";
 	}
+	
+	
+	// 체험단(버튼수체크)
+//	@RequestMapping("/ajaxExpBtn")
+//	@ResponseBody
+//	public String ajaxExpBtn(ExperienceVO vo, HttpSession session){
+//		String userId = (String) session.getAttribute("userId");
+//		Boolean b = experienceService.ajaxExpBtn(vo);
+//		String str = (b!=null)? "true" : "false";
+//	
+//		return str;
+//	}
+//	
+	
 
 	// 관리자 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	//페이징

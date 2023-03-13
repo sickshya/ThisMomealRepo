@@ -17,9 +17,14 @@ public interface ExperienceService {
 	public int expInsert(ExprParticipantsVO vo); // 체험단 Insert
 
 	public Map<String, Object> expSelect(int no); // 체험단 select
+	
+	public int expUpdate(ExperienceVO vo); // 체험단 Update
 
 	// 체험단-조회
 	public List<ExprParticipantsVO> expOrderList(); // 배송정보 전체조회
+	
+//	// 체험단-신청인원 제한버튼
+//	public Boolean ajaxExpBtn(ExperienceVO vo); // 신청인원 제한 시 버튼 막기
 
 	// 관리자 +++++++++++++++++++++++++++++++++++
 	List<ExperienceVO> adminExperienceGroupList(ExperienceSearchVO svo);

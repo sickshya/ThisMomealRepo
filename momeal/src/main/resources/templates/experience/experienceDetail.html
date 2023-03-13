@@ -64,7 +64,7 @@ textarea {
 							에 시작해요!</p>
 						<ul>
 							<li><b>참여 등급</b> <span>[[${ExpOne[0].nessGrd}]]</span></li>
-							<li><b>참여 인원</b> <span>[[${ExpOne[0].nowAplyt}]] 명 신청 / [[${ExpOne[0].aplyt}]] 명 남음</span></li>
+							<li><b>참여 인원</b> <span>[[${ExpOne[0].ordCnt}]] 명 신청 / [[${ExpOne[0].aplyt}]] 명 신청 가능!</span></li>
 							<li><b>모집 기간</b> <span>[[${#dates.format(ExpOne[0].expeStartDate,
 									'MM-dd')}]]([[${#dates.dayOfWeekName(ExpOne[0].expeStartDate)}]])
 									 -  [[${#dates.format(ExpOne[0].expeEndDate,
@@ -77,19 +77,9 @@ textarea {
 						<br>
 						<form class="purchaseBtn" th:action="@{/expr/exprFrm/{no}(no = ${ExpOne[0].no})}">
 <!-- /*							<input type="hidden" id="no" name="no" th:value="${ExpOne[0].no}"></a> */ -->
-							<button type="submit" class="primary-btn">신청하기</button>
+							<button class="primary-btn" id="btn" >신청하기</button>
 						</form>
 						
-						
-						
-<!-- 						<form class="purchaseBtn" action="/experienceForm" > -->
-<!-- 							<input type="number" name="totalGd" min="1" id="totalGd" size="2" -->
-<!-- 								maxlength="12" value="1" title="" class="input-text qty"> -->
-<!-- 							<input type="hidden" id="no" name="no" th:value="${ExpOne[0].no}"></a> -->
-<!-- 							<br> -->
-<!-- 							<button class="primary-btn">신청하기</button> -->
-<!-- 						</form> -->
-
 
 					</div>
 				</div>
@@ -126,7 +116,7 @@ textarea {
 
 
 										<div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
-											<button type="button" class="primary-btn">전송하기</button>
+											<button class="primary-btn">전송하기</button>
 										</div>
 									</div>
 								</div>
@@ -136,6 +126,9 @@ textarea {
 				</div>
 			</div>
 		</div>
+		
+		
+		
 		<!-- Js Plugins -->
 		<script src="/second-template/js/bootstrap.min.js"></script>
 		<script src="/second-template/js/jquery-ui.min.js"></script>

@@ -13,4 +13,10 @@ public interface BoardService {
 	int faqUpdate(BoardVO vo);// faq 수정
 
 	int faqDelete(BoardVO vo); // faq 삭제
+	
+	
+	// NOTICE
+	List<BoardVO> noticeList(); // 전체 리스트 
+	
+	List<BoardVO> noticeSearch(String key, String val); // 검색
 }

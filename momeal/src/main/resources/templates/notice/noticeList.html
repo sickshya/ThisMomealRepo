@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{frame/store}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Insert title here</title>
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div align="center">
+			<div>
+				<h1>게시글 목록</h1>
+			</div>
+			<div>
+				<!-- 검색폼 만들기 -->
+				<form id="frm" method="post">
+					<div>
+						<table border="1">
+							<tr>
+								<td width="100"><select name="key" id="key">
+										<option value="all">전체</option>
+										<option value="title">제목</option>
+										<option value="subject">내용</option>
+										<option value="writer">작성자</option>
+										<option value="date">작성일자</option>
+								</select></td>
+								<td width="250"><input type="text" name="val" id="val">&nbsp;
+									<input type="button" onclick="searchList()" value="검색">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</form>
+			</div>
+			<br>
+			<div>
+				<table border="1" id="list-table">
+					<thead>
+						<tr>
+							<td align="center" width="100">순번</td>
+							<td align="center" width="250">제목</td>
+							<td align="center" width="150">작성자</td>
+							<td align="center" width="150">작성일자</td>
+							<td align="center" width="100">조회수</td>
+							<td align="center" width="100">첨부파일</td>
+						</tr>
+					</thead>
+					<tbody id="notice-list">
+						<!-- notices로 넘어오는걸 하나씩 n으로 읽을거야 -->
+						<tr th:each="n : ${notices}">
+
+							<td align="center" th:text="${n.no}"></td>
+							<td align="center" th:text="${n.boardTitle}"></td>
+							<td align="center" th:text="${n.userId}"></td>
+							<td align="center"
+								th:text="${#dates.format(n.boardDate,'yyyy-MM-dd')}"></td>
+							<td align="center" th:text="${n.boardHit}"></td>
+							<td align="center">
+								<!-- noticeFile이 비어있지 않다면 td에 첨부파일이 있다고 표시해주기 --> <!-- 							<c:if test="${not empty n.noticeFile }"> -->
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div>
+				<!-- 		<div th:if="${not empty userId }"> -->
+				<button type="button"
+					th:onclick="location.href='noticeInsertForm.do'">글쓰기</button>
+				<!-- 		</div> -->
+			</div>
+			<div>
+				<!-- hidden폼을 만들어서 상세보기에 필요한 값 넘어오는걸 담기 -->
+				<form id="hiddenFrm" action="noticeSelect.do" method="post">
+					<input type="hidden" name="userId" id="userId"> <input
+						type="hidden" name="noticeFileDir" id="noticeFileDir">
+				</form>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			function searchList() {
+		let url = 'AjaxSearchList.do';
+		let key = document.getElementById("key").value;
+		let val = document.getElementById("val").value;
+		
+		let payload = 'key=' + key + '&val=' + val;
+		
+		fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: payload
+		})
+		.then(response => response.json())
+		.then((datas) => {
+			htmlConvert(datas)
+		})
+		.catch(error => console.log(error))
+	}
+			function htmlConvert(datas) { // json을 html로 변환해서 화면에 뿌림
+				document.querySelector('#notice-list').remove(); // 리스트의 <tbody> 부분 삭제
+				const container = document.createElement('tbody'); // <tbody> 태그 생성
+				container.id = 'notice-list'; // <tbody> id값 부여
+				container.innerHTML = datas.map(data => createHTMLString(data)).join("");
+				document.querySelector('#list-table').appendChild(container); // 원하는 위치에 새로 만든 container 붙이기
+			}
+			
+// 			function createHTMLString(data) { // html 변환 코드 css, eventListner를 활용하면 깔끔하게....?
+// 				if(data.noticeFile == null) // 첨부파일 존재유무 확인
+// 					data.noticeFile = ""; // 존재하지 않으면 공백
+// 				else
+// 					data.noticeFile = "@"; // 존재하면 @로 표시
+					
+				let str = "<tr onmouseover='this.style.background='#fcecae';"
+					str += " onmouseleave='this.style.background='#FFFFFF';" // 앞쪽 공백 주의
+					str += " onclick="; // 앞쪽 공백 주의
+					str += "noticeSel('" + data.no + "')" + ">";
+					str += 	"<td align=center>" + data.no + "</td>";
+					str += 	"<td>" + data.noticeTitle + "</td>";
+					str += 	"<td align=center>" + data.userId + "</td>";
+					str += 	"<td align=center>" + data.boardDate + "</td>";
+					str += 	"<td align=center>" + data.boardHit + "</td>";
+					//str += 	"<td align=center>" + data.noticeFile + "</td></tr>";
+					
+				return str;
+			}
+			
+			// 상세 글 보기
+			function noticeSel(userId) {
+				// 여기서 상세보기 호출
+				document.getElementById("userId").value = userId; // noticeId에 id를 담아서 가져가라~
+				hiddenFrm.submit();
+			}	
+			
+		</script>
+	</div>
+</body>
+</html>
