@@ -57,6 +57,13 @@ public class ChallengeController {
 
 		return "challenge/challenge";
 	}
+	
+	// 페이징 처리
+	@RequestMapping("/addList")
+	@ResponseBody
+	public String challListAdd() {
+		return "";
+	}
 
 	// 단건조회
 	@GetMapping("/challenge/{no}")

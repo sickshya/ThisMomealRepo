@@ -181,7 +181,7 @@
 											<button type="button" onclick="attedChall()"
 												class="btn btn-default" id="attend">참여하기</button>
 											<input type="hidden" th:value="${chall.no}" name="no" id="no">
-											<input type="hidden" th:value="${chall.round}" name="round"
+											<input type="hidden" th:value="${chall.chalRound}" name="round"
 												id="round"> <input type="hidden"
 												th:value="${session.userId}" name="userId" id="userId">
 											<input type="hidden" th:value="${chall.attendNo}"
@@ -239,7 +239,6 @@
 				type: "post"
 			})
 			.then(result => {
-				console.log("도착??????????")
 				$(result).each(function(index, item) {
 					$("#review").append(
 					`
@@ -249,7 +248,7 @@
 								<div class="media-body">
 									<div class="flex flex-1 space-x-2">
                         				<img src="${item.profileImgPath}" class="rounded-full w-8 h-8">
-                        				<div class="flex-1" id="one${item.no}"><b>${item.nickName}</b></p>`
+                        				<div class="flex-1" id="one${item.no}"><b>${item.nickName}</b>ㅤ<span style="font-size:12px;">${item.writeDate}</span></p>`
 				                        +  (item.star == 1 ? '<i class="fa fa-star"></i>':'')
 										+  (item.star == 2 ? '<i class="fa fa-star"></i><i class="fa fa-star"></i>':'')
 										+  (item.star == 3 ? '<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>':'')

@@ -21,7 +21,7 @@ public class ChallengeVO extends ImageVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date chalEndDate; // 챌린지 종료일자
-	private int round; // 챌린지 진행회차(같은 챌린지 반복진행시 사용)
+	private int chalRound; // 챌린지 진행회차(같은 챌린지 반복진행시 사용)
 	private int particir; // 현재 참여자 수
 	private int sumParticir; // 누적 참여자 수
 	private int deductPoint; // 참여 포인트
