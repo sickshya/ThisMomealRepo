@@ -10,6 +10,8 @@ public interface ChallengeService {
 
 	public List<Map<String, Object>> likeRankChallList(String id); // 인기순(좋아요 많은 순) 조회
 
+	public List<ChallengeSearchVO> getSearchList(ChallengeSearchVO vo); // 검색
+	
 	public ChallengeVO getChallenge(Map<String, Object> map); // 단건조회
 
 	public int insertChallenge(ChallengeVO vo); // 챌린지 등록

@@ -46,7 +46,8 @@ public class ChallengeVO extends ImageVO {
 	private List<ImageVO> imgPath; // 관리자 상세조회 시, 이미지 경로값
 	private String chstatus; // 날짜에 따른 공동구매 진행상태
 
-
-
-
+	
+	// 검색 필터
+	private String type; // 검색 타입
+	private String keyword; // 검색 내용
 }

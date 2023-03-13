@@ -32,6 +32,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public List<Map<String, Object>> likeRankChallList(String id) {
 		return challengeMapper.likeRankChallList(id);
 	}
+	
+	// 검색
+	@Override
+	public List<ChallengeSearchVO> getSearchList(ChallengeSearchVO vo) {
+		return challengeMapper.getSearchList(vo);
+	}
 
 	// 단건조회
 	@Override

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.community.mapper.CommunityMapper">
+	
+	<sql id="search">
+		<choose>
+			<when test="type != null and type.equals('typeCode')">
+				and m.type_code like '%'||#{keyword}||'%'
+			</when>
+			<when test="type != null and type.equals('nickName')">
+				and u.nick_name like '%'||#{keyword}||'%'
+			</when>
+		</choose>
+	</sql>
 
 	<!-- 커뮤니티 전체조회 -->
 	<select id="getCmntList" resultType="map">
@@ -18,11 +29,14 @@
 	                  FROM MEALS M 
 	                  LEFT JOIN USERS U
 	                    ON (M.USER_ID = U.USER_ID)
-	   <if test="no > 0">
-	  <![CDATA[
-	                 WHERE M.NO < #{no}
-	  ]]>
-	  </if>
+	    <where>
+		<if test="no > 0">
+			<![CDATA[
+	                 M.NO < #{no}
+			]]>
+		</if>
+			<include refid="search"></include>
+		</where>
 	                 ORDER BY M.NO DESC) A 
         <![CDATA[
 		WHERE ROWNUM <= 10) b

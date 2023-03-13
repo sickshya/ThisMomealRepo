@@ -13,7 +13,24 @@
 </head>
 <body>
 	<div layout:fragment="content">
-
+		
+		<!-- 검색 -->
+		<div class="container-fluid search_box" style="width: 520px;">
+			<form id="searchForm" class="d-flex" onsubmit="return false;" autocomplete="off"> 
+			<select id="type" name="type" class="form-select" aria-label="Default select example"
+				style="width: 110px; float: left; margin-right: 10px; font-size:15px;">
+				<option selected>전체검색</option>
+				<option value="typeCode">식단타입</option>
+				<option value="nickName">닉네임</option>
+			</select>
+			
+				<input class="form-control me-2" type="search" id="keyword" name="keyword" placeholder="식단 타입 또는 닉네임을 입력하세요." style="font-size:15px;">
+				<button class="btn btn-outline-success" type="button" onclick="getSearchList()" style="width:80px; font-size:15px;">검색</button>
+			</form>
+		</div>
+		<!-- 검색 -->
+		<br>
+		<div id="allCmntList">
 		<!-- 게시판이름 -->
 		<h1
 			class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">
@@ -68,48 +85,22 @@
 
 			</div>
 		</div>
+	</div>
 		<!-- 슬라이드 끝 -->
 
 
-
 		<br><br><br>
-
 
 
 		<!-- 전체 이미지 -->
 		<div
 			class="my-3 grid lg:grid-cols-5 grid-cols-2 gap-3 hover:text-yellow-700 uk-link-reset" id="allList">
 			<!-- 한 블럭 시작 -->
-			<!-- /* <div th:each="cmnt : ${cmntList}" class="oneCmnt" th:data-cmntno="${cmnt.NO}" th:data-sessionid="${session.userId}" >
- 								 	<div
- 										class="bg-blue-400 max-w-full lg:h-64 h-40 rounded-md relative overflow-hidden shadow-sm">
- 										<a href="#story-modal" uk-toggle> <img
- 											th:src="${cmnt.FILE_DIR}"
- 											class="w-full h-full absolute object-cover inset-0">
- 										</a>
- 										<div
- 											class="absolut absolute bottom-0 flex items-center justify-between px-4 py-3 space-x-2 text-white w-full">
- 											<div class="flex space-x-3">
- 												<div th:if="${session.userId != null}" class="heart"  th:data-likeno="${cmnt.LIKE_NO}">
- 													<th:block th:if="${cmnt.LIKE_NO != 0}">
-														
- 															<img src="/assets/images/heart.svg" class="fullHeart">
-													
- 													</th:block>
- 													<th:block th:unless="${cmnt.LIKE_NO != 0}">
-													
- 															<img src="/assets/images/emptyHeart.svg" class="emptyHeart">
-														
- 													</th:block>
- 												</div>
- 											</div>
- 										</div>
- 									</div>
- 								</div> */ -->
+			<!-- ajax로 리스트 불러옴 -->
 			<!-- 한 블럭 끝 -->
 
 			<!-- 전체 이미지 끝 -->
-
+		</div>
 
 
 			<!-- 스토리 모달 시작 -->
@@ -136,16 +127,9 @@
 									</div>
 								</a> <span id="nickName" class="block text-lg font-semibold"></span>
 							</div>
-							<!--                      <input type="hidden" th:data> -->
 							<th:block th:if="${session.userId != null}">
-								<!--                         <a href="">  -->
 								<!-- 팔로우  -->
-								<!--                            <th:block th:if ="" id="followChk"> -->
-								<!--                            <div id="sessionId"> -->
 								<button type="button" class="follow" style="font-size:12px"></button>
-								<!--                            </div> -->
-								<!--                            </th:block> -->
-								<!--                         </a> -->
 							</th:block>
 						</div>
 						<div class="story-content p-4 oneCmnt" data-simplebar id="scrollDiv">
@@ -162,6 +146,8 @@
 									  </div>
 										
 									</a> <a href="#" class="flex items-center space-x-3">
+									<!-- 신고 버튼 -->
+									<button type="button" class="btn btn-outline-danger" style="font-size:10px">신고</button>
 										<!-- <div class="flex font-bold items-baseline"> -->
 											<!-- <i class="uil-comment mr-1"> </i> Comment -->
 										<div class="flex font-bold items-baseline" id="commentCnt">
@@ -194,7 +180,7 @@
 
 				</div>
 			</div>
-		</div>
+
 		<!-- 스토리 모달 끝 -->
 		
 		<!-- 더보기 버튼 -->
@@ -277,6 +263,70 @@
 	      })    	  
       }
       
+	    // ▶ 검색
+	    function getSearchList() {
+	    	let feedNo = $("#allList .oneCmnt").first().data("cmntno");
+	    	let searchData = $("#searchForm").serialize() + "&no=" + feedNo;
+	    	console.log(searchData)
+// 	    	searchData += "&no=" + feedNo;
+	    	
+	    	$.ajax({
+	    		url: "/communityList",
+	    		type: "post",
+	    		data : searchData,
+	    		success: function(result) {
+	    			console.log(result);
+	    			console.log("성공??????????")
+	    			// 테이블 초기화
+	    			$("#allCmntList").empty();
+	    			$("#allList").empty();
+	    			
+	                if(result.length < 10) {
+		    			  $("#loadBtn").remove();
+		    		  }
+	                
+	                $("#allCmntList").append(
+	                `<h1
+			class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">
+			검색 결과</h1>`		
+	                )
+	    			
+	                $.each(result, function(index, item) {
+	                    let heart = '';
+	                    console.log(item.LIKE_NO)
+	                    if(sessionId != null) {
+	  					if(item.LIKE_NO != 0) {
+	  						heart = `<div class="heart" data-likeno="${item.LIKE_NO}">
+	  									<img src="/assets/images/heart.svg" class="fullHeart"></div>`;
+	  					}else {
+	  						heart = `<div class="heart" data-likeno="${item.LIKE_NO}">
+	  							<img src="/assets/images/emptyHeart.svg" class="emptyHeart"></div>`;
+	  					}
+	                    }
+
+	                    $("#allList").append(
+	                       `
+	                       <div class="oneCmnt" data-cmntno="${item.NO}" data-sessionid="${sessionId}" id="oneFeed">
+	                          <div class="bg-blue-400 max-w-full lg:h-64 h-40 rounded-md relative overflow-hidden shadow-sm">
+	                             <a href="#story-modal" uk-toggle> 
+	                                <img src="${item.FILE_DIR}" class="w-full h-full absolute object-cover inset-0">
+	                             </a>
+	                             <div class="absolut absolute bottom-0 flex items-center justify-between px-4 py-3 space-x-2 text-white w-full">
+	                                <div class="flex space-x-3">
+	                                   ${heart}
+	                                </div>
+	                             </div>
+	                          </div>
+	                       </div>
+	                       `
+	                    )
+	                 })
+	    			
+	    			
+	    		}
+	    	})
+	    }
+
    
       // ▶ 커뮤니티 게시글 단건 조회
       $(document).on("click", ".oneCmnt", function() {

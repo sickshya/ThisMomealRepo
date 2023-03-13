@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.management.mapper.ChallengeMapper">
+	<sql id="search">
+		<choose>
+			<when test="type != null and type.equals('title')">
+				c.title like '%'||#{keyword}||'%'
+			</when>
+			<when test="type != null and type.equals('subject')">
+				c.subject like '%'||#{keyword}||'%'
+			</when>
+		</choose>
+	</sql>
 
 	<!-- 챌린지 전체조회(최신 등록순 조회) -->
 	<select id="getChallList" resultType="map">
@@ -11,6 +21,9 @@
 					   AND L.USER_ID = #{userId} 
 					   AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO
 		  FROM CHALLENGES C
+		<where>
+			<include refid="search"></include>
+		</where>
 		 ORDER BY C.NO DESC
 	</select>
 

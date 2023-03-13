@@ -37,8 +37,6 @@ public class CommunityController {
 		// 인기순 조회
 		model.addAttribute("cmntRec", communityService.likeRankCmntList(id));
 		
-		System.out.println("====== 결과 ▶ " + communityService.likeRankCmntList(id));
-		
 		return "community/community";
 	}
 	
