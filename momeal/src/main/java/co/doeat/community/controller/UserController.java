@@ -48,13 +48,12 @@ public class UserController {
 		return "users/userEditForm";
 	}
 
-	// 회원정보 수정시 .. 재확인필요
+	// 회원정보 수정시
 	@RequestMapping("/userEdit")
 	public String userEdit(UsersVO vo) {
 
 		userService.updateUserInfo(vo);
 		
-		System.out.println("========================" + userService.updateUserInfo(vo));
 		return "redirect:/userEditForm";
 	}
 

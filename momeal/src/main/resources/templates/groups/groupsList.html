@@ -30,14 +30,13 @@
 	<div layout:fragment="content" align="center">
 		<h3 style="font-size: 25px;">내가 만든 그룹</h3>
 		<br>
-		<div style="border: 1px solid #ccc"
-			class="col-lg-6 bg-white rounded-md lg:shadow-lg "
+		<div style="border: 1px solid #ccc" class="col-lg-6 list-group list-group-numbered"
 			th:each="grp : ${grList}" th:if="${session.userId == grp.GRP_LEADER}">
-			<div class="block items-center py-3 px-4 space-x-3">
+			<div class="block items-center py-3 px-4 space-x-3 ">
 				<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
 					<div class="flex-1 min-w-0 text-gray-500 col" align="left">
-						<h4 class="text-black font-semibold dark:text-white">
-							<a th:href="@{/groupsFeed/{no}(no = ${grp.NO})}">[[${grp.GRP_NAME}]]&nbsp;&nbsp;&nbsp;[[${grp.GRP_LEADER}]]</a>
+						<h4 class="ms-2 me-auto fw-bold">
+							<a th:href="@{/groupsFeed/{no}(no = ${grp.NO})}">[[${grp.GRP_NAME}]]<br>[[${grp.GRP_LEADER}]]</a>
 						</h4>
 					</div>
 					<div class="top-0 start-100 col" align="right">
@@ -52,16 +51,16 @@
 				</div>
 			</div>
 		</div>
-		<br> <br> <br> <br>
+		<br><br> 
 		<h3 style="font-size: 25px;">참여중인 그룹</h3>
 		<br>
 		<div style="border: 1px solid #ccc"
-			class="col-lg-6 bg-white rounded-md lg:shadow-lg "
+			class="col-lg-6 list-group list-group-numbered"
 			th:each="grp : ${grList}" th:if="${session.userId != grp.GRP_LEADER}">
 			<div class="block items-center py-3 px-4 space-x-3">
 				<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
 					<div class="flex-1 min-w-0 text-gray-500 col" align="left">
-						<h4 class="text-black font-semibold dark:text-white">
+						<h4 class="ms-2 me-auto fw-bold">
 							<a th:href="@{/groupsFeed/{no}(no = ${grp.NO})}">[[${grp.GRP_NAME}]]&nbsp;&nbsp;&nbsp;[[${grp.GRP_LEADER}]]</a>
 						</h4>
 					</div>
