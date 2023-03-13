@@ -68,7 +68,7 @@
                                 <form id="searchFrm">
                                     <select name="type">
                                         <option value="G" th:selected="${paging.type == 'G'}">제품명</option>
-                                        <option value="N" th:selected="${paging.type == 'N'}">상태</option>
+                                        <option value="N" th:selected="${paging.type == 'N'}">회사명</option>
                                     </select>
                                     <input type="text" name="keyword" th:value="${paging.keyword}">
                                     <button type="submit">검색</button>

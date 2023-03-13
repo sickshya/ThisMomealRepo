@@ -50,13 +50,13 @@ public class RegisterMail {
 		msgg += "</div>";
 		message.setText(msgg, "utf-8", "html"); // 내용, charset 타입, subtype
 		// 보내는 사람의 이메일 주소, 보내는 사람 이름
-		message.setFrom(new InternetAddress("momeal_support@naver.com", "Momeal_support")); // 보내는 사람
+		message.setFrom(new InternetAddress("momeal-support@naver.com", "Momeal-support")); // 보내는 사람
 
 		return message;
 	}
 	
 	// 그룹 초대 메일 내용 작성
-	public MimeMessage sendMessage(String to) throws MessagingException, UnsupportedEncodingException {
+	public MimeMessage grpInviteMessage(String to) throws MessagingException, UnsupportedEncodingException {
 		log.info("받을 대상 ?? : " + to);
 		log.info("인증 번호 : " + ePw);
 		MimeMessage message = emailsender.createMimeMessage();
@@ -81,7 +81,7 @@ public class RegisterMail {
 		msgg += "</div>";
 		message.setText(msgg, "utf-8", "html"); // 내용, charset 타입, subtype
 		// 보내는 사람의 이메일 주소, 보내는 사람 이름
-		message.setFrom(new InternetAddress("momeal-support@naver.com", "Momeal_support")); // 보내는 사람
+		message.setFrom(new InternetAddress("momeal-support@naver.com", "Momeal-support")); // 보내는 사람
 
 		return message;
 	}
@@ -124,6 +124,21 @@ public class RegisterMail {
 		ePw = createKey(); // 랜덤 인증번호 생성
 
 		MimeMessage message = createMessage(to); // 메일 발송
+		try { // 예외처리
+			emailsender.send(message);
+		} catch (MailException es) {
+			es.printStackTrace();
+			throw new IllegalArgumentException();
+		}
+
+		return ePw; // 메일로 보냈던 인증 코드를 서버로 반환
+	}
+	
+	public String sendgrpInviteMessage(String to) throws Exception {
+
+		ePw = createKey(); // 랜덤 인증번호 생성
+
+		MimeMessage message = grpInviteMessage(to); // 메일 발송
 		try { // 예외처리
 			emailsender.send(message);
 		} catch (MailException es) {

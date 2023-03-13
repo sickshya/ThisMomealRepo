@@ -136,7 +136,7 @@
                                                 <!-- <input type="hidden" name="${images.postNo}"
                                                     value="${groupPurchaseList.no}"> -->
                                                 <!-- <input type="hidden" name="${images.boardCode}" value="CT03"> -->
-                                                <button type="button" onclick="GPinsert()"
+                                                <button type="button" onclick="EXinsert()"
                                                     class="btn btn-primary">등록</button>
                                             </div>
                                         </form>
@@ -265,7 +265,7 @@
                     }
                 })('att_zone', 'btnAtt')
 
-            function GPinsert() {
+            function EXinsert() {
                 var formData = new FormData($('#frm')[0])
                 for (let i = 0; i < sel_files.length; i++) {
                     formData.append("files", sel_files[i])

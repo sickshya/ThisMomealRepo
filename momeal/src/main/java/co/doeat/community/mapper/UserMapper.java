@@ -40,6 +40,9 @@ public interface UserMapper {
 	UsersVO myFeedUserSelect(String id);
 	
 	//포인트로그
-	List<Map<String,Object>> pointList(String userId);
+	List<PointLogVO> pointList(String userId);
+	
+	//누적포인트
+	UsersVO myPoint(String userId);
 	
 }

@@ -41,15 +41,18 @@
 						</h4>
 					</div>
 					<div class="top-0 start-100 col" align="right">
-						<button type="button" data-toggle="modal" class="primary-btn" data-target="#listModal" onclick="memChk()" th:data-no="${grp.NO}">관리</button>
+						<button type="button" data-toggle="modal"
+							class="primary-btn btn btn-outline-success"
+							data-target="#listModal" onclick="memChk()"
+							th:data-no="${grp.NO}">관리</button>
 						&nbsp;&nbsp;
-						<button type="button" onclick="grpListDel()" th:data-no="${grp.NO}">삭제</button>
+						<button type="button" onclick="grpListDel()"
+							th:data-no="${grp.NO}" class="btn btn-outline-secondary">삭제</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<br> <br>
-		<br> <br>
+		<br> <br> <br> <br>
 		<h3 style="font-size: 25px;">참여중인 그룹</h3>
 		<br>
 		<div style="border: 1px solid #ccc"
@@ -63,17 +66,26 @@
 						</h4>
 					</div>
 					<div class="top-0 start-100 col" align="right">
-						<button type="button" data-toggle="modal" class="primary-btn" data-target="#listModal" onclick="memChk()" id="showBtn" th:data-no="${grp.NO}">멤버보기</button>
+						<button type="button" data-toggle="modal"
+							class="primary-btn btn btn-outline-success"
+							data-target="#listModal" onclick="memChk()" id="showBtn"
+							th:data-no="${grp.NO}">멤버보기</button>
 						&nbsp;&nbsp;
-						<button type="button" onclick="membDel()" th:data-no="${grp.NO}">탈퇴</button>
+						<button type="button" onclick="membDel()" th:data-no="${grp.NO}"
+							class="btn btn-outline-secondary">탈퇴</button>
 						<input type="hidden" id="userId" th:value="${session.userId}">
 					</div>
 				</div>
 			</div>
 		</div>
 		<br> <br>
-		<button type="submit" data-toggle="modal" class="primary-btn" data-target="#createModal">그룹생성</button>&nbsp;&nbsp;
-		<button type="submit" data-toggle="modal" class="primary-btn" data-target="#joinModal">참여하기</button>
+		<button type="submit" data-toggle="modal"
+			class="primary-btn btn btn-outline-success"
+			data-target="#createModal">그룹생성</button>
+		&nbsp;&nbsp;
+		<button type="submit" data-toggle="modal"
+			class="primary-btn btn btn-outline-secondary"
+			data-target="#joinModal">참여하기</button>
 
 
 		<!-- 멤버리스트 모달 -->
@@ -91,14 +103,16 @@
 					<div class="modal-body" id="memList" style="padding: 20px;">
 					</div>
 					<div class="modal-footer">
-						<button type="button" onclick="inviteMem()" class="btn btn-default primary-btn" data-toggle="modal" data-target="#inviteModal">초대하기</button>
+						<button type="button" onclick="inviteMem()"
+							class="btn btn-default primary-btn btn btn-outline-success"
+							data-toggle="modal" data-target="#inviteModal">초대하기</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- 멤버리스트 모달 끝 -->
-		
-		
+
+
 		<!-- 멤버 초대 모달 -->
 		<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog"
 			aria-labelledby="Modal-label-1">
@@ -112,19 +126,20 @@
 						</button>
 					</div>
 					<div class="modal-body" id="memList" style="padding: 20px;">
-					
-						<label>이메일을 입력하세요</label> 
-							<input type="text" id="grpName" name="grpName">
-					
+						<form id="emailFrm">
+							<label>이메일을 입력하세요</label>
+							<input type="text" id="email" name="email">
+						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default primary-btn" >확인</button>
+						<button type="button"
+							class="btn btn-default primary-btn btn btn-outline-secondary">확인</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- 멤버 초대 모달 끝 -->
-		
+
 
 
 		<!-- 그룹 만들기 모달 -->
@@ -141,23 +156,25 @@
 							</button>
 						</div>
 						<div class="modal-body" id="" style="padding: 20px;">
-							<input type="hidden" id="grpLeader" name="grpLeader" th:value="${session.userId}"> 
-							<label>이름을 입력하세요</label> 
-							<input type="text" id="grpName" name="grpName">
+							<input type="hidden" id="grpLeader" name="grpLeader"
+								th:value="${session.userId}"> <label>이름을 입력하세요</label> <input
+								type="text" id="grpName" name="grpName">
 
 						</div>
 						<div class="modal-footer">
-							<button type="button" onclick="createGrp()" class="btn btn-default" id="attend" style="margin: 0px;">확인</button>
+							<button type="button" onclick="createGrp()"
+								class="btn btn-default btn btn-outline-secondary" id="attend"
+								style="margin: 0px;">확인</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</form>
 		<!-- 그룹만들기 모달 끝 -->
-		
-		
+
+
 		<!-- 그룹참여 모달  -->
-			<form id="frm" method="post">
+		<form id="frm" method="post">
 			<div class="modal fade" id="joinModal" tabindex="-1" role="dialog"
 				aria-labelledby="Modal-label-1">
 				<div class="modal-dialog" role="document">
@@ -170,23 +187,25 @@
 							</button>
 						</div>
 						<div class="modal-body" id="" style="padding: 20px;">
-						
-							<input type="hidden" id="userId" name="userId" th:value="${session.userId}"> 
-							<label>참여코드를 입력하세요</label> 
+
+							<input type="hidden" id="userId" name="userId"
+								th:value="${session.userId}"> <label>참여코드를 입력하세요</label>
 							<input type="text" id="grpCode" name="grpCode">
 
 						</div>
 						<div class="modal-footer">
-							<button type="button" onclick="joinGrp()" class="btn btn-default" id="attend" style="margin: 0px;">확인</button>
+							<button type="button" onclick="joinGrp()"
+								class="btn btn-default btn btn-outline-secondary" id="attend"
+								style="margin: 0px;">확인</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</form>
 		<!-- 그룹참여 모달 끝 -->
-		
-		
-		
+
+
+
 
 		<script>
 			// 멤버리스트 모달로 보여줌
@@ -243,6 +262,22 @@
 			// 멤버 초대하기
 			function inviteMem() {
 				$('#listModal').modal('hide');
+				
+				// 이메일 인증번호
+			    $('#emailFrm').click(function () {
+			        $.ajax({
+			            type: "POST",
+			            url: "/grpInvite/mailConfirm.do",
+			            data: {
+			                "email": $("#email").val()
+			            },
+			            success: function (data) {
+			                alert("인증번호가 발송 되었습니다. \n 확인부탁드립니다.")
+			                console.log("data : " + data)
+			            }
+			        })
+			    })
+				
 			}
 			
 			
@@ -299,7 +334,7 @@
 			// 초대코드로 그룹 참여
 			function joinGrp() {
 				
-		s	}
+			}
 			
 		</script>
 	</div>
