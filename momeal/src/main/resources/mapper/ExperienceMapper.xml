@@ -95,13 +95,12 @@
 		FROM
 		EXPERIENCE_GROUP g LEFT JOIN IMAGES i
 		ON (g.NO = i.POST_NO)
-		WHERE
-		i.POST_NO = 1 AND i.board_code='CT02'
+		WHERE i.POST_NO = #{postNo} and i.board_code='CT02'
 		ORDER BY g.NO
 	</select>
 	
 		<!-- 배송정보 입력 -->
-	<insert id="expInsert" parameterType="ExprParticipantsVO" >
+	<insert id="expInsert" parameterType="ExprParticipantsVO">
         INSERT INTO EXPERIENCE_PARTICIPANTS
 		VALUES(#{no}, 
 			   #{userId}, 
@@ -134,6 +133,14 @@
 	    WHERE e.NO = #{no}
 	    ORDER BY e.NO
 	</select>
+	
+		<!-- 수정 -->
+	<update id="expUpdate">
+		update EXPERIENCE_GROUP
+        set NOW_APLYT = NOW_APLYT + 1
+        where NO = #{no}
+        
+	</update>
 	
 	
 	<!-- 관리자 +++++++++++++++++++++++++++++++++++++++++++++++++++ -->

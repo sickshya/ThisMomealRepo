@@ -45,6 +45,13 @@
 	<delete id="faqDelete">
 		DELETE FROM BOARD WHERE NO= #{no}
 	</delete>
+  
+<!-- Notice -->
+
+<!-- notice 전체리스트 출력 -->
+	<select id="noticeList" resultType="co.doeat.common.service.BoardVO">
+		SELECT * FROM BOARD ORDER BY NO DESC
+	</select>
 
 
 </mapper>

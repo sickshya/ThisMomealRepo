@@ -48,9 +48,16 @@ public class ExperienceServiceImpl implements ExperienceService {
 	}
 
 	@Override
+	public int expUpdate(ExperienceVO vo) {
+		return experienceMapper.expUpdate(vo);
+		
+	}
+	@Override
 	public List<ExprParticipantsVO> expOrderList() {
 		return experienceMapper.expOrderList();
 	}
+	
+
 
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
 	@Override
@@ -83,6 +90,8 @@ public class ExperienceServiceImpl implements ExperienceService {
 	public int adminEXUpdate(ExperienceVO vo) {
 		return experienceMapper.adminEXUpdate(vo);
 	}
+
+
 
 
 

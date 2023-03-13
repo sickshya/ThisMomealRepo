@@ -44,43 +44,47 @@
 				<form id="frm" action="/expr/expOrderList" method="post">
 					<table border="1">
 						<tr>
+							<td><input type="hidden" id="no" name="no"
+								th:value="${expSelect[0].no}" required></td>
+						</tr>
+						<tr>
 							<th>아이디</th>
 							<td><input type="text" id="userId" name="userId"
 								th:value="${session.userId}" required></td>
 						</tr>
 
-
-<!--  						<tr> -->
-<!--  							<th>상품명</th> -->
-<!--  							<td><input type="text" id="name" name="name" -->
-<!--  								th:value="${expSelect.title}" required>  -->
-<!-- 							</td> -->
-<!-- 						</tr> -->
 						<tr>
-							<!-- 							<th>신청일자</th> -->
+							<th>참여 공구명</th>
+
+							<td><input type="text" id="name" name="name"
+								th:value="${expSelect[0].title}"></td>
+						</tr>
+						<tr>
+							<th>리뷰 시작날</th>
+
+							<td><input type="text" id="reviewStartDate"
+								th:value="${#dates.format(expSelect[0].reviewStartDate, 'yyyy-MM-dd')}"></td>
+						</tr>
+						<tr>
+							<th>리뷰 마감날</th>
+
+							<td><input type="text" id="reviewEndDate"
+								th:value="${#dates.format(expSelect[0].reviewEndDate, 'yyyy-MM-dd')}"></td>
+						</tr>
+						<tr>
 							<td onclick="nextCalendar();" style="cursor: pointer;"><input
 								type="hidden" id="aplDate" name="aplDate" required></td>
 						</tr>
 
-<!--  						<tr>  -->
-<!--  							<th>전화번호</th>  -->
-<!--  							<td><input type="text" id="tel" name="tel"  -->
-<!--  								th:value="${userInfo.tel}" required>  -->
-<!--  							</td>  -->
-<!--  						</tr>  -->
 
-						<!-- 우편번호 api 시작 -->
 						<tr>
 							<th>배송지</th>
-							<td for="streetaddress"><br> 
-							<input type="text" id="sample6_postcode" name="zipcode" placeholder="우편번호">
-								<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br> 
-								<input type="text" id="addr" name="addr" placeholder="주소"><br> 
-								<input type="text" id="sample6_detailAddress" name="addr" placeholder="상세주소"> 
-<!-- 								<input type="text" id="sample6_extraAddress" placeholder="참고항목"></td> -->
-						</tr>
-						<!-- 우편번호 api 끝 -->
-
+							<td for="streetaddress"><br> <input type="text"
+								id="zipcode" name="zipcode" placeholder="우편번호">
+								<input type="button" onclick="sample6_execDaumPostcode()"
+								value="우편번호 찾기"><br> <input type="text" id="addr"
+								name="addr" placeholder="주소"><br>
+					</td>
 					</table>
 					<br> <input type="button" id="EXPinsert" value="신청하기">
 
@@ -136,8 +140,8 @@
 									}
 
 									// 우편번호와 주소 정보를 해당 필드에 넣는다.
-									document.getElementById('sample6_postcode').value = data.zonecode;
-									document.getElementById("sample6_address").value = addr;
+									document.getElementById('zipcode').value = data.zonecode;
+									document.getElementById('addr').value = addr;
 									// 커서를 상세주소 필드로 이동한다.
 									document.getElementById(
 											"sample6_detailAddress").focus();
@@ -147,6 +151,7 @@
 
 				//체험단 insert
 				$("#EXPinsert").click(function() {
+					let no = $('#no').val();
 					let userId = $('#userId').val();
 					let aplDate = $('#aplDate').val();
 					let addr = $('#addr').val();
@@ -155,6 +160,7 @@
 						url : "/expr/exprAply.do",
 						type : "POST",
 						data : {
+							"no" : no,
 							"userId" : userId,
 							"aplDate" : aplDate,
 							"addr" : addr
