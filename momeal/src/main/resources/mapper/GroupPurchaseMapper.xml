@@ -152,7 +152,7 @@
 				NAME like '%'||#{keyword}||'%'
 			</when>
 			<when test="type == 'N'.toString()">
-				gpstatus like '%'||#{keyword}||'%'
+				co_name like '%'||#{keyword}||'%'
 			</when>
 		</choose>
 	</sql>
@@ -161,7 +161,9 @@
 		resultType="int">
 		SELECT COUNT(*)
 		FROM GROUP_PURCHASE_LISTS
+		<where>
 		<include refid="creiteria"></include>
+		</where>
 	</select>
 
 	<select id="getAdminGroupPurchaseList"
@@ -180,8 +182,10 @@
 	            Else '진행전' END as gpstatus
  		]]>
 		FROM GROUP_PURCHASE_LISTS
-
+		
+		<where>
 		<include refid="creiteria"></include>
+		</where>
 		order by no
 		
 		<![CDATA[

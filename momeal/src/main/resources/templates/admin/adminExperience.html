@@ -70,7 +70,6 @@
                                 <form id="searchFrm">
                                     <select name="type">
                                         <option value="G" th:selected="${paging.type == 'G'}">상품명</option>
-                                        <option value="N" th:selected="${paging.type == 'N'}">현황</option>
                                         <option value="R" th:selected="${paging.type == 'R'}">필요등급</option>
                                     </select>
                                     <input type="text" name="keyword" th:value="${paging.keyword}">
@@ -81,7 +80,7 @@
                                 <div class="col-md-20 my-4">
                                     <div class="card shadow">
                                         <div class="card-body">
-                                            <h5 class="card-title">등록된 챌린지 리스트</h5>
+                                            <h5 class="card-title">체험단 리스트</h5>
                                             <p class="card-text">
                                                 <input type="button" value="등록하기"
                                                     onclick="location.href='adminEXInsertForm'">

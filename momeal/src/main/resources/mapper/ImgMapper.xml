@@ -45,6 +45,11 @@
 		SELECT * FROM IMAGES
 		WHERE post_no=#{postNo} AND board_code=#{boardCode}
 	</select>
+	
+	<delete id="adminEXIDelete"
+		parameterType="co.doeat.common.service.ImageVO">
+		DELETE FROM IMAGES where post_no=#{postNo} AND board_code='CT02'
+	</delete>
 
 
 

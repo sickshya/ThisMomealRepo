@@ -16,4 +16,12 @@ public class PointLogVO {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date saveDate;
 	private String reasonCode;
+	
+	
+	
+	String cdId;
+	String cdTypeId;
+	String cdNm;
+	String cdDesct;
+	String point;
 }
