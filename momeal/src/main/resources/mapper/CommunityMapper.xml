@@ -11,7 +11,7 @@
 				and u.nick_name like '%'||#{keyword}||'%'
 			</when>
 			<when test="type == '' and keyword != null">
-			and( m.type_code like '%'||#{keyword}||'%'   or u.nick_name like '%'||#{keyword}||'%')
+				and(m.type_code like '%'||#{keyword}||'%' or u.nick_name like '%'||#{keyword}||'%')
 			</when>
 		</choose>
 	</sql>

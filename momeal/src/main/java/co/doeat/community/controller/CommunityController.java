@@ -32,7 +32,6 @@ public class CommunityController {
 		String id = (String) session.getAttribute("userId");
 		
 		// 게시물 max 번호
-//		model.addAttribute("maxNo", communityService.getMaxFeedNo());
 		model.addAttribute("maxNo", communityService.getMaxFeedNo());
 		
 		// 인기순 조회

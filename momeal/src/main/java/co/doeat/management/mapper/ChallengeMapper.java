@@ -11,11 +11,13 @@ import co.doeat.management.service.ChallengeValidationVO;
 
 public interface ChallengeMapper {
 	// ▶ 챌린지
-	public List<Map<String, Object>> getChallList(String id); // 전체조회
+	public List<Map<String, Object>> getChallList(ChallengeVO vo); // 전체조회
 
 	public List<Map<String, Object>> likeRankChallList(String id); // 인기순(좋아요 많은 순) 조회
 
-	public List<ChallengeSearchVO> getSearchList(ChallengeSearchVO vo); // 검색
+//	public List<ChallengeSearchVO> getSearchList(ChallengeSearchVO vo); // 검색
+	
+	public int getMaxChallNo(); // 게시물 max 번호
 	
 	public ChallengeVO getChallenge(Map<String, Object> map); // 단건조회
 
