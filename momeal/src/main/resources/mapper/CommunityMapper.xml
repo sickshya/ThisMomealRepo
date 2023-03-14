@@ -10,8 +10,17 @@
 			<when test="type != null and type.equals('nickName')">
 				and u.nick_name like '%'||#{keyword}||'%'
 			</when>
+			<when test="type == '' and keyword != null">
+			and( m.type_code like '%'||#{keyword}||'%'   or u.nick_name like '%'||#{keyword}||'%')
+			</when>
 		</choose>
 	</sql>
+	
+	<!-- 게시물 max 번호 -->
+	<select id="getMaxFeedNo" resultType="int">
+		SELECT MAX(NO) MAX_NO
+		  FROM MEALS
+	</select>
 
 	<!-- 커뮤니티 전체조회 -->
 	<select id="getCmntList" resultType="map">

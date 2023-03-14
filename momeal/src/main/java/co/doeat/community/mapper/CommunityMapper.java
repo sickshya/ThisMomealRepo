@@ -13,4 +13,6 @@ public interface CommunityMapper {
 	
 	public MealVO getCommunity(Map<String, Object>map); // 단건조회
 	
+	public int getMaxFeedNo(); // 게시물 max 번호
+	
 }
