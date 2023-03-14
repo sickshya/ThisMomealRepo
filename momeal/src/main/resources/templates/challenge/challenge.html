@@ -12,20 +12,24 @@
 
 		<div class="header_search">
 
-			<!-- 검색창 -->
-			<form id="frmSearch" name="frmSearch">
-				<div class="bg-gray-100 input-with-icon rounded-md dark:bg-gray-700"
-					width="300px">
-					<input id="autocomplete-input" type="text" placeholder="Search"
-						class="bg-transparent max-h-10 shadow-none"> <i
-						class="icon-material-outline-search"></i>
-				</div>
-
-				<div class="flex h-full space-x-2">
-					<button type="submit"
-						class="bg-blue-600 font-semibold px-6 py-2 rounded-md text-white">Send</button>
-				</div>
-			</form>
+			<!-- 검색 -->
+			<div class="container-fluid search_box" style="width: 520px;">
+				<form id="searchForm" class="d-flex" onsubmit="return false;" autocomplete="off"> 
+				<select id="type" name="type" class="form-select" aria-label="Default select example"
+					style="width: 110px; float: left; margin-right: 10px; font-size:15px;">
+					<option selected>전체검색</option>
+					<option value="title">제목</option>
+					<option value="nickName">닉네임</option>
+				</select>
+				
+					<input class="form-control me-2" type="search" id="keyword" name="keyword" placeholder="식단 타입 또는 닉네임을 입력하세요." style="font-size:15px;">
+					<button class="btn btn-outline-success" type="button" onclick="getSearchList()" style="width:80px; font-size:15px;">검색</button>
+				</form>
+			</div>
+			<!-- 검색 -->
+			
+			<br>
+			<div id="challengeList">
 			<!-- 게시판이름 -->
 			<h1
 				class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">
@@ -161,9 +165,26 @@
 				</div>
 				<!-- 한 블럭 끝 -->
 			</div>
+			</div>
 		</div>
 
 		<script>
+	    // ▶ 검색
+	    function getSearchList() {
+	    	$.ajax({
+	    		url: "/getSearchList",
+	    		type: "post",
+	    		data : $("form[name=searchForm]").serialize(),
+	    		success: function(result) {
+	    			// 테이블 초기화
+	    			$("#challengeList").empty();
+	    			
+	    		}
+	    	})
+	    }
+	    
+		
+	    // 좋아요
 		$(function(){
 			
 			// 좋아요 인서트

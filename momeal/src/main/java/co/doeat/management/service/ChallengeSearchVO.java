@@ -6,7 +6,7 @@ import lombok.Data;
 public class ChallengeSearchVO extends ChallengeVO {
 	int first;
 	int last;
-	String keyword;
+	String keyword; // 검색 내용
 	String typeArr;
-	String type;
+	String type; // 검색 타입
 }
