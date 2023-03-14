@@ -6,10 +6,9 @@
 		  FROM REPORT_USERS
 	</select>
 	
-	<select id="rprtProcess">
-		BEGIN
-		 usr_rprt_process();
-		END;
-		/
+	<select id="rprtProcess" resultType="int">
+		
+		EXECUTE usr_rprt_process(#{usrRprtNo}, 'RV04', sysdate, #{reportee})
+		
 	</select>
 </mapper>

@@ -1,62 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{frame/feed}">
+
 <head>
-<!-- Favicon -->
-<link href="assets/images/favicon.png" rel="icon" type="image/png">
+	<!-- Favicon -->
+	<link href="assets/images/favicon.png" rel="icon" type="image/png">
 
-<!-- Basic Page Needs
+	<!-- Basic Page Needs
     ================================================== -->
-<title>GroupsList</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description"
-	content="Instello - Sharing Photos platform HTML Template">
+	<title>GroupsList</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Instello - Sharing Photos platform HTML Template">
 
-<!-- icons
+	<!-- icons
     ================================================== -->
-<link rel="stylesheet" href="assets/css/icons.css">
+	<link rel="stylesheet" href="assets/css/icons.css">
 
-<!-- CSS 
+	<!-- CSS 
     ================================================== -->
-<link rel="stylesheet" href="assets/css/uikit.css">
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/tailwind-dark.css">
+	<link rel="stylesheet" href="assets/css/uikit.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/tailwind-dark.css">
 
 </head>
+
 <body>
 	<!-- 그룹 리스트 -->
 	<div layout:fragment="content" align="center">
 		<h3 style="font-size: 25px;">내가 만든 그룹</h3>
 		<br>
-		<div style="border: 1px solid #ccc" class="col-lg-6 list-group list-group-numbered"
-			th:each="grp : ${grList}" th:if="${session.userId == grp.GRP_LEADER}">
+		<div style="border: 1px solid #ccc" class="col-lg-6 list-group list-group-numbered" th:each="grp : ${grList}"
+			th:if="${session.userId == grp.GRP_LEADER}">
 			<div class="block items-center py-3 px-4 space-x-3 ">
 				<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
 					<div class="flex-1 min-w-0 text-gray-500 col" align="left">
 						<h4 class="ms-2 me-auto fw-bold">
-							<a th:href="@{/groupsFeed/{no}(no = ${grp.NO})}">[[${grp.GRP_NAME}]]<br>[[${grp.GRP_LEADER}]]</a>
+							<a
+								th:href="@{/groupsFeed/{no}(no = ${grp.NO})}">[[${grp.GRP_NAME}]]<br>[[${grp.GRP_LEADER}]]</a>
 						</h4>
 					</div>
 					<div class="top-0 start-100 col" align="right">
-						<button type="button" data-toggle="modal"
-							class="primary-btn btn btn-outline-success"
-							data-target="#listModal" onclick="memChk()"
-							th:data-no="${grp.NO}">관리</button>
+						<button type="button" data-toggle="modal" class="primary-btn btn btn-outline-success"
+							data-target="#listModal" onclick="memChk()" th:data-no="${grp.NO}">관리</button>
 						&nbsp;&nbsp;
-						<button type="button" onclick="grpListDel()"
-							th:data-no="${grp.NO}" class="btn btn-outline-secondary">삭제</button>
+						<button type="button" onclick="grpListDel()" th:data-no="${grp.NO}"
+							class="btn btn-outline-secondary">삭제</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<br><br> 
+		<br><br>
 		<h3 style="font-size: 25px;">참여중인 그룹</h3>
 		<br>
-		<div style="border: 1px solid #ccc"
-			class="col-lg-6 list-group list-group-numbered"
-			th:each="grp : ${grList}" th:if="${session.userId != grp.GRP_LEADER}">
+		<div style="border: 1px solid #ccc" class="col-lg-6 list-group list-group-numbered" th:each="grp : ${grList}"
+			th:if="${session.userId != grp.GRP_LEADER}">
 			<div class="block items-center py-3 px-4 space-x-3">
 				<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
 					<div class="flex-1 min-w-0 text-gray-500 col" align="left">
@@ -65,8 +63,7 @@
 						</h4>
 					</div>
 					<div class="top-0 start-100 col" align="right">
-						<button type="button" data-toggle="modal"
-							class="primary-btn btn btn-outline-success"
+						<button type="button" data-toggle="modal" class="primary-btn btn btn-outline-success"
 							data-target="#listModal" onclick="memChk()" id="showBtn"
 							th:data-no="${grp.NO}">멤버보기</button>
 						&nbsp;&nbsp;
@@ -78,24 +75,20 @@
 			</div>
 		</div>
 		<br> <br>
-		<button type="submit" data-toggle="modal"
-			class="primary-btn btn btn-outline-success"
+		<button type="submit" data-toggle="modal" class="primary-btn btn btn-outline-success"
 			data-target="#createModal">그룹생성</button>
 		&nbsp;&nbsp;
-		<button type="submit" data-toggle="modal"
-			class="primary-btn btn btn-outline-secondary"
+		<button type="submit" data-toggle="modal" class="primary-btn btn btn-outline-secondary"
 			data-target="#joinModal">참여하기</button>
 
 
 		<!-- 멤버리스트 모달 -->
-		<div class="modal fade" id="listModal" tabindex="-1" role="dialog"
-			aria-labelledby="Modal-label-1">
+		<div class="modal fade" id="listModal" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="Modal-label-1"></h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
@@ -103,8 +96,8 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" onclick="inviteMem()"
-							class="btn btn-default primary-btn btn btn-outline-success"
-							data-toggle="modal" data-target="#inviteModal">초대하기</button>
+							class="btn btn-default primary-btn btn btn-outline-success" data-toggle="modal"
+							data-target="#inviteModal">초대하기</button>
 					</div>
 				</div>
 			</div>
@@ -113,14 +106,12 @@
 
 
 		<!-- 멤버 초대 모달 -->
-		<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog"
-			aria-labelledby="Modal-label-1">
+		<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="Modal-label-1">초대하기</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
@@ -131,8 +122,7 @@
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button"
-							class="btn btn-default primary-btn btn btn-outline-secondary">확인</button>
+						<button type="button" class="btn btn-default primary-btn btn btn-outline-secondary">확인</button>
 					</div>
 				</div>
 			</div>
@@ -143,21 +133,18 @@
 
 		<!-- 그룹 만들기 모달 -->
 		<form id="frm" method="post">
-			<div class="modal fade" id="createModal" tabindex="-1" role="dialog"
-				aria-labelledby="Modal-label-1">
+			<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="Modal-label-1">그룹 만들기</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
 						<div class="modal-body" id="" style="padding: 20px;">
-							<input type="hidden" id="grpLeader" name="grpLeader"
-								th:value="${session.userId}"> <label>이름을 입력하세요</label> <input
-								type="text" id="grpName" name="grpName">
+							<input type="hidden" id="grpLeader" name="grpLeader" th:value="${session.userId}">
+							<label>이름을 입력하세요</label> <input type="text" id="grpName" name="grpName">
 
 						</div>
 						<div class="modal-footer">
@@ -174,28 +161,25 @@
 
 		<!-- 그룹참여 모달  -->
 		<form id="frm" method="post">
-			<div class="modal fade" id="joinModal" tabindex="-1" role="dialog"
-				aria-labelledby="Modal-label-1">
+			<div class="modal fade" id="joinModal" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="Modal-label-1">참여하기</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
 						<div class="modal-body" id="" style="padding: 20px;">
 
-							<input type="hidden" id="userId" name="userId"
-								th:value="${session.userId}"> <label>참여코드를 입력하세요</label>
+							<input type="hidden" id="userId" name="userId" th:value="${session.userId}"> <label for="grpCode" id="grpCodeTxt">참여코드를
+								입력하세요</label>
 							<input type="text" id="grpCode" name="grpCode">
 
 						</div>
 						<div class="modal-footer">
-							<button type="button" onclick="joinGrp()"
-								class="btn btn-default btn btn-outline-secondary" id="attend"
-								style="margin: 0px;">확인</button>
+							<button type="button" onclick="joinGrp()" class="btn btn-default btn btn-outline-secondary"
+								id="attend" style="margin: 0px;">확인</button>
 						</div>
 					</div>
 				</div>
@@ -210,23 +194,23 @@
 			// 멤버리스트 모달로 보여줌
 			function memChk() {
 				let no = $(event.target).data("no");
-				
+
 				$("#memList").empty()
-				
+
 				$.ajax({
-					url: "/groupsList/" + no
-					
-				})
-				.then(result => {
-					console.log(result);
-					
-					$(result).each(function(index, memb) {
+						url: "/groupsList/" + no
+
+					})
+					.then(result => {
+						console.log(result);
+
+						$(result).each(function (index, memb) {
 							$("#Modal-label-1").text(memb.GRP_NAME)
 							console.log(memb.USER_ID);
-							
-						if(memb.USER_ID == memb.GRP_LEADER) {
-							$("#memList").append(
-							`<div class="py-2" style="padding-left: 30px;">
+
+							if (memb.USER_ID == memb.GRP_LEADER) {
+								$("#memList").append(
+									`<div class="py-2" style="padding-left: 30px;">
           						  <div class="flex flex-1 items-center space-x-4">
 						               <a href="#">
 						                  <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
@@ -236,10 +220,10 @@
              						<span class="block text-lg font-semibold" id="nickName" style="color: green;">${memb.NICK_NAME}</span>
 					            </div>
 					         </div>`
-							)
-					
-						} else {
-							$("#memList").append(
+								)
+
+							} else {
+								$("#memList").append(
 									`<div class="py-2" style="padding-left: 30px;">
 	          						  <div class="flex flex-1 items-center space-x-4">
 							               <a href="#">
@@ -251,91 +235,117 @@
 						            </div>
 						         </div>
 						         `
-							)
-						}
-						
-					})
-				});
+								)
+							}
+
+						})
+					});
 			}
-			
+
 			// 멤버 초대하기
 			function inviteMem() {
 				$('#listModal').modal('hide');
-				
+
 				// 이메일 인증번호
-			    $('#emailFrm').click(function () {
-			        $.ajax({
-			            type: "POST",
-			            url: "/grpInvite/mailConfirm.do",
-			            data: {
-			                "email": $("#email").val()
-			            },
-			            success: function (data) {
-			                alert("인증번호가 발송 되었습니다. \n 확인부탁드립니다.")
-			                console.log("data : " + data)
-			            }
-			        })
-			    })
-				
+				$('#emailFrm').click(function () {
+					$.ajax({
+						type: "POST",
+						url: "/grpInvite/mailConfirm.do",
+						data: {
+							"email": $("#email").val()
+						},
+						success: function (data) {
+							alert("인증번호가 발송 되었습니다. \n 확인부탁드립니다.")
+							console.log("data : " + data)
+                chkEmailConfirm(data, $grpCode, $grpCodeTxt)
+						}
+					})
+				})
+
 			}
-			
-			
+
+
 			// 참여중인 그룹의 멤버탈퇴
 			function membDel() {
 				let grpNo = $(event.target).data("no");
 				let userId = $(event.target).next().val();
-				
+
 				$.ajax({
-					type: 'POST',
-					url: "/grpMembDel/" + userId + "/" + grpNo
-				})
-				.then(result => {
-					location.reload();
-				});
+						type: 'POST',
+						url: "/grpMembDel/" + userId + "/" + grpNo
+					})
+					.then(result => {
+						location.reload();
+					});
 			}
-			
-			
+
+
 			// 내가 만든 그룹 삭제
 			function grpListDel() {
 				let no = $(event.target).data("no");
 				console.log(no);
-				
+
 				$.ajax({
-					type: 'POST',
-					url: "/grpDel/" + no
-				})
-				.then(result => {
-					location.reload();
-				});
+						type: 'POST',
+						url: "/grpDel/" + no
+					})
+					.then(result => {
+						location.reload();
+					});
 			}
-			
-			
+
+
 			// 그룹 만들기
-		    function createGrp() {
+			function createGrp() {
 				let userId = $(event.target).next().val();
 				var formData = new FormData($('#frm')[0])
 				console.log(userId);
-				
+
 				$.ajax({
-					type: 'POST',
-					url: "/grpInsert",
-					data: formData,
-					contentType: false,
-			        processData: false
-				})
-				.then(result =>{
-					console.log(result);
-					
-					location.reload();
-				})
+						type: 'POST',
+						url: "/grpInsert",
+						data: formData,
+						contentType: false,
+						processData: false
+					})
+					.then(result => {
+						console.log(result);
+
+						location.reload();
+					})
 			}
+
+			var $grpCode = $('#grpCode')
+			var $grpCodeTxt = $('#grpCodeTxt')
 			
 			// 초대코드로 그룹 참여
-			function joinGrp() {
-				
+			function joinGrp(data, $grpCode, $grpCodeTxt) {
+				$grpCode.on("keyup", function () {
+					if (data != $memailconfirm.val()) {
+						emconfirmchk = false;
+						$grpCodeTxt.html("<span id='emconfirmchk'>인증번호가 잘못되었습니다</span>")
+						$memconfirmchk.css({
+							"color": "#FA3E3E",
+							"font-weight": "bold",
+							"font-size": "10px"
+						})
+						//console.log("중복아이디");
+					} else {
+						grpCode = true;
+						$grpCodeTxt.html("<span id='emconfirmchk'>인증번호 확인 완료</span>")
+
+						$memconfirmchk.css({
+							"color": "#0D6EFD",
+							"font-weight": "bold",
+							"font-size": "10px"
+						})
+
+						// 그룹입력코드 아작스 ?
+					}
+				})
 			}
-			
 		</script>
 	</div>
 </body>
+
 </html>
