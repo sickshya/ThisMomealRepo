@@ -34,4 +34,10 @@ public class CommunityServiceImpl implements CommunityService{
 		return communityMapper.getCommunity(map);
 	}
 
+	// 게시물 max 번호
+	@Override
+	public int getMaxFeedNo() {
+		return communityMapper.getMaxFeedNo();
+	}
+
 }

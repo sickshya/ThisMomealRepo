@@ -32,5 +32,6 @@ public class MealVO {
 	private String type; // 검색 타입
 	private String keyword; // 검색 내용
 	private String postlist; // 게시물 갯수
+	private int maxNo; // 게시물 max 번호
 
 }

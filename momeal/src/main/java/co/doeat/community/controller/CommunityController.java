@@ -31,8 +31,9 @@ public class CommunityController {
 		
 		String id = (String) session.getAttribute("userId");
 		
-		// 전체조회
-//		model.addAttribute("cmntList", communityService.getCmntList(id));
+		// 게시물 max 번호
+//		model.addAttribute("maxNo", communityService.getMaxFeedNo());
+		model.addAttribute("maxNo", communityService.getMaxFeedNo());
 		
 		// 인기순 조회
 		model.addAttribute("cmntRec", communityService.likeRankCmntList(id));

@@ -288,7 +288,7 @@ img {
                      class="icon-feather-more-horizontal text-2xl rounded-full p-2 transition -mr-1"></i>
                   </a>
                </div>
-               <div class="story-content p-4 oneFeed" data-simplebar>
+               <div class="story-content p-4 oneFeed" data-simplebar id="scrollDiv">
                      <span>식단점수<p id="mealScore"></p></span> <span>식사<p id="typeCode">식단점수</p></span>
                      <input type="hidden" id="no">
                      
@@ -307,51 +307,27 @@ img {
 
                      </div>
                      <hr class="-mx-4 my-3">
-                     <div class="flex items-center space-x-3">
-                        <div class="flex items-center">
-                           <img src="assets/images/avatars/avatar-1.jpg" alt=""
-                              class="w-6 h-6 rounded-full border-2 border-white"> <img
-                              src="assets/images/avatars/avatar-4.jpg" alt=""
-                              class="w-6 h-6 rounded-full border-2 border-white -ml-2">
-                           <img src="assets/images/avatars/avatar-2.jpg" alt=""
-                              class="w-6 h-6 rounded-full border-2 border-white -ml-2">
-                        </div>
-                        <div>
-                           Liked <strong> Johnson</strong> and <strong> 209
-                              Others </strong>
-                        </div>
-                     </div>
+                     
                   </div>
 
-                  <div class="-mt-1 space-y-1">
-                     <div class="flex flex-1 items-center space-x-2">
-                        <img src="assets/images/avatars/avatar-2.jpg"
-                           class="rounded-full w-8 h-8">
-                        <div class="flex-1 p-2">consectetuer adipiscing elit, sed
-                           diam nonummy nibh euismod</div>
-                     </div>
-
-                     <div class="flex flex-1 items-center space-x-2">
-                        <img src="assets/images/avatars/avatar-4.jpg"
-                           class="rounded-full w-8 h-8">
-                        <div class="flex-1 p-2">consectetuer adipiscing elit</div>
-                     </div>
-
-                  </div>
+					<!-- 댓글 -->
+                  <div class="-mt-1 space-y-1" id="reply"></div>
 
 
                </div>
                <div class="p-3 border-t dark:border-gray-600">
-                  <div
-                     class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
-                     <input type="text" placeholder="Add your Comment.."
-                        class="bg-transparent max-h-8 shadow-none">
-                     <div
-                        class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
-                        <a href="#"> <i class="uil-image"></i></a> <a href="#"> <i
-                           class="uil-video"></i></a>
-                     </div>
-                  </div>
+                 <div
+								class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
+								<input type="text" placeholder="댓글을 입력하세요."
+									class="bg-transparent max-h-8 shadow-none" id="cmmtSubject">
+								<div
+									class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
+									<a href=""><button type="button" style="font-size: 10px;"
+											onclick="cmmtInsert()">등록</button></a> 
+											<input type="hidden" id="postNo">
+											<input type="hidden" th:value="${session.userId}" id="sessionId">
+								</div>
+							</div>
                </div>
 
             </div>
@@ -405,9 +381,11 @@ img {
 
 
 <script>
+let sessionId = $("#sessionId").val();
+
 window.onload = function () { buildCalendar(); }    // 웹 페이지가 로드되면 buildCalendar 실행
 
-
+let postNo = $(this).data("no");
 let today = new Date();     // 페이지를 로드한 날짜를 저장
 today.setHours(0, 0, 0, 0);  // 비교 편의를 위해 today의 시간을 초기화
 
@@ -512,6 +490,7 @@ $('#tbd').on("click",".show",function(){
       $("#mealImg").attr("src", obj.fileDir);
       $("#mealScore").text(obj.mealScore);
       $('#no').val(obj.no);
+      $('#postNo').val(obj.no);
       $('#typeCode').text(obj.typeCode);
       $('#mealTime').text(obj.mealTime);
 	  $('#mealAmount').text(obj.mealAmount);  
@@ -524,6 +503,8 @@ $('#tbd').on("click",".show",function(){
       	$(".modalHeart").append( 	`<img src="/assets/images/emptyHeart.svg" class="emptyHeart">`        	)
       	$(".modalHeart").closest(".oneFeed").data("no", no);
       }
+   
+      commentList(no);
    
    });
 })
