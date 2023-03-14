@@ -48,7 +48,7 @@
 							<div>
 								<label for="name">이름</label>
 								<input type="text" id="userName" name="userName" th:value="${userInfo.userName}"
-									required="required" style="width: 300px;">
+									readonly="readonly" style="width: 300px;">
 							</div>
 							<div>
 								<label for="nickname">닉네임</label>
@@ -82,7 +82,7 @@
 									style="width: 300px;">
 							</div>
 							<div>
-<!-- 								<label>&nbsp;&nbsp;</label> -->
+								<label>&nbsp;&nbsp;</label>
 								<input type="hidden" id="zipcode" placeholder="우편번호">
 								<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 							</div>

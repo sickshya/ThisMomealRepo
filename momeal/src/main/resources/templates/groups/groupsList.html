@@ -32,7 +32,7 @@
 		<br>
 		<div style="border: 1px solid #ccc" class="col-lg-6 list-group list-group-numbered" th:each="grp : ${grList}"
 			th:if="${session.userId == grp.GRP_LEADER}">
-			<div class="block items-center py-3 px-4 space-x-3 ">
+			<div class="block items-center py-3 px-4 space-x-3">
 				<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
 					<div class="flex-1 min-w-0 text-gray-500 col" align="left">
 						<h4 class="ms-2 me-auto fw-bold">
@@ -106,6 +106,7 @@
 
 
 		<!-- 멤버 초대 모달 -->
+		<!-- data-target 이름이랑 모달의 id값이랑 같아야 모달이 뜸 -->
 		<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
