@@ -47,31 +47,35 @@ public class ChallengeController {
 	// 전체조회
 	// 세션에 아이디 값도 담아두기(임시)
 	@RequestMapping("/challenge")
-	public String challengeMain(Model model, HttpSession session) {
+	public String challengeMain(Model model, HttpSession session, ChallengeVO vo) {
 		// 임시로 세션에 ID 값 담기
 		String id = (String) session.getAttribute("userId");
+		vo.setUserId(id);
+		vo.setNo(10);
 
 		// 전체조회
-		model.addAttribute("challList", challengeService.getChallList(id));
+		model.addAttribute("challList", challengeService.getChallList(vo));
 		// 인기순(좋아요 많은 순) 조회
 		model.addAttribute("challRec", challengeService.likeRankChallList(id));
 
 		return "challenge/challenge";
 	}
 	
-	// 페이징 처리
-	@RequestMapping("/addList")
+	// 전체조회 + 페이징
+	@RequestMapping("/challengeList")
 	@ResponseBody
-	public String challListAdd() {
-		return "";
+	public List<Map<String, Object>> challengeList(ChallengeVO vo, HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
+		vo.setUserId(userId);
+		return challengeService.getChallList(vo);
 	}
 	
 	// 검색
-	@PostMapping("/getSearchList")
-	@ResponseBody
-	private List<ChallengeSearchVO> getSearchList(ChallengeSearchVO vo, @RequestParam("type") String type, @RequestParam("keyword") String keyword) {
-		return challengeService.getSearchList(vo);
-	}
+//	@PostMapping("/getSearchList")
+//	@ResponseBody
+//	private List<ChallengeSearchVO> getSearchList(ChallengeSearchVO vo, @RequestParam("type") String type, @RequestParam("keyword") String keyword) {
+//		return challengeService.getSearchList(vo);
+//	}
 
 	// 단건조회
 	@GetMapping("/challenge/{no}")

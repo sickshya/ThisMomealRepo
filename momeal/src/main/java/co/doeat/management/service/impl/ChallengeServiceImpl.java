@@ -23,8 +23,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 	// ▶ 챌린지
 	// 전체조회
 	@Override
-	public List<Map<String, Object>> getChallList(String id) {
-		return challengeMapper.getChallList(id);
+	public List<Map<String, Object>> getChallList(ChallengeVO vo) {
+		return challengeMapper.getChallList(vo);
 	}
 
 	// 인기순(좋아요 많은 순) 조회
@@ -34,9 +34,15 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 	
 	// 검색
+//	@Override
+//	public List<ChallengeSearchVO> getSearchList(ChallengeSearchVO vo) {
+//		return challengeMapper.getSearchList(vo);
+//	}
+	
+	// 게시물 max 번호
 	@Override
-	public List<ChallengeSearchVO> getSearchList(ChallengeSearchVO vo) {
-		return challengeMapper.getSearchList(vo);
+	public int getMaxChallNo() {
+		return challengeMapper.getMaxChallNo();
 	}
 
 	// 단건조회
