@@ -33,12 +33,15 @@
 		<script src="assets/js/custom.js"></script>
 
 		<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		
+		
 
 		<h1 align="center">회원정보수정</h1>
-		<div id="wrapper">
+		<div id="wrapper" class="">
 			<form id="frm" action="/userEdit" method="post" onsubmit="return formCheck()">
 				<div class="mt-10 gap-6">
-					<div class="bg-white rounded-md lg:shadow-lg shadow" style="width: 700px; margin: auto;">
+					<div class="bg-white rounded-md lg:shadow-lg shadow editForm" style="width: 700px; margin: auto;">
 						<div class="grid grid-cols-1 gap-3 lg:p-5 p-10">
 							<input type="hidden" id="userId" name="userId" th:value="${session.userId}"
 								required="required">
@@ -75,22 +78,22 @@
 							</div>
 							<div>
 								<label>주소</label>
-								<input type="text" id="sample6_postcode" th:value="${userInfo.addr}" required="required"
+								<input type="text" id="zipcode" name="zipcode" th:value="${userInfo.zipcode}" required="required"
 									style="width: 300px;">
 							</div>
 							<div>
 								<label>&nbsp;&nbsp;</label>
+								<input type="hidden" id="zipcode" placeholder="우편번호">
 								<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"
 									style="width: 300px;">
 							</div>
 							<div class="col-span-2">
-								<label></label>
-								<input type="text" id="sample6_address" required="required">
+								<input type="text" id="addr" name="addr" th:value="${userInfo.addr}" required="required">
 							</div>
 							<div class="col-span-2">
-								<input type="text" id="sample6_extraAddress" required="required">
+								<input type="hidden" id="sample6_extraAddress" required="required">
 							</div>
-							<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+							
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<div class="bg-gray-10">
 								<button type="submit" class="button bg-blue-700">수정</button>
@@ -178,10 +181,10 @@
 							var fullAddr =
 								// 우편번호와 주소 정보를 해당 필드에 넣는다.
 								document
-								.getElementById('sample6_postcode')
+								.getElementById('zipcode')
 								.value = data.zonecode;
 							document
-								.getElementById("sample6_address")
+								.getElementById("addr")
 								.value = addr;
 							// 커서를 상세주소 필드로 이동한다.
 							("sample6_detailAddress").focus();

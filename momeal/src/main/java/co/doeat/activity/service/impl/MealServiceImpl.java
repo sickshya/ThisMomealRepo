@@ -1,6 +1,7 @@
 package co.doeat.activity.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,11 @@ public class MealServiceImpl implements MealService{
 	@Override
 	public int updateMeal(MealVO vo) {
 		return mealMapper.updateMeal(vo);
+	}
+
+	@Override
+	public Map<String, Object> postList(String userId){
+		return mealMapper.postList(userId);
 	}
 
 

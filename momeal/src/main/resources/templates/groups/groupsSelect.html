@@ -24,6 +24,40 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/tailwind-dark.css">
 
+<style>
+.one {
+	width: 30px;
+	display: inline-block;
+}
+
+.two {
+	border: 1px solid #ccc;
+	padding-right: 8px;
+}
+
+.three {
+	border: 1px solid #ccc;
+	width: 15rem;
+}
+
+.truncate {
+	margin: 0px;
+}
+
+.four {
+	text-align: center;
+}
+
+.comm {
+	width: 700px;
+}
+
+.comt {
+	width: 300px;
+	text-align: left;
+}
+</style>
+
 </head>
 <body>
 	<!-- 그룹 상세내역 -->
@@ -31,44 +65,40 @@
 		<br> <br>
 		<form id="frm" action="/groupsFeed" method="post">
 			<img src="${selects.profileImgPath}"
-				class="w-13 h-13 rounded-full relative flex-shrink-0"
-				style="width: 30px; display: inline-block;">&nbsp;&nbsp;<b>[[${selects.nickName}]]</b>
+				class="w-13 h-13 rounded-full relative flex-shrink-0 one">&nbsp;&nbsp;<b>[[${selects.nickName}]]</b>
 			<br>
 			<br>
-			<div class="col-lg-8" style="border: 1px solid #ccc">
+			<div class="col-lg-8 two">
 				<br>
 				<div class="block flex items-center py-3 px-4 space-x-3">
 					<br>
-					<div th:each="meals : ${mealImg}"
-						style="border: 1px solid #ccc; width: 1200px; height: 300px;">
-						<img th:src="${meals.fileDir}" alt=""
-							style="width: 120px; height: 120px;">
-						<div class="flex-1 min-w-0 relative text-gray-500" align="left">
-							<span class="text-black font-semibold dark:text-white">[[${meals.typeCode}]]
+					<div th:each="meals : ${mealImg}" class="three">
+						<img th:src="${meals.fileDir}" alt="" class="card-img-top">
+						<div class="flex-1 min-w-0 relative text-gray-500 four">
+							<span class="text-black dark:text-white">[[${meals.typeCode}]]
 								: [[${meals.mealTime}]]</span>
-							<p class="truncate" style="margin: 0px">[[${meals.mealAmount}]]</p>
+							<p class="truncate text-black">[[${meals.mealAmount}]]</p>
 							<p class="text-black font-semibold dark:text-white">[[${meals.subject}]]</p>
 						</div>
 					</div>
 				</div>
-
-
-				<br> <br>
+				<br>
 
 				<!-- 댓글 출력 -->
-				<div class="-mt-1 space-y-1" id="reply">
+				<div class="-mt-1 space-y-1 comm" id="reply">
 					<div class="flex flex-1 items-center space-x-2">
 						<img src="assets/images/avatars/avatar-2.jpg"
 							class="rounded-full w-8 h-8">
-						<div class="flex-1 p-2">댓글 내용1</div>
+						<div class="flex-1 p-2 comt">댓글 내용1</div>
 					</div>
 
 					<div class="flex flex-1 items-center space-x-2">
 						<img src="assets/images/avatars/avatar-4.jpg"
 							class="rounded-full w-8 h-8">
-						<div class="flex-1 p-2">댓글 내용2</div>
+						<div class="flex-1 p-2 comt">댓글 내용2</div>
 					</div>
 				</div>
+				<br>
 				<!-- 댓글 출력 끝 -->
 				<div class="p-3 border-t dark:border-gray-600">
 					<div
@@ -83,9 +113,9 @@
 					</div>
 				</div>
 			</div>
-	<br>
-	<button type="submit" class="button bg-blue-700 ">목록으로</button>
-	</form>
+			<br>
+			<button type="submit" class="button bg-blue-700 ">목록으로</button>
+		</form>
 	</div>
 </body>
 </html>

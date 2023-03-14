@@ -22,5 +22,7 @@ public interface MealMapper {
 	int mealDelete(int no);
 	
 	int updateMeal(MealVO vo);
+	
+	Map<String, Object> postList(String userId); //  식단 카운트
 
 }

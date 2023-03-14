@@ -8,17 +8,19 @@
 		SELECT * FROM BOARD
 		WHERE BOARD_CODE = 'BD02'
 	</select>
-	
-	<select id="faqSelect" resultType="co.doeat.common.service.BoardVO">
+
+	<select id="faqSelect"
+		resultType="co.doeat.common.service.BoardVO">
 		SELECT * FROM BOARD
 		WHERE NO = #{no}
 	</select>
 
 	<!-- faq 추가 -->
-	<insert id="faqInsert" parameterType="co.doeat.common.service.BoardVO">
-		<selectKey keyProperty="no" resultType="int"
-			order="BEFORE">
-			SELECT NVL(MAX(NO)+1, 1) FROM BOARD
+	<insert id="faqInsert"
+		parameterType="co.doeat.common.service.BoardVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT
+			NVL(MAX(NO)+1, 1) FROM BOARD
 		</selectKey>
 		INSERT INTO BOARD(
 		NO,
@@ -29,7 +31,8 @@
 		USER_ID
 		)
 		VALUES(#{no}, #{boardTitle}, #{boardSubject}, sysdate,
-		'BD02', 'ADMIN' )
+		'BD02',
+		'ADMIN' )
 	</insert>
 
 	<!-- faq 수정 -->
@@ -45,13 +48,79 @@
 	<delete id="faqDelete">
 		DELETE FROM BOARD WHERE NO= #{no}
 	</delete>
-  
-<!-- Notice -->
 
-<!-- notice 전체리스트 출력 -->
-	<select id="noticeList" resultType="co.doeat.common.service.BoardVO">
+
+	<!-- Notice -->
+
+	<!-- notice 전체리스트 출력 -->
+	<select id="noticeList"
+		resultType="co.doeat.common.service.BoardVO">
 		SELECT * FROM BOARD ORDER BY NO DESC
 	</select>
 
+	<!-- notice 전체리스트 검색어 기능 -->
+	<select id="noticeSearch"
+		resultType="co.doeat.common.service.BoardVO">
+		SELECT * FROM BOARD
+		<if test="key == 'all'">WHERE 1 = 1</if>
+		<if test="key == 'title'">WHERE BOARD_TITLE LIKE '%'||#{val}||'%'</if>
+		<if test="key == 'subject'">WHERE BOARD_SUBJECT LIKE '%'||#{val}||'%'</if>
+		<if test="key == 'date'">WHERE BOARD_DATE = #{val}</if>
+	</select>
+
+	<!-- notice 상세보기 -->
+	<select id="noticeSelect"
+		resultType="co.doeat.common.service.BoardVO">
+		SELECT * FROM BOARD
+		WHERE no = #{no}
+	</select>
+	
+	<!-- notice 등록 -->
+	<insert id="noticeInsert"
+		parameterType="co.doeat.common.service.BoardVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE"> <!-- 돌아오는 값을 noticeId에 담아줘라, 동작해서 돌아오는 타입은 int, before: 인서트구문 동작하기 전에 실행해라 -->
+			SELECT
+			CASE WHEN MAX(no) IS NULL THEN 1 ELSE MAX(no) + 1 END AS ID
+			FROM BOARD
+		</selectKey>
+		INSERT INTO BOARD
+		VALUES(#{no}, #{boardTitle}, #{boardSubject}, sysdate
+		, 0 , #{boardCode} ,#{userId})
+	</insert>
+
+	<!-- notice 수정 -->
+	<update id="noticeUpdate">
+		UPDATE BOARD
+		<set>
+			<if test="no != null">NO = #{no},</if>
+			<if test="boardTitle != null">BOARD_TITLE = #{boardTitle},</if>
+			<if test="boardSubject != null">BOARD_SUBJECT = #{boardSubject},</if>
+			<if test="boardDate != null">BOARD_DATE = #{boardDate},</if>
+			<if test="boardHit != null">BOARD_HIT = #{boardHit},</if>
+			<if test="boardCode != null">BOARD_CODE = #{boardCode},</if>
+			<if test="userId != null">USER_ID = #{userId}</if>
+		</set>
+		WHERE no = #{no}
+	</update>
+
+	<!-- notice 삭제 -->
+	<delete id="noticeDelete" parameterType="co.doeat.common.service.BoardVO">
+		DELETE FROM BOARD WHERE no = #{no}
+	</delete>
+	
+	<!-- notice 검색어 -->
+<!-- 	<select id="noticeSearch" resultType="co.doeat.common.service.BoardVO"> -->
+<!-- 		SELECT * FROM BOARD -->
+<!-- 		<if test="key == 'all'">WHERE 1 = 1</if> -->
+<!-- 		<if test="key == 'title'">WHERE BOARD_TITLE LIKE '%'||#{val}||'%'</if> -->
+<!-- 		<if test="key == 'subject'">WHERE BOARD_SUBJECT LIKE '%'||#{val}||'%'</if>  -->
+<!-- 		<if test="key == 'date'">WHERE BOARD_DATE = #{val}</if> -->
+<!-- 	</select> -->
+
+	<!-- notice 조회수증가 -->
+	<update id="noticeHitUpdate">
+		UPDATE BOARD SET NOTICE_HIT = BOARD_HIT + 1 WHERE
+		USER_ID = #{id}
+	</update>
 
 </mapper>

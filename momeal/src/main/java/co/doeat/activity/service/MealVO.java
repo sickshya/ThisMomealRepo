@@ -31,4 +31,6 @@ public class MealVO {
 	// 검색 필터
 	private String type; // 검색 타입
 	private String keyword; // 검색 내용
+	private String postlist; // 게시물 갯수
+
 }

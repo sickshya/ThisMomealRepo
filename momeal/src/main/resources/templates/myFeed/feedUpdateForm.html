@@ -1,0 +1,252 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{frame/usual}">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico">
+<title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+<!-- Simple bar CSS -->
+<link rel="stylesheet" href="css/simplebar.css">
+<!-- Fonts CSS -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+	rel="stylesheet">
+<!-- Icons CSS -->
+<link rel="stylesheet" href="css/feather.css">
+<!-- Date Range Picker CSS -->
+<link rel="stylesheet" href="css/daterangepicker.css">
+<!-- App CSS -->
+<link rel="stylesheet" href="css/app-light.css" id="lightTheme">
+<link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
+
+<!-- Simple bar CSS -->
+<link rel="stylesheet" href="css/simplebar.css">
+<!-- Fonts CSS -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+	rel="stylesheet">
+<!-- Icons CSS -->
+<link rel="stylesheet" href="css/feather.css">
+<link rel="stylesheet" href="css/select2.css">
+<link rel="stylesheet" href="css/dropzone.css">
+<link rel="stylesheet" href="css/uppy.min.css">
+<link rel="stylesheet" href="css/jquery.steps.css">
+<link rel="stylesheet" href="css/jquery.timepicker.css">
+<link rel="stylesheet" href="css/quill.snow.css">
+<!-- Date Range Picker CSS -->
+<link rel="stylesheet" href="css/daterangepicker.css">
+<!-- App CSS -->
+<link rel="stylesheet" href="css/app-light.css" id="lightTheme">
+<link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
+
+</head>
+<body class="vertical  light  ">
+	<div layout:fragment="content">
+
+
+		<script src="js/jquery.min.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/moment.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/simplebar.min.js"></script>
+		<script src='js/daterangepicker.js'></script>
+		<script src='js/jquery.stickOnScroll.js'></script>
+		<script src="js/tinycolor-min.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/apps.js"></script>
+		<script src='js/uppy.min.js'></script>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async
+			src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+
+
+			<div class="wrapper">
+
+
+				<!--등록폼-->
+				<main role="main" class="main-content">
+					<div class="container-fluid">
+						<div class="row justify-content-center">
+							<div class="col-12">
+								<h2 class="page-title">식단수정</h2>
+								<p class="text-muted">식단수정하셈</p>
+								<div class="row">
+									<div class="col-md-10 mb-4">
+										<div class="card shadow">
+											<div class="card-header">
+												<strong class="card-title">My Story</strong>
+											</div>
+												<div class="card-body">
+											<form id="frm" method="post" enctype="multipart/form-data">
+													<div class="form-group mb-3">
+														<label for="simpleinput">식단점수</label>
+														<br> <select id="mealScore" name="mealScore">
+															<option value="1">1점 🤔</option>
+															<option value="1">2점 😐</option>
+															<option value="1">3점 😊</option>
+															<option value="1">4점 😁</option>
+															<option value="1">5점 😋</option>
+
+														</select>
+
+													</div>
+													<div class="form-group mb-3">
+														<label for="example-email">분류</label> <select
+															name="typeCode" id="typeCode">
+															<option value="아침">아침</option>
+															<option value="점심">점심</option>
+															<option value="저녁">저녁</option>
+															<option value="간식">간식</option>
+														</select>
+													</div>
+
+
+													<div class="form-group mb-3">
+														<label for="example-password">식사량</label> <select
+															name="mealAmount" id="mealAmount" >
+															<option value="가볍게">가볍게</option>
+															<option value="적당하게">적당하게</option>
+															<option value="배부르게">배부르게</option>
+															<option value="과하게">과하게</option>
+														</select>
+													</div>
+
+
+													<div class="form-group mb-3">
+														<label for="example-palaceholder">시간</label> 
+														<input type="time" id="mealTime" name="mealTime" th:value="${updates.mealTime}">
+
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="example-textarea">내용</label>
+														<textarea class="form-control" id="subject" name="subject"
+															rows="4">[[${updates.subject}]]</textarea>
+													</div>
+													<div class="form-group mb-3">
+														<label for="simpleinput">태그</label> <input type="text"
+															id="tags" class="form-control">
+													</div>
+													<div>
+														<!--파일업로드-->
+														<div class="form-group row">
+															<label class="col-sm-3 col-form-label">썸네일 등록</label>
+															<div class="col-sm-9">
+																<input class="form-control" id="file" type="file"
+																	name="file" th:value="${updates.fileDir}"><br>
+																<img id="profileImg">
+															</div>
+														</div>
+													</div>
+														<!-- 버튼 -->
+														<div align=center>
+															<button type="button" onclick="MealUpdate()">수정</button>
+															<input type="hidden" id="feedUserId" th:value="${session.userId}">
+															<input type="hidden" id="no" th:value="${updates.no}">
+														</div>
+
+											</form>
+													<!-- .row -->
+												</div>
+										</div>
+										<!-- .row -->
+									</div>
+									</div>
+									<!-- .container-fluid -->
+
+								</div>
+								<!-- /.col -->
+								<!--?>-->
+							</div>
+						</div>
+				</main>
+					</div>
+				<!-- main -->
+			
+			<!-- .wrapper -->
+
+		<!--파일미리보기 -->
+		<script>
+			//input태그 가져오기	
+			let fileTag = document.querySelector("input[name=file]");
+			// 파일 있는지 확인
+			fileTag.onchange = function() {
+				let imgTag = document.querySelector("#profileImg");
+				if (fileTag.files.length > 0) {
+					//파일을 선택한 경우, 미리보기 생성 == 이미지 태그 src에 데이터(파일태그에서 선택한 파일)넣어주기
+					let reader = new FileReader();
+					//reader읽어드리기
+					reader.onload = function(data) {
+						console.log(data);
+						imgTag.src = data.target.result;
+						imgTag.width = 250;
+						imgTag.height = 150;
+					}
+					reader.readAsDataURL(fileTag.files[0]);
+				} else {
+					//취소버튼 누를 경우
+					imgTag.src = "";
+				}
+			}
+			</script>
+			
+			
+			<script>
+		function MealUpdate(){
+			let userId = $("#feedUserId").val()
+			let no = $('#no').val()
+			console.log("클릭")
+			
+			var formData = new FormData($('#frm')[0])
+			$.ajax({
+				url:"/updateMeal/" + no,
+				type:"post",
+				data:formData,
+				contentType:false,
+				processData:false,
+				success: function(res){
+					console.log(res)
+					alert("수정되었습니다")
+					location.href="/myFeed/" + userId
+				},
+				error: function(err){
+					console.log(err)
+				}
+				
+			})
+		}
+		
+
+
+		
+		
+		</script> 
+		<script>
+			window.dataLayer = window.dataLayer || [];
+
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+			gtag('config', 'UA-56159088-1');
+		</script>
+		<!-- Scripts
+    ================================================== -->
+		<script src="assets/js/tippy.all.min.js"></script>
+		<script src="assets/js/jquery-3.3.1.min.js"></script>
+		<script src="assets/js/uikit.js"></script>
+		<script src="assets/js/simplebar.js"></script>
+		<script src="assets/js/custom.js"></script>
+
+
+		<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+	</div>
+</body>
+
+</html>

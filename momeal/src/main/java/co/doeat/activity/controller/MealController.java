@@ -34,10 +34,12 @@ public class MealController {
 	UserService userService;
 
 
+
 	@GetMapping("/myFeed/{userId}")
 	   public String myFeed(Model model, @PathVariable String userId) {
 	      model.addAttribute("selects", userService.myFeedUserSelect(userId));
 	      model.addAttribute("follow", followservice.followCount(userId));
+	      model.addAttribute("mealcnt", mealService.postList(userId));
 	      System.out.println("가져왔나요 ======" + followservice.followCount(userId));
 	      return "myFeed/myFeed";
 	   }
