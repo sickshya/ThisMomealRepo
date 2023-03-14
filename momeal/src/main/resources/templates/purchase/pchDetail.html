@@ -61,7 +61,7 @@ textarea {
 						<p th:unless="${pchDetail[0].grpStartDate == '0'}"
 							style="color: red;">[[${#dates.format(pchDetail[0].grpStartDate,'MM-dd')}]]일
 						에 시작해요!</p>
-						<div class="product__details__price">[[${pchDetail[0].price}]]</div>
+						<div class="product__details__price" id="price">[[${pchDetail[0].price}]]</div>
 						<ul>
 							<li><b>주문자 수</b> <span>[[${pchDetail[0].ordCnt}]]명</span></li>
 							<li><b>주문 가능수량</b> <span>총 [[${pchDetail[0].splyGd}]]개</span></li>
@@ -70,14 +70,24 @@ textarea {
 									~ [[${#dates.format(pchDetail[0].grpEndDate,
 									'MM-dd')}]]([[${#dates.dayOfWeekName(pchDetail[0].grpEndDate)}]])</span></li>
 						</ul>
-
+							
 
 						<form class="purchaseBtn" action="/pch/pchOrderFrm" >
-							<input type="number" name="totalGd" min="1" id="totalGd" size="2"
-								maxlength="12" value="1" title="" class="input-text qty">
-							<input type="hidden" id="no" name="no" th:value="${pchDetail[0].no}"></a>
-<!-- 							<input type="hidden" name="listNo" th:value="${pchDetail[0].ListNo}"> -->
+						
+							<!-- 수량 입력칸 -->
+							<input type="number" name="totalGd" id="totalGd" size="2" min="1" 
+								maxlength="12" value="1" title="" class="input-text qty" onclick="totalCal()">
+							
+							<!-- 수량 입력시 합계 -->
+							<input type="text" id="totalSum" size="2" min="1" 
+								maxlength="12" value="1" title="" onclick="totalCal()" class="input-text qty" th:value="${pchDetail[0].price}" >
+								
+								
+							<input type="hidden" id="no" name="no" th:value="${pchDetail[0].no}">
+ 						    <input type="hidden" name="listNo" th:value="${pchDetail[0].ListNo}">
+							
 							<button class="primary-btn">구매하기</button>
+							
 						</form>
 
 
@@ -126,6 +136,19 @@ textarea {
 				</div>
 			</div>
 		</div>
+		
+		<script type="text/javascript">
+		function totalCal(){
+			let totalGd = document.getElementById("totalGd").value;
+			let price = document.getElementById("price").innerText;
+			document.getElementById('totalSum').value = (parseInt(totalGd) * parseInt(price))
+			let cal = document.getElementById('totalSum').value;
+			console.log(totalSum);
+		console.log(totalGd);
+		}
+		
+		</script>
+		
 		<!-- Js Plugins -->
 		<script src="/second-template/js/bootstrap.min.js"></script>
 		<script src="/second-template/js/jquery-ui.min.js"></script>

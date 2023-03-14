@@ -49,7 +49,7 @@
 						<button type="button" onclick="noticeEdit('E')">수정</button>
 						<button type="button" onclick="noticeEdit('D')">삭제</button>
 					</div>
-					<button type="button" onclick="location.href='noticeList'">목록으로</button>
+					<button type="button" onclick="location.href='notice'">목록으로</button>
 					<input type="hidden" name="userId" value="${notice.userId }">
 					<!-- 			<input type="hidden" name="noticeFileDir" value="${notice.noticeFileDir }"> -->
 				</form>
@@ -63,7 +63,7 @@
 			} else {
 				let yn = confirm("작성글을 삭제하시겠습니까?");
 				if (yn) {
-					frm.action = "noticeDelete";
+					frm.action = "admin/adminNoticeDelete";
 				} else {
 					return false;
 				}
