@@ -61,7 +61,7 @@
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">챌린지명</label>
 												<div class="col-sm-9">
-													[[${selects.name}]]
+													[[${selects.title}]]
 												</div>
 											</div>
 											<div class="form-group row">
@@ -79,27 +79,10 @@
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">종료일자</label>
 												<div class="col-sm-9">
-													[[${selects.chalEndDates }]]
+													[[${selects.chalEndDate }]]
 												</div>
 											</div>
-											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">인증시작시간</label>
-												<div class="col-sm-9">
-													[[${selects.vldStartTime }]]
-												</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">인증종료시간</label>
-												<div class="col-sm-9">
-													[[${selects.vldEndTime }]]
-												</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">인증가능요일</label>
-												<div class="col-sm-9">
-													[[${selects.vldPosbDate }]]
-												</div>
-											</div>
+											
 											<div class="form-group row">
 												<label class="col-sm-3" for="exampleFormControlTextarea1">상세설명</label>
 												<div class="col-sm-9">
@@ -110,8 +93,8 @@
 												<label class="col-sm-3 col-form-label">썸네일
 												</label>
 												<div class="col-sm-9">
-													[[${selects.thumbnailImgPath }]]
-													<img th:src="${selects.thumbnailImgPath }">
+													
+													<img th:src="${selects.thumbnailImgPath }" style="width:150px; height:150px;">
 
 												</div>
 											</div>
@@ -122,8 +105,8 @@
 													<div id='att_zone'
 														data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
 														<div>[[${selects.atchPath }]]</div>
-														<div th:each="sel : ${selects}">
-															<img th:src="${sel.atchPath }">
+														<div th:each="sel : ${imgselect}">
+															<img th:src="${sel.atchPath }" style="width:150px; height:150px;">
 														</div>
 													</div>
 													<!-- for문 돌려야함 -->

@@ -76,8 +76,8 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">시작일자</label>
                                                 <div class="col-sm-9">
-                                                    <input type="date" class="form-control" id="expeStartDate"
-                                                        name="expeStartDate" th:value="${#dates.format(updates.expeStartDate, 'yyyy-MM-dd')}">
+                                                    <input type="date" class="form-control" id="inputdate"
+                                                      onchange="startdate()"  name="expeStartDate" th:value="${#dates.format(updates.expeStartDate, 'yyyy-MM-dd')}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -86,7 +86,7 @@
                                                         <input
                                                             type="date"
                                                             class="form-control"
-                                                            id="expeEndDate"
+                                                            id="inputeDate"
                                                             name="expeEndDate"
                                                             th:value="${#dates.format(updates.expeEndDate, 'yyyy-MM-dd')}">
                                                     </div>
@@ -108,7 +108,8 @@
                                                         <input
                                                             type="date"
                                                             class="form-control"
-                                                            id="reviewStartDate"
+                                                            id="inputrDate"
+                                                            onchange="rstartdate()"
                                                             name="reviewStartDate"
                                                             th:value="${#dates.format(updates.reviewStartDate, 'yyyy-MM-dd')}">
                                                     </div>
@@ -119,7 +120,7 @@
                                                         <input
                                                             type="date"
                                                             class="form-control"
-                                                            id="reviewEndDate"
+                                                            id="inputerDate"
                                                             name="reviewEndDate"
                                                             th:value="${#dates.format(updates.reviewEndDate, 'yyyy-MM-dd')}">
                                                     </div>
@@ -143,7 +144,10 @@
 
                                                     </div>
                                                 </div>
-
+												<!-- db에서 불려온 이미지 정보 -->
+											<div th:each="iu : ${iupdates}" id="selImg">
+												<img th:src="${iu.atchPath}" style="display:none;">
+											</div>
                                                 <div class="form-group row">
                                                     <div id='image_preview'>
                                                         <input type='file' id='btnAtt' name="file" multiple='multiple'/>
@@ -177,7 +181,38 @@
             <script src="js/tinycolor-min.js"></script>
             <script src="js/config.js"></script>
             <script src="js/apps.js"></script>
-
+			<script>
+        let sDate = new Date();
+        sDate.setDate(sDate.getDate() + 1);     // 시작날짜의 날짜를 +1일 한다.
+        let minStr = sDate.toISOString().split('T')[0];
+        $("#inputDate").prop("min", minStr);
+        
+  		console.log($('#inputDate').val());
+        
+  		function startdate(){
+  			var startdates = $('#inputDate').val()
+  			console.log(startdates)
+  			
+  			$("#inputeDate").prop("min", startdates);
+  			console.log()
+  		};
+        
+        let rsDate = new Date();
+        rsDate.setDate(rsDate.getDate() + 1);     // 시작날짜의 날짜를 +1일 한다.
+        let rminStr = rsDate.toISOString().split('T')[0];
+        $("#inputrDate").prop("min", rminStr);
+ 		
+        function rstartdate(){
+  			var rstartdates = $('#inputrDate').val()
+  			console.log(rstartdates)
+  			
+  			$("#inputerDate").prop("min", rstartdates);
+  			console.log()
+  		};
+  		
+        </script>
+        
+			
             <!-- 다중파일업로드 -->
             <script>
                 var sel_files = [];
@@ -244,6 +279,26 @@
 
                         reader.readAsDataURL(file);
                     }
+                    
+                    /*이미지 객체 만들기*/
+                    
+                    
+                    const convertURLtoFile = async (url) => {
+                 	   const response = await fetch(url);
+                 	   const data = await response.blob();
+                 	   const ext = '';
+                 	   const filename = '';
+                 	   const metadata = { type: `image/${ext}` };
+                 	   return new File([data], filename, metadata);
+                 	 };
+                       
+                 	 $('#selImg img').each(function(index, item){
+              			convertURLtoFile($(item).attr('src')) //imageLoader
+              			.then(bl=>{
+              				imageLoader(bl)
+              			})
+                    	})
+                     
 
                     /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
                     makeDiv = function (img, file) {

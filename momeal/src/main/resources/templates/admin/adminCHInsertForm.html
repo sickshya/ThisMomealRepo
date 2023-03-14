@@ -46,14 +46,14 @@
 				<div class="container-fluid">
 					<div class="row justify-content-center">
 						<div class="col-12">
-							<h2 class="page-title">공동구매 등록</h2>
+							<h2 class="page-title">챌린지 등록</h2>
 							<p class="text-muted">Demo for form control styles, layout options, and custom
 								components for creating a wide variety of forms.</p>
 							<div class="card-deck" style="width: 600px">
 
 								<div class="card shadow mb-4">
 									<div class="card-header" style="width: 500px">
-										<strong class="card-title">공동구매 추가하기</strong>
+										<strong class="card-title">챌린지 추가하기</strong>
 									</div>
 									<div class="card-body" style="width: 500px" id="myForm">
 
@@ -61,7 +61,7 @@
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">챌린지명</label>
 												<div class="col-sm-9">
-													<input type="text" class="form-control" id="name" name="name">
+													<input type="text" class="form-control" id="title" name="title">
 												</div>
 											</div>
 											<div class="form-group row">
@@ -74,14 +74,14 @@
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">시작일자</label>
 												<div class="col-sm-9">
-													<input type="date" class="form-control" id="chalStartDate"
+													<input type="date" class="form-control" id="inputDate" onchange="startdate()"
 														name="chalStartDate">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">종료일자</label>
 												<div class="col-sm-9">
-													<input type="date" class="form-control" id="chalEndDate"
+													<input type="date" class="form-control" id="inputeDate"
 														name="chalEndDate">
 												</div>
 											</div>
@@ -140,7 +140,27 @@
 		<script src="js/tinycolor-min.js"></script>
 		<script src="js/config.js"></script>
 		<script src="js/apps.js"></script>
-
+		<script>
+		
+        let sDate = new Date();
+        sDate.setDate(sDate.getDate() + 1);     // 시작날짜의 날짜를 +1일 한다.
+        let minStr = sDate.toISOString().split('T')[0];
+        $("#inputDate").prop("min", minStr);
+        
+  		console.log($('#inputDate').val());
+        
+  		function startdate(){
+  			var startdates = $('#inputDate').val()
+  			console.log(startdates)
+  			
+  			$("#inputeDate").prop("min", startdates);
+  			console.log()
+  		};
+  		
+  		
+  		
+  		
+  		</script>
 		<!-- 다중파일업로드 -->
 		<script>
 			var sel_files = [];

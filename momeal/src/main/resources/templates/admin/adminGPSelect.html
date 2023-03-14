@@ -94,9 +94,9 @@
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">썸네일 </label>
-												<div class="col-sm-9" style="width:15; height:15;">
-													[[${selects.thumbnailImgPath }]] 
-													<img th:src="${selects.thumbnailImgPath }" >
+												<div class="col-sm-9">
+<!-- 													[[${selects.thumbnailImgPath }]]  -->
+													<img th:src="${selects.thumbnailImgPath }" style="width:150px; height:150px;" >
 
 												</div>
 											</div>
@@ -108,7 +108,7 @@
 														data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
 <!-- 														<div>[[${imgselect}]]</div> -->
 														<div th:each="sel : ${imgselect}" >
-															<img th:src="${sel.atchPath}" style="width:15; height:15;">
+															<img th:src="${sel.atchPath}" style="width:150px; height:150px;">
 														</div>
 													</div>
 													<!-- for문 돌려야함 -->

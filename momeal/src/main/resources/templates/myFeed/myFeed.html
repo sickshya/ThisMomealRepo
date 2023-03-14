@@ -214,6 +214,7 @@ img {
                   </tr>
                </thead>
                <tbody id="tbd">
+
                </tbody>
 
 
@@ -410,6 +411,9 @@ function buildCalendar() {
        success:function(res){
           $('#tbd').empty()
          //console.log(res[0].typeCode)
+         if(res[0] == null){
+        	 alert("등록된식단이 없습니다.")
+         }
          $(res).each(function(i, res){
             console.log(res)
             
@@ -479,6 +483,7 @@ function leftPad(value) {
 //상세보기
 $('#tbd').on("click",".show",function(){
    let no = $(this).data("no")
+   
 
    
    $(".modalHeart").empty()
@@ -486,7 +491,9 @@ $('#tbd').on("click",".show",function(){
    $.ajax({
       url: "/mealSelect/" +no
    })
+
    .then(obj => {
+	
       $("#mealImg").attr("src", obj.fileDir);
       $("#mealScore").text(obj.mealScore);
       $('#no').val(obj.no);
@@ -504,6 +511,8 @@ $('#tbd').on("click",".show",function(){
       	$(".modalHeart").append( 	`<img src="/assets/images/emptyHeart.svg" class="emptyHeart">`        	)
       	$(".modalHeart").closest(".oneFeed").data("no", no);
       }
+   
+      
    
       commentList(no);
    

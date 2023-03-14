@@ -109,8 +109,8 @@
                                                         <td th:text="${expr.subject}"></td>
                                                         <td th:text="${expr.lmtAplyt}"></td>
                                                         <td th:text="${expr.nessGrd}"></td>
-                                                        <td th:text="${expr.expeStartDate}"></td>
-                                                        <td th:text="${expr.expeEndDate}"></td>
+                                                        <td th:text="${#dates.format(expr.expeStartDate,'yyyy-MM-dd')}"></td>
+                                                        <td th:text="${#dates.format(expr.expeEndDate, 'yyyy-MM-dd')}"></td>
                                                         <td th:text="${expr.exstatus}"></td>
                                                         <td>
                                                             <div class="dropdown">

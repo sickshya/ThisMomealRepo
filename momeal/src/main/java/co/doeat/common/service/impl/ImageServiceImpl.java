@@ -90,7 +90,7 @@ public class ImageServiceImpl implements ImageService {
 
 	@Override
 	public int adminCHIDelete(int postNo, String boardCode) {
-		return imageMapper.adminGPIDelete(postNo, boardCode);
+		return imageMapper.adminCHIDelete(postNo, boardCode);
 	}
 
 	@Override

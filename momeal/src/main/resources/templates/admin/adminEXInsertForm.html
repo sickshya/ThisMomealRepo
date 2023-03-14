@@ -74,14 +74,14 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">시작일자</label>
                                                 <div class="col-sm-9">
-                                                    <input type="date" class="form-control" id="expeStartDate"
-                                                        name="expeStartDate">
+                                                    <input type="date" class="form-control" id="inputDate"
+                                                        name="expeStartDate" onchange="startdate()">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">종료일자</label>
                                                 <div class="col-sm-9">
-                                                    <input type="date" class="form-control" id="expeEndDate"
+                                                    <input type="date" class="form-control" id="inputeDate"
                                                         name="expeEndDate">
                                                 </div>
                                             </div>
@@ -95,14 +95,14 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">리뷰시작</label>
                                                 <div class="col-sm-9">
-                                                    <input type="date" class="form-control" id="reviewStartDate"
-                                                        name="reviewStartDate">
+                                                    <input type="date" class="form-control" id="inputrDate"
+                                                        name="reviewStartDate" onchange="rstartdate()">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">리뷰종료</label>
                                                 <div class="col-sm-9">
-                                                    <input type="date" class="form-control" id="reviewEndDate"
+                                                    <input type="date" class="form-control" id="inputerDate"
                                                         name="reviewEndDate">
                                                 </div>
                                             </div>
@@ -161,6 +161,37 @@
         <script src="/js/tinycolor-min.js"></script>
         <script src="/js/config.js"></script>
         <script src="/js/apps.js"></script>
+        <script>
+        let sDate = new Date();
+        sDate.setDate(sDate.getDate() + 1);     // 시작날짜의 날짜를 +1일 한다.
+        let minStr = sDate.toISOString().split('T')[0];
+        $("#inputDate").prop("min", minStr);
+        
+  		console.log($('#inputDate').val());
+        
+  		function startdate(){
+  			var startdates = $('#inputDate').val()
+  			console.log(startdates)
+  			
+  			$("#inputeDate").prop("min", startdates);
+  			console.log()
+  		};
+        
+        let rsDate = new Date();
+        rsDate.setDate(rsDate.getDate() + 1);     // 시작날짜의 날짜를 +1일 한다.
+        let rminStr = rsDate.toISOString().split('T')[0];
+        $("#inputrDate").prop("min", rminStr);
+ 		
+        function rstartdate(){
+  			var rstartdates = $('#inputrDate').val()
+  			console.log(rstartdates)
+  			
+  			$("#inputerDate").prop("min", rstartdates);
+  			console.log()
+  		};
+  		
+        </script>
+        
 
         <!-- 다중파일업로드 -->
         <script>
