@@ -1,182 +1,217 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{frame/administrator}">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{frame/administrator}">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
-    <title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
-    <!-- Simple bar CSS -->
-    <link rel="stylesheet" href="css/simplebar.css">
-    <!-- Fonts CSS -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <!-- Icons CSS -->
-    <link rel="stylesheet" href="css/feather.css">
-    <!-- Date Range Picker CSS -->
-    <link rel="stylesheet" href="css/daterangepicker.css">
-    <!-- App CSS -->
-    <link rel="stylesheet" href="css/app-light.css" id="lightTheme">
-    <link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled="disabled">
-    <style>
-        #att_zone {
-            width: 550px;
-            min-height: 150px;
-            padding: 10px;
-            border: 1px dotted #00f;
-        }
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico">
+<title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+<!-- Simple bar CSS -->
+<link rel="stylesheet" href="css/simplebar.css">
+<!-- Fonts CSS -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+	rel="stylesheet">
+<!-- Icons CSS -->
+<link rel="stylesheet" href="css/feather.css">
+<!-- Date Range Picker CSS -->
+<link rel="stylesheet" href="css/daterangepicker.css">
+<!-- App CSS -->
+<link rel="stylesheet" href="css/app-light.css" id="lightTheme">
+<link rel="stylesheet" href="css/app-dark.css" id="darkTheme"
+	disabled="disabled">
 
-        #att_zone:empty:before {
-            content: attr(data-placeholder);
-            color: #999;
-            font-size: 0.9em;
-        }
-    </style>
+<style>
+#att_zone {
+	width: 550px;
+	min-height: 150px;
+	padding: 10px;
+	border: 1px dotted #00f;
+}
+
+#att_zone:empty:before {
+	content: attr(data-placeholder);
+	color: #999;
+	font-size: 0.9em;
+}
+  
+</style>
 </head>
 
 <body class="vertical  light  ">
-    <div layout:fragment="content">
-        <div class="wrapper">
+	<div layout:fragment="content">
+	
+	
+		<div class="wrapper">
 
-            <main role="main" class="main-content">
-                <div class="container-fluid">
-                    <div class="row justify-content-center">
-                        <div class="col-12">
-                            <h2 class="page-title">공동구매 등록</h2>
-                            <p class="text-muted">Demo for form control styles, layout options, and custom
-                                components for creating a wide variety of forms.</p>
-                            <div class="card-deck" style="width: 600px">
+			<main role="main" class="main-content">
+				<div class="container-fluid">
+					<div class="row justify-content-center">
+						<div class="col-12">
+							<h2 class="page-title">공동구매 등록</h2>
+							<p class="text-muted">Demo for form control styles, layout
+								options, and custom components for creating a wide variety of
+								forms.</p>
+							<div class="card-deck" style="width: 600px">
 
-                                <div class="card shadow mb-4">
-                                    <div class="card-header" style="width: 500px">
-                                        <strong class="card-title">공동구매 추가하기</strong>
-                                    </div>
-                                    <div class="card-body" style="width: 500px" id="myForm">
+								<div class="card shadow mb-4">
+									<div class="card-header" style="width: 500px">
+										<strong class="card-title">공동구매 추가하기</strong>
+									</div>
+									<div class="card-body" style="width: 500px" id="myForm">
 
-                                        <form id="frm" method="post" enctype="multipart/form-data">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">상품명</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="name" name="name">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">업체명</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="coName" name="coName">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">시작일자</label>
-                                                <div class="col-sm-9">
-                                                    <input type="date"  id="inputDate" class="form-control"
-                                                        name="grpStartDate">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">종료일자</label>
-                                                <div class="col-sm-9">
-                                                    <input type="date" class="form-control" id="grpEndDate"
-                                                        name="grpEndDate">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">가격</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="price" name="price">
-                                                </div>
-                                            </div>
+										<form id="frm" method="post" enctype="multipart/form-data">
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">상품명</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="name"
+														name="name">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">업체명</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="coName"
+														name="coName">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">시작일자</label>
+												<div class="col-sm-9">
+													<input type="date"  id="inputDate" class="form-control"
+														name="grpStartDate" onchange="startdate()">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">종료일자</label>
+												<div class="col-sm-9">
+													<input type="date" id="inputeDate" class="form-control" 
+														name="grpEndDate">
+												</div>
+											</div>
 
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">최소주문수량</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="minGd" name="minGd">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">공급한계수량</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="splyGd" name="splyGd">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3" for="exampleFormControlTextarea1">상세설명</label>
-                                                <div class="col-sm-9">
-                                                    <textarea class="form-control" id="subject" name="subject"
-                                                        rows="2"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">썸네일 등록</label>
-                                                <div class="col-sm-9">
-                                                    <input class="form-control" id="file" type="file" name="tfile">
 
-                                                </div>
-                                            </div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">가격</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="price"
+														name="price">
+												</div>
+											</div>
 
-                                            <div class="form-group row">
-                                                <div id='image_preview'>
-                                                    <input type='file' id='btnAtt' name="file" multiple='multiple' />
-                                                    <div id='att_zone'
-                                                        data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
-                                                    </div>
-                                                </div>
-                                            </div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">최소주문수량</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="minGd"
+														name="minGd">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">공급한계수량</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="splyGd"
+														name="splyGd">
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3" for="exampleFormControlTextarea1">상세설명</label>
+												<div class="col-sm-9">
+													<textarea class="form-control" id="subject" name="subject"
+														rows="2"></textarea>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">썸네일 등록</label>
+												<div class="col-sm-9">
+													<input class="form-control" id="file" type="file"
+														name="tfile">
 
-                                            <div class="form-group mb-2">
-                                                <input type="hidden" name="${images.atchNo}">
-                                                <input type="hidden" name="${groupPurchaseList.no}">
-                                                <!-- <input type="hidden" name="${images.postNo}"
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<div id='image_preview'>
+													<input type='file' id='btnAtt' name="file"
+														multiple='multiple' />
+													<div id='att_zone'
+														data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
+													</div>
+												</div>
+											</div>
+
+											<div class="form-group mb-2">
+												<input type="hidden" name="${images.atchNo}"> <input
+													type="hidden" name="${groupPurchaseList.no}">
+												<!-- <input type="hidden" name="${images.postNo}"
                                                     value="${groupPurchaseList.no}"> -->
-                                                <!-- <input type="hidden" name="${images.boardCode}" value="CT03"> -->
-                                                <button type="button" onclick="GPinsert()"
-                                                    class="btn btn-primary">등록</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- / .card-desk-->
-            </main>
-            <!-- main -->
-        </div>
-        <!-- .wrapper -->
-        <script src="/js/jquery.min.js"></script>
-        <script src="/js/popper.min.js"></script>
-        <script src="/js/moment.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/simplebar.min.js"></script>
-        <script src='/js/daterangepicker.js'></script>
-        <script src='/js/jquery.stickOnScroll.js'></script>
-        <script src="/js/tinycolor-min.js"></script>
-        <script src="/js/config.js"></script>
-        <script src="/js/apps.js"></script>
-        <script>
-    	 // 시작날짜(min 속성)
+												<!-- <input type="hidden" name="${images.boardCode}" value="CT03"> -->
+												<button type="button" onclick="GPinsert()"
+													class="btn btn-primary">등록</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- / .card-desk-->
+			</main>
+			<!-- main -->
+		</div>
+		<!-- .wrapper -->
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/popper.min.js"></script>
+		<script src="/js/moment.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/simplebar.min.js"></script>
+		<script src='/js/daterangepicker.js'></script>
+		<script src='/js/jquery.stickOnScroll.js'></script>
+		<script src="/js/tinycolor-min.js"></script>
+		<script src="/js/config.js"></script>
+		<script src="/js/apps.js"></script>
+		<script>
+		
         let sDate = new Date();
-       
         sDate.setDate(sDate.getDate() + 1);     // 시작날짜의 날짜를 +1일 한다.
-       
-
         let minStr = sDate.toISOString().split('T')[0];
-       
-
         $("#inputDate").prop("min", minStr);
+        
+  		console.log($('#inputDate').val());
+        
+  		function startdate(){
+  			var startdates = $('#inputDate').val()
+  			console.log(startdates)
+  			
+  			$("#inputeDate").prop("min", startdates);
+  			console.log()
+  		};
+  		
+  		
+  		
+  		//let eDate = new Date();
+        //eDate.setDate(startdates);     // 시작날짜의 날짜를 +1일 한다.
+//         let mineStr = eDate.toISOString().split('T')[0];
+       
+//         $("#inputeDate").prop("min");
+//         let eDate = $('#inputDate').val();
+//         console.log(eDate);
+//         let emaxStr = eDate.toISOString().split('T')[0];
+//         $("#inputEDate").prop("min",emaxStr);
        
 
-        console.log('시작날짜 : ',minStr);
+
         
     	</script>
 
-        <!-- 다중파일업로드 -->
-        <script>
+
+		<!-- 다중파일업로드 -->
+		<script>
             var sel_files = [];
             ( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
                 imageView = function imageView(att_zone, btn) {
@@ -302,7 +337,7 @@
             }
         </script>
 
-    </div>
+	</div>
 </body>
 
 </html>

@@ -8,4 +8,6 @@ public class LikesVO {
 	private int postNo; // 글번호
 	private String userId; // 유저 아이디
 	private String boardCode; // 카테고리 구분자
+	
+	private String profileImgPath;
 }

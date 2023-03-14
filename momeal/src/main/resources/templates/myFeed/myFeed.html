@@ -149,7 +149,7 @@ img {
             <div>
                <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full m-0.5 mr-2  w-56 h-56 relative overflow-hidden uk-transition-toggle">
-                  <img src=${selects.profileImgPath}
+                  <img th:src=${selects.profileImgPath}
                      class="bg-gray-200 border-4 border-white rounded-full w-full h-full dark:border-gray-900">
                </div>
             </div>
@@ -175,7 +175,6 @@ img {
                      <a   href="javascript:atCk();"
                      class="bg-pink-500 shadow-sm p-2 pink-500 px-6 rounded-md text-white hover:text-white hover:bg-pink-600">
                      출석체크</a>
-
                </div>
 
                <div
@@ -278,10 +277,10 @@ img {
                   <div class="flex flex-1 items-center space-x-4">
                      <a href="#">
                         <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
-                           <img src="assets/images/avatars/avatar-2.jpg"
+                           <img th:src=${selects.profileImgPath}
                               class="bg-gray-200 border border-white rounded-full w-8 h-8">
                         </div>
-                     </a> <span class="block text-lg font-semibold"> Johnson smith
+                     </a> <span class="block text-lg font-semibold"> [[${selects.nickName}]]
                      </span>
                   </div>
                   <a href="#"> <i
@@ -480,6 +479,7 @@ function leftPad(value) {
 //상세보기
 $('#tbd').on("click",".show",function(){
    let no = $(this).data("no")
+
    
    $(".modalHeart").empty()
    
@@ -495,6 +495,7 @@ $('#tbd').on("click",".show",function(){
       $('#mealTime').text(obj.mealTime);
 	  $('#mealAmount').text(obj.mealAmount);  
 	  $('#subject').text(obj.subject);
+	  
    // 모달안에 좋아요
       if(obj.likeNo != 0) {     
       	$(".modalHeart").append(	`<img src="/assets/images/heart.svg" class="fullHeart">`          	)
