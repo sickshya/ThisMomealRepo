@@ -122,13 +122,14 @@
 			<div class="right-side uk-visible@s">
 
 				<ul class="header_menu" uk-scrollspy-nav="closest: li; scroll: true">
-					<li><a href="#home" uk-scroll> STORY </a></li>
-					<li><a href="#demos" uk-scroll> COMMUNITY </a></li>
-					<li><a href="#features" uk-scroll> CHALLENGE </a></li>
-					<li><a href="#features" uk-scroll> STROE </a></li>
+					<li><a th:href="@{/myFeed/{userId}(userId = ${session.userId})}">STORY </a></li>
+					<li><a href="/community"> COMMUNITY </a></li>
+					<li><a href="/challenge"> CHALLENGE </a></li>
+					<li><a href="/pch/pchMain"> STROE </a></li>
 					<li><a href="#features" uk-scroll> BOARD </a></li>
-					<li><a href="#features" uk-scroll> MYPAGE </a></li>
-					<li><a href="#features" uk-scroll> LOGIN </a></li>
+					<li><a href="/users/enterMypage" uk-scroll> MYPAGE </a></li>
+					<li th:if="${session.userId == null}"><a href="/login" uk-scroll> LOGIN </a></li>
+					<li th:if="${session.userId != null}"><a href="/logout" uk-scroll> LOGOUT </a></li>
 				</ul>
 
 				<!-- 크기조절용 -->
@@ -294,7 +295,7 @@
 		<div class="uk-container" layout:fragment="content"></div>
 		<div class="sidenav" style="margin: 40px;">
 			<br> <br> <br> <br> <br> <br>
-			<a href="/userpw">정보수정</a>
+			<a href="/users/enterMypage">정보수정</a>
 			<a href="/myPurchaseList">구매내역</a>
 			<a href="/myLikeList">좋아요</a>
 			<a href="/myPoint">포인트 로그</a>
