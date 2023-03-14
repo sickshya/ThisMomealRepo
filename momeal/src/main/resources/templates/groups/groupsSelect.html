@@ -31,7 +31,7 @@
 }
 
 .two {
-	border: 1px solid #ccc;
+	
 	padding-right: 8px;
 }
 
@@ -64,9 +64,7 @@
 	<div layout:fragment="content" align="center">
 		<br> <br>
 		<form id="frm" action="/groupsFeed" method="post">
-			<img src="${selects.profileImgPath}"
-				class="w-13 h-13 rounded-full relative flex-shrink-0 one">&nbsp;&nbsp;<b>[[${selects.nickName}]]</b>
-			<br>
+			<img th:src="${selects.profileImgPath}" class="w-13 h-13 rounded-full relative flex-shrink-0 one">&nbsp;&nbsp;<b>[[${selects.nickName}]]</b>
 			<br>
 			<div class="col-lg-8 two">
 				<br>
@@ -100,7 +98,7 @@
 				</div>
 				<br>
 				<!-- 댓글 출력 끝 -->
-				<div class="p-3 border-t dark:border-gray-600">
+				<div class="p-3 ">
 					<div
 						class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
 						<input type="text" placeholder="댓글을 입력하세요."

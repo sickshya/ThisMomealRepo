@@ -1,14 +1,10 @@
 package co.doeat.common.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -16,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,7 +85,6 @@ public class BoardController {
 	public String adminFaqUpdate(BoardVO vo) {
 
 		vo.setBoardCode("BD02");
-
 		boardService.faqUpdate(vo);
 
 		return "redirect:/admin/adminFaq";
@@ -106,118 +100,82 @@ public class BoardController {
 		return "redirect:/admin/adminFaq";
 	}
 
-	// 공지사항 NOTICE
+	// 공지사항 NOTICE ===================================================================
 
-	// 전체조회
+	// NOTICE(USER) 전체리스트
 	@RequestMapping("/notice")
 	public String noticeList(Model model) {
 		model.addAttribute("noticeList", boardService.noticeList());
-		return "board/noticeList";
+		return "board/notice";
 	}
-
-	// 단건조회
-	@PostMapping("/noticeSelect")
+	
+	// 글 상세보기
+	@PostMapping("/admin/adminNoticeSelect")
 	public String noticeSelect(BoardVO vo, Model model) {
 		boardService.noticeHitUpdate(vo.getUserId());
 		model.addAttribute("notice", boardService.noticeSelect(vo));
-		return "board/noticeSelect";
+		return "admin/adminNoticeSelect";
 	}
 
-	// 글쓰기 폼 호출
-	@RequestMapping("/noticeInsertForm")
+	// NOTICE(ADMIN) 전체리스트
+	@RequestMapping("/admin/adminNotice")
+	public String adminNotice(Model model) {
+		model.addAttribute("noticeList", boardService.noticeList());
+		return "admin/adminNotice";
+	}
+	
+	// 등록폼 호출
+	@RequestMapping("/admin/adminNoticeInsertForm")
 	public String noticeInsertForm() {
-		return "board/noticeInsertForm";
+		return "admin/adminNoticeInsertForm";
 	}
 
 	// 글 등록
-	@PostMapping("/noticeInsert")
+	@PostMapping("/admin/adminNoticeInsert")
 	public String noticeInsert(BoardVO vo, MultipartFile file) {
-
-//			// 파일 저장
-//			String saveFolder = servletContext.getRealPath("/resources/upload/"); // 파일 저장 위치(물리적인 저장 위치)
-//			
-//			if(!file.isEmpty()) { // 첨부파일이 존재하면
-//				// 동일한 파일명이면 파일이 덮어 씌워지는것을 막기 위해 UUID 사용 (유니크한 ID를 만들기 위해)
-//				String fileName = UUID.randomUUID().toString();
-//				fileName =  "_" + fileName + file.getOriginalFilename(); // 나중에 파일명만 자르기 쉽게 언더바를 넣어줌
-//				
-//				File uploadFile = new File(saveFolder, fileName); // (파일저장폴더명, 파일이름)
-//				
-//				try {
-//					file.transferTo(uploadFile); // 파일 저장하기
-//				}catch(Exception e) {
-//					e.printStackTrace();
-//				}
-//				// vo에 파일 담기
-//				vo.setNoticeFile(file.getOriginalFilename()); // 원본 파일 명
-//				// 경로는 알고 있으니까 저장할때 fileName만 저장해도 됨! 그러면 불러올 때 맞춰둔 경로를 다 적어준 후, DB에서 파일 이름만 가져와 뿌려주면 됨
-//				vo.setNoticeFileDir(saveFolder + fileName); // 물리적 파일 저장 위치 (파일 불러올때를 위해 이렇게 저장)
-//			}
-//			
+		
+		vo.setBoardCode("BD01");
 		// DB 저장
 		boardService.noticeInsert(vo);
 
-		return "redirect:notice";
+		return "redirect:/admin/adminNotice";
 	}
 	
-	// 글 수정 폼 호출
-	@PostMapping("/noticeEditForm")
-	public String noticeEditForm(BoardVO vo, Model model) { 
-		model.addAttribute("notice", boardService.noticeSelect(vo)); 
-		return "board/noticeEditForm";
-	}
 	
-	@PostMapping("/noticeUpdate")
-	public String noticeUpdate(@ModelAttribute("notice") BoardVO vo, Model model) {
+	//  글 수정폼 호출
+	@RequestMapping("/admin/adminNoticeUpdateForm/{no}")
+	public String adminNoticeUpdateForm(@PathVariable int no, Model model, BoardVO vo) {
 
-		String viewPage = null;
-		int n = boardService.noticeUpdate(vo);
-		
-		if(n != 0) {
-			model.addAttribute("message", "정상적으로 수정되었습니다");
-			viewPage = "board/noticeUpdate";
-		}else {
-			model.addAttribute("message", "수정이 정상적으로 처리되지 못했습니다");
-			viewPage = "board/noticeMessage";
-		}
-		return viewPage; 
+		vo.setNo(no);
+		vo.setBoardCode("BD01");
+
+		model.addAttribute("noticeUpdate", boardService.noticeSelect(vo));
+
+		return "admin/adminNoticeUpdateForm";
 	}
+
+	// 글 수정
+	@RequestMapping("/admin/adminNoticeUpdate")
+	public String adminNoticeUpdate(BoardVO vo) {
+
+		vo.setBoardCode("BD01");
+		boardService.noticeUpdate(vo);
+
+		return "redirect:/admin/adminNotice";
+	}
+	
 	
 	// 글 삭제 처리
-	@PostMapping("/noticeDelete")
-	public void noticeDelete(BoardVO vo, HttpServletResponse response) {
-		// DB에서만 지워지고 물리적 경로에 이미지 파일은 그대로 남아있음..! 서버에 남아있는 file 지우기
-//		if(vo.getNoticeFileDir() != null) {
-//			File file = new File(vo.getNoticeFileDir());
-//			boolean result = file.delete();
-//			System.out.println("삭제 확인 " + result);
-//		}
-//		
-		// DB에서 삭제
-		int n = boardService.noticeDelete(vo);
+	@RequestMapping("/admin/adminNoticeDelete/{no}")
+	public String noticeDelete(@PathVariable int no, Model model, BoardVO vo) {
 		
-		try {
-			if (n != 0) {
-				response.setContentType("text/html; charset=UTF-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script language='javascript'>");
-				out.println("alert('글이 정상적으로 삭제되었습니다.');location.href='notice';");
-				out.println("</script>");
-
-				out.flush();
-
-			} else {
-				response.setContentType("text/html; charset=UTF-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script language='javascript'>");
-				out.println("alert('글이 정상적으로 삭제되지 않았습니다.');location.href='notice';");
-				out.println("</script>");
-
-				out.flush();
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		// DB에서 삭제
+		String boardCode = "BD02";
+		no = vo.getNo();
+		boardService.noticeDelete(vo);
+		
+		return "redirect:/admin/adminNotice";
 	}
+	
+
 }
