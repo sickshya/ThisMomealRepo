@@ -207,7 +207,7 @@ public class ExperienceController {
 		experienceService.adminEXUpdate(vo);
 		String boardCode = "CT02";
 		int postNo = vo.getNo();
-		imageService.adminGPIDelete(postNo, boardCode);
+		imageService.adminEXIDelete(postNo, boardCode);
 		int atchNo = imageService.fileUpload(files, vo.getNo(), boardCode);
 		
 		if (atchNo > 0) {

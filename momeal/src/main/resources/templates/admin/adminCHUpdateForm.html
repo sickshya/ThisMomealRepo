@@ -76,15 +76,15 @@
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">시작일자</label>
 												<div class="col-sm-9">
-													<input type="date" class="form-control" id="chalStartDate"
-														name="chalStartDate">
+													<input type="date" class="form-control" id="inputDate" onchange="startdate()"
+														name="chalStartDate" th:value="${#dates.format(updates.chalStartDate,'yyyy-MM-dd')}">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">종료일자</label>
 												<div class="col-sm-9">
-													<input type="date" class="form-control" id="chalEndDate"
-														name="chalEndDate">
+													<input type="date" class="form-control" id="inputeDate"
+														name="chalEndDate" th:value="${#dates.format(updates.chalEndDate,'yyyy-MM-dd')}">
 												</div>
 											</div>
 											<div class="form-group row">
@@ -102,7 +102,9 @@
 
 												</div>
 											</div>
-
+											<div th:each="iu : ${iupdates}" id="selImg">
+												<img th:src="${iu.atchPath}" style="display:none;">
+											</div>
 											<div class="form-group row">
 												<div id='image_preview'>
 													<input type='file' id='btnAtt' name="file" multiple='multiple' />
@@ -139,6 +141,23 @@
 		<script src="js/tinycolor-min.js"></script>
 		<script src="js/config.js"></script>
 		<script src="js/apps.js"></script>
+		<script>
+		
+        let sDate = new Date();
+        sDate.setDate(sDate.getDate() + 1);     // 시작날짜의 날짜를 +1일 한다.
+        let minStr = sDate.toISOString().split('T')[0];
+        $("#inputDate").prop("min", minStr);
+        
+  		console.log($('#inputDate').val());
+        
+  		function startdate(){
+  			var startdates = $('#inputDate').val()
+  			console.log(startdates)
+  			
+  			$("#inputeDate").prop("min", startdates);
+  			console.log()
+  		};
+    	</script>
 
 		<!-- 다중파일업로드 -->
 		<script>
@@ -206,6 +225,22 @@
 
 						reader.readAsDataURL(file);
 					}
+					
+					const convertURLtoFile = async (url) => {
+	                	   const response = await fetch(url);
+	                	   const data = await response.blob();
+	                	   const ext = '';
+	                	   const filename = '';
+	                	   const metadata = { type: `image/${ext}` };
+	                	   return new File([data], filename, metadata);
+	                	 };
+	                      
+	                	 $('#selImg img').each(function(index, item){
+	             			convertURLtoFile($(item).attr('src')) //imageLoader
+	             			.then(bl=>{
+	             				imageLoader(bl)
+	             			})
+	                   	})
 
 					/*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
 					makeDiv = function (img, file) {

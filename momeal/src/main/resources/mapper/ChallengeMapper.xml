@@ -303,7 +303,6 @@
 		CHAL_END_DATE,
 		CHAL_ROUND,
 		PARTICIR,
-		SUM_PARTICIR,
 		DEDUCT_POINT,
 		THUMBNAIL_IMG,
 		THUMBNAIL_IMG_PATH
@@ -313,7 +312,7 @@
 		#{subject},
 		#{chalStartDate},
 		#{chalEndDate},
-		#{chalRound},
+		1,
 		#{particir},
 		#{deductPoint},
 		#{thumbnailImg},
