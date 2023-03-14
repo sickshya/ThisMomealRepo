@@ -21,4 +21,5 @@ public class GroupPurchaseSettlementVO {
 	private String thumbnailImgPath; // 썸네일이미지 경로
 	private String name;
 	private String subject;
+	private int ordCnt; // 해당 물품의 구매자 수, 결제자 수 카운트
 }

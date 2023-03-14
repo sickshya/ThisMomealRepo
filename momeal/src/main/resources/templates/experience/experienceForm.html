@@ -79,12 +79,25 @@
 
 						<tr>
 							<th>배송지</th>
-							<td for="streetaddress"><br> <input type="text"
-								id="zipcode" name="zipcode" placeholder="우편번호">
-								<input type="button" onclick="sample6_execDaumPostcode()"
-								value="우편번호 찾기"><br> <input type="text" id="addr"
-								name="addr" placeholder="주소"><br>
-					</td>
+							<td><input type="text" id="zipcode" name="zipcode"
+								th:value="${userInfo.zipcode}"></td>
+						</tr>
+						
+						<tr>
+							<th>&nbsp;&nbsp;</th>
+							<td><input type="hidden" id="zipcode"> <input
+								type="button" onclick="sample6_execDaumPostcode()"
+								value="우편번호 찾기"></td>
+						</tr>
+						<tr class="col-span-2">
+						<th>&nbsp;&nbsp;</th>
+							<td><input type="text" id="addr" name="addr"
+								th:value="${userInfo.addr}" required="required"></td>
+						</tr>
+						<tr class="col-span-2">
+							<td><input type="hidden" id="sample6_extraAddress"
+								required="required"></td>
+						</tr>
 					</table>
 					<br> <input type="button" id="EXPinsert" value="신청하기">
 
