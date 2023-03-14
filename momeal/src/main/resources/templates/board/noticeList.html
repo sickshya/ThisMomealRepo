@@ -13,7 +13,7 @@
 	<div layout:fragment="content">
 		<div align="center">
 			<div>
-				<h1>게시글 목록</h1>
+				<p>NOTICE</p>
 			</div>
 			<div>
 				<!-- 검색폼 만들기 -->
@@ -21,14 +21,14 @@
 					<div>
 						<table border="1">
 							<tr>
-								<td width="100"><select name="key" id="key">
+								<td width="80"><select name="key" id="key">
 										<option value="all">전체</option>
 										<option value="title">제목</option>
 										<option value="subject">내용</option>
-										<option value="writer">작성자</option>
+										<!-- 										<option value="writer">작성자</option> -->
 										<option value="date">작성일자</option>
 								</select></td>
-								<td width="250"><input type="text" name="val" id="val">&nbsp;
+								<td width="200"><input type="text" name="val" id="val">&nbsp;
 									<input type="button" onclick="searchList()" value="검색">
 								</td>
 							</tr>
@@ -43,24 +43,24 @@
 						<tr>
 							<td align="center" width="100">순번</td>
 							<td align="center" width="250">제목</td>
-							<td align="center" width="150">작성자</td>
+							<!-- 							<td align="center" width="150">작성자</td> -->
 							<td align="center" width="150">작성일자</td>
 							<td align="center" width="100">조회수</td>
 							<td align="center" width="100">첨부파일</td>
 						</tr>
 					</thead>
 					<tbody id="notice-list">
-						<!-- notices로 넘어오는걸 하나씩 n으로 읽을거야 -->
-						<tr th:each="n : ${notices}">
+
+						<tr th:each="n : ${noticeList}">
 
 							<td align="center" th:text="${n.no}"></td>
 							<td align="center" th:text="${n.boardTitle}"></td>
-							<td align="center" th:text="${n.userId}"></td>
+							<!-- 							<td align="center" th:text="${n.userId}"></td> -->
 							<td align="center"
 								th:text="${#dates.format(n.boardDate,'yyyy-MM-dd')}"></td>
 							<td align="center" th:text="${n.boardHit}"></td>
 							<td align="center">
-								<!-- noticeFile이 비어있지 않다면 td에 첨부파일이 있다고 표시해주기 --> <!-- 							<c:if test="${not empty n.noticeFile }"> -->
+<!-- 							<td th:if ="${not empty n.noticeFile }"> -->
 							</td>
 						</tr>
 					</tbody>
@@ -68,15 +68,14 @@
 			</div>
 			<div>
 				<!-- 		<div th:if="${not empty userId }"> -->
-				<button type="button"
-					th:onclick="location.href='noticeInsertForm.do'">글쓰기</button>
+				<button type="button" th:onclick="location.href='noticeInsertForm'">글쓰기</button>
 				<!-- 		</div> -->
 			</div>
 			<div>
 				<!-- hidden폼을 만들어서 상세보기에 필요한 값 넘어오는걸 담기 -->
-				<form id="hiddenFrm" action="noticeSelect.do" method="post">
-					<input type="hidden" name="userId" id="userId"> <input
-						type="hidden" name="noticeFileDir" id="noticeFileDir">
+				<form id="hiddenFrm" action="noticeSelect" method="post">
+					<input type="hidden" name="userId" id="userId">
+					<!-- 					<input type="hidden" name="noticeFileDir" id="noticeFileDir"> -->
 				</form>
 			</div>
 		</div>
@@ -102,7 +101,7 @@
 		})
 		.catch(error => console.log(error))
 	}
-			function htmlConvert(datas) { // json을 html로 변환해서 화면에 뿌림
+			function htmlConvert(datas) { 
 				document.querySelector('#notice-list').remove(); // 리스트의 <tbody> 부분 삭제
 				const container = document.createElement('tbody'); // <tbody> 태그 생성
 				container.id = 'notice-list'; // <tbody> id값 부여
@@ -110,7 +109,7 @@
 				document.querySelector('#list-table').appendChild(container); // 원하는 위치에 새로 만든 container 붙이기
 			}
 			
-// 			function createHTMLString(data) { // html 변환 코드 css, eventListner를 활용하면 깔끔하게....?
+// 			function createHTMLString(data) { // html 변환 코드 css
 // 				if(data.noticeFile == null) // 첨부파일 존재유무 확인
 // 					data.noticeFile = ""; // 존재하지 않으면 공백
 // 				else
@@ -122,18 +121,18 @@
 					str += "noticeSel('" + data.no + "')" + ">";
 					str += 	"<td align=center>" + data.no + "</td>";
 					str += 	"<td>" + data.noticeTitle + "</td>";
-					str += 	"<td align=center>" + data.userId + "</td>";
+					//str += 	"<td align=center>" + data.userId + "</td>";
 					str += 	"<td align=center>" + data.boardDate + "</td>";
 					str += 	"<td align=center>" + data.boardHit + "</td>";
 					//str += 	"<td align=center>" + data.noticeFile + "</td></tr>";
 					
 				return str;
-			}
+			
 			
 			// 상세 글 보기
 			function noticeSel(userId) {
 				// 여기서 상세보기 호출
-				document.getElementById("userId").value = userId; // noticeId에 id를 담아서 가져가라~
+				document.getElementById("userId").value = userId; // 
 				hiddenFrm.submit();
 			}	
 			
