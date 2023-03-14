@@ -23,6 +23,26 @@
 <link rel="stylesheet" href="assets/css/uikit.css">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/tailwind-dark.css">
+<style>
+.one{
+	border: 1px solid #ccc;
+}
+.img{
+	width: 100px; 
+	height: 130px;
+}
+.two{
+	border: 1px solid #ccc; 
+	padding-left: 20px;
+	text-align: left;
+}
+.three{
+	border: 1px solid #ccc; 
+	padding-left: 20px;
+	text-align: left;
+}
+</style>
+
 </head>
 <body>
 	<!-- 마이페이지 공동구매 상세내역 -->
@@ -33,40 +53,40 @@
 			<div>
 				<div class="col-lg-7">
 					<br>
-					<div style="border: 1px solid #ccc"
-						class="block flex items-center py-3 px-4 space-x-3">
+					<div class="block flex items-center py-3 px-4 space-x-3 one">
 						<br>
 						<div class="w-13 h-13 rounded-full relative flex-shrink-0">
-							<img th:src="${myPurchase.THUMBNAIL_IMG_PATH}" alt=""
-								style="width: 100px; height: 110px;">
+							<img th:src="${myPurchase.THUMBNAIL_IMG_PATH}" alt=""  class="img">
 						</div>
+						&nbsp;&nbsp;
 						<div class="flex-1 min-w-0 relative text-gray-500" align="left">
-							<h4 class="text-black font-semibold dark:text-white">[[${myPurchase.NAME}]]</h4>
-							<span class="absolute right-0 top-1 text-xs">[[${myPurchase.CO_NAME}]]</span>
-							<p class="truncate">[[${myPurchase.SUBJECT}]]</p>
-							<p class="text-black font-semibold dark:text-white">[[${myPurchase.PRICE}]]</p>
-							<p class="truncate">[[${myPurchase.TOTAL_GD}]]</p>
+							<h5 class="text-black font-semibold dark:text-white">상품명 : [[${myPurchase.NAME}]]</h5>
+							<span class="absolute right-0 top-1 text-xs">회사명 : [[${myPurchase.CO_NAME}]]</span>
+							<p class="truncate">상품설명 : [[${myPurchase.SUBJECT}]]</p>
+							<p class="text-black font-semibold dark:text-white">가격 : [[${myPurchase.PRICE}]]</p>
+							<p class="truncate">수량: [[${myPurchase.TOTAL_GD}]]</p>
 						</div>
 					</div>
 					<br> <br>
-					<h3 align="left">배송정보</h3>
-					<div style="border: 1px solid #ccc">
+					<h4 align="left">배송정보</h4>
+					<div class="two">
 						<br>
-						<div class="flex-1 min-w-0 relative text-gray-500" align="left">
-							<p class="truncate">[[${myPurchase.USER_NAME}]]</p>
-							<p class="truncate">[[${myPurchase.DELIVERY_ADDR}]]</p>
-							<p class="truncate">[[${myPurchase.TEL}]]</p>
+						<div class="flex-1 min-w-0 relative text-gray-500">
+							<p class="truncate">이름 : [[${myPurchase.USER_NAME}]]</p>
+							<p class="truncate">배송지 : [[${myPurchase.DELIVERY_ADDR}]]</p>
+							<p class="truncate">전화번호 : [[${myPurchase.TEL}]]</p>
 						</div>
 					</div>
 					<br>
-					<h3 align="left">결제금액</h3>
-					<div style="border: 1px solid #ccc">
-						<div class="flex-1 min-w-0 relative text-gray-500" align="left">
-							<hr>
-							<p class="truncate">[[${myPurchase.TOTAL_PRICE}]]</p>
+					<h4 align="left">결제금액</h4>
+					<div class="three">
+					<br>
+						<div class="flex-1 min-w-0 relative text-gray-500">
+							<p class="truncate">총 금액 : [[${myPurchase.TOTAL_PRICE}]]</p>
 						</div>
 					</div>
-					<br> <br>
+					<br><br>
+					
 					<button type="submit" class="button bg-blue-700">목록으로</button>
 				</div>
 			</div>
