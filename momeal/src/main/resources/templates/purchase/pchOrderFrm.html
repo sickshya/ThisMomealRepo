@@ -112,6 +112,7 @@
 			</div>
 			<script th:inline="javascript">
 				$(".check_module").click(function() {
+					let no = $('#no').val(); //공구자 번호
 					let userId = $('#userId').val(); // 공구자 아이디
 					let deliveryAddr = $('#deliveryAddr').val(); // 공구자 배송지
 					let tel = $('#tel').val(); // 공구자 전화번호
@@ -158,7 +159,7 @@
 						amount : 100,//totalPrice, //가격 
 						buyer_name : userId,
 						buyer_tel : tel,
-						m_redirect_url : 'http://localhost/pch/pchOrderList'
+						m_redirect_url : 'http://localhost83/pch/pchOrderList/{no}'
 					/*  
 					    모바일 결제시,
 					    결제가 끝나고 랜딩되는 URL을 지정 
@@ -179,6 +180,7 @@
 								url : "/pch/purchase.do",
 								type : "POST",
 								data : JSON.stringify({
+									"no" : no,
 									"userId" : userId,
 									//"paymentMthd" : paymentMthd,
 									"deliveryAddr" : deliveryAddr,
@@ -193,7 +195,7 @@
 								success : function(result) {
 									if (result == "ok") {
 										alert(msg);
-										location.href = "/pch/pchOrderList"
+										location.href = "/pch/pchOrderList/{no}"
 									} else {
 										alert("디비입력실패");
 										return false;

@@ -22,7 +22,7 @@ public interface GroupPurchaseService {
 	public int payInsert(GroupPurchaseSettlementVO pvo); // 배송정보 저장
 
 	// 공동구매 결제화면 전체조회
-	List<GroupPurchaseSettlementVO> pchOrderList(); // 배송정보 전체조회
+	public Map<String, Object> pchOrderList(String userId, int listNo); // 배송정보 전체조회
 
 	
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지

@@ -111,12 +111,12 @@
 	<!-- 배송정보 조회 -->
 	<select id="pchOrderList"
 		resultType="GroupPurchaseSettlementVO">
-		SELECT g.*, s.*
-		FROM GROUP_PURCHASE_LISTS g 
-		JOIN GROUP_PURCHASE_SETTLEMENT s
-		ON (g.NO = s.LIST_NO)
-		WHERE g.NO = #{no}
-		ORDER BY g.NO
+        SELECT U.*, S.*,G.*
+		FROM GROUP_PURCHASE_SETTLEMENT S LEFT JOIN
+		USERS U ON (U.USER_ID = S.USER_ID)
+		LEFT JOIN
+		GROUP_PURCHASE_LISTS G ON (S.NO = G.NO)
+		WHERE S.NO = #{no}
 	</select>
 
 
