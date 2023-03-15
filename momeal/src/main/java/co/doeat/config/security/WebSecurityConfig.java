@@ -34,7 +34,7 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((requests) -> requests.antMatchers("/", "home", "/pch/**", "/signup/**", "/usrs/**").permitAll()
+		http.authorizeHttpRequests((requests) -> requests.antMatchers("/", "home", "/pch/**", "/signup/**", "/usrs/**", "/grps/**").permitAll()
 				// ▲ 설정된 url은 인증되지 않더라도 누구나 접근 가능
 				.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // /admin 이하의 접근은 인증되어야함을 명시, 관리자권한 요구
 				.anyRequest().authenticated() // 어떤 요청에도 보안검사를 한다?

@@ -9,16 +9,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.doeat.community.service.GroupsService;
 import co.doeat.community.service.GroupsVO;
+import co.doeat.config.email.RegisterMail;
 
 @RestController
 public class GroupsRestController {
 	@Autowired
 	GroupsService groupsService;
 
+	@Autowired RegisterMail registerMail;
+	
 	// 지정한 그룹 날짜에 따른 피드 불러오기
 	@RequestMapping("/groupsFeed/{postDate}/{no}")
 	public List<GroupsVO> myFeedList(Model model, @PathVariable String postDate, @PathVariable int no,
@@ -54,17 +58,31 @@ public class GroupsRestController {
 		String userId = (String) session.getAttribute("userId");
 		vo.setUserId(userId);
 
+		vo.setGrpCode(registerMail.createKey());
+		
 		groupsService.grpInsert(vo);
 		return vo;
 	}
 	
-	// 그룹 참여하기
-		@PostMapping("/membInsert")
-		public GroupsVO membInsert(GroupsVO vo, HttpSession session) {
-			String userId = (String) session.getAttribute("userId");
-			vo.setUserId(userId);
+	@PostMapping("/grps/compareInsert")
+	public void compareInsert(GroupsVO vo, HttpSession session, @RequestParam("grpCode") String grpCode) {
+		String userId = (String) session.getAttribute("userId");
+		vo.setUserId(userId);
+		
+		vo.setGrpCode(grpCode);
+		
+		System.out.println("===========================================" + vo.getGrpCode());
+		
+		groupsService.compareInsert(vo);
+	}
 
-			groupsService.membInsert(vo);
-			return vo;
-		}
+	// 그룹 참여하기
+	@PostMapping("/membInsert")
+	public GroupsVO membInsert(GroupsVO vo, HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
+		vo.setUserId(userId);
+
+		groupsService.membInsert(vo);
+		return vo;
+	}
 }
