@@ -87,6 +87,7 @@
 													<div class="form-group mb-3">
 														<label for="simpleinput">식단점수</label>
 														<br> <select id="mealScore" name="mealScore">
+														<option th:value="${updates.mealScore}">선택 : [[${updates.mealScore}]]</option>
 															<option value="1">1점 🤔</option>
 															<option value="1">2점 😐</option>
 															<option value="1">3점 😊</option>
@@ -99,6 +100,7 @@
 													<div class="form-group mb-3">
 														<label for="example-email">분류</label> <select
 															name="typeCode" id="typeCode">
+															<option th:value="${updates.typeCode}">선택 : [[${updates.typeCode}]]</option>
 															<option value="아침">아침</option>
 															<option value="점심">점심</option>
 															<option value="저녁">저녁</option>
@@ -110,6 +112,7 @@
 													<div class="form-group mb-3">
 														<label for="example-password">식사량</label> <select
 															name="mealAmount" id="mealAmount" >
+															<option th:value="${updates.mealAmount}">선택 : [[${updates.mealAmount}]]</option>
 															<option value="가볍게">가볍게</option>
 															<option value="적당하게">적당하게</option>
 															<option value="배부르게">배부르게</option>
@@ -129,18 +132,14 @@
 														<textarea class="form-control" id="subject" name="subject"
 															rows="4">[[${updates.subject}]]</textarea>
 													</div>
-													<div class="form-group mb-3">
-														<label for="simpleinput">태그</label> <input type="text"
-															id="tags" class="form-control">
-													</div>
 													<div>
 														<!--파일업로드-->
 														<div class="form-group row">
 															<label class="col-sm-3 col-form-label">썸네일 등록</label>
 															<div class="col-sm-9">
 																<input class="form-control" id="file" type="file"
-																	name="file" th:value="${updates.fileDir}"><br>
-																<img id="profileImg">
+																	name="file"><br>
+																<img id="profileImg" th:src="${updates.fileDir}" style="width:150px; height:150px;">
 															</div>
 														</div>
 													</div>
