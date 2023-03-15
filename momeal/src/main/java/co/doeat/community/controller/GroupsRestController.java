@@ -2,6 +2,7 @@ package co.doeat.community.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,19 @@ public class GroupsRestController {
 	GroupsService groupsService;
 
 	@Autowired RegisterMail registerMail;
+	
+	// 그룹 리스트 출력
+//	@RequestMapping("/groupsListAjax")
+//	public List<GroupsVO> groupsList(Model model, GroupsVO vo, HttpSession session) {
+//		
+//		vo.setUserId((String) session.getAttribute("userId"));
+//		model.addAttribute("grList", groupsService.grpAllList(vo));
+//		
+//		return groupsService.grpAllList(vo);
+//	}
+
+	
+	
 	
 	// 지정한 그룹 날짜에 따른 피드 불러오기
 	@RequestMapping("/groupsFeed/{postDate}/{no}")
