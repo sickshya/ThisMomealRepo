@@ -54,7 +54,11 @@ public class ChallengeController {
 		vo.setNo(10);
 
 		// 전체조회
-		model.addAttribute("challList", challengeService.getChallList(vo));
+//		model.addAttribute("challList", challengeService.getChallList(vo));
+		
+		// 게시물 max 번호
+		model.addAttribute("maxNo", challengeService.getMaxChallNo());
+		
 		// 인기순(좋아요 많은 순) 조회
 		model.addAttribute("challRec", challengeService.likeRankChallList(id));
 
@@ -65,6 +69,7 @@ public class ChallengeController {
 	@RequestMapping("/challengeList")
 	@ResponseBody
 	public List<Map<String, Object>> challengeList(ChallengeVO vo, HttpSession session) {
+		System.out.println("도착??????");
 		String userId = (String) session.getAttribute("userId");
 		vo.setUserId(userId);
 		return challengeService.getChallList(vo);
