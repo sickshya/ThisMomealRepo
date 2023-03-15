@@ -116,10 +116,9 @@
 	<select id="noticeSearch"
 		resultType="co.doeat.common.service.BoardVO">
 		SELECT * FROM BOARD
-		<if test="key == 'all'">WHERE 1 = 1</if>
+		<if test="key == 'all'">WHERE 1 = 1 AND BOARD_CODE = 'BD01'</if>
 		<if test="key == 'boardTitle'">WHERE BOARD_TITLE LIKE '%'||#{val}||'%'</if>
-		<if test="key == 'boardsubject'">WHERE BOARD_SUBJECT LIKE '%'||#{val}||'%'</if>
-		<if test="key == 'boarddate'">WHERE BOARD_DATE = #{val}</if>
+		<if test="key == 'boardSubject'">WHERE BOARD_SUBJECT LIKE '%'||#{val}||'%'</if>
 	</select>
 
 </mapper>
