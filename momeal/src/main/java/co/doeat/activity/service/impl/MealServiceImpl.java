@@ -52,6 +52,11 @@ public class MealServiceImpl implements MealService{
 		return mealMapper.postList(userId);
 	}
 
+	@Override
+	public Map<String, Object> mealAvg(String userId) {
+		return mealMapper.mealAvg(userId);
+	}
+
 
 
 	

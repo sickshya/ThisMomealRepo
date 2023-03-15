@@ -94,14 +94,26 @@
 														rows="2">[[${updates.subject }]]</textarea>
 												</div>
 											</div>
-											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">썸네일 등록</label>
-												<div class="col-sm-9">
-													<input class="form-control" id="file" type="file" name="tfile"
-														th:value="${updates.thumbnailImg }">
-
-												</div>
+											<div>
+												<!--파일업로드-->
+													<div class="form-group row">
+														<label class="col-sm-3 col-form-label">썸네일 등록</label>
+													<div class="col-sm-9">
+														<input class="form-control" id="file" type="file"
+																	name="tfile"><br>
+														<img id="profileImg" th:src="${updates.thumbnailImgPath}" style="width:150px; height:150px;">
+<!-- 															<img id="profileImg"> -->
+													</div>
+													</div>
 											</div>
+<!-- 											<div class="form-group row"> -->
+<!-- 												<label class="col-sm-3 col-form-label">썸네일 등록</label> -->
+<!-- 												<div class="col-sm-9"> -->
+<!-- 													<input class="form-control" id="file" type="file" name="tfile" -->
+<!-- 														th:value="${updates.thumbnailImg }"> -->
+
+<!-- 												</div> -->
+<!-- 											</div> -->
 											<div th:each="iu : ${iupdates}" id="selImg">
 												<img th:src="${iu.atchPath}" style="display:none;">
 											</div>
@@ -141,6 +153,29 @@
 		<script src="js/tinycolor-min.js"></script>
 		<script src="js/config.js"></script>
 		<script src="js/apps.js"></script>
+		<script>
+			//input태그 가져오기	
+			let fileTag = document.querySelector("input[name=tfile]");
+			// 파일 있는지 확인
+			fileTag.onchange = function() {
+				let imgTag = document.querySelector("#profileImg");
+				if (fileTag.files.length > 0) {
+					//파일을 선택한 경우, 미리보기 생성 == 이미지 태그 src에 데이터(파일태그에서 선택한 파일)넣어주기
+					let reader = new FileReader();
+					//reader읽어드리기
+					reader.onload = function(data) {
+						console.log(data);
+						imgTag.src = data.target.result;
+						imgTag.width = 250;
+						imgTag.height = 150;
+					}
+					reader.readAsDataURL(fileTag.files[0]);
+				} else {
+					//취소버튼 누를 경우
+					imgTag.src = "";
+				}
+			}
+			</script>
 		<script>
 		
         let sDate = new Date();
@@ -226,21 +261,24 @@
 						reader.readAsDataURL(file);
 					}
 					
-					const convertURLtoFile = async (url) => {
-	                	   const response = await fetch(url);
-	                	   const data = await response.blob();
-	                	   const ext = '';
-	                	   const filename = '';
-	                	   const metadata = { type: `image/${ext}` };
-	                	   return new File([data], filename, metadata);
-	                	 };
-	                      
-	                	 $('#selImg img').each(function(index, item){
-	             			convertURLtoFile($(item).attr('src')) //imageLoader
-	             			.then(bl=>{
-	             				imageLoader(bl)
-	             			})
-	                   	})
+ /*이미지 객체 만들기*/
+                    
+                    
+                    const convertURLtoFile = async (url) => {
+                 	   const response = await fetch(url);
+                 	   const data = await response.blob();
+                 	   const ext = url.split("/").pop();
+                 	   const filename = url.split("_").pop();
+                 	   const metadata = { type: `image/${ext}` };
+                 	   return new File([data], filename, metadata);
+                 	 };
+                       
+                 	 $('#selImg img').each(function(index, item){
+              			convertURLtoFile($(item).attr('src')) //imageLoader
+              			.then(bl=>{
+              				imageLoader(bl)
+              			})
+                    })
 
 					/*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
 					makeDiv = function (img, file) {

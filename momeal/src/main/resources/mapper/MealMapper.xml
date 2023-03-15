@@ -84,5 +84,13 @@
 		  FROM MEALS
 		 
 	</select>
+	
+	<!-- 식단평균 -->
+	<select id="mealAvg" resultType="map">
+		SELECT AVG(meal_score) "meal_Avg"
+  		FROM meals
+ 		 where user_id = #{userId}
+	
+	</select>
 
 </mapper>

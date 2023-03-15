@@ -88,6 +88,12 @@ public class MealRestController {
 		
 	}
 	
+	//식단그래프
+//	@RequestMapping("/mealChart")
+//	public List<MealVO>mealChart(){
+//		return "true";
+//	}
+//	
 
 	
 }

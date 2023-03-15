@@ -40,6 +40,8 @@ public class MealController {
 	      model.addAttribute("selects", userService.myFeedUserSelect(userId));
 	      model.addAttribute("follow", followservice.followCount(userId));
 	      model.addAttribute("mealcnt", mealService.postList(userId));
+	      model.addAttribute("mealavg", mealService.mealAvg(userId));
+	     
 	      System.out.println("가져왔나요 ======" + followservice.followCount(userId));
 	      return "myFeed/myFeed";
 	   }

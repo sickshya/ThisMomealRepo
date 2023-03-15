@@ -24,5 +24,7 @@ public interface MealService {
 	
 	Map<String, Object> postList(String userId); //  식단 카운트
 	
+	Map<String, Object> mealAvg(String userId); //식단 평균
+	
 	
 }
