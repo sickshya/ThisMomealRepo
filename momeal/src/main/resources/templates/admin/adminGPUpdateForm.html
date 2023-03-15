@@ -273,7 +273,7 @@
                 	 };
                       
                 	 $('#selImg img').each(function(index, item){
-             			convertURLtoFile($(item).attr('src')) //imageLoader
+             			convertURLtoFile($(item).attr('src')) 
              			.then(bl=>{
              				imageLoader(bl)
              			})

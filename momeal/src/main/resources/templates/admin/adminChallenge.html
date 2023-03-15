@@ -58,13 +58,14 @@
 		</script>
 		<div class="wrapper">
 
-			<main role="main" class="main-content">
+			<main role="main" class="main-content"  style="margin-left :auto">
 				<div class="container-fluid">
 					<div class="row justify-content-center">
 						<div class="col-12">
-							<div class="row">
+<!-- 							<div class="row"> -->
 
 								<!-- 챌린지리스트 -->
+															<!-- 검색 -->
 								<form id="searchFrm">
 									<select name="type">
 										<option value="G" th:selected="${paging.type == 'G'}">챌린지명</option>
@@ -80,6 +81,8 @@
 										<div class="card-body">
 											<h5 class="card-title">챌린지리스트</h5>
 											<p class="card-text">
+				
+											
 												<input type="button" value="등록하기"
 													onclick="location.href='adminCHInsertForm'">
 											</p>
@@ -153,7 +156,7 @@
                                     <br>
 
                                     
-                                </div>
+<!--                                 </div> -->
                             </div>
                         </div>
                     </div>
