@@ -57,4 +57,9 @@ public class GroupsServiceImpl implements GroupsService {
 		return groupsMapper.membInsert(vo);
 	}
 
+	@Override
+	public int compareInsert(GroupsVO vo) {
+		return groupsMapper.compareInsert(vo);
+	}
+
 }

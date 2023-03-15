@@ -20,5 +20,6 @@ public interface GroupsService {
 	public int grpInsert(GroupsVO vo); // 그룹 만들기
 	
 	public int membInsert(GroupsVO vo); // 멤버 추가
-
+	
+	public int compareInsert(GroupsVO vo); // 입력값과 저장된 값이 동일할시 해당그룹 멤버로 등록
 }
