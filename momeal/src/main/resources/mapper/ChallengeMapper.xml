@@ -23,36 +23,36 @@
 
 	<!-- 챌린지 전체조회(최신 등록순 조회) -->
 	<select id="getChallList" resultType="map">
-<!-- 		SELECT * -->
-<!-- 		  FROM(SELECT ROWNUM RN, A.* -->
-<!-- 		         FROM(SELECT C.*, -->
-<!-- 		                     NVL((SELECT L.NO -->
-<!-- 		                            FROM LIKES L -->
-<!-- 		                           WHERE L.POST_NO = C.NO  -->
-<!-- 		                             AND L.USER_ID = #{userId} -->
-<!-- 		                             AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO -->
-<!-- 		                FROM CHALLENGES C -->
-<!-- 				    <where> -->
-<!-- 						<if test='no > 0'> -->
-<!-- 							<![CDATA[ -->
-<!--  		                    C.NO < 10  -->
-<!--  		                	]]> -->
-<!-- 						</if> -->
-<!-- 						<include refid="search"></include> -->
-<!-- 					</where> -->
-<!-- 			                 ORDER BY C.NO DESC) A -->
-<!-- 			     <![CDATA[ -->
-<!-- 				 WHERE ROWNUM <= 10) b; -->
-<!-- 				 ]]> -->
-				 
-				 SELECT C.*,
-       NVL((SELECT L.NO
-              FROM LIKES L
-             WHERE L.POST_NO = C.NO 
-               AND L.USER_ID = #{userId} 
-               AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO
-FROM CHALLENGES C
-ORDER BY C.NO DESC
+		SELECT *
+		  FROM(SELECT ROWNUM RN, A.*
+		         FROM(SELECT C.*,
+		                     NVL((SELECT L.NO
+		                            FROM LIKES L
+		                           WHERE L.POST_NO = C.NO 
+		                             AND L.USER_ID = #{userId}
+		                             AND L.BOARD_CODE = 'CT01'), 0) AS LIKE_NO
+		                FROM CHALLENGES C
+						 <where>
+						<if test='no > 0'>
+							<![CDATA[
+		 		             C.NO < #{no}
+				            ]]> 
+						</if>
+							<include refid="search"></include>
+						</where>
+			            ORDER BY C.NO DESC) A
+		<![CDATA[
+ 		 WHERE ROWNUM <= 10) b
+ 		]]> 
+ 				 
+<!-- 				 SELECT C.*, -->
+<!--        NVL((SELECT L.NO -->
+<!--               FROM LIKES L -->
+<!--              WHERE L.POST_NO = C.NO  -->
+<!--                AND L.USER_ID = #{userId}  -->
+<!--                AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO -->
+<!-- FROM CHALLENGES C -->
+<!-- ORDER BY C.NO DESC -->
 	</select>
 
 	<!-- 챌린지 인기순 조회(좋아요 상위 7개까지) -->

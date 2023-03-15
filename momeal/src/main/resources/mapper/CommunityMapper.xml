@@ -38,14 +38,14 @@
 	                  FROM MEALS M 
 	                  LEFT JOIN USERS U
 	                    ON (M.USER_ID = U.USER_ID)
-	    <where>
-		<if test="no > 0">
-			<![CDATA[
-	                 M.NO < #{no}
-			]]>
-		</if>
-			<include refid="search"></include>
-		</where>
+				    <where>
+					<if test="no > 0">
+						<![CDATA[
+				            M.NO < #{no}
+						]]>
+					</if>
+						<include refid="search"></include>
+					</where>
 	                 ORDER BY M.NO DESC) A 
         <![CDATA[
 		WHERE ROWNUM <= 10) b
