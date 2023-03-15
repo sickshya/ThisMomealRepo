@@ -9,6 +9,7 @@
 		ELSE MAX(ATCH_NO) +1
 		END AS atchNo
 		FROM IMAGES
+		order by atch_no
 	</select>
  
 	<insert id="fileUpload"
@@ -43,7 +44,7 @@
 
 	<select id="imageList" resultType="co.doeat.common.service.ImageVO" parameterType="co.doeat.common.service.ImageVO">
 		SELECT * FROM IMAGES
-		WHERE post_no=#{postNo} AND board_code=#{boardCode}
+		WHERE post_no=#{postNo} AND board_code=#{boardCode} order by atch_no
 	</select>
 	
 	<delete id="adminEXIDelete"
