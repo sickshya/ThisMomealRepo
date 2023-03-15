@@ -58,8 +58,8 @@ public class BoardServiceImpl implements BoardService {
 
 	// 단건조회
 	@Override
-	public BoardVO noticeSelect(BoardVO vo) {
-		return boardMapper.noticeSelect(vo);
+	public BoardVO noticeSelect(int no) {
+		return boardMapper.noticeSelect(no);
 	}
 
 	@Override //보류

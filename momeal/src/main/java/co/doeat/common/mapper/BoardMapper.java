@@ -2,6 +2,8 @@ package co.doeat.common.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import co.doeat.common.service.BoardVO;
 
 public interface BoardMapper {
@@ -20,7 +22,7 @@ public interface BoardMapper {
 	// NOTICE
 	List<BoardVO> noticeList(); // 전체 조회
 	
-	BoardVO noticeSelect(BoardVO vo); // 단건 조회
+	BoardVO noticeSelect(int no); // 단건조회
 	
 	int noticeInsert(BoardVO vo); // 등록
 	
@@ -28,7 +30,7 @@ public interface BoardMapper {
 	
 	int noticeDelete(BoardVO vo); // 삭제
 	
-	List<BoardVO> noticeSearch(String key, String val); // 검색
+	List<BoardVO> noticeSearch(@Param("key") String key, @Param("val") String val); // 검색
 	
 	void noticeHitUpdate(String userId); // 조회수 증가
 	

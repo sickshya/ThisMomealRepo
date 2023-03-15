@@ -14,84 +14,73 @@
 	type="text/css">
 <link rel="stylesheet" href="/second-template/css/style.css"
 	type="text/css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">	
 
 </head>
+<style>
+</style>
 <body>
 	<div layout:fragment="content">
 		<div align="center">
 			<div>
-				<p>NOTICE</p>
+				<h3>
+					<b>NOTICE</b>
+				</h3>
 			</div>
+			<br>
 			<div>
-				<!-- 검색폼 만들기 -->
-
-<!-- 				<form id="searchFrm"> -->
-<!-- 					<select name="type" > -->
-<!-- 						<option value="all" th:selected="${search.type == 'all'}">전체</option> -->
-<!-- 						<option value="title" th:selected="${search.type == 'title'}">제목</option> -->
-<!-- 						<option value="subject" th:selected="${search.type == 'subject'}">내용</option> -->
-<!-- 					</select> <input type="text" name="keyword" th:value="${search.keyword}"> -->
-<!-- 					<button type="submit">검색</button> -->
-<!-- 				</form> -->
-
-
 				<form id="frm" method="post">
 					<div>
-						<table border="1">
+
+						<table border="1" >
 							<tr>
 								<td width="80"><select name="key" id="key">
 										<option value="all">전체</option>
-										<option value="title">제목</option>
-										<option value="subject">내용</option>
+										<option value="boardTitle">제목</option>
+										<option value="boardSubject">내용</option>
 								</select></td>
-								<td width="200"><input type="text" name="val" id="val">&nbsp;
-									<input type="button" class="btn btn-dark"
+								<td width="150"><input type="text" name="val" id="val"></td>
+								<td width="80"><input type="button" class="btn btn-dark"
 									onclick="searchList()" value="검색"></td>
 							</tr>
 						</table>
-					</div>
+						</div>
+					  <br> 
 				</form>
 			</div>
 			<br>
 			<div>
-				<table border="1" id="list-table">
+				<table border="1" id="list-table" >
 					<thead>
 						<tr>
 							<td align="center" width="100">순번</td>
+							<td align="center" width="150">작성일자</td>
 							<td align="center" width="250">제목</td>
 							<td align="center" width="150">작성자</td>
-							<td align="center" width="150">작성일자</td>
-							<td align="center" width="100">조회수</td>
-<!-- 							<td align="center" width="100">첨부파일</td> -->
+							<!-- 							<td align="center" width="100">조회수</td> -->
+							<!-- 							<td align="center" width="100">첨부파일</td> -->
 						</tr>
 					</thead>
-					<tbody id="notice-list">
-
-						<tr th:each="n : ${noticeList}">
-
-							<td align="center" th:text="${n.no}"></td>
-							<td align="center" th:text="${n.boardTitle}"></td>
-							<td align="center" th:text="${n.userId}"></td>
+					<tbody id="notice-list" >      
+						<tr th:each="n : ${noticeList}" onmouseover='this.style.background="#fcecae";'         
+						onmouseleave='this.style.background="#FFFFFF";' th:onclick="'location.href=\''+ @{/noticeSel/{no}(no = ${n.no})} + '\''">
+							<td align="center"  th:text="${n.no}" ></td>
 							<td align="center"
 								th:text="${#dates.format(n.boardDate,'yyyy-MM-dd')}"></td>
-							<td align="center" th:text="${n.boardHit}"></td>
-							<td align="center">
-								<!-- 							<td th:if ="${not empty n.noticeFile }"> -->
-							</td>
+							<td align="center" th:text="${n.boardTitle}"></td>
+							<td align="center" th:text="${n.userId}"></td>
+
+							
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			<div></div>
 			<div>
-				<!-- hidden폼을 만들어서 상세보기에 필요한 값 넘어오는걸 담기 -->
-				<form id="hiddenFrm" action="noticeSelect" method="post">
-					<input type="hidden" name="no" id="no">
-				</form>
 			</div>
+
 		</div>
 
-		<script type="text/javascript">
+		<script>
 			function searchList() {
 		let url = 'AjaxSearchList.do';
 		let key = document.getElementById("key").value;
@@ -120,30 +109,26 @@
 				document.querySelector('#list-table').appendChild(container); // 원하는 위치에 새로 만든 container 붙이기
 			}
 			
-// 			function createHTMLString(data) { // html 변환 코드 css
-// 				if(data.noticeFile == null) // 첨부파일 존재유무 확인
-// 					data.noticeFile = ""; // 존재하지 않으면 공백
-// 				else
-// 					data.noticeFile = "@"; // 존재하면 @로 표시
-					
+			function createHTMLString(data) { // html 변환 코드 css
+
 				let str = "<tr onmouseover='this.style.background='#fcecae';"
 					str += " onmouseleave='this.style.background='#FFFFFF';" // 앞쪽 공백 주의
 					str += " onclick="; // 앞쪽 공백 주의
-					str += "noticeSel('" + data.no + "')" + ">";
-// 					str += 	"<td align=center>" + data.no + "</td>";
-					str += 	"<td>" + data.noticeTitle + "</td>";
-// 					str += 	"<td align=center>" + data.userId + "</td>";
+					str += "noticeSel('" + data.userId + "')" + ">";
+					
+ 					str += 	"<td align=center>" + data.no + "</td>";
 					str += 	"<td align=center>" + data.boardDate + "</td>";
-// 					str += 	"<td align=center>" + data.boardHit + "</td>";
-// 					str += 	"<td align=center>" + data.noticeFile + "</td></tr>";
+					str += 	"<td align=center>" + data.boardTitle + "</td>";
+ 					str += 	"<td align=center>" + data.userId + "</td>";
 					
 				return str;
+			}
 			
 			
 			// 상세 글 보기
 			function noticeSel(no) {
 				// 여기서 상세보기 호출
-				document.getElementById("no").value = userId; // 
+				document.getElementById("no").value = no; // 
 				hiddenFrm.submit();
 			}	
 			

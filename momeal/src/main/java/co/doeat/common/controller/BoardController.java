@@ -11,6 +11,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,10 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.doeat.common.service.BoardService;
 import co.doeat.common.service.BoardVO;
+import co.doeat.community.service.UserService;
 
 
 @Controller
-public class BoardController {
+public class BoardController<UserVO> {
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
@@ -35,6 +37,9 @@ public class BoardController {
 
 	@Autowired
 	ServletContext servletContext;
+	
+	@Autowired
+	UserService userService;
 
 	// 자주묻는질문 FAQ
 
@@ -109,11 +114,19 @@ public class BoardController {
 		return "board/notice";
 	}
 	
-	// 글 상세보기
-	@PostMapping("/admin/adminNoticeSelect")
-	public String noticeSelect(BoardVO vo, Model model) {
+	// NOTICE(USER) 글 상세보기
+	@GetMapping("/noticeSel/{no}")
+	public String noticeSel(@PathVariable int no, BoardVO vo, Model model) {
+		model.addAttribute("notice", boardService.noticeSelect(no));
+		return "board/noticeSelect";
+	}
+	
+	
+	// NOTICE(ADMIN) 글 상세보기
+	@PostMapping("/admin/adminNoticeSelect/{no}")
+	public String noticeSelect(@PathVariable int no, BoardVO vo, Model model) {
 		boardService.noticeHitUpdate(vo.getUserId());
-		model.addAttribute("notice", boardService.noticeSelect(vo));
+		model.addAttribute("notice", boardService.noticeSelect(no));
 		return "admin/adminNoticeSelect";
 	}
 
@@ -124,13 +137,13 @@ public class BoardController {
 		return "admin/adminNotice";
 	}
 	
-	// 등록폼 호출
+	// NOTICE(ADMIN) 등록폼 호출
 	@RequestMapping("/admin/adminNoticeInsertForm")
 	public String noticeInsertForm() {
 		return "admin/adminNoticeInsertForm";
 	}
 
-	// 글 등록
+	// NOTICE(ADMIN) 글 등록
 	@PostMapping("/admin/adminNoticeInsert")
 	public String noticeInsert(BoardVO vo, MultipartFile file) {
 		
@@ -142,35 +155,35 @@ public class BoardController {
 	}
 	
 	
-	//  글 수정폼 호출
+	//  NOTICE(ADMIN) 글 수정폼 호출
 	@RequestMapping("/admin/adminNoticeUpdateForm/{no}")
 	public String adminNoticeUpdateForm(@PathVariable int no, Model model, BoardVO vo) {
 
 		vo.setNo(no);
 		vo.setBoardCode("BD01");
 
-		model.addAttribute("noticeUpdate", boardService.noticeSelect(vo));
+		model.addAttribute("noticeUpdate", boardService.noticeSelect(no));
 
 		return "admin/adminNoticeUpdateForm";
 	}
 
-	// 글 수정
+	// NOTICE(ADMIN) 글 수정
 	@RequestMapping("/admin/adminNoticeUpdate")
 	public String adminNoticeUpdate(BoardVO vo) {
 
 		vo.setBoardCode("BD01");
 		boardService.noticeUpdate(vo);
 
-		return "redirect:/admin/adminNotice";
+		return "redirect:admin/adminNotice";
 	}
 	
 	
-	// 글 삭제 처리
+	// NOTICE(ADMIN) 글 삭제 처리
 	@RequestMapping("/admin/adminNoticeDelete/{no}")
 	public String noticeDelete(@PathVariable int no, Model model, BoardVO vo) {
 		
 		// DB에서 삭제
-		String boardCode = "BD02";
+		String boardCode = "BD01";
 		no = vo.getNo();
 		boardService.noticeDelete(vo);
 		

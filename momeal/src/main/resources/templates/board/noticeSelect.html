@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{frame/usual}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div align="center">
+			<div>
+				<h3>공지사항 상세보기</h3>
+			</div>
+			<div>
+				<table border="1">
+					<tr>
+						<th width="100">작성자</th>
+						<td width="150">${notice.userId }</td>
+						<th width="150">작성일자</th>
+						<td width="150">${notice.boardDate }</td>
+						
+					</tr>
+					<tr>
+						<th>제 목</th>
+						<td colspan="3">${notice.boardTitle }</td>
+					</tr>
+					<tr>
+						<th>내 용</th>
+						<td width="250" height="300" colspan="3">
+							${notice.boardSubject }</td>
+					</tr>
+					<tr>
+						<!-- 				<th>첨부파일</th> -->
+						<!-- 				자바스크립트로 처리해야 한다는데..............ㅋㅋㅋㅋㅋ 일단 자바로 어찌저찌 했다 -->
+						<!-- 				noticeFile이 비어있지 않다면 td에 첨부파일 표시 -->
+						<!-- 				<c:if test="${not empty notice.noticeFile }"> -->
+						<!-- 					<td colspan="3"><img src="resources/upload/${file }"></td> -->
+						<!-- 				</c:if> -->
+					</tr>
+				</table>
+			</div>
+			<br>
+<!-- 			<div> -->
+<!-- 				<form id="frm" method="post"> -->
+<!-- 					<div th:if="${name eq notice.userId }"> -->
+<!-- 						<button type="button" onclick="noticeEdit('E')">수정</button> -->
+<!-- 						<button type="button" onclick="noticeEdit('D')">삭제</button> -->
+<!-- 					</div> -->
+<!-- 					<button type="button" onclick="location.href='notice'">목록으로</button> -->
+<!-- 					<input type="hidden" name="userId" value="${notice.userId }"> -->
+<!-- 								<input type="hidden" name="noticeFileDir" value="${notice.noticeFileDir }"> -->
+<!-- 				</form> -->
+<!-- 			</div> -->
+		</div>
+	</div>
+<script>
+// 		function noticeEdit(str) {
+// 			if (str == 'E') {
+// 				frm.action = "noticeEditForm";
+// 			} else {
+// 				let yn = confirm("작성글을 삭제하시겠습니까?");
+// 				if (yn) {
+// 					frm.action = "admin/adminNoticeDelete";
+// 				} else {
+// 					return false;
+// 				}
+// 			}
+// 			frm.submit();
+// 		}
+</script>
+</body>
+</html>
