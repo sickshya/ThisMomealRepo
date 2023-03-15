@@ -48,8 +48,8 @@ public class GroupPurchaseServiceImpl implements GroupPurchaseService {
 	
 	// 공동구매 결제화면 전체조회
 	@Override
-	public List<GroupPurchaseSettlementVO> pchOrderList() {
-		return groupPurchaseMapper.pchOrderList();
+	public Map<String, Object> pchOrderList(String userId, int listNo) {
+		return groupPurchaseMapper.pchOrderList(userId, listNo);
 	}
 
 	// +++++++++++++++++++++++++++마이페이지

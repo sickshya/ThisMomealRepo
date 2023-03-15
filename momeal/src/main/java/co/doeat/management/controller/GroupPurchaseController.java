@@ -90,11 +90,12 @@ public class GroupPurchaseController {
 	}
 
 	// 공동구매(구매내역조회)
-	@RequestMapping("/pch/pchOrderList")
-	public String orderList(HttpServletRequest request, GroupPurchaseSettlementVO pvo, Model model) {
-		HttpSession session = request.getSession();
-		session.getAttribute("userId");
-		model.addAttribute("orderlist", groupPurchaseService.pchOrderList());
+	@RequestMapping("/pch/pchOrderList/{listNo}")
+	public String orderList(Model model, @PathVariable int listNo, HttpSession session) {
+		int no = listNo;
+		String userId = (String) session.getAttribute("userId");
+		model.addAttribute("orderlist", groupPurchaseService.pchOrderList(userId,listNo));
+		model.addAttribute("no", listNo);
 		return "purchase/pchOrderList";
 	}
 

@@ -53,9 +53,9 @@
 				<table border="1" id="list-table" >
 					<thead>
 						<tr>
-							<td align="center" width="100">순번</td>
-							<td align="center" width="150">작성일자</td>
+							<td align="center" width="100">번호</td>
 							<td align="center" width="250">제목</td>
+							<td align="center" width="150">작성일자</td>
 							<td align="center" width="150">작성자</td>
 							<!-- 							<td align="center" width="100">조회수</td> -->
 							<!-- 							<td align="center" width="100">첨부파일</td> -->
@@ -65,9 +65,9 @@
 						<tr th:each="n : ${noticeList}" onmouseover='this.style.background="#fcecae";'         
 						onmouseleave='this.style.background="#FFFFFF";' th:onclick="'location.href=\''+ @{/noticeSel/{no}(no = ${n.no})} + '\''">
 							<td align="center"  th:text="${n.no}" ></td>
+							<td align="center" th:text="${n.boardTitle}"></td>
 							<td align="center"
 								th:text="${#dates.format(n.boardDate,'yyyy-MM-dd')}"></td>
-							<td align="center" th:text="${n.boardTitle}"></td>
 							<td align="center" th:text="${n.userId}"></td>
 
 							
@@ -117,8 +117,8 @@
 					str += "noticeSel('" + data.userId + "')" + ">";
 					
  					str += 	"<td align=center>" + data.no + "</td>";
-					str += 	"<td align=center>" + data.boardDate + "</td>";
 					str += 	"<td align=center>" + data.boardTitle + "</td>";
+					str += 	"<td align=center>" + data.boardDate + "</td>";
  					str += 	"<td align=center>" + data.userId + "</td>";
 					
 				return str;

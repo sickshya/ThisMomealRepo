@@ -35,7 +35,7 @@
 				<div class="col-lg-7">
 					<ul>
 						<li th:each="order : ${orderlist}"
-							th:onclick="'location.href=\''+ @{/orderlist/{no}(no = ${order.no})} + '\''">
+							th:onclick="'location.href=\''+ @{/myPurchaseSelect/{prdtNo})} + '\''">
 							<div align="left">
 								<p class="truncate"></p>
 							</div> <a href="#" class="block flex items-center py-3 px-4 space-x-3">
