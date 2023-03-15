@@ -50,6 +50,7 @@ public class WebSecurityConfig {
 				.logout((logout) -> logout.permitAll().logoutUrl("/logout") // 로그아웃 시 맵핑되는 url
 //						.logoutSuccessUrl("/") // 로그아웃 성공 시 리다이렉트 주소
 						.invalidateHttpSession(true) // session clear
+						.deleteCookies("remember-me", "JSESSION_ID")
 				).csrf().disable();
 		return http.build();
 	}
