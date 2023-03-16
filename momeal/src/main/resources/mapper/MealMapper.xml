@@ -87,7 +87,7 @@
 	
 	<!-- 식단평균 -->
 	<select id="mealAvg" resultType="map">
-		SELECT AVG(meal_score) "meal_Avg"
+		SELECT  NVL(AVG(meal_score) ,0) "meal_Avg"
   		FROM meals
  		 where user_id = #{userId}
 	
