@@ -45,6 +45,7 @@
 		        ,EG.LMT_APLYT
 		        ,EG.NESS_GRD
 		        ,EG.SAVE_POINT
+		        
 		        ,(EG.EXPE_START_DATE - TRUNC(SYSDATE)) as START_DATE 
 		        ,EG.EXPE_END_DATE
 		        ,EG.REVIEW_START_DATE
@@ -126,12 +127,12 @@
 		<!-- 배송정보 조회 -->
 	<select id="expOrderList"
 		resultType="co.doeat.management.service.ExperienceVO">
-	    SELECT e.*, p.*
-	    FROM EXPERIENCE_GROUP e 
-	    JOIN EXPERIENCE_PARTICIPANTS p
-	    ON (e.NO = p.NO)
-	    WHERE e.NO = #{no}
-	    ORDER BY e.NO
+		SELECT U.*, P.*,G.*
+		FROM EXPERIENCE_PARTICIPANTS P LEFT JOIN
+		USERS U ON (U.USER_ID = P.USER_ID)
+		LEFT JOIN
+		GROUP_PURCHASE_LISTS G ON (P.NO = G.NO)
+		WHERE P.NO = #{no}
 	</select>
 	
 		<!-- 수정 -->
@@ -141,7 +142,6 @@
         where NO = #{no}
         
 	</update>
-	
 	
 	<!-- 관리자 +++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 	<!-- 관리자 체험단 전체리스트 출력 -->

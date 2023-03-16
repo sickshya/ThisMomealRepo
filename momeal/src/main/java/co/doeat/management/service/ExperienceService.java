@@ -21,7 +21,7 @@ public interface ExperienceService {
 	public int expUpdate(ExperienceVO vo); // 체험단 Update
 
 	// 체험단-조회
-	public List<ExprParticipantsVO> expOrderList(); // 배송정보 전체조회
+	public List<ExprParticipantsVO> expOrderList(String userId, int no); // 체험단 참여내역 조회
 	
 //	// 체험단-신청인원 제한버튼
 //	public Boolean ajaxExpBtn(ExperienceVO vo); // 신청인원 제한 시 버튼 막기
@@ -42,5 +42,11 @@ public interface ExperienceService {
 
 	// 체험단 update
 	int adminEXUpdate(ExperienceVO vo);
+	
+	// 체험단 리뷰
+	
+	//public List<ExpReviewVO> ExpReviewList(String userId, int no); // 리뷰 전체조회
 
+
+	
 }

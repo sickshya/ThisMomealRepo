@@ -56,7 +56,7 @@
 	<select id="noticeList"
 		resultType="co.doeat.common.service.BoardVO">
 		SELECT * FROM BOARD
-		WHERE BOARD_CODE = 'BD01'
+		WHERE BOARD_CODE = 'BD01' 
 	</select>
 
 	<!-- notice 상세보기 -->

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.doeat.management.mapper.ExperienceMapper;
+import co.doeat.management.service.ExpReviewVO;
 import co.doeat.management.service.ExperienceSearchVO;
 import co.doeat.management.service.ExperienceService;
 import co.doeat.management.service.ExperienceVO;
@@ -42,24 +43,25 @@ public class ExperienceServiceImpl implements ExperienceService {
 		return experienceMapper.expInsert(vo);
 	}
 
+	// 체험단-상세
 	@Override
 	public Map<String, Object> expSelect(int no) {
 		return experienceMapper.expSelect(no);
 	}
 
+	// 체험단-참여내역 조회
 	@Override
 	public int expUpdate(ExperienceVO vo) {
 		return experienceMapper.expUpdate(vo);
+
+	}
 		
-	}
 	@Override
-	public List<ExprParticipantsVO> expOrderList() {
-		return experienceMapper.expOrderList();
+	public List<ExprParticipantsVO> expOrderList(String userId, int no) {
+		return experienceMapper.expOrderList(userId, no);
 	}
-	
 
-
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
+	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++관리자
 	@Override
 	public List<ExperienceVO> adminExperienceGroupList(ExperienceSearchVO svo) {
 		return experienceMapper.adminExperienceGroupList(svo);
@@ -92,8 +94,16 @@ public class ExperienceServiceImpl implements ExperienceService {
 	}
 
 
-
-
+	
+	//---- 체험단 리뷰
+	
+//	// 전체조회
+//	@Override
+//	public List<ExpReviewVO> ExpReviewList(String userId, int no) {
+//		return experienceMapper.ExpReviewList(userId, no);
+//	}
+//	
 
 	
+
 }
