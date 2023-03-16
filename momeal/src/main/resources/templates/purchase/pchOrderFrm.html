@@ -58,7 +58,7 @@
 						<tr>
 							<th>상품가격</th>
 							<td><input type="text" id="price" name="userId"
-								th:value="${purOne[0].price}" required></td>
+								th:value="${#numbers.formatInteger(purOne[0].price, 3, 'COMMA') + '원'}" required></td>
 						</tr>
 						<tr>
 							<th>아이디</th>

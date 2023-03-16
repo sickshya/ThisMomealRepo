@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import co.doeat.common.service.BoardService;
 import co.doeat.common.service.BoardVO;
 import co.doeat.community.service.UserService;
+import co.doeat.management.service.ChallengeVO;
 
 
 @Controller
@@ -123,12 +124,14 @@ public class BoardController<UserVO> {
 	
 	
 	// NOTICE(ADMIN) 글 상세보기
-	@PostMapping("/admin/adminNoticeSelect/{no}")
+	@RequestMapping("/admin/adminNoticeSelect/{no}")
 	public String noticeSelect(@PathVariable int no, BoardVO vo, Model model) {
-		boardService.noticeHitUpdate(vo.getUserId());
+		//boardService.noticeHitUpdate(vo.getUserId());
 		model.addAttribute("notice", boardService.noticeSelect(no));
+		String boardCode = "BD01";
 		return "admin/adminNoticeSelect";
 	}
+	
 
 	// NOTICE(ADMIN) 전체리스트
 	@RequestMapping("/admin/adminNotice")
@@ -174,7 +177,7 @@ public class BoardController<UserVO> {
 		vo.setBoardCode("BD01");
 		boardService.noticeUpdate(vo);
 
-		return "redirect:admin/adminNotice";
+		return "redirect:/admin/adminNotice";
 	}
 	
 	

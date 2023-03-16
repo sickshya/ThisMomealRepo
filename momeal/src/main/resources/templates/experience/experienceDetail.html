@@ -58,7 +58,7 @@ textarea {
 						<div class="product__details__price">[[${ExpOne[0].subject}]]</div>
 						<p th:if="${ExpOne[0].expeStartDate == '0'}" style="color: red;"></p>
 						<p th:unless="${ExpOne[0].expeStartDate == '0'}"
-							style="color: red;">[[${#dates.format(ExpOne[0].expeStartDate,'MM-dd')}]]일
+							style="color: red;">[[${#dates.format(ExpOne[0].expeStartDate,'MM월dd일')}]]
 							에 시작해요!</p>
 						<ul>
 							<li><b>참여 등급</b> <span>[[${ExpOne[0].nessGrd}]]</span></li>
@@ -74,7 +74,7 @@ textarea {
 						</ul>
 						<br>
 						<form class="purchaseBtn" th:action="@{/expr/exprFrm/{no}(no = ${ExpOne[0].no})}">
-							<button class="primary-btn" id="btn" >신청하기</button>
+							<button class="primary-btn" id="btn" onclick="ExpBtn()">신청하기</button>
 						</form>
 						
 
@@ -124,7 +124,23 @@ textarea {
 			</div>
 		</div>
 		
+		<script>
 		
+		//체험단 신청인원이 다차면 버튼비활성화   //빼야할듯...
+		function ExpBtn() {
+			  let nowAplyt = document.getElementById("nowAplyt").value;
+			  let ordCnt = document.getElementById("ordCnt").value;
+			  document.getElementById('btn').addEventListener('input', function(event) {
+			    if (btn > 0) { //btn의 값이 0이거나 0보다 작아질경우.
+			      document.getElementById('submit').disabled = !this.value;  //버튼이 비활성화.
+			    } else {
+			      document.getElementById('submit').disabled = true; //0보다 큰경우에만 사용가능.
+			    }
+			  }, false);
+			}
+		
+		</script>
+
 		
 		<!-- Js Plugins -->
 		<script src="/second-template/js/bootstrap.min.js"></script>

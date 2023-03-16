@@ -43,7 +43,17 @@ textarea {
 </style>
 
 <body>
+
+	<script type="text/javascript">
+	function numCom() {
+		let price = 1000000;
+		let result = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	}
+	</script>
+	
+	
 	<div layout:fragment="content">
+	
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-6">
@@ -60,34 +70,36 @@ textarea {
 						<p th:if="${pchDetail[0].grpStartDate == '0'}" style="color: red;"></p>
 						<p th:unless="${pchDetail[0].grpStartDate == '0'}"
 							style="color: red;">[[${#dates.format(pchDetail[0].grpStartDate,'MM-dd')}]]일
-						에 시작해요!</p>
-						<div class="product__details__price" id="price">[[${pchDetail[0].price}]]</div>
+							에 시작해요!</p>
+						<div class="product__details__price" id="price" th:text="${#numbers.formatInteger(pchDetail[0].price, 3, 'COMMA') + '원'}"></div>
 						<ul>
 							<li><b>주문자 수</b> <span>[[${pchDetail[0].ordCnt}]]명</span></li>
-							<li><b>주문 가능수량</b> <span>총 [[${pchDetail[0].splyGd}]]개</span></li>
+							<li><b>주문 가능수량</b> <span>총
+									[[${pchDetail[0].splyGd}]]개</span></li>
 							<li><b>진행 기간</b> <span>[[${#dates.format(pchDetail[0].grpStartDate,
 									'MM-dd')}]]([[${#dates.dayOfWeekName(pchDetail[0].grpStartDate)}]])
 									~ [[${#dates.format(pchDetail[0].grpEndDate,
 									'MM-dd')}]]([[${#dates.dayOfWeekName(pchDetail[0].grpEndDate)}]])</span></li>
 						</ul>
-							
 
-						<form class="purchaseBtn" action="/pch/pchOrderFrm" >
-						
+
+						<form class="purchaseBtn" action="/pch/pchOrderFrm">
+
 							<!-- 수량 입력칸 -->
-							<input type="number" name="totalGd" id="totalGd" size="2" min="1" 
-								maxlength="12" value="1" title="" class="input-text qty" onclick="totalCal()">
-							
+							<input type="number" name="totalGd" id="totalGd" size="2" min="1"
+								maxlength="12" value="1" title="" class="input-text qty"
+								onclick="totalCal()">
+
 							<!-- 수량 입력시 합계 -->
-							<input type="text" id="totalSum" size="2" min="1" 
-								maxlength="12" value="1" title="" onclick="totalCal()" class="input-text qty" th:value="${pchDetail[0].price}" >
-								
-								
-							<input type="hidden" id="no" name="no" th:value="${pchDetail[0].no}">
- 						    <input type="hidden" name="listNo" th:value="${pchDetail[0].ListNo}">
-							
+							<input type="text" id="totalSum" size="2" min="1" maxlength="12"
+								value="1" title="" onclick="totalCal()" class="input-text qty"
+								th:value="${#numbers.formatInteger(pchDetail[0].price, 3, 'COMMA') + '원'}"> 
+								<input type="hidden"
+								id="no" name="no" th:value="${pchDetail[0].no}"> <input
+								type="hidden" name="listNo" th:value="${pchDetail[0].ListNo}">
+
 							<button class="primary-btn">구매하기</button>
-							
+
 						</form>
 
 
@@ -108,7 +120,8 @@ textarea {
 							<div class="tab-pane active" id="detail" role="tabpanel">
 								<div class="product__details__tab__desc">
 									<img class="product__details__pic__item--large"
-										th:each="pchOneImg:${pchDetail}" th:src="${pchOneImg.atchPath}">
+										th:each="pchOneImg:${pchDetail}"
+										th:src="${pchOneImg.atchPath}">
 								</div>
 							</div>
 							<!--                      상세 탭 끝 후기 탭 시작 -->
@@ -136,20 +149,26 @@ textarea {
 				</div>
 			</div>
 		</div>
-<!-- 		주문수량에 맞게 가격변동 -->
+		<!-- 		주문수량에 맞게 가격변동 -->
 		<script type="text/javascript">
-		function totalCal(){
-			let totalGd = document.getElementById("totalGd").value;
-			let price = document.getElementById("price").innerText;
-			document.getElementById('totalSum').value = (parseInt(totalGd) * parseInt(price))
-			let cal = document.getElementById('totalSum').value;
-			console.log(totalSum);
-		console.log(totalGd);
-		
-		}
-		
+			function totalCal() {
+				let totalGd = document.getElementById("totalGd").value;
+				let price = document.getElementById("price").innerText;
+				document.getElementById('totalSum').value = (parseInt(totalGd) * parseInt(price))
+				let cal = document.getElementById('totalSum').value;
+				console.log(totalSum);
+				console.log(totalGd);
+
+			}
+
+			function numCom() {
+				let price = 1000000;
+				let result = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
+						',');
+				console.log(price)
+			}
 		</script>
-		
+
 		<!-- Js Plugins -->
 		<script src="/second-template/js/bootstrap.min.js"></script>
 		<script src="/second-template/js/jquery-ui.min.js"></script>
