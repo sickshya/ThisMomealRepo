@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.management.mapper.ChallengeMapper">
+
+	<!-- 메인, 챌린지 전체리스트 조회 -->
+	<select id="hmChlgList" resultType="co.doeat.management.service.ChallengeVO">
+		<![CDATA[
+		SELECT  no,
+		        title,
+		        subject,
+		        deduct_point, 
+		        chal_round, 
+		        particir, 
+		        thumbnail_img,
+		        thumbnail_img_path
+		 FROM CHALLENGES
+		WHERE TRUNC(chal_start_date) <= TRUNC(current_date) 
+		  AND TRUNC(current_date) <= chal_end_date
+		ORDER BY particir DESC, no DESC
+         ]]> 
+	</select>
+	
 	<!-- 검색 -->
 	<sql id="search">
 		<choose>

@@ -15,6 +15,11 @@ public class CommunityServiceImpl implements CommunityService{
 	
 	@Autowired
 	private CommunityMapper communityMapper;
+
+	// 메인
+	public List<MealVO> hmCtyList(){ // 메인에 뿌려줄 식단리 전체조회 리스트
+		return communityMapper.hmCtyList();
+	}
 	
 	// 커뮤니티 전체조회
 	@Override
