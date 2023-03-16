@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{frame/feed2}">
+	layout:decorate="~{frame/usual}">
 
 <head>
 <meta charset="UTF-8">
@@ -97,7 +97,7 @@
 							</ul>
 							<br> <br>
 							<div style="position: relative;">
-								<div style="float: left; transform: translate(0, -50%);">
+								<div style="float: left; transform: translate(0, -50%);" th:if="${session.userId != null}">
 									<a href="" class="primary-btn" data-target="#Modal-2"
 										onclick="loginChk()" id="attendBtn">참여하기</a>&nbsp;&nbsp;&nbsp;
 									<!-- data-toggle="modal" -->
