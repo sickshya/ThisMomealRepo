@@ -97,7 +97,7 @@ public class ChallengeController {
 		// 세션에 담겨있는 아이디 값을 vo의 userId에 담기. (String) 처리 해줘야함
 		vo.setUserId((String) session.getAttribute("userId"));
 		challengeService.attendChall(vo);
-		return "redirect:/myChallengeList";
+		return "redirect:/myChallenge";
 	}
 
 	// ▶ 나의 챌린지 - 진행중 ◀
