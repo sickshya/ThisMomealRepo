@@ -11,14 +11,35 @@
             })
             .then(data => {
                 console.log("댓글 ======== " + data);
-
+                
                 // 댓글창 비우기
                 $("#reply").empty()
+
+				// 댓글이 없는 경우
+				if(data.length == 0) {
+					$("#reply").append(
+						`<p style="color:gray; text-align:center;">댓글이 없습니다.</p>`
+					)
+				}
 
                 // 댓글창 채우기
                 $(data).each(function (index, item) {
                     console.log(item.profileImgPath);
-                    // 댓글일때
+					
+					// 조건에 따른 댓글 버튼 출력
+					let commentBtn = '';
+                    if(sessionId != null) {
+						if(item.userId == sessionId) {
+							commentBtn = `<button type="button" style="float: right; font-size:12px;" onclick="cmmtDelete(${item.no})">삭제</button>&nbsp;
+				                           <button type="button" style="float: right; font-size:12px;" onclick="updateBox('${item.subject}', ${item.cmmtGroup}, ${item.no})">수정</button>
+				                           <button type="button" style="float: right; font-size:12px;" id="cmmtReply${item.no}" onclick="reply(${item.cmmtGroup}, ${item.no})">답글</button>`
+						}else {
+							commentBtn = `<button type="button" style="float: right; font-size:12px;" id="cmmtReply${item.no}" onclick="reply(${item.cmmtGroup}, ${item.no})">답글</button>`
+						}
+					}
+                    
+                    
+                    // 1) 댓글일때
                     // 댓글 쓴 아이디가 세션의 아이디와 같다면 수정, 삭제 기능 / 다르다면 답글 기능
                     if (item.cmmtClass == 0) {
                         $("#reply").append(
@@ -26,38 +47,34 @@
                     <a href="/myFeed/${item.userId}">   
                     <img src="${item.profileImgPath}"
                           class="rounded-full w-8 h-8"></a>
-                       <div class="flex-1" id="one${item.no}"><p id="p${item.no}"><b>${item.nickName}</b> <span style="font-size:10px;">${item.writeDate}</span>
-                       
-                       ${item.userId == sessionId ? 
-                          `<button type="button" style="float: right; font-size:12px;" onclick="cmmtDelete(${item.no})">삭제</button>&nbsp;
-                           <button type="button" style="float: right; font-size:12px;" onclick="updateBox('${item.subject}', ${item.cmmtGroup}, ${item.no})">수정</button>
-                           <button type="button" style="float: right; font-size:12px;" id="cmmtReply${item.no}" onclick="reply(${item.cmmtGroup}, ${item.no})">답글</button>`
-                          : `<button type="button" style="float: right; font-size:12px;" id="cmmtReply${item.no}" onclick="reply(${item.cmmtGroup}, ${item.no})">답글</button>`}</p>
+                       <div class="flex-1" id="one${item.no}">
+                       <p id="p${item.no}"><b>${item.nickName}</b> 
+                       		<span style="font-size:10px;">${item.writeDate}</span>
+                       ${commentBtn}</p>
                        <div id="subject${item.no}"><p>${item.subject}</p></div></div>
                        <input type="hidden" id="cmmtClass${item.no}" value="0">
                        <input type="hidden" id="cmmtOrder${item.no}" value="${item.cmmtOrder}">
                     </div>`
                         )
                     }
-                    // 대댓글일때
+                    // 2) 대댓글일때
                     // 대댓글 쓴 아이디가 세션의 아이디와 같다면 수정, 삭제 기능
                     if (item.cmmtClass != 0) {
                         $("#reply").append(
                             `<div class="flex flex-1 space-x-2" style="padding-left:25px;">
-                       <img src="${item.profileImgPath}"
-                          class="rounded-full w-8 h-8">
-                       <div class="flex-1" id="replyOne${item.no}"><p id="p${item.no}"><b>${item.nickName}</b> <span style="font-size:10px;">${item.writeDate}</span>
-                       ${item.userId == sessionId ? 
-                          `<button type="button" style="float: right; font-size:12px;" onclick="cmmtDelete(${item.no})">삭제</button>&nbsp;
-                          <button type="button" style="float: right; font-size:12px;" onclick="updateBox('${item.subject}', ${item.cmmtGroup}, ${item.no})">수정</button>` : ``}</p>
-                          <div id="subject${item.no}"><p>${item.subject}</p></div></div>
-                          <input type="hidden" id="cmmtClass${item.no}" value="1">
-                          <input type="hidden" id="cmmtOrder${item.no}" value="${item.cmmtOrder}">
-                    </div> `
+		                       <img src="${item.profileImgPath}"
+		                          class="rounded-full w-8 h-8">
+		                       <div class="flex-1" id="replyOne${item.no}"><p id="p${item.no}"><b>${item.nickName}</b> <span style="font-size:10px;">${item.writeDate}</span>
+		                       ${item.userId == sessionId ? 
+		                          `<button type="button" style="float: right; font-size:12px;" onclick="cmmtDelete(${item.no})">삭제</button>&nbsp;
+		                          <button type="button" style="float: right; font-size:12px;" onclick="updateBox('${item.subject}', ${item.cmmtGroup}, ${item.no})">수정</button>` : ``}</p>
+		                          <div id="subject${item.no}"><p>${item.subject}</p></div></div>
+		                          <input type="hidden" id="cmmtClass${item.no}" value="1">
+		                          <input type="hidden" id="cmmtOrder${item.no}" value="${item.cmmtOrder}">
+                    		 </div> `
                         )
                     }
                 });
-
             })
     };
 

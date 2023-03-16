@@ -90,12 +90,11 @@
                                         <b>[[ ${#lists.size(myChall)} ]]개</b></button>
 								<br> <br> <br>
 								<div id="wrapper">
-									<div class="col-lg-7">
+									<div class="col-lg-5">
 										<ul>
 											<li th:each="chall : ${myChall}"
 												th:onclick="'location.href=\''+ @{/myChallenge/{chalNo}(chalNo = ${chall.NO})} + '\''">
 												<div align="left">
-													<!-- 						<p class="truncate">품번</p> -->
 												</div> <a href="#"
 												class="block flex items-center py-3 px-4 space-x-3">
 													<div class="w-13 h-13 rounded-full relative flex-shrink-0">
@@ -106,7 +105,7 @@
 														align="left">
 														<h4 class="text-black font-semibold dark:text-white"></h4>
 														<!-- <span class="absolute right-0 top-1 text-xs">상세내역 링크?모달?</span>  -->
-														<span class="absolute right-0 top-1 text-xs">주문일자</span>
+<!-- 														<span class="absolute right-0 top-1 text-xs">주문일자</span> -->
 														<p class="text-black font-semibold dark:text-white"
 															style="font-size: 18px">[[ ${chall.TITLE} ]]</p>
 														<p class="truncate" style="font-size: 13px">
@@ -115,10 +114,10 @@
 															~ [[${#dates.format(chall.CHAL_END_DATE,
 															'MM-dd')}]]([[${#dates.dayOfWeekName(chall.CHAL_END_DATE)}]])
 														</p>
-														<div align="right">
-															<input type="button" value="인증하기"
-																style="width: 100px; height: 40px;">
-														</div>
+<!-- 														<div align="right"> -->
+<!-- 															<input type="button" value="인증하기" -->
+<!-- 																style="width: 100px; height: 40px;"> -->
+<!-- 														</div> -->
 													</div>
 											</a>
 												<hr>
@@ -140,7 +139,7 @@
 									<b>[[ ${#lists.size(endChall)} ]]개</b></button>
 								<br> <br> <br>
 								<div id="wrapper">
-									<div class="col-lg-7">
+									<div class="col-lg-5">
 										<ul>
 											<li th:each="end : ${endChall}"
 												th:onclick="'location.href=\''+ @{/myChallenge/{chalNo}(chalNo = ${end.NO})} + '\''">
@@ -153,8 +152,6 @@
 													<div class="flex-1 min-w-0 relative text-gray-500"
 														align="left">
 														<h4 class="text-black font-semibold dark:text-white"></h4>
-														<!-- <span class="absolute right-0 top-1 text-xs">상세내역 링크?모달?</span>  -->
-														<span class="absolute right-0 top-1 text-xs">주문일자</span>
 														<p class="text-black font-semibold dark:text-white"
 															style="font-size: 18px">[[ ${end.TITLE} ]]</p>
 														<p class="truncate" style="font-size: 13px">

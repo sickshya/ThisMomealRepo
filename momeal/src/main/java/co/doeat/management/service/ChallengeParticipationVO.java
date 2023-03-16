@@ -6,6 +6,6 @@ import lombok.Data;
 public class ChallengeParticipationVO {
 	private String userId;
 	private int no;
-	private int round;
+	private int chalRound;
 	private String codeId;
 }

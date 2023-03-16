@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.management.mapper.ChallengeMapper">
+	<!-- 검색 -->
 	<sql id="search">
 		<choose>
 			<when test="type != null and type.equals('title')">
@@ -21,7 +22,7 @@
 		  FROM CHALLENGES
 	</select>
 
-	<!-- 챌린지 전체조회(최신 등록순 조회) -->
+	<!-- 챌린지 전체조회(최신 등록순 조회) & 검색 -->
 	<select id="getChallList" resultType="map">
 		SELECT *
 		  FROM(SELECT ROWNUM RN, A.*
@@ -44,15 +45,6 @@
 		<![CDATA[
  		 WHERE ROWNUM <= 10) b
  		]]> 
- 				 
-<!-- 				 SELECT C.*, -->
-<!--        NVL((SELECT L.NO -->
-<!--               FROM LIKES L -->
-<!--              WHERE L.POST_NO = C.NO  -->
-<!--                AND L.USER_ID = #{userId}  -->
-<!--                AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO -->
-<!-- FROM CHALLENGES C -->
-<!-- ORDER BY C.NO DESC -->
 	</select>
 
 	<!-- 챌린지 인기순 조회(좋아요 상위 7개까지) -->
@@ -108,7 +100,7 @@
 	<insert id="attendChall"
 		parameterType="co.doeat.management.service.ChallengeParticipationVO">
 		INSERT INTO CHALLENGE_PARTICIPATION
-		VALUES (#{userId}, #{no}, #{chalRound}, null)
+		VALUES (#{userId}, #{no}, #{chalRound}, null, null)
 		<!-- <selectKey keyProperty="USER_ID" resultType="java.util.HashMap" order="AFTER"> -->
 		<!-- SELECT USER_ID FROM CHALLENGE_PARTICIPATION WHERE NO = #{no} -->
 		<!-- </selectKey> -->
@@ -121,7 +113,8 @@
 			   C.*, 
 			   U.NICK_NAME, 
 			   U.GRADE, 
-			   U.PROFILE_IMG_PATH
+			   U.PROFILE_IMG_PATH,
+			   (C.CHAL_END_DATE - C.CHAL_START_DATE) AS TOTAL_DAY
 		  FROM CHALLENGE_PARTICIPATION P 
 		  JOIN CHALLENGES C
 		    ON (P.NO = C.NO)
@@ -133,14 +126,14 @@
 	   		  	  C.CHAL_END_DATE
 	</select>
 
-	<!-- 참여중 - 단건조회 -->
+	<!-- 참여중, 종료 - 단건조회 -->
 	<select id="getMyChall" resultType="map">
 		SELECT U.NICK_NAME, 
 			   U.TOTAL_POINT, 
 			   P.USER_ID, 
 			   P.NO, 
 			   P.CHAL_ROUND, 
-			   NVL(P.CODE_ID, '0') as code_id, 
+			   NVL(P.CODE_ID, '0') AS CODE_ID, 
 			   C.TITLE, 
 			   C.CHAL_START_DATE, 
 			   C.CHAL_END_DATE, 
@@ -148,9 +141,20 @@
 			   C.SUM_PARTICIR, 
 			   C.DEDUCT_POINT, 
 			   C.THUMBNAIL_IMG_PATH,
+               (C.CHAL_END_DATE - C.CHAL_START_DATE) AS TOTAL_DAY,
+               (SELECT COUNT(*) 
+                  FROM CHALLENGE_VALIDATION CV
+                 WHERE CV.SUCCESS_CHECK = 'Y' 
+                   AND CV.USER_ID = #{userId}
+                   AND CV.CHAL_NO = #{no}) AS SUCCESS,
+               (SELECT COUNT(*) 
+                  FROM CHALLENGE_VALIDATION CV
+                 WHERE CV.SUCCESS_CHECK = 'N' 
+                   AND CV.USER_ID = #{userId}
+                   AND CV.CHAL_NO = #{no}) AS FAIL,
 			   (SELECT COUNT(*) 
 			      FROM CHALLENGE_REVIEW R 
-			     WHERE R.USER_ID=#{userId} 
+			     WHERE R.USER_ID = #{userId}
 			       AND R.NO = #{no}) AS REVIEW_CHECK
 		FROM CHALLENGE_PARTICIPATION P 
 		LEFT JOIN CHALLENGES C

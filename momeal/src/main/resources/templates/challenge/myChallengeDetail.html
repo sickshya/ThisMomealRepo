@@ -188,16 +188,10 @@
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td><h4>
-																<b>1회</b>
-															</h4></td>
-														<td><h4>
-																<b>1회</b>
-															</h4></td>
-														<td><h4>
-																<b>1회</b>
-															</h4></td>
+													<tr id="imageCount">
+														<td><h4 id="successCheck"><b>[[ ${chall.SUCCESS} ]]회</b></h4></td>
+														<td><h4 id="failCheck"><b>[[ ${chall.FAIL} ]]회</b></h4></td>
+														<td><h4><b>[[ ${chall.TOTAL_DAY} ]]회</b></h4></td>
 													<tr>
 												</tbody>
 											</table>
@@ -536,7 +530,14 @@
 					`
 				)
 				
-// 				location.reload();
+				// 인증 성공 횟수 업데이트
+				let success = $('#successCheck').text();
+				success = Number(success.substring(0, success.length - 1)) + 1;
+				$('#imageCount').children().first().remove();
+				$('#imageCount').prepend(
+					`<td><h4 id="successCheck"><b>${success}회</b></h4></td>`
+				)
+				
 			})
 			
 		}

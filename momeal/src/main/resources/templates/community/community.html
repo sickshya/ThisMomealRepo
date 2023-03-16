@@ -129,26 +129,26 @@
 							</th:block>
 						</div>
 						<div class="story-content p-4" data-simplebar id="scrollDiv">
-
 							<div id="subject"></div>
 
 							<div class="py-4 ">
 								<div class="flex justify-around">
-									<a href="#" class="flex items-center space-x-3">
-									
-										<div class="flex font-bold items-baseline modalHeart heart ">
+									<th:block th:if="${session.userId != null}">
+										<a href="#" class="flex items-center space-x-3">
 										
-										  <!-- 모달안에 좋아요 -->
-									  </div>
-										
-									</a> <a href="#" class="flex items-center space-x-3">
-									<!-- 신고 버튼 -->
-									<button type="button" class="btn btn-outline-danger" style="font-size:10px">신고</button>
-										<!-- <div class="flex font-bold items-baseline"> -->
-											<!-- <i class="uil-comment mr-1"> </i> Comment -->
-										<div class="flex font-bold items-baseline" id="commentCnt">
-										</div>
-									</a>
+											<div class="flex font-bold items-baseline modalHeart heart ">
+												<!-- 모달안에 좋아요 -->
+											</div>
+												
+										</a> <a href="#" class="flex items-center space-x-3">
+										<!-- 신고 버튼 -->
+										<button type="button" class="btn btn-outline-danger" style="font-size:10px">신고</button>
+											<!-- <div class="flex font-bold items-baseline"> -->
+												<!-- <i class="uil-comment mr-1"> </i> Comment -->
+											<div class="flex font-bold items-baseline" id="commentCnt">
+											</div>
+										</a>
+									</th:block>
 								</div>
 								<hr class="-mx-4 my-3">
 							</div>
@@ -156,20 +156,26 @@
 							<!-- 댓글 출력 -->
 							<div class="-mt-1 space-y-1" id="reply"></div>
 							<!-- 댓글 출력 끝 -->
+<!-- 								<div><p style="color:gray; text-align:center;">읽기 권한은 회원에게만 있습니다.</p></div> -->
 
 						</div>
 						<div class="p-3 border-t dark:border-gray-600">
-							<div
-								class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
-								<input type="text" placeholder="댓글을 입력하세요."
-									class="bg-transparent max-h-8 shadow-none" id="cmmtSubject">
+							<th:block th:if="${session.userId != null}">
 								<div
-									class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
-									<a href=""><button type="button" style="font-size: 10px;"
-											onclick="cmmtInsert()">등록</button></a> <input type="hidden"
-										id="postNo">
+									class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
+									<input type="text" placeholder="댓글을 입력하세요."
+										class="bg-transparent max-h-8 shadow-none" id="cmmtSubject">
+									<div
+										class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
+										<a href=""><button type="button" style="font-size: 10px;"
+												onclick="cmmtInsert()">등록</button></a> <input type="hidden"
+											id="postNo">
+									</div>
 								</div>
-							</div>
+							</th:block>
+							<th:block th:unless="${session.userId != null}">
+									<div><p style="color:gray; text-align:center;">로그인 후 댓글을 작성해보세요.</p></div>
+							</th:block>
 						</div>
 
 					</div>
@@ -306,13 +312,13 @@
 	                    let heart = '';
 	                    console.log(item.LIKE_NO)
 	                    if(sessionId != null) {
-	  					if(item.LIKE_NO != 0) {
-	  						heart = `<div class="heart" data-likeno="${item.LIKE_NO}">
-	  									<img src="/assets/images/heart.svg" class="fullHeart"></div>`;
-	  					}else {
-	  						heart = `<div class="heart" data-likeno="${item.LIKE_NO}">
-	  							<img src="/assets/images/emptyHeart.svg" class="emptyHeart"></div>`;
-	  					}
+		  					if(item.LIKE_NO != 0) {
+		  						heart = `<div class="heart" data-likeno="${item.LIKE_NO}">
+		  									<img src="/assets/images/heart.svg" class="fullHeart"></div>`;
+		  					}else {
+		  						heart = `<div class="heart" data-likeno="${item.LIKE_NO}">
+		  							<img src="/assets/images/emptyHeart.svg" class="emptyHeart"></div>`;
+		  					}
 	                    }
 
 	                    $("#allList").append(
@@ -370,9 +376,13 @@
             $("#cmntImg").attr("src", obj.fileDir);
             $("#subject").text(obj.subject);
             $("#nickName").text(obj.nickName);
-            $("#feedUserId").attr("href", "/myFeed/" + obj.userId);
             $("#feedFrofile").attr("src", obj.profileImgPath);
             $("#postNo").val(obj.no);
+            if(sessionId != null) {
+            	$("#feedUserId").attr("href", "/myFeed/" + obj.userId);
+            }else {
+            	$("#feedUserId").attr("href", "#"); // 모달 닫히면 모달 띄우는거 붙여보기
+            }
             
             if(obj.userId == sessionId) {
 //                $(".follow").attr("id", "myBtn");
