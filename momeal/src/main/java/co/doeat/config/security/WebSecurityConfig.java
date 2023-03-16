@@ -34,23 +34,25 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests((requests) -> requests
-				.antMatchers("/", "home", "/contentsMain/**", "/contentsDetail/**", "/signup/**").permitAll()
-				// ▲ 비로그인 유저까지 허가되는 접근 url
-				.antMatchers("/usr/**", "/chlg/**", "/pch/**", "/exp/**", "/fllw/**", "/cmt/**","/cty/**").hasAnyAuthority("ROLE_USER")
-				.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // /admin 이하의 접근은 인증되어야함을 명시, 관리자권한 요구
-				.anyRequest().authenticated()) // 어떤 요청에도 보안검사를 한다?
+			http.authorizeHttpRequests((requests) -> requests
+						.antMatchers("/", "home", "/signup/**", "/contentsMain/**", "/contentsDetail/**").permitAll()
+						// 
+						// ▲ 비로그인 유저까지 허가되는 접근 url
+						.antMatchers("/usrs/**", "/chlg/**", "/pch/**", "/exp/**", "/fllw/**", "/cmt/**","/cty/**").hasAuthority("ROLE_USER")
+						// 
+						.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // /admin 이하의 접근은 인증되어야함을 명시, 관리자권한 요구
+						.anyRequest().authenticated()) // 어떤 요청에도 보안검사를 한다?
 				.rememberMe((remember) -> remember.tokenValiditySeconds(86400 + 43200) // token 유효시간, 36시간
 						.rememberMeParameter("remember-me") // 로그인정보 저장
 						.tokenRepository(PersistentTokenRepository()))
-				.formLogin((form) -> form.loginPage("/login") // 접근이 차단된 페이지를 클릭할 시 이동할 url
+				.formLogin((form) -> form.loginPage("/login").permitAll() // 접근이 차단된 페이지를 클릭할 시 이동할 url
 						.loginProcessingUrl("/doLogin") // 로그인 시 매핑되는 url
 						.usernameParameter("userId") // 로그인 view 내의 form 태그 내에 로그인 할 때 username에 매핑되는 태그의 name
 						.passwordParameter("password") // 로그인 view 내의 form 태그 내에 로그인 할 때 password에 매핑되는 태그의 name
 						.successHandler(new CustomLoginSuccessHandler()) // 로그인 성공시 실행되는 메소드
-						.failureHandler(null) // 로그인 실패시
-						.permitAll())
-				.exceptionHandling((denied) -> denied.accessDeniedPage("/users/accessError"))
+						.failureHandler(new CustomLoginFailureHandler()) // 로그인 실패시
+						)
+//				.exceptionHandling((denied) -> denied.accessDeniedPage("/users/accessError"))
 				.logout((logout) -> logout.permitAll().logoutUrl("/logout") // 로그아웃 시 맵핑되는 url
 //						.logoutSuccessUrl("/") // 로그아웃 성공 시 리다이렉트 주소
 						.invalidateHttpSession(true) // session clear
