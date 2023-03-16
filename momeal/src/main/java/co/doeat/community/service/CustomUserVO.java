@@ -14,6 +14,7 @@ public class CustomUserVO implements UserDetails {
 	private String userId;
 	private String password;
 	private String userRole;
+	private String enable;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -47,7 +48,7 @@ public class CustomUserVO implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return enable.equals("1")? true : false;
 	}
 
 }
