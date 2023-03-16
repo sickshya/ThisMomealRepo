@@ -116,7 +116,7 @@
 
 
 				<h1
-					class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">
+					class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight" id="possibleChall">
 					참여 가능한 챌린지</h1>
 				<!-- 이미지 -->
 
@@ -124,60 +124,7 @@
 					class="my-3 grid lg:grid-cols-5 grid-cols-2 gap-3 hover:text-yellow-700 uk-link-reset"
 					id="allList" th:data-maxno="${maxNo}">
 					<!-- 한 블럭 시작 -->
-<!-- 					<div th:each="chall : ${challList}" class="oneChall" -->
-<!-- 						th:data-challno="${chall.NO}" th:data-likeno="${chall.LIKE_NO}" -->
-<!-- 						th:onclick="'location.href=\''+ @{/challenge/{no}(no = ${chall.NO})} + '\''"> -->
-<!-- 						<form method="post"> -->
-<!-- 							<div -->
-<!-- 								class="bg-red-400 max-w-full lg:h-56 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle"> -->
-<!-- 								<img th:src="${chall.THUMBNAIL_IMG_PATH}" -->
-<!-- 									class="w-full h-full absolute object-cover inset-0 scale-150"> -->
-
-<!-- 								<div -->
-<!-- 									class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white"> -->
-<!-- 									<div> -->
-<!-- 										좋아요 처리 -->
-<!-- 										로그인 유무에 따라 하트 표시하기(로그인 한 경우만 하트 표시) -->
-<!-- 										<div th:if="${session.userId != null}" class="heart"> -->
-<!-- 											좋아요 한 챌린지는 빨간 하트 -->
-<!-- 											<th:block th:if="${chall.LIKE_NO != 0}"> -->
-<!-- 												<a href="#" class="fullHeart"> <img -->
-<!-- 													src="/assets/images/heart.svg"> -->
-<!-- 												</a> -->
-<!-- 											</th:block> -->
-<!-- 											좋아요 안 한 챌린지는 빨간 하트 -->
-<!-- 											<th:block th:unless="${chall.LIKE_NO != 0}"> -->
-<!-- 												<a href="#" class="emptyHeart"> <img -->
-<!-- 													src="/assets/images/emptyHeart.svg"> -->
-<!-- 												</a> -->
-<!-- 											</th:block> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-
-<!-- 							</div> -->
-
-<!-- 							제목부분 -->
-<!-- 							<div class="market-list"> -->
-<!-- 								<div class="item-inner"> -->
-<!-- 									<div class="item-price"> -->
-<!-- 										<br> <a th:text="${chall.TITLE}"></a> -->
-<!-- 									</div> -->
-<!-- 									<div class="item-title">Brown headphones</div> -->
-<!-- 									<div class="item-statistic"> -->
-<!-- 										<span> <span class="count">4</span> likes -->
-<!-- 										</span> <span> <span class="count">106</span> views -->
-<!-- 										</span> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</form> -->
-<!-- 					</div> -->
-					<!-- 한 블럭 끝 -->
 				</div>
-<!-- 			</div> -->
-<!-- 		</div> -->
-		
 		<!-- 더보기 버튼 -->
 		<div class="flex justify-center mt-6">
             <a href="" class="bg-white dark:bg-gray-900 font-semibold my-3 px-6 py-2 rounded-full shadow-md dark:bg-gray-800 dark:text-white" style="padding:40px;"
@@ -288,6 +235,7 @@
 	    			// 테이블 초기화
 	    			$("#challengeList").empty();
 	    			$("#allList").empty();
+	    			$("#possibleChall").remove();
 	    			
 	                if(result.length < 10) {
 		    			  $("#loadBtn").hide();

@@ -4,10 +4,10 @@
 	<sql id="search">
 		<choose>
 			<when test="type != null and type.equals('title')">
-				c.title like '%'||#{keyword}||'%'
+				and c.title like '%'||#{keyword}||'%'
 			</when>
 			<when test="type != null and type.equals('subject')">
-				c.subject like '%'||#{keyword}||'%'
+				and c.subject like '%'||#{keyword}||'%'
 			</when>
 			<when test="type == '' and keyword != null">
 				and(c.title like '%'||#{keyword}||'%' or c.subject like '%'||#{keyword}||'%')
