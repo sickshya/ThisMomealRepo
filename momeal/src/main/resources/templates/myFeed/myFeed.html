@@ -414,6 +414,7 @@ function buildCalendar() {
          //console.log(res[0].typeCode)
          if(res[0] == null){
         	 alert("등록된식단이 없습니다.")
+
          }
          $(res).each(function(i, res){
             console.log(res)
@@ -423,7 +424,7 @@ function buildCalendar() {
               <td colspan="6">
                <div class="card" >
                 <a href="#story-modal" class="show" uk-toggle data-no="${res.no}">
-                <img src="${res.fileDir}" alt="Avatar" style="width:100%">
+                <img src="${res.fileDir}" alt="Avatar" style="width:100%; height:500px;">
                 </a>
                 <div class="Cardcontainer">
                       <div>${res.typeCode}<b></b></div> 
