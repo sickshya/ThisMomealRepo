@@ -34,25 +34,21 @@
 			<br>
 				<div class="col-lg-7">
 					<ul>
-						<li th:each="order : ${orderlist}"
-							th:onclick="'location.href=\''+ @{/myPurchaseSelect/{prdtNo})} + '\''">
+						<li th:each="order : ${orderlist}">
 							<div align="left">
 								<p class="truncate"></p>
-							</div> <a href="#" class="block flex items-center py-3 px-4 space-x-3">
+							</div> <a class="block flex items-center py-3 px-4 space-x-3">
 								<div class="w-13 h-13 rounded-full relative flex-shrink-0">
-									<img th:src="${order.thumbnailImgPath }" alt=""
-										style="width: 100px; height: 110px;">
+									<img th:src="${order.thumbnailImgPath }" style="width: 100px; height: 110px;">
 								</div>
 								<div class="flex-1 min-w-0 relative text-gray-500" align="left">
 									<h4 class="text-black font-semibold dark:text-white"></h4>
-									<!-- <span class="absolute right-0 top-1 text-xs">상세내역 링크?모달?</span>  -->
 									<span class="absolute right-0 top-1 text-xs"
 										th:text="${order.totalPrice}">총금액</span>
-									<!-- 									/<p class="truncate" th:text="${order.name}">상품간단내용</p> -->
 									<p class="text-black font-semibold dark:text-white"
-										th:text="${order.name}">가격</p>
+										th:text="${order.name}">공구명</p>
 									<p style="color: red;">[[${order.totalGd}]]개</p>
-									<p class="truncate" th:text="${order.subject}">상세설명</p>
+									<p class="truncate" th:text="${order.subject}">상품설명</p>
 									<div align="right"></div>
 								</div>
 						</a>
@@ -61,8 +57,7 @@
 						</li>
 					</ul>
 					<br>
-					<br> <input type="button" value="공동구매 홈으로"
-						style="width: 150px; height: 40px;">
+					<br> <input type="button" value="공동구매 홈으로" style="width: 150px; height: 40px;" th:onclick="|location.href='@{/pch/pchMain}'|">   
 				</div>
 			</div>
 		</form>
