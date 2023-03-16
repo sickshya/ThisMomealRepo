@@ -19,6 +19,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	@Autowired
 	private ChallengeMapper challengeMapper;
+	
+	// 메인
+	@Override
+	public List<ChallengeVO> hmChlgList(){ // 메인에 뿌려줄 챌린지 전체 조회
+		return challengeMapper.hmChlgList();
+	}
 
 	// ▶ 챌린지
 	// 전체조회

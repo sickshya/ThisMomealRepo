@@ -35,7 +35,7 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 			http.authorizeHttpRequests((requests) -> requests
-						.antMatchers("/", "home", "/signup/**", "/contentsMain/**", "/contentsDetail/**").permitAll()
+						.antMatchers("/", "/home", "/signup/**", "/contentsMain/**", "/contentsDetail/**").permitAll()
 						// 
 						// ▲ 비로그인 유저까지 허가되는 접근 url
 						.antMatchers("/usrs/**", "/chlg/**", "/pch/**", "/exp/**", "/fllw/**", "/cmt/**","/cty/**").hasAuthority("ROLE_USER")
