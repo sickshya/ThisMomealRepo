@@ -31,6 +31,7 @@ public class CustomUserService implements UserDetailsService {
 		cvo.setUserId(vo.getUserId());
 		cvo.setPassword(vo.getPassword());
 		cvo.setUserRole(vo.getUserRole());
+		cvo.setEnabled(vo.getEnabled());
 		return cvo;
 	}
 	
