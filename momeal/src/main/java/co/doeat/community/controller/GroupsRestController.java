@@ -25,18 +25,13 @@ public class GroupsRestController {
 	@Autowired RegisterMail registerMail;
 	
 	// 그룹 리스트 출력
-//	@RequestMapping("/groupsListAjax")
-//	public List<GroupsVO> groupsList(Model model, GroupsVO vo, HttpSession session) {
-//		
-//		vo.setUserId((String) session.getAttribute("userId"));
-//		model.addAttribute("grList", groupsService.grpAllList(vo));
-//		
-//		return groupsService.grpAllList(vo);
-//	}
+	@RequestMapping("/groupsListAjax")
+	public List<GroupsVO> groupsList(Model model, GroupsVO vo, HttpSession session) {
+		vo.setUserId((String) session.getAttribute("userId"));
+		
+		return groupsService.grpAllList(vo);
+	}
 
-	
-	
-	
 	// 지정한 그룹 날짜에 따른 피드 불러오기
 	@RequestMapping("/groupsFeed/{postDate}/{no}")
 	public List<GroupsVO> myFeedList(Model model, @PathVariable String postDate, @PathVariable int no,
