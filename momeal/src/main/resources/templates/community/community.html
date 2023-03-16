@@ -114,7 +114,7 @@
 
 						<!-- post header-->
 						<div
-							class="border-b flex items-center justify-between px-5 py-3 dark:border-gray-600">
+							class="border-b flex items-center justify-between px-5 py-3 dark:border-gray-600" id="userProfile">
 							<div class="flex flex-1 items-center space-x-4">
 								<a href="" id="feedUserId">
 									<div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
@@ -423,10 +423,16 @@
          })
          .then(result => {
             console.log("팔로우 신청 결과 ===== " + result.followeeId)
+            $(".follow").remove();
+            $("#userProfile").append(
+            `
+            <button type="button" class="follow" style="font-size:12px"></button>
+            `		
+            )
             $(".follow").attr("id", "unfollowBtn");
             $(".follow").attr("value", result.followeeId);
             $(".follow").attr("onclick", "unfollow('" + result.followeeId + "')");
-            $(".follow").removeClass("btn btn-outline-sucess");
+//             $(".follow").removeClass("btn btn-outline-success");
             $(".follow").addClass("btn btn-outline-secondary");
             $(".follow").text("언팔로우");
          })
@@ -445,12 +451,18 @@
          })
          .then(result => {
             console.log("언팔로우 결과 ===== " + result.followeeId)
-               $(".follow").attr("id", "followBtn");
-               $(".follow").attr("value", result.followeeId);
-               $(".follow").attr("onclick", "follow('" + result.followeeId + "')");
-               $(".follow").removeClass("btn btn-outline-secondary");
-               $(".follow").addClass("btn btn-outline-sucess");
-               $(".follow").text("팔로우");
+            $(".follow").remove();
+            $("#userProfile").append(
+            `
+            <button type="button" class="follow" style="font-size:12px"></button>
+            `		
+            )
+            $(".follow").attr("id", "followBtn");
+            $(".follow").attr("value", result.followeeId);
+            $(".follow").attr("onclick", "follow('" + result.followeeId + "')");
+//             $(".follow").removeClass("btn btn-outline-secondary");
+            $(".follow").addClass("btn btn-outline-success");
+            $(".follow").text("팔로우");
          })
       };
       

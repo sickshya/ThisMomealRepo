@@ -125,9 +125,9 @@
 					<li><a th:href="@{/myFeed/{userId}(userId = ${session.userId})}">STORY </a></li>
 					<li><a href="/community"> COMMUNITY </a></li>
 					<li><a href="/challenge"> CHALLENGE </a></li>
-					<li><a href="/pch/pchMain"> STROE </a></li>
-					<li><a href="#features" uk-scroll> BOARD </a></li>
-					<li><a href="/users/enterMypage" uk-scroll> MYPAGE </a></li>
+					<li><a href="/pch/pchMain"> STORE </a></li>
+					<li><a href="/notice"> BOARD </a></li>
+					<li><a href="/users/enterMypage"> MYPAGE </a></li>
 					<li th:if="${session.userId == null}"><a href="/login" uk-scroll> LOGIN </a></li>
 					<li th:if="${session.userId != null}"><a href="/logout" uk-scroll> LOGOUT </a></li>
 				</ul>
@@ -298,7 +298,7 @@
 			<a href="/users/enterMypage">정보수정</a>
 			<a href="/myPurchaseList">구매내역</a>
 			<a href="/myLikeList">좋아요</a>
-			<a href="/myPoint">포인트 로그</a>
+			<a href="/myPoint">출석체크</a>
 		</div>
 	</div>
 	<!-- 내용 끝 -->
