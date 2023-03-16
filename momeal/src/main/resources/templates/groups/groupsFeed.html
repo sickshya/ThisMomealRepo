@@ -127,6 +127,7 @@ img {
 	width: 10px;
 	background-color: yellowgreen;
 }
+
 </style>
 
 
@@ -135,8 +136,6 @@ img {
 
 <body>
 	<div layout:fragment="content">
-
-
 		<!--<div id="wrapper">-->
 		<div class="container pro-container m-auto">
 			<h1 class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight" align="center">그룹피드</h1>
@@ -160,6 +159,27 @@ img {
 						</tbody>
 					</table>
 				</form>
+			</div>
+		</div>
+		
+		
+		
+		<div class="modal fade modal-xl" id="selectModal" tabindex="-1" role="dialog" 	aria-labelledby="Modal-label-1">
+			<div class="modal-dialog" role="document" style=" max-width: 900px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="Modal-label-1"></h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" id="grpSelect" style="padding: 20px;">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default primary-btn btn btn-outline-success" data-toggle="modal" data-target="#inviteModal">확인</button>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -213,11 +233,10 @@ img {
 							<tr>
 				        		<td colspan="6">
 				        	    <div class="card" style="font-color: black">				        	   
-				    				<a href="/groupsSelect/${re.userId}/${re.postDate}" uk-toggle>
-				    				<div style="padding: 10px; text-align: left;">
-				    				<img src="${re.profileImgPath}" class= "rounded-full" style="width:30px; display: inline-block">&nbsp;&nbsp;<b>${re.nickName}</b>
+				    				<a href="/groupsSelect/${re.userId}/${re.postDate}" onclick="grpSelect(event)">
+				    					<div style="padding: 10px; text-align: left;">
+				    				     <img src="${re.profileImgPath}" class= "rounded-full" style="width:30px; display: inline-block">&nbsp;&nbsp;<b>${re.nickName}</b>
 				    				</div>
-				    				
 				    				`							
 				    				
 							$(re.mealsImg).each(function(i, img){
@@ -240,6 +259,18 @@ img {
 				     
 				  
 				}
+			
+			function grpSelect(e) {
+				e.preventDefault()
+				$('#selectModal').modal('show')
+				$('#grpSelect').load(e.target.closest('a').href)
+				
+			}
+			
+			
+			
+			
+			
 
 			// 이전달 버튼 클릭
 			function prevCalendar() {
