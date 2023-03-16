@@ -4,6 +4,10 @@ import java.util.List;
 
 import java.util.Map;
 
+import co.doeat.community.service.UsersVO;
+import co.doeat.record.service.AttendanceVO;
+import co.doeat.record.service.PointLogVO;
+
 public interface ChallengeService {
 	// ▶ 챌린지
 	public List<Map<String, Object>> getChallList(ChallengeVO vo); // 전체조회
@@ -14,7 +18,7 @@ public interface ChallengeService {
 	
 	public int getMaxChallNo(); // 게시물 max 번호
 	
-	public ChallengeVO getChallenge(Map<String, Object> map); // 단건조회
+	public ChallengeVO getChallenge(String userId, int no); // 단건조회
 
 	public int insertChallenge(ChallengeVO vo); // 챌린지 등록
 
@@ -33,6 +37,8 @@ public interface ChallengeService {
 	public ChallengeValidationVO getMyChallImgOne(int no); // 인증 사진 단건조회
 	
 	public ChallengeValidationVO insertMyChallImg(ChallengeValidationVO vo); // 인증 사진 등록
+	
+	public Boolean valImgCheck(ChallengeValidationVO vo); // 인증하기 버튼 중복확인
 
 	// 2. 종료된 챌린지
 	public List<Map<String, Object>> getMyEndChallList(String userId); // 종료된 챌린지 전체조회

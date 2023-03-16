@@ -122,8 +122,8 @@
 							<th:block th:if="${chall.CODE_ID == '0'}">
 							<br>
 								<a href="#" class="heart-icon" data-toggle="modal"
-									data-target="#Modal-1">인증방법</a> <a href="#" class="primary-btn"
-									data-toggle="modal" data-target="#Modal-2" onclick="modal()">인증하기</a>
+									data-target="#Modal-1">인증방법</a> <a href="" class="primary-btn"
+									data-toggle="modal" data-target="#Modal-2" onclick="modal()">인증하기</a> <!-- data-target="#Modal-2" -->
 							</th:block>
 							<th:block th:unless="${chall.CODE_ID == '0'}">
 								<th:block th:if="${chall.REVIEW_CHECK == 0}">
@@ -188,7 +188,7 @@
 													</tr>
 												</thead>
 												<tbody>
-													<tr id="imageCount">
+													<tr id="imageCount" th:data-challno="${chall.NO}">
 														<td><h4 id="successCheck"><b>[[ ${chall.SUCCESS} ]]회</b></h4></td>
 														<td><h4 id="failCheck"><b>[[ ${chall.FAIL} ]]회</b></h4></td>
 														<td><h4><b>[[ ${chall.TOTAL_DAY} ]]회</b></h4></td>
@@ -455,6 +455,8 @@
 			$("#date").text(year + '년 ' + month + '월 ' + date + '일')
 			
 			
+			imgCheck()
+			
 		}
 		
 		
@@ -559,17 +561,34 @@
 		
 		// ▶ 인증 중복체크
 		function imgCheck() {
-		   fetch("/ajaxAtCheck")
-		      .then(response => response.text())
-		      .then(data => isCheckResult(data));
-		}
+// 			debugger
+			let chalNo = $("#imageCount").data("challno");
+			
+		   $.ajax({
+			url: "/valImgCheck",
+			type: "post",
+			dataType: "json",
+			data: {chalNo: chalNo}
+		   })
+		   .then(result => {
+			   console.log(result)
+			   debugger
+			   
+			   checkResult(result)
+		   })
+		   }
 		
-		function isCheckResult(data) {
-		   console.log(data)
-		   if(data == "true") {
-		      alert("이미 출석을 완료했습니다");
-		   }else if(data == "false"){
-		      alert("출석");
+		function checkResult(data) {
+// 		   console.log(data)
+		   if(data == true) {
+			   alert("오늘 인증을 이미 완료했습니다.")
+			   
+			   // 모달창 왜 안 닫혀...............................
+			   $('#Modal-2').modal('hide');
+			   
+		   }else if(data == false){
+		      console.log(data)
+// 		      $('#Modal-2').modal('show');
 		   }
 		}
 		
