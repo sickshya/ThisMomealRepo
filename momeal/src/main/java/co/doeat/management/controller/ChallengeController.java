@@ -85,9 +85,11 @@ public class ChallengeController {
 	// 단건조회
 	@GetMapping("/challenge/{no}")
 	public String challenge(Model model, Map<String, Object> map, HttpSession session, @PathVariable int no) {
-		map.put("userId", session.getAttribute("userId"));
-		map.put("no", no);
-		model.addAttribute("chall", challengeService.getChallenge(map));
+		String userId = (String) session.getAttribute("userId");
+		String boardCode = "CT01";
+		model.addAttribute("chall", challengeService.getChallenge(userId, no));
+		model.addAttribute("detailImg", imageService.imageList(boardCode, no));
+		System.out.println("이미지 ===================== " + imageService.imageList(boardCode, no));
 		return "challenge/challengeDetail";
 	}
 
@@ -147,6 +149,18 @@ public class ChallengeController {
 		}
 
 		return challengeService.insertMyChallImg(vo);
+	}
+	
+	// 진행중 - 인증버튼 중복체크
+	@RequestMapping("/valImgCheck")
+	@ResponseBody
+	public String valImgCheck(ChallengeValidationVO vo, HttpSession session) {
+		vo.setUserId((String) session.getAttribute("userId"));
+		
+		Boolean b = challengeService.valImgCheck(vo);
+		String str = (b != null) ? "true" : "false";
+		System.out.println("중복체크 결과 ================= " + str);
+		return str;
 	}
 	
 	// 진행중 - 인증 사진 단건 조회

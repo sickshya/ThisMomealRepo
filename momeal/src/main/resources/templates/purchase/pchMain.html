@@ -55,7 +55,7 @@
 						href="#PurchaseAll" role="tab" aria-selected="false">전체보기</a></li>
 				</ul>
 
-				
+
 				<div class="tab-content">
 
 					<!-- 공동구매(진행) -->
@@ -79,18 +79,19 @@
 														</button></li>
 												</ul>
 											</div>
-											<!--  썸네일 하단설명, 가격, 주문사항 -->
-											<div class="card-body">
-												<div th:text="${pch.coName}"></div>
-												<h4 class="card-product__title">
-													<a href="#" th:text="${pch.name}"></a>
-												</h4>
-												<span th:text="${pch.price}"></span>
-												<p style="color: red;">[[${pch.ordCnt}]]명이 주문 중</p>
-											</div>
+										</div>
+										<!--  썸네일 하단설명, 가격, 주문사항 -->
+										<div class="card-body">
+											<div th:text="${pch.coName}"></div>
+											<h4 class="card-product__title">
+												<a href="#" th:text="${pch.name}"></a>
+											</h4>
+											<span th:text="${#numbers.formatInteger(pch.price, 3, 'COMMA') + '원'}" ></span>
+											<p style="color: red;">[[${pch.ordCnt}]]명이 주문 중</p>
 										</div>
 									</div>
 								</div>
+
 							</div>
 						</section>
 					</div>
@@ -123,7 +124,7 @@
 													<h4 class="card-product__title">
 														<a href="#" th:text="${pch.name}"></a>
 													</h4>
-													<span th:text="${pch.price}"></span>
+													<span th:text="${#numbers.formatInteger(pch.price, 3, 'COMMA') + '원'}"></span>
 													<p style="color: red;">[[${pch.ordCnt}]]명이 주문 중</p>
 												</div>
 											</div>
@@ -133,9 +134,6 @@
 							</section>
 						</div>
 					</div>
-
-
-
 
 				</div>
 			</div>

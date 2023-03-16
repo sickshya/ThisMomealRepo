@@ -144,7 +144,9 @@
 								<div class="tab-pane active" id="detail" role="tabpanel">
 									<div class="product__details__tab__desc">
 										<h6>상세설명</h6>
-										<p>[[ ${chall.subject} ]]</p>
+										<th:block th:each="img : ${detailImg}">
+										<img th:src="${img.atchPath}">
+										</th:block>
 									</div>
 								</div>
 								<!-- 상세 탭 끝 -->

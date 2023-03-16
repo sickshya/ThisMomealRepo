@@ -97,7 +97,7 @@
 			<if test="boardSubject != null">BOARD_SUBJECT = #{boardSubject},</if>
 			<if test="boardDate != null">BOARD_DATE = #{boardDate},</if>
 		</set>
-		WHERE no = #{no}
+		WHERE no = #{no} 
 	</update>
 
 	<!-- notice 삭제 -->

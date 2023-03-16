@@ -1,6 +1,7 @@
 package co.doeat.community.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,7 +32,14 @@ public class GroupsRestController {
 		
 		return groupsService.grpAllList(vo);
 	}
-
+	
+	//모달 단건조회
+	@RequestMapping("/groupsFeedAjax/{userId}")
+	public Map<String, Object> groupsFeedAjax(@PathVariable String userId) {
+		
+		return groupsService.grpMembSelect(userId);
+	}
+	
 	// 지정한 그룹 날짜에 따른 피드 불러오기
 	@RequestMapping("/groupsFeed/{postDate}/{no}")
 	public List<GroupsVO> myFeedList(Model model, @PathVariable String postDate, @PathVariable int no,

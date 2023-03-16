@@ -1,55 +1,109 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{frame/usual}">
+	layout:decorate="~{frame/administrator}">
+
 <head>
-<meta charset="UTF-8">
-<meta charset="UTF-8">
-<meta name="description" content="Ogani Template">
-<meta name="keywords" content="Ogani, unica, creative, html">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Faq</title>
-
-<!-- Google Font -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico">
+<title>FAQ Update</title>
+<!-- Simple bar CSS -->
+<link rel="stylesheet" href="css/simplebar.css">
+<!-- Fonts CSS -->
 <link
-	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+	href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
 	rel="stylesheet">
+<!-- Icons CSS -->
+<link rel="stylesheet" href="css/feather.css">
+<!-- Date Range Picker CSS -->
+<link rel="stylesheet" href="css/daterangepicker.css">
+<!-- App CSS -->
+<link rel="stylesheet" href="css/app-light.css" id="lightTheme">
+<link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
+<style>
+#att_zone {
+	width: 550px;
+	min-height: 150px;
+	padding: 10px;
+	border: 1px dotted #00f;
+}
 
-<!-- Css Styles -->
-<link rel="stylesheet" href="/second-template/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/second-template/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/second-template/css/style.css"
-	type="text/css">
-
-
+#att_zone:empty:before {
+	content: attr(data-placeholder);
+	color: #999;
+	font-size: .9em;
+}
+</style>
 </head>
-<body>
+
+<body class="vertical  light  ">
 	<div layout:fragment="content">
-		<form id="frm" action="/admin/adminFaqInsert" method="post">
-		<h2>FAQ 작성</h2>
-		<hr>
-		<br>
-			<div class="form-group row">
-				<label class="col-sm-3 col-form-label">제목</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="boardTitle" name="boardTitle">
+		<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+		<div class="wrapper">
+
+
+			<main role="main" class="main-content">
+				<div class="container-fluid">
+					<div class="row justify-content-center">
+						<div class="col-12">
+							<h2 class="page-title">FAQ 등록</h2>
+							<div class="card-deck" style="width: 600px">
+
+								<div class="card shadow mb-4">
+									<div class="card-header" style="width: 500px">
+										<strong class="card-title">FAQ 등록하기</strong>
+									</div>
+									<div class="card-body" style="width: 500px" id="myForm">
+
+										<form id="frm" method="post" action="/admin/adminFaqInsert">
+											<div class="form-group row">
+												<label class="col-sm-3 col-form-label">제목</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" id="boardTitle"
+														name="boardTitle">
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<label class="col-sm-3" for="exampleFormControlTextarea1">상세설명</label>
+												<div class="col-sm-9">
+													<textarea class="form-control" id="boardSubject"
+														name="boardSubject" rows="2" style="height: 200px;"></textarea>
+												</div>
+											</div>
+
+											<div class="form-group mb-2">
+												<button type="submit" class="btn btn-primary">확인</button>
+												<button type="button" class="btn btn-primary"
+													onclick="location.href='/admin/adminFaq'">취소</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-			<br>
-			<div class="form-group row">
-				<label class="col-sm-3" for="exampleFormControlTextarea1">상세설명</label>
-				<div class="col-sm-9">
-					<textarea class="form-control" id="boardSubject" name="boardSubject" rows="2" style="height: 300px;"></textarea>
-				</div>
-			</div>
-			<div class="form-group mb-2">
-				<button type="submit" class="btn btn-primary">등록</button>
-			</div>
-		<hr>
-		</form>
+				<!-- / .card-desk-->
+			</main>
+			<!-- main -->
+		</div>
+		<!-- .wrapper -->
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/popper.min.js"></script>
+		<script src="/js/moment.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/simplebar.min.js"></script>
+		<script src='/js/daterangepicker.js'></script>
+		<script src='/js/jquery.stickOnScroll.js'></script>
+		<script src="/js/tinycolor-min.js"></script>
+		<script src="/js/config.js"></script>
+		<script src="/js/apps.js"></script>
 	</div>
 </body>
+
 </html>
