@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{frame/feed}">
+	layout:decorate="~{frame/nousual}">
 <head>
-<!-- Favicon -->
-<link href="assets/images/favicon.png" rel="icon" type="image/png">
 
 <!-- Basic Page Needs
     ================================================== -->
@@ -16,13 +14,16 @@
 
 <!-- icons
     ================================================== -->
-<link rel="stylesheet" href="assets/css/icons.css">
+<link rel="stylesheet" href="/assets/css/icons.css">
+
+<!-- Favicon -->
+<link href="/assets/images/favicon.png" rel="icon" type="image/png">
 
 <!-- CSS 
     ================================================== -->
-<link rel="stylesheet" href="assets/css/uikit.css">
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/tailwind-dark.css">
+<link rel="stylesheet" href="/assets/css/uikit.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/tailwind-dark.css">
 
 <style>
 .one {
@@ -56,6 +57,7 @@
 	width: 300px;
 	text-align: left;
 }
+
 </style>
 
 </head>
@@ -111,8 +113,6 @@
 					</div>
 				</div>
 			</div>
-			<br>
-			<button type="submit" class="button bg-blue-700 ">목록으로</button>
 		</form>
 	</div>
 </body>

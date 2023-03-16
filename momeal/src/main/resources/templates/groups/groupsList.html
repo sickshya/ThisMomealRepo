@@ -4,17 +4,19 @@
 	layout:decorate="~{frame/feed}">
 
 <head>
-<!-- Favicon -->
-<link href="assets/images/favicon.png" rel="icon" type="image/png">
-
-<!-- Basic Page Needs
-    ================================================== -->
-<title>GroupsList</title>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description"
-	content="Instello - Sharing Photos platform HTML Template">
+<meta name="description" content="Ogani Template">
+<meta name="keywords" content="Ogani, unica, creative, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>My challenge</title>
 
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+	rel="stylesheet">
+
+<!-- Css Styles -->
 <!-- icons
     ================================================== -->
 <link rel="stylesheet" href="assets/css/icons.css">
@@ -25,35 +27,90 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/tailwind-dark.css">
 
+
+<!-- 글자 파란색됨 -->
+<!-- <link rel="stylesheet" href="/second-template/css/bootstrap.min.css" -->
+<!-- 	type="text/css"> -->
+<link rel="stylesheet" href="/second-template/css/font-awesome.min.css"
+	type="text/css">
+<!-- <link rel="stylesheet" href="/ogani-master/css/elegant-icons.css" -->
+<!-- type="text/css"> -->
+<!-- <link rel="stylesheet" href="/ogani-master/css/nice-select.css" -->
+<!-- type="text/css"> -->
+<!-- <link rel="stylesheet" href="/ogani-master/css/jquery-ui.min.css" -->
+<!-- type="text/css"> -->
+<!-- <link rel="stylesheet" href="/ogani-master/css/owl.carousel.min.css" -->
+<!-- type="text/css"> -->
+<!-- <link rel="stylesheet" href="/ogani-master/css/slicknav.min.css" -->
+<!-- type="text/css"> -->
+<link rel="stylesheet" href="/second-template/css/style.css"
+	type="text/css">
+
+<!-- 리뷰 탭 -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/assets/css/bootstrap.min_grp.css">
+<link rel="stylesheet" href="/assets/css/style_grp.css">
+
+<!-- <!-- 인증 모달 -->
+-->
+<!-- <link href="/modal-template/css/style.css" rel="stylesheet"> -->
+
 </head>
 
 <body>
-	<!-- 그룹 리스트 -->
 	<div layout:fragment="content" align="center">
-		<h3 style="font-size: 25px;" th:data-id="${session.userId}" id="myGroup">내가 만든 그룹</h3>
-		<br>
-		<div class="col-lg-6 list-group list-group-numbered myGrp">
-			<!-- ajax List -->
-		</div>
-		<br>
-		<br>
+		<!-- Product Details Section Begin -->
+		<!-- <section class="product-details spad"> -->
+		<div class="row">
+			<h4>
+				<b>GROUP LIST</b>
+			</h4>
+			<div class="col-lg-12">
+				<div class="product__details__tab">
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item"><a class="nav-link active"
+							data-toggle="tab" href="#myGrp" role="tab" aria-selected="true"
+							th:data-id="${session.userId}" id="myGroup">내가만든그룹</a></li>
+						<li class="nav-item"><a class="nav-link" data-toggle="tab"
+							href="#myGrps" role="tab" aria-selected="false">참여중인그룹</a></li>
+					</ul>
 
-		<h3 style="font-size: 25px;">참여중인 그룹</h3>
-		<br>
-		<div class="col-lg-6 list-group list-group-numbered myGrps">
-			<!-- ajax List -->
-		</div>
-		
-		<br> <br>
-		
-		<button type="submit" data-toggle="modal"
-			class="primary-btn btn btn-outline-success"
-			data-target="#createModal">그룹생성</button>
-		&nbsp;&nbsp;
-		<button type="submit" data-toggle="modal"
-			class="primary-btn btn btn-outline-secondary"
-			data-target="#joinModal">참여하기</button>
+					<!-- 탭 내용들 -->
+					<div class="tab-content">
+						<!-- 내가만든그룹 탭 시작 -->
+						<div class="tab-pane active" id="myGrp" role="tabpanel" style="">
+							<div class="product__details__tab__desc">
+								<br>
+								<div class="col-lg-6 list-group list-group-numbered">
+									<!-- ajax List -->
+								</div>
 
+							</div>
+						</div>
+
+						<!-- 내가만든 그룹 탭 끝 -->
+
+						<!-- 종료된 챌린지 탭 시작 -->
+						<div class="tab-pane" id="myGrps" role="tabpanel">
+							<div class="product__details__tab__desc">
+								<br>
+								<div class="col-lg-6 list-group list-group-numbered">
+									<!-- ajax List -->
+								</div>
+							</div>
+						</div>
+						<!-- 종료된 챌린지 탭 끝 -->
+					</div>
+				</div>
+				<br>
+				<br>
+				<button type="submit" data-toggle="modal"
+					class="btn btn-outline-success" data-target="#createModal">그룹생성</button>
+				&nbsp;&nbsp;
+				<button type="submit" data-toggle="modal"
+					class="btn btn-outline-secondary" data-target="#joinModal">참여하기</button>
+			</div>
+		</div>
 
 		<!-- 멤버리스트 모달 -->
 		<div class="modal fade" id="listModal" tabindex="-1" role="dialog"
@@ -71,7 +128,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" onclick="inviteMem()"
-							class="btn btn-default primary-btn btn btn-outline-success"
+							class="btn btn-default btn btn-outline-success"
 							data-toggle="modal" data-target="#inviteModal">초대하기</button>
 					</div>
 				</div>
@@ -101,7 +158,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button"
-							class="btn btn-default primary-btn btn btn-outline-secondary">확인</button>
+							class="btn btn-default btn btn-outline-secondary">확인</button>
 					</div>
 				</div>
 			</div>
@@ -173,9 +230,6 @@
 		</form>
 		<!-- 그룹참여 모달 끝 -->
 
-
-
-
 		<script>
 		$('document').ready(function() {
 			let id = $("#myGroup").data("id");
@@ -187,41 +241,40 @@
 				 $.each(result, function(index, list){
 					 if(id == list.GRP_LEADER) {
 					
-					$(".myGrp").append(
+					$("#myGrp").append(
 							`
-								<div style="border: 1px solid #ccc; border-radius: 5px;">
+								<div style="border: 1px solid #ccc; border-radius: 5px; width: 700px; height: 70px;" class="${list.NO}">
 									<div class="block items-center py-3 px-4 space-x-3">
 										<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
 											<div class="flex-1 min-w-0 text-gray-500 col" align="left">
 												<h4 class="ms-2 me-auto fw-bold">
-													<a href="/groupsFeed/${list.NO}">${list.GRP_NAME}<br>${list.GRP_LEADER}</a>
+													<a href="/groupsFeed/${list.NO}">${list.GRP_NAME}	&nbsp;&nbsp; ${list.GRP_LEADER}</a>
 												</h4>
 											</div>
 										<div class="top-0 start-100 col" align="right">
-									<button type="button" data-toggle="modal" class="primary-btn btn btn-outline-success"
-										data-target="#listModal" onclick="memChk()" data-no="${list.NO}">관리</button>
-									&nbsp;&nbsp;
-									<button type="button" onclick="grpListDel()" data-no="${list.NO}" class="btn btn-outline-secondary">삭제</button>
+											<button type="button" onclick="grpListDel()" data-no="${list.NO}" class="btn btn-outline-secondary" style="float: right;">삭제</button>
+												&nbsp;&nbsp;
+											<button type="button" data-toggle="modal" class="btn btn-outline-success" style="float: right;" data-target="#listModal" onclick="memChk()" data-no="${list.NO}">관리</button>
+											</div>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-					</div>
 							`
 					  )
 					} else {
-						$(".myGrps").append(
+						$("#myGrps").append(
 								`
-								<div style="border: 1px solid #ccc; border-radius: 5px;">
+								<div style="border: 1px solid #ccc; border-radius: 5px; width: 700px; height: 70px;" class="${list.GRP_NO}">
 									<div class="block items-center py-3 px-4 space-x-3">
 										<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
 											<div class="flex-1 min-w-0 text-gray-500 col" align="left">
 												<h4 class="ms-2 me-auto fw-bold">
-													<a href="/groupsFeed/${list.NO}">${list.GRP_NAME}<br>${list.GRP_LEADER}</a>
+													<a href="/groupsFeed/${list.NO}">${list.GRP_NAME}&nbsp;&nbsp;${list.GRP_LEADER}</a>
 												</h4>
 											</div>
 										<div class="top-0 start-100 col" align="right">
-									<button type="button" data-toggle="modal" class="primary-btn btn btn-outline-success" data-target="#listModal" onclick="memChk()" id="showBtn" data-no="${list.NO}">멤버보기</button>
-											&nbsp;&nbsp;
+									<button type="button" data-toggle="modal" class="btn btn-outline-success" data-target="#listModal" onclick="memChk()" id="showBtn" data-no="${list.NO}">멤버보기</button>
+										
 									<button type="button" onclick="membDel()" data-no="${list.NO}" class="btn btn-outline-secondary">탈퇴</button>
 									<input type="hidden" id="userId" value="${id}">
 								</div>
@@ -321,6 +374,7 @@
 						url: "/grpMembDel/" + userId + "/" + grpNo
 					})
 					.then(result => {
+						$("." + grpNo).remove();
 					});
 			}
 
@@ -335,6 +389,7 @@
 						url: "/grpDel/" + no
 					})
 					.then(result => {
+						$("." + no).remove();
 					});
 			}
 
@@ -402,6 +457,18 @@
 					})
 			}
 		</script>
+		<!-- 		</section> -->
+
+
+		<!-- Js Plugins -->
+		<!-- 		<script src="/ogani-master/js/jquery-3.3.1.min.js"></script> -->
+		<script src="/second-template/js/bootstrap.min.js"></script>
+		<!-- 		<script src="/ogani-master/js/jquery.nice-select.min.js"></script> -->
+		<!-- 		<script src="/ogani-master/js/jquery-ui.min.js"></script> -->
+		<!-- 		<script src="/ogani-master/js/jquery.slicknav.js"></script> -->
+		<!-- 		<script src="/ogani-master/js/mixitup.min.js"></script> -->
+		<!-- 		<script src="/ogani-master/js/owl.carousel.min.js"></script> -->
+		<!-- 		<script src="/ogani-master/js/main.js"></script> -->
 	</div>
 </body>
 
