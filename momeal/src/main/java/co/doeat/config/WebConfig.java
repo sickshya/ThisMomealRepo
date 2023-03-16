@@ -15,6 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/mm_images/**").addResourceLocations("file:///" + saveImg).setCachePeriod(20);
+		registry.addResourceHandler("/error").addResourceLocations("/user/denied");
 	}
 
 	public void addViewControllers(ViewControllerRegistry registry) {
@@ -22,7 +23,7 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addViewController("/home").setViewName("/base/home");
 		registry.addViewController("/main").setViewName("/base/home");
 
-		registry.addViewController("/login").setViewName("users/loginFrm");
+		registry.addViewController("/login").setViewName("/users/loginFrm");
 		registry.addRedirectViewController("/logout", "/login");
 	}
 
