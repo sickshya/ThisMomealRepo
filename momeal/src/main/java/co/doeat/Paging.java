@@ -1,5 +1,8 @@
 package co.doeat;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
@@ -16,8 +19,12 @@ public class Paging {
 	int endPage;			//페이지그룹내에서 마지막페이지번호
 	int first;
 	int last;
-	String keyword; //검색키워드
-	String type;  // 검색유형
+	String keyword;//검색키워드
+	String type;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	Date datekeyword1; // 검색 내용
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	Date datekeyword2;// 검색유형
 	
 	public int getFirst() {
 		first = (getPage() - 1) * getPageUnit() + 1;
