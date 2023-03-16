@@ -21,8 +21,8 @@ public interface GroupPurchaseService {
 	// 공동구매-주문하기 form
 	public int payInsert(GroupPurchaseSettlementVO pvo); // 배송정보 저장
 
-	// 공동구매 결제화면 전체조회
-	public Map<String, Object> pchOrderList(String userId, int listNo); // 배송정보 전체조회
+	// 공동구매 참여내역 조회
+	public List<GroupPurchaseSettlementVO> pchOrderList(String userId, int no); // 공구 참여내역 조회
 
 	
 	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
