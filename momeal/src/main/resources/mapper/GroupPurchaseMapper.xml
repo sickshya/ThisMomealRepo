@@ -151,14 +151,14 @@
 	<sql id="creiteria">
 		<choose>
 			<when test="type == 'G'.toString()">
-				or NAME like '%'||#{keyword}||'%'
+				and NAME like '%'||#{keyword}||'%'
 			</when>
 			<when test="type == 'N'.toString()">
-				or co_name like '%'||#{keyword}||'%'  
+				and co_name like '%'||#{keyword}||'%'  
 			</when>
 			<when test="datekeyword1 != null">
 				<![CDATA[
-				or not( grp_end_date < #{datekeyword1} or	grp_start_date > #{datekeyword2})
+				and not( grp_end_date < #{datekeyword1} or	grp_start_date > #{datekeyword2})
 				]]>
 			</when>
 			<when test="gpstatus != null and gpstatus != ''">
@@ -249,6 +249,10 @@
 	<delete id="adminGPDelete"
 		parameterType="co.doeat.management.service.GroupPurchaseListVO">
 		DELETE FROM GROUP_PURCHASE_LISTS WHERE NO= #{no}
+<!-- 		delete from group_purchase_lists -->
+<!-- 			where NO= #{no} and not exists(select * -->
+<!-- 			from group_purchase_settlement -->
+<!-- 			where list_no = #{no} ); -->
 	</delete>
 
 	<!-- 수정 -->
