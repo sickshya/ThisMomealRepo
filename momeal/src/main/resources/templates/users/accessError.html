@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{frame/myPage}">
+    layout:decorate="~{frame/usual}">
 
 <head>
     <!-- Favicon -->
@@ -24,8 +24,11 @@
 <body>
     <h1>Access Denied Page</h1>
 
-    <h2 th:value="${SPRING_SECURITY_403_EXCEPTION.getMessage()}"></h2>
+    <div layout:fragment="content">
+        <h2 th:value="${SPRING_SECURITY_403_EXCEPTION.getMessage()}"></h2>
 
+        <h2><a href="${ pageContext.request.contextPath }">돌아가기 </a></h2>
+    </div>
 </body>
 
 </html>

@@ -125,48 +125,16 @@
             </div>
             <div class="right-side uk-visible@s">
 
-                <ul class="header_menu" uk-scrollspy-nav="closest: li; scroll: true">
-                    <li>
-                        <a th:href="@{/myFeed/{userId}(userId = ${session.userId})}">
-                            STORY
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/community">
-                            COMMUNITY
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/challenge">
-                            CHALLENGE
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/pch/pchMain">
-                            STROE
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/faq" uk-scroll="uk-scroll">
-                            BOARD
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/users/enterMypage" uk-scroll="uk-scroll">
-                            MYPAGE
-                        </a>
-                    </li>
-                    <li th:if="${session.userId == null}">
-                        <a href="/login" uk-scroll="uk-scroll">
-                            LOGIN
-                        </a>
-                    </li>
-                    <li th:if="${session.userId != null}">
-                        <a href="/logout" uk-scroll="uk-scroll">
-                            LOGOUT
-                        </a>
-                    </li>
-                </ul>
+				<ul class="header_menu" uk-scrollspy-nav="closest: li; scroll: true">
+					<li><a th:href="@{/myFeed/{userId}(userId = ${session.userId})}">STORY </a></li>
+					<li><a href="/community"> COMMUNITY </a></li>
+					<li><a href="/challenge"> CHALLENGE </a></li>
+					<li><a href="/pch/pchMain"> STORE </a></li>
+					<li><a href="/notice"> BOARD </a></li>
+					<li><a href="/users/enterMypage"> MYPAGE </a></li>
+					<li th:if="${session.userId == null}"><a href="/login" uk-scroll> LOGIN </a></li>
+					<li th:if="${session.userId != null}"><a href="/logout" uk-scroll> LOGOUT </a></li>
+				</ul>
 
                 <!-- 크기조절용 -->
                 <!-- <div class="right-side lg:pr-4"> -->
