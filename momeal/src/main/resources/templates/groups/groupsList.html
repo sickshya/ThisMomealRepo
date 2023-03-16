@@ -30,66 +30,22 @@
 <body>
 	<!-- 그룹 리스트 -->
 	<div layout:fragment="content" align="center">
-		<h3 style="font-size: 25px;">내가 만든 그룹</h3>
+		<h3 style="font-size: 25px;" th:data-id="${session.userId}" id="myGroup">내가 만든 그룹</h3>
 		<br>
 		<div class="col-lg-6 list-group list-group-numbered myGrp">
-			<!-- 여기부터 잘라서 아작스 돌릴거임 이 안에 th 다 지워줘야함 위에서 each 돌아가고있음-->
-					<div th:each="grp : ${grList}" th:if="${session.userId == grp.GRP_LEADER}" style="border: 1px solid #ccc; border-radius: 5px;">
-						<div class="block items-center py-3 px-4 space-x-3">
-							<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
-								<div class="flex-1 min-w-0 text-gray-500 col" align="left">
-									<h4 class="ms-2 me-auto fw-bold">
-										<a th:href="@{/groupsFeed/{no}(no = ${grp.NO})}">[[${grp.GRP_NAME}]]<br>[[${grp.GRP_LEADER}]]
-										</a>
-									</h4>
-								</div>
-								<div class="top-0 start-100 col" align="right">
-									<button type="button" data-toggle="modal"
-										class="primary-btn btn btn-outline-success"
-										data-target="#listModal" onclick="memChk()"
-										th:data-no="${grp.NO}">관리</button>
-									&nbsp;&nbsp;
-									<button type="button" onclick="grpListDel()"
-										th:data-no="${grp.NO}" class="btn btn-outline-secondary">삭제</button>
-								</div>
-							</div>
-						</div>
-					</div>
-			<!-- 여기까지 -->
+			<!-- ajax List -->
 		</div>
 		<br>
 		<br>
 
 		<h3 style="font-size: 25px;">참여중인 그룹</h3>
 		<br>
-		<div style="border: 1px solid #ccc"
-			class="col-lg-6 list-group list-group-numbered"
-			th:each="grp : ${grList}" th:if="${session.userId != grp.GRP_LEADER}"
-			id="">
-			<!-- 여기부터 잘라서 아작스 돌릴거임 이 안에 th 다 지워줘야함 위에서 each 돌아가고있음-->
-			<div class="block items-center py-3 px-4 space-x-3">
-				<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
-					<div class="flex-1 min-w-0 text-gray-500 col" align="left">
-						<h4 class="ms-2 me-auto fw-bold">
-							<a th:href="@{/groupsFeed/{no}(no = ${grp.NO})}">[[${grp.GRP_NAME}]]<br>[[${grp.GRP_LEADER}]]
-							</a>
-						</h4>
-					</div>
-					<div class="top-0 start-100 col" align="right">
-						<button type="button" data-toggle="modal"
-							class="primary-btn btn btn-outline-success"
-							data-target="#listModal" onclick="memChk()" id="showBtn"
-							th:data-no="${grp.NO}">멤버보기</button>
-						&nbsp;&nbsp;
-						<button type="button" onclick="membDel()" th:data-no="${grp.NO}"
-							class="btn btn-outline-secondary">탈퇴</button>
-						<input type="hidden" id="userId" th:value="${session.userId}">
-					</div>
-				</div>
-			</div>
-			<!-- 여기까지 -->
+		<div class="col-lg-6 list-group list-group-numbered myGrps">
+			<!-- ajax List -->
 		</div>
+		
 		<br> <br>
+		
 		<button type="submit" data-toggle="modal"
 			class="primary-btn btn btn-outline-success"
 			data-target="#createModal">그룹생성</button>
@@ -221,30 +177,66 @@
 
 
 		<script>
-// 		$('document').ready(function() {
-// 			$.ajax({
-// 				url: "/groupsListAjax",
-// 				type: 'POST',
+		$('document').ready(function() {
+			let id = $("#myGroup").data("id");
+			$.ajax({
+				url: "/groupsListAjax",
+				type: 'POST',
 				
-// 				success: function(result) {
-// 					console.log(result)
-// 				 $.each(result, function(index, list){
-// 					 console.log(list)
-// 					$("myGrp").append(
-// 							`
-
-// 							`
-// 					)
-// 				 })
-// 				}
-// 			})
-// 		})
+				success: function(result) {
+				 $.each(result, function(index, list){
+					 if(id == list.GRP_LEADER) {
+					
+					$(".myGrp").append(
+							`
+								<div style="border: 1px solid #ccc; border-radius: 5px;">
+									<div class="block items-center py-3 px-4 space-x-3">
+										<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
+											<div class="flex-1 min-w-0 text-gray-500 col" align="left">
+												<h4 class="ms-2 me-auto fw-bold">
+													<a href="/groupsFeed/${list.NO}">${list.GRP_NAME}<br>${list.GRP_LEADER}</a>
+												</h4>
+											</div>
+										<div class="top-0 start-100 col" align="right">
+									<button type="button" data-toggle="modal" class="primary-btn btn btn-outline-success"
+										data-target="#listModal" onclick="memChk()" data-no="${list.NO}">관리</button>
+									&nbsp;&nbsp;
+									<button type="button" onclick="grpListDel()" data-no="${list.NO}" class="btn btn-outline-secondary">삭제</button>
+								</div>
+							</div>
+						</div>
+					</div>
+							`
+					  )
+					} else {
+						$(".myGrps").append(
+								`
+								<div style="border: 1px solid #ccc; border-radius: 5px;">
+									<div class="block items-center py-3 px-4 space-x-3">
+										<div class="w-13 h-13 rounded-full relative flex-shrink-0 row">
+											<div class="flex-1 min-w-0 text-gray-500 col" align="left">
+												<h4 class="ms-2 me-auto fw-bold">
+													<a href="/groupsFeed/${list.NO}">${list.GRP_NAME}<br>${list.GRP_LEADER}</a>
+												</h4>
+											</div>
+										<div class="top-0 start-100 col" align="right">
+									<button type="button" data-toggle="modal" class="primary-btn btn btn-outline-success" data-target="#listModal" onclick="memChk()" id="showBtn" data-no="${list.NO}">멤버보기</button>
+											&nbsp;&nbsp;
+									<button type="button" onclick="membDel()" data-no="${list.NO}" class="btn btn-outline-secondary">탈퇴</button>
+									<input type="hidden" id="userId" value="${id}">
+								</div>
+							</div>
+						</div>
+					</div>
+								`
+						)
+					}
+				 })
+				}
+			})
+		})
 		
-		
-		
-		
-		
-		
+	
 			// 멤버리스트 모달로 보여줌
 			function memChk() {
 				let no = $(event.target).data("no");
@@ -329,7 +321,6 @@
 						url: "/grpMembDel/" + userId + "/" + grpNo
 					})
 					.then(result => {
-						location.reload();
 					});
 			}
 
@@ -344,7 +335,6 @@
 						url: "/grpDel/" + no
 					})
 					.then(result => {
-						location.reload();
 					});
 			}
 
@@ -365,7 +355,6 @@
 					.then(result => {
 						console.log(result);
 
-						location.reload();
 					})
 			}
 

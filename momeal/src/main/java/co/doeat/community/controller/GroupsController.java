@@ -28,21 +28,20 @@ public class GroupsController {
 
 	@Autowired
 	MealService mealService;
-	
-	// 그룹 리스트 페이지로 이동
-//	@RequestMapping("/groupsList")
-//	public String groupsList() {
-//		return "groups/groupsList";
-//	}
-	
 
 	// 그룹 리스트 페이지로 이동
 	@RequestMapping("/groupsList")
-	public String groupsList(Model model, GroupsVO vo, HttpSession session) {
-		vo.setUserId((String) session.getAttribute("userId"));
-		model.addAttribute("grList", groupsService.grpAllList(vo));
+	public String groupsList() {
 		return "groups/groupsList";
 	}
+
+	// 그룹 리스트 페이지로 이동
+//	@RequestMapping("/groupsList")
+//	public String groupsList(Model model, GroupsVO vo, HttpSession session) {
+//		vo.setUserId((String) session.getAttribute("userId"));
+//		model.addAttribute("grList", groupsService.grpAllList(vo));
+//		return "groups/groupsList";
+//	}
 
 	// 그룹 피드 페이지로 이동
 	@RequestMapping("/groupsFeed/{no}")
