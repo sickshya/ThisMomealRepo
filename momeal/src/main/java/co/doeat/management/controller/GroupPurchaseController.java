@@ -98,7 +98,6 @@ public class GroupPurchaseController {
 		return "purchase/pchOrderList";
 	}
 
-	// ++++++++++++++++++++++++++++++++++++++++++++++마이페이지
 	// 마이페이지 공동구매내역 리스트
 	@RequestMapping("/myPurchaseList")
 	public String myPurchaseList(Model model, HttpSession session, HttpServletRequest request) {

@@ -23,9 +23,10 @@
 </head>
 <body>
 
+
 	<div layout:fragment="content" align="center">
 		<h1
-			class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">신청
+			class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">체험단 신청
 			내역</h1>
 		<hr>
 
@@ -34,25 +35,25 @@
 			<br>
 				<div class="col-lg-7">
 					<ul>
-						<li th:each="expFrm : ${expAplyList}"
-							th:onclick="'location.href=\''+ @{/expr/expOrderList{no}(no = ${expFrm.no})} + '\''">
+						<li th:each="exp : ${expOrder}">
+						[[ ${session.userId} ]]
 							<div align="left">
 								<p class="truncate"></p>
-							</div> <a href="#" class="block flex items-center py-3 px-4 space-x-3">
+							</div> <a class="block flex items-center py-3 px-4 space-x-3">
 								<div class="w-13 h-13 rounded-full relative flex-shrink-0">
-									<img th:src="${expFrm.thumbnailImgPath }" alt=""
-										style="width: 100px; height: 110px;">
+									<img th:src="${exp.thumbnailImgPath }" style="width: 100px; height: 110px;">
 								</div>
 								<div class="flex-1 min-w-0 relative text-gray-500" align="left">
+									
 									<h4 class="text-black font-semibold dark:text-white"></h4>
-									<!-- <span class="absolute right-0 top-1 text-xs">상세내역 링크?모달?</span>  -->
+									<br>
 									<span class="absolute right-0 top-1 text-xs"
-										th:text="${expFrm.expeStartDate}">총금액</span>
-									<!-- 									/<p class="truncate" th:text="${order.name}">상품간단내용</p> -->
+										th:text="${exp.title}">체험단명</span>
 									<p class="text-black font-semibold dark:text-white"
-										th:text="${expFrm.title}">가격</p>
-									<p style="color: red;">[[${expFrm.subject }]]개</p>
-									<p class="truncate" th:text="${expFrm.subject}">상세설명</p>
+										th:text="${exp.subject}">내용</p>
+									<p style="color: red;">리뷰기한 : [[ ${#dates.format(exp.reviewStartDate,'yy년 M월 d일 ~')} ]] [[ ${#dates.format(exp.reviewEndDate,'yy년 M월 d일')} ]]</p>
+									<br>
+									
 									<div align="right"></div>
 								</div>
 						</a>

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +25,8 @@ import co.doeat.common.service.ImageService;
 import co.doeat.common.service.ImageVO;
 import co.doeat.community.service.UserService;
 import co.doeat.community.service.UsersVO;
+import co.doeat.management.service.ChallengeReviewVO;
+import co.doeat.management.service.ExpReviewVO;
 import co.doeat.management.service.ExperienceSearchVO;
 import co.doeat.management.service.ExperienceService;
 import co.doeat.management.service.ExperienceVO;
@@ -59,9 +62,10 @@ public class ExperienceController {
 
 	// 체험단(단건조회)
 	@GetMapping("/experienceDetail/{no}")
-	public String experienceDetail(Model model, @PathVariable int no, HttpSession session, ExperienceVO evo) {
+	public String experienceDetail(Model model, @PathVariable int no, HttpSession session) {
 		String id = (String) session.getAttribute("userId");
 		model.addAttribute("ExpOne", experienceService.ExperOne(no));
+		System.out.println(id+"유저아아디" + no +"번호");
 		model.addAttribute("no", no);
 		return "experience/experienceDetail";
 	}
@@ -85,18 +89,20 @@ public class ExperienceController {
 						   ExprParticipantsVO pvo,
 						   ExperienceVO vo,
 						   int no) {
-		//String userId = (String) session.getAttribute("userId");
 		experienceService.expInsert(pvo);
 		experienceService.expUpdate(vo);
 		return "신청이 완료되었습니다.";
 	}
 
 	// 체험단(신청내역조회)
-	@RequestMapping("/expr/expOrderList")
-	public String expOrderList(HttpServletRequest request, ExprParticipantsVO vo, Model model, ExperienceVO evo) {
-		HttpSession session = request.getSession();
-		session.getAttribute("userId");
-		model.addAttribute("expAplyList", experienceService.expOrderList());
+	@RequestMapping("/expr/expOrderList/{no}")
+	public String expOrderList(Model model, HttpSession session, ExprParticipantsVO vo, @PathVariable int no) {
+		String userId = (String) session.getAttribute("userId");
+		List<ExperienceVO> evo = experienceService.ExperOne(vo.getNo());
+		model.addAttribute("expOrder",evo);
+		model.addAttribute("expAplyList", experienceService.expOrderList(userId, no));
+		System.out.println(evo + "체험단배송정보"+userId+no);
+		
 		return "experience/expOrderList";
 	}
 	
@@ -112,6 +118,15 @@ public class ExperienceController {
 //		return str;
 //	}
 //	
+//	// 체험단 리뷰
+//	
+//	//전체조회
+//	@PostMapping("/expReviewList/{no}")
+//	@ResponseBody
+//	public List<ExpReviewVO> expReviewList(@PathVariable int no) {
+//		return experienceService.ExpReviewList(no);
+//	}
+	
 	
 
 	// 관리자 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
