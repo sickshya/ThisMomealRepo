@@ -131,6 +131,9 @@ img {
 <body>
    <div layout:fragment="content">
    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   
 
       <!--<div id="wrapper">-->
 
@@ -140,13 +143,16 @@ img {
 
       <!-- Messages -->
 
+				
 
       <div class="container pro-container m-auto">
+      		<h4>
+				<b style="text-align:center">MY STORY</b>
+			</h4>
 
          <!-- profile-cover-->
          <div
             class="flex lg:flex-row flex-col items-center lg:py-8 lg:space-x-8">
-
             <div>
                <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full m-0.5 mr-2  w-56 h-56 relative overflow-hidden uk-transition-toggle">
@@ -379,7 +385,16 @@ img {
 
 
       <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+<script>
+toastr.options = {
 
+		  "showDuration": "50",
+		  "hideDuration": "100",
+		 
+		}
+
+
+</script>
 
 
 <script>
@@ -408,14 +423,15 @@ function buildCalendar() {
      console.log(thisDay)
      
      $.ajax({
-       url:"/myFeed/"+ userId + "/" + thisDay,
+       url:"/usr/myFeed/"+ userId + "/" + thisDay,
 
        success:function(res){
           $('#tbd').empty()
          //console.log(res[0].typeCode)
          if(res[0] == null){
-        	 alert("등록된식단이 없습니다.")
-			
+        	 
+        	 toastr.success('등록된식단이 없습니다.');
+        	 
          }
          $(res).each(function(i, res){
             console.log(res)
@@ -461,14 +477,8 @@ function nextCalendar() {
     var currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
     if (nextday > currentDate) {
-    	alert("다음 날짜가 없습니다.")
-//                   toastr.options = {
-//                       closeButton: true,
-//                       progressBar: true,
-//                       showMethod: 'slideDown',
-//                       timeOut: 4000
-//                   };
-//                   toastr.info('www.leafcats.com', 'Toastr success!');
+    	
+		toastr.info('다음 날짜가 없습니다');
    
           return; 
           
@@ -476,23 +486,6 @@ function nextCalendar() {
    today = new Date(today.getFullYear(), today.getMonth() , today.getDate()+1); 
    buildCalendar();    // 폼 다시 생성       
        
-
-
-//오늘보다큰 날짜
-//  $("nodate").click(function(){
-//                   toastr.options = {
-//                       closeButton: true,
-//                       progressBar: true,
-//                       showMethod: 'slideDown',
-//                       timeOut: 4000
-//                   };
-//                   toastr.info('www.leafcats.com', 'Toastr success!');
-//     });
-
-
-
-
-////
 }
 
 
@@ -625,7 +618,7 @@ function feedDel(){
       url : "/mealDelete/" +no,
       success: function(res){
          alert("삭제 되었습니다")
-         location.href = "/myFeed/" + userId         
+         location.href = "/usr/myFeed/" + userId         
       },
       error:function(err){
          console.log(err)

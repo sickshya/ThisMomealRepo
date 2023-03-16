@@ -35,7 +35,7 @@ public class MealController {
 
 
 
-	@GetMapping("/myFeed/{userId}")
+	@GetMapping("/usr/myFeed/{userId}")
 	   public String myFeed(Model model, @PathVariable String userId) {
 	      model.addAttribute("selects", userService.myFeedUserSelect(userId));
 	      model.addAttribute("follow", followservice.followCount(userId));
