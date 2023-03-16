@@ -378,6 +378,7 @@
             $("#nickName").text(obj.nickName);
             $("#feedFrofile").attr("src", obj.profileImgPath);
             $("#postNo").val(obj.no);
+            console.log(sessionId)
             if(sessionId != null) {
             	$("#feedUserId").attr("href", "/myFeed/" + obj.userId);
             }else {

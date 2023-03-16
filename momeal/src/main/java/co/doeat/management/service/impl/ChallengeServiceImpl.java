@@ -47,8 +47,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	// 단건조회
 	@Override
-	public ChallengeVO getChallenge(Map<String, Object> map) {
-		return challengeMapper.getChallenge(map);
+	public ChallengeVO getChallenge(String userId, int no) {
+		return challengeMapper.getChallenge(userId, no);
 	}
 
 	// 챌린지 등록
@@ -99,6 +99,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public ChallengeValidationVO insertMyChallImg(ChallengeValidationVO vo) {
 		challengeMapper.insertMyChallImg(vo);
 		return challengeMapper.getMyChallImgOne(vo.getNo());
+	}
+	
+	// 진행중 - 인증하기 버튼 중복확인
+	@Override
+	public Boolean valImgCheck(ChallengeValidationVO vo) {
+		return challengeMapper.valImgCheck(vo);
 	}
 	
 	// ▶ 나의 챌린지 - 종료

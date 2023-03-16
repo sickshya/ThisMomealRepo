@@ -207,6 +207,15 @@
 		VALUES (#{no}, #{userId}, #{chalNo}, TO_DATE(SYSDATE,'YYYY-MM-DD'), #{chalImg}, #{fileDir}, 'Y')
 	</insert>
 	
+	<!-- 참여중 - 인증사진 중복체크(인증버튼 막기) -->
+	<select id="valImgCheck" resultType="boolean">
+		SELECT CASE WHEN TO_DATE(VLD_DATE,'YYYY-MM-DD') = TO_DATE(SYSDATE,'YYYY-MM-DD') THEN 0 ELSE 1 END AS SUCCESS_DATE
+		FROM CHALLENGE_VALIDATION  
+		WHERE USER_ID = #{userId}
+		AND CHAL_NO = #{chalNo}
+		AND TO_DATE(VLD_DATE,'YYYY-MM-DD') = TO_DATE(SYSDATE,'YYYY-MM-DD')
+	</select>
+	
 	
 	<!-- ▶ 나의 챌린지 - 종료 -->
 	<!-- 종료 - 전체조회 -->
