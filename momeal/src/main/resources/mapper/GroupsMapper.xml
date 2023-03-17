@@ -42,15 +42,23 @@
 	<!-- 그룹 멤버 단건조회 -->
 	<select id="grpMembSelect" resultType="map">
 		SELECT U.USER_ID,
-		U.USER_NAME, U.NICK_NAME, U.PROFILE_IMG_PATH, M.*, GM.*, GL.*
-		FROM
-		USERS U JOIN MEALS M ON(U.USER_ID = M.USER_ID)
-		JOIN GROUP_MEMBER GM ON
-		(M.USER_ID = GM.USER_ID)
-		JOIN GROUP_LISTS GL ON (GM.NO = GL.NO)
-		WHERE
-		TRUNC(post_date) = TO_DATE(#{postDate},'yyyyMMdd') AND M.USER_ID =
-		#{userId}
+		       U.USER_NAME, 
+		       U.NICK_NAME, 
+		       U.PROFILE_IMG_PATH, 
+		       M.*, 
+		       GM.*, 
+		       GL.*
+		       
+		FROM USERS U 
+		JOIN MEALS M 
+		  ON (U.USER_ID = M.USER_ID)
+		JOIN GROUP_MEMBER GM 
+		  ON (M.USER_ID = GM.USER_ID)
+		JOIN GROUP_LISTS GL
+		  ON (GM.NO = GL.NO)
+		  
+	   WHERE TRUNC(post_date) = TO_DATE(#{postDate},'yyyyMMdd') 
+		 AND M.USER_ID = #{userId}
 	</select>
 
 	<!-- 내가 참여중인 그룹 리스트 -->

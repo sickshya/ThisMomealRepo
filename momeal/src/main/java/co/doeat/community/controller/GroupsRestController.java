@@ -1,9 +1,7 @@
 package co.doeat.community.controller;
 
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.doeat.community.service.GroupsService;
 import co.doeat.community.service.GroupsVO;
+import co.doeat.community.service.UserService;
+import co.doeat.community.service.UsersVO;
 import co.doeat.config.email.RegisterMail;
 
 @RestController
@@ -25,6 +25,8 @@ public class GroupsRestController {
 
 	@Autowired RegisterMail registerMail;
 	
+	@Autowired UserService userService;
+	
 	// 그룹 리스트 출력
 	@RequestMapping("/groupsListAjax")
 	public List<GroupsVO> groupsList(Model model, GroupsVO vo, HttpSession session) {
@@ -33,11 +35,12 @@ public class GroupsRestController {
 		return groupsService.grpAllList(vo);
 	}
 	
+	
 	//모달 단건조회
 	@RequestMapping("/groupsFeedAjax/{userId}")
-	public Map<String, Object> groupsFeedAjax(@PathVariable String userId) {
+	public UsersVO groupsFeedAjax(@PathVariable String userId) {
 		
-		return groupsService.grpMembSelect(userId);
+		return userService.grpSelect(userId);
 	}
 	
 	// 지정한 그룹 날짜에 따른 피드 불러오기

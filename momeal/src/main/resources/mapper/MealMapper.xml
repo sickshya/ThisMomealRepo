@@ -52,7 +52,7 @@
 	<!-- 그룹 식단 리스트 -->
 	<select id="mealList" resultType="co.doeat.activity.service.MealVO" parameterType="co.doeat.activity.service.MealVO">
 		SELECT * FROM MEALS
-		WHERE POST_DATE = #{postDate} AND USER_ID = #{userId}
+		WHERE TRUNC(POST_DATE) = #{postDate} AND USER_ID = #{userId}
 	</select>
 	
 	<!-- 개인식단삭제 -->

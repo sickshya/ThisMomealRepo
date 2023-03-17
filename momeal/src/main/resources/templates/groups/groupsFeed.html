@@ -168,8 +168,9 @@ img {
 			<div class="modal-dialog" role="document" style=" max-width: 900px;">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title nickName" id="Modal-label-1">
-						<img src="" style="width: 30px; height: 30px;" class="rounded-full" id="profileImg"></h5>
+						<h5 class="modal-title" id="Modal-label-1">
+						    <img src="" style="width: 30px; height: 30px;" class="rounded-full" id="profileImg"></h5>
+						    <span class="nickName"></span>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -229,9 +230,9 @@ img {
 							let tr = `
 							<tr>
 				        		<td colspan="6">
-				        	    <div class="card" style="font-color: black">				        	   
+				        	    <div class="card" style="font-color: black" data-userid="${re.userId}">				        	   
 				    				<a href="/groupsSelect/${re.userId}/${re.postDate}" onclick="grpSelect(event)">
-				    					<div style="padding: 10px; text-align: left;" data-userId=${re.userId}>
+				    					<div style="padding: 10px; text-align: left;">
 				    				     <img src="${re.profileImgPath}" class= "rounded-full" style="width:30px; display: inline-block">&nbsp;&nbsp;<b>${re.nickName}</b>
 				    				</div>
 				    				`							
@@ -259,23 +260,25 @@ img {
 			
 			function grpSelect(e) {
 				e.preventDefault()
-				
-				let userId = $(e.target).closest('.card').data("userId");
+
+				let userId = $(e.target).closest('.card').data("userid");
 				console.log(e);
 				
 				$('#selectModal').modal('show')
-				$('#grpSelect').load(e.target.closest('a').href)
+				$('#grpSelect').load(e.target.closest('a').href, function(){
+					// load하고 불러오는 콜백함수
+					$.ajax({
+						url: "/groupsFeedAjax/" +userId,
+						type: 'POST'
+					})
+					.then(result => {
+						console.log("=========결과" + result);
+						$("#profileImg").attr("src", result.profileImgPath)
+						$(".nickName").text(result.nickName)
+						
+					})
+				})
 				
-				$.ajax({
-					url: "/groupsFeedAjax/" +userId,
-					type: 'POST'
-				})
-				.then(result => {
-					console.log("=========결과" + result);
-					$("#profileImg").attr("src", result.PROFILE_IMG_PATH)
-					$(".nickName").text(result.NICK_NAME)
-					
-				})
 				
 			}
 			

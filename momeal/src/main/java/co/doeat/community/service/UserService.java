@@ -16,7 +16,7 @@ public interface UserService {
 
 	// 마이페이지
 	int updateUserInfo(UsersVO vo); // 회원정보 수정
-
+	
 	int updateWithdraw(UsersVO vo); // 회원탈퇴 업데이트
 
 	UsersVO userSelect(String userId); // 로그인, 회원정보수정폼 호출시

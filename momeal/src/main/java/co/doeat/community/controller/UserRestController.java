@@ -47,7 +47,7 @@ public class UserRestController {
 	// 비밀번호 일치하는지 확인
 	// 수정 예정
 	@GetMapping("/chkPwdFrm")
-	public boolean userPwdForm(UsersVO vo, Model model, HttpSession session) {
+	public boolean userPwdForm(UsersVO vo, HttpSession session) {
 		boolean a = false;
 
 		String id = (String) session.getAttribute("userId");
@@ -55,7 +55,7 @@ public class UserRestController {
 		UsersVO uvo = userService.userSelect(id);
 
 		if (uvo != null) {
-			if (!uvo.getPassword().equals(vo.getPassword())) {
+			if (bcryptEncoder.matches(vo.getPassword(), uvo.getPassword())) { // 암호화 안된거 - 암호화 된거
 				a = true;
 			}
 		}
