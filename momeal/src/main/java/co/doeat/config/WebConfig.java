@@ -15,18 +15,15 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/mm_images/**").addResourceLocations("file:///" + saveImg).setCachePeriod(20);
-//		registry.addResourceHandler("/error").addResourceLocations("/user/accessError");
 	}
 
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("base/home");
 		registry.addViewController("/home").setViewName("/base/home");
 		registry.addViewController("/main").setViewName("/base/home");
-
-		registry.addViewController("/login").setViewName("/users/loginFrm");
-		registry.addRedirectViewController("/logout", "/login");
 		
-		registry.addViewController("/error").setViewName("/user/accessError");
+//		registry.addViewController("/login").setViewName("/users/loginFrm");
+		registry.addRedirectViewController("/logout", "/login");
 	}
 
 }
