@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -89,15 +88,13 @@ public class ChallengeController {
 		String boardCode = "CT01";
 		model.addAttribute("chall", challengeService.getChallenge(userId, no));
 		model.addAttribute("detailImg", imageService.imageList(boardCode, no));
-		System.out.println("이미지 ===================== " + imageService.imageList(boardCode, no));
+//		System.out.println("이미지 ===================== " + imageService.imageList(boardCode, no));
 		return "challenge/challengeDetail";
 	}
 
 	// 챌린지 참여하기
 	@PostMapping("/attendChallenge")
-	public String attendChallenge(ChallengeParticipationVO vo, HttpSession session) {
-		// 세션에 담겨있는 아이디 값을 vo의 userId에 담기. (String) 처리 해줘야함
-		vo.setUserId((String) session.getAttribute("userId"));
+	public String attendChallenge(ChallengeVO vo) {
 		challengeService.attendChall(vo);
 		return "redirect:/myChallenge";
 	}

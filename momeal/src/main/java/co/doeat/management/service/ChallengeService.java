@@ -1,12 +1,7 @@
 package co.doeat.management.service;
 
 import java.util.List;
-
 import java.util.Map;
-
-import co.doeat.community.service.UsersVO;
-import co.doeat.record.service.AttendanceVO;
-import co.doeat.record.service.PointLogVO;
 
 public interface ChallengeService {
 	// 메인
@@ -25,13 +20,13 @@ public interface ChallengeService {
 
 	public int insertChallenge(ChallengeVO vo); // 챌린지 등록
 
-	public int attendChall(ChallengeParticipationVO vo); // 챌린지 참여신청
+	public int attendChall(ChallengeVO vo); // 챌린지 참여신청
 
 	// ▶ 나의 챌린지
 	// 1. 진행중인 챌린지
 	public List<Map<String, Object>> getMyChallList(String userId); // 진행중인 챌린지 전체조회
 
-	public Map<String, Object> getMyChall(String userId, int no); // 진행중인 챌린지 단건조회
+	public ChallengeVO getMyChall(String userId, int no); // 진행중인 챌린지 단건조회
 
 	public List<ChallengeValidationVO> getChallImgList(String userId, int chalNo); // 챌린지별 참여자 인증 사진 조회
 

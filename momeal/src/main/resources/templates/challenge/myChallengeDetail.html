@@ -97,7 +97,7 @@
                             <!-- <div class="product__details__pic__item"> -->
                             <img
                                 class="product__details__pic__item--large"
-                                th:src="${chall.THUMBNAIL_IMG_PATH}"
+                                th:src="${chall.thumbnailImgPath}"
                                 alt=""
                                 style="width:330px; height:330px;">
                             <!-- </div> -->
@@ -106,33 +106,33 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="product__details__text" id="challInfo">
-                            <h3>[[ ${chall.TITLE} ]]</h3>
+                            <h3>[[ ${chall.title} ]]</h3>
                             <p>챌린지 조건 있어야함!!(매일, 2주동안 이런거)</p>
                             <!-- <div class="product__details__price">오늘부터 시작</div> -->
-                            <p>[[ ${#dates.format(chall.CHAL_START_DATE, 'MM-dd')} ]]([[
-								${#dates.dayOfWeekName(chall.CHAL_START_DATE)} ]]) ~ [[
-								${#dates.format(chall.CHAL_END_DATE, 'MM-dd')} ]]([[
-								${#dates.dayOfWeekName(chall.CHAL_END_DATE)} ]])</p>
-							<th:block th:if="${chall.CODE_ID == 'CL01'}">
-								<p style="color: red;"><b>[[ ${chall.DEDUCT_POINT} ]]포인트를 획득했어요!</b></p>
+                            <p>[[ ${#dates.format(chall.chalStartDate, 'MM-dd')} ]]([[
+								${#dates.dayOfWeekName(chall.chalStartDate)} ]]) ~ [[
+								${#dates.format(chall.chalEndDate, 'MM-dd')} ]]([[
+								${#dates.dayOfWeekName(chall.chalEndDate)} ]])</p>
+							<th:block th:if="${chall.codeId == 'CL01'}">
+								<p style="color: red;"><b>[[ ${chall.deductPoint} ]]포인트를 획득했어요!</b></p>
 							</th:block>
-							<th:block th:if="${chall.CODE_ID == 'CL02'}">
+							<th:block th:if="${chall.codeId == 'CL02'}">
 								<p style="color: red;"><b>포인트 획득에 실패했어요😥</b></p>
 							</th:block>
-							<th:block th:if="${chall.CODE_ID == '0'}">
+							<th:block th:if="${chall.codeId == '0'}">
 							<br>
 								<a href="#" class="heart-icon" data-toggle="modal"
 									data-target="#Modal-1">인증방법</a> <a href="" class="primary-btn"
-									data-toggle="modal" data-target="#Modal-2" onclick="modal()">인증하기</a> <!-- data-target="#Modal-2" -->
+									data-toggle="modal" data-target="" onclick="modal()">인증하기</a> <!-- data-target="#Modal-2" -->
 							</th:block>
-							<th:block th:unless="${chall.CODE_ID == '0'}">
-								<th:block th:if="${chall.REVIEW_CHECK == 0}">
+							<th:block th:unless="${chall.codeId == '0'}">
+								<th:block th:if="${chall.reviewCheck == 0}">
 									<a href="#" class="primary-btn"
-										data-toggle="modal" data-target="#review" th:id="|reviewBtn${chall.NO}|">후기쓰기</a>
+										data-toggle="modal" data-target="#review" th:id="|reviewBtn${chall.no}|">후기쓰기</a>
 								</th:block>
-								<th:block th:unless="${chall.REVIEW_CHECK == 0}">
+								<th:block th:unless="${chall.reviewCheck == 0}">
 									<a href="#" class="primary-btn"
-										data-toggle="modal" data-target="#review" id="reviewBtn" th:onclick="reviewModal([[${chall.NO}]])">후기관리</a>
+										data-toggle="modal" data-target="#review" id="reviewBtn" th:onclick="reviewModal([[${chall.no}]])">후기관리</a>
 								</th:block>
 							</th:block>
 						</div>
@@ -155,21 +155,22 @@
 								<div class="tab-pane active" id="myAuthentication"
 									role="tabpanel">
 									<div class="product__details__tab__desc">
-										<p>달성률</p>
-										<h4>
-											<b>달성률 계산 ㅠ</b>
-										</h4>
+										<div id="myPercent">
+											<p>달성률</p>
+											<h4>
+												<b>[[ ${chall.percent} ]]%</b>
+											</h4>
+										</div>
 										<br>
 										<div class="row">
 											<div class="text-center"></div>
 											<div class="col-md-8">
 												<!-- skill bar item -->
 												<div class="skillbar-item">
-													<div class="skillbar" data-percent="90%">
+													<div class="skillbar" id="myPercentBar" th:data-percent="${chall.percent}">
 														<!-- 여기... 달성률 %로 해야해.. -->
-														<h3>Web design</h3>
 														<div class="skillbar-bar">
-															<div class="skillbar-percent" style="width: 90%;">
+															<div class="skillbar-percent" style="width:90%;">
 																<!-- 여기... 달성률 %로 해야해.. -->
 															</div>
 														</div>
@@ -183,15 +184,13 @@
 												<thead>
 													<tr align="center">
 														<th style="padding-right: 30px">인증성공</th>
-														<th style="padding-right: 30px;">인증실패</th>
-														<th>남은 인증 횟수</th>
+														<th>전체 횟수</th>
 													</tr>
 												</thead>
 												<tbody>
-													<tr id="imageCount" th:data-challno="${chall.NO}">
-														<td><h4 id="successCheck"><b>[[ ${chall.SUCCESS} ]]회</b></h4></td>
-														<td><h4 id="failCheck"><b>[[ ${chall.FAIL} ]]회</b></h4></td>
-														<td><h4><b>[[ ${chall.TOTAL_DAY} ]]회</b></h4></td>
+													<tr id="imageCount" th:data-challno="${chall.no}">
+														<td><h4 id="successCheck"><b>[[ ${chall.success} ]]회</b></h4></td>
+														<td><h4 id="totalCheck"><b>[[ ${chall.totalDay} ]]회</b></h4></td>
 													<tr>
 												</tbody>
 											</table>
@@ -232,7 +231,7 @@
 														</tr>
 														<tr>
 															<td><h4>
-																	<b>[[ ${chall.PARTICIR} ]]명</b>
+																	<b>[[ ${chall.particir} ]]명</b>
 																</h4></td>
 														<tr>
 														<tr>
@@ -243,7 +242,7 @@
 														</tr>
 														<tr>
 															<td><h4>
-																	<b>[[ ${chall.SUM_PARTICIR} ]]명</b>
+																	<b>[[ ${chall.sumParticir} ]]명</b>
 																</h4></td>
 														<tr>
 													</table>
@@ -314,7 +313,7 @@
 												<b>✅ 이렇게 찍어주세요</b>
 											</p>
 											<div align="center">
-												<img th:src="${chall.THUMBNAIL_IMG_PATH}" alt="img01"
+												<img th:src="${chall.thumbnailImgPath}" alt="img01"
 													class="img-responsive" style="width: 300px; height: 300px;" />
 											</div>
 											<p>요렇게 찍어달라는 인증방법 컬럼도 있어야 할 것 같은데..?🤦‍</p>
@@ -344,7 +343,7 @@
 												<button type="button" class="btn btn-default" id="uploadBtn" onclick="myChallImgInsert()">등록</button>
 											</div>
 											<input type="hidden" id="userId" name="userId" th:value="${session.userId}">
-											<input type="hidden" id="chalNo" name="chalNo" th:value="${chall.NO}">
+											<input type="hidden" id="chalNo" name="chalNo" th:value="${chall.no}">
 										</div>
 									</div>
 								</div>
@@ -368,7 +367,7 @@
 											<p id="userNickName"></p>
 											<img src="" alt="img01" id="oneImg"
 												class="img-responsive" style="width: 500px; height: 500px;" />
-											<th:block th:if="${session.userId} != ${chall.USER_ID}">
+											<th:block th:if="${session.userId} != ${chall.userId}">
 											<div class="modal-works" align="right">
 												<span>신고</span>
 											</div>
@@ -409,16 +408,16 @@
 												<div id="text_cnt">(0 / 100)</div>
 											</div>
 											<div class="modal-footer">
-												<th:block th:if="${chall.REVIEW_CHECK == 0}">
-													<button type="button" class="btn btn-default" id="insertBtn" th:onclick="reviewInsert([[${chall.NO}]])">등록</button>
+												<th:block th:if="${chall.reviewCheck == 0}">
+													<button type="button" class="btn btn-default" id="insertBtn" th:onclick="reviewInsert([[${chall.no}]])">등록</button>
 												</th:block>
-												<th:block th:unless="${chall.REVIEW_CHECK == 0}">
+												<th:block th:unless="${chall.reviewCheck == 0}">
 													<button type="button" class="btn btn-default" id="updateBtn" onclick="reviewUpdate()">수정</button>
-													<button type="button" class="btn btn-default" id="deleteBtn" th:onclick="reviewDelete([[${chall.NO}]])">삭제</button>
+													<button type="button" class="btn btn-default" id="deleteBtn" th:onclick="reviewDelete([[${chall.no}]])">삭제</button>
 												</th:block>
 											</div>
 											<input type="hidden" id="userId" name="userId" th:value="${session.userId}">
-											<input type="hidden" id="no" name="no" th:value="${chall.NO}">
+											<input type="hidden" id="no" name="no" th:value="${chall.no}">
 										</div>
 									</div>
 								</div>
@@ -534,7 +533,22 @@
 				
 				// 인증 성공 횟수 업데이트
 				let success = $('#successCheck').text();
+				let total = $('#totalCheck').text();
+				
 				success = Number(success.substring(0, success.length - 1)) + 1;
+				total = Number(total.substring(0, total.length - 1));
+				
+				percent =  Math.ceil((success / total) * 100); 
+				
+				console.log(percent + "퍼센트...............?")
+				
+				$('#myPercent').children().last().remove();
+				$('#myPercent').append(
+						`<h4><b>${percent}%</b></h4>`
+				)
+				$('#myPercentBar').data("percent", percent + "%")
+				
+				
 				$('#imageCount').children().first().remove();
 				$('#imageCount').prepend(
 					`<td><h4 id="successCheck"><b>${success}회</b></h4></td>`
@@ -572,23 +586,21 @@
 		   })
 		   .then(result => {
 			   console.log(result)
-			   debugger
 			   
 			   checkResult(result)
 		   })
 		   }
 		
+		// 중복 여부에 따라 보여줄 것
 		function checkResult(data) {
 // 		   console.log(data)
 		   if(data == true) {
 			   alert("오늘 인증을 이미 완료했습니다.")
 			   
-			   // 모달창 왜 안 닫혀...............................
-			   $('#Modal-2').modal('hide');
 			   
 		   }else if(data == false){
 		      console.log(data)
-// 		      $('#Modal-2').modal('show');
+		      $('#Modal-2').modal('show');
 		   }
 		}
 		

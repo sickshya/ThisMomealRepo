@@ -57,7 +57,7 @@
 							<div class="product__details__pic__item">
 								<img class="product__details__pic__item--large"
 									th:src="${chall.thumbnailImgPath}" alt=""
-									style="width: 465px; height: 465px;">
+									style="width: 100%; height: 100%;">
 							</div>
 
 						</div>
@@ -140,16 +140,15 @@
 
 							<!-- 탭 내용들 -->
 							<div class="tab-content">
-								<!-- 상세 탭 시작 -->
+								<!-- 상세설명 탭 시작 -->
 								<div class="tab-pane active" id="detail" role="tabpanel">
 									<div class="product__details__tab__desc">
-										<h6>상세설명</h6>
 										<th:block th:each="img : ${detailImg}">
-										<img th:src="${img.atchPath}">
+										<img th:src="${img.atchPath}" style="width:100%; height:100%;">
 										</th:block>
 									</div>
 								</div>
-								<!-- 상세 탭 끝 -->
+								<!-- 상세설명 탭 끝 -->
 
 								<!-- 후기 탭 시작 -->
 								<div class="tab-pane" id="review" role="tabpanel"></div>

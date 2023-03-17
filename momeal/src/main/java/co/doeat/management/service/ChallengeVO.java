@@ -36,8 +36,14 @@ public class ChallengeVO extends ImageVO {
 	private String thumbnailImgPath; // 썸네일 이미지 주소
 
 	private int totalPoint; // 회원의 현재 포인트
-
+	private String nickName; // 회원 닉네임
 	private String userId; // 회원 아이디
+	private String codeId; // 챌린지 성공, 실패 여부 코드
+	private int percent; // 챌린지 성공 확률(절상)
+	private int totalDay; // 챌린지 총 진행일수
+	private int success; // 챌린지 인증 성공 횟수
+	private int reviewCheck; // 리뷰 작성 여부 판단(리뷰 있으면 = 1 / 없으면 = 0)
+	
 	private String atchPath; // 본문 첨부파일 이미지 주소
 	private int sumPoint; // 챌린지에서 모인 포인트
 	private String startDay; // 시작까지 남은 날짜

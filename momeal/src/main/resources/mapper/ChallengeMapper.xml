@@ -95,34 +95,30 @@
 	<!-- 챌린지 단건조회 -->
 	<select id="getChallenge"
 		resultType="co.doeat.management.service.ChallengeVO">
-		SELECT C.*, 
-			   I.*, 
-			   (C.PARTICIR * C.DEDUCT_POINT) AS SUM_POINT,
-			   (C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY,
-			   NVL((SELECT L.NO 
-			   		  FROM LIKES L
-					 WHERE L.POST_NO = C.NO 
-					   AND L.USER_ID = #{userId} 
-					   AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO,
-			   NVL((SELECT P.NO
-					  FROM CHALLENGE_PARTICIPATION P 
-					 WHERE C.NO = P.NO 
-					   AND P.USER_ID = #{userId}), 0) AS ATTEND_NO
-		  FROM CHALLENGES C 
-		  RIGHT JOIN IMAGES I 
-		    ON (C.NO = I.POST_NO)
-		 WHERE I.POST_NO = #{no} 
-		   AND I.BOARD_CODE='CT01'
+		SELECT C.*,
+       (C.PARTICIR * C.DEDUCT_POINT) AS SUM_POINT,
+       (C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY,
+       NVL((SELECT L.NO 
+              FROM LIKES L
+             WHERE L.POST_NO = C.NO 
+               AND L.USER_ID = #{userId} 
+               AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO,
+       NVL((SELECT P.NO
+              FROM CHALLENGE_PARTICIPATION P 
+             WHERE C.NO = P.NO 
+               AND P.USER_ID = #{userId}), 0) AS ATTEND_NO
+		 FROM CHALLENGES C
+		WHERE C.NO = #{no}
 	</select>
 
 	<!-- 챌린지 참여 -->
-	<insert id="attendChall"
-		parameterType="co.doeat.management.service.ChallengeParticipationVO">
-		INSERT INTO CHALLENGE_PARTICIPATION
-		VALUES (#{userId}, #{no}, #{chalRound}, null, null)
-		<!-- <selectKey keyProperty="USER_ID" resultType="java.util.HashMap" order="AFTER"> -->
-		<!-- SELECT USER_ID FROM CHALLENGE_PARTICIPATION WHERE NO = #{no} -->
-		<!-- </selectKey> -->
+	<insert id="attendChall" statementType="CALLABLE">
+        { CALL attend_challenge_proc(
+                #{no, mode=IN, jdbcType=INTEGER},
+                #{chalRound, mode=IN, jdbcType=INTEGER},
+                #{userId, mode=IN, jdbcType=VARCHAR}
+            	)
+        }
 	</insert>
 
 	<!-- ▶ 나의 챌린지 - 참여중 -->
@@ -146,7 +142,7 @@
 	</select>
 
 	<!-- 참여중, 종료 - 단건조회 -->
-	<select id="getMyChall" resultType="map">
+	<select id="getMyChall" resultType="co.doeat.management.service.ChallengeVO">
 		SELECT U.NICK_NAME, 
 			   U.TOTAL_POINT, 
 			   P.USER_ID, 
@@ -160,17 +156,9 @@
 			   C.SUM_PARTICIR, 
 			   C.DEDUCT_POINT, 
 			   C.THUMBNAIL_IMG_PATH,
+			   CEIL((FIND_SUCCESS(P.USER_ID, P.NO) / (C.CHAL_END_DATE - C.CHAL_START_DATE)) * 100) AS PERCENT,
                (C.CHAL_END_DATE - C.CHAL_START_DATE) AS TOTAL_DAY,
-               (SELECT COUNT(*) 
-                  FROM CHALLENGE_VALIDATION CV
-                 WHERE CV.SUCCESS_CHECK = 'Y' 
-                   AND CV.USER_ID = #{userId}
-                   AND CV.CHAL_NO = #{no}) AS SUCCESS,
-               (SELECT COUNT(*) 
-                  FROM CHALLENGE_VALIDATION CV
-                 WHERE CV.SUCCESS_CHECK = 'N' 
-                   AND CV.USER_ID = #{userId}
-                   AND CV.CHAL_NO = #{no}) AS FAIL,
+ 			   FIND_SUCCESS(P.USER_ID, P.NO) AS SUCCESS,
 			   (SELECT COUNT(*) 
 			      FROM CHALLENGE_REVIEW R 
 			     WHERE R.USER_ID = #{userId}
