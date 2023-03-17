@@ -39,10 +39,11 @@
 	font-size: 0.9em;
 }
 
-.container-fluid{
+.container-fluid {
 	margin: 0 auto;
 }
-.main-content{
+
+.main-content {
 	margin: 0 auto;
 }
 </style>
@@ -50,63 +51,63 @@
 
 <body class="vertical  light  ">
 	<div layout:fragment="content">
-<!-- 		<div class="wrapper"> -->
+		<!-- 		<div class="wrapper"> -->
 
-			<main role="main" class="main-content">
-				<div class="container-fluid">
-					<div class="row justify-content-center">
-						<div class="col-12">
-							<br>
-							<h3 class="page-title">NOTICE 상세보기</h3>
-							<br>
-							<div class="card-deck" style="width: 800px; height: 450px;">
+		<main role="main" class="main-content">
+			<div class="container-fluid">
+				<div class="row justify-content-center">
+					<div class="col-12">
+						<br>
+						<h3 class="page-title">NOTICE 상세보기</h3>
+						<br>
+						<div class="card-deck" style="width: 800px; height: 450px;">
 
-								<div class="card shadow mb-4">
-									<div class="card-header" style="width: 700px; margin: 10px;">
-										<strong class="card-title">NOTICE 상세보기</strong>
-									</div>
-									<form id="frm" method="post" style="width: 800px">
-										<div class="card-body" style="width: 800px; margin: 10px;"
-											id="myForm">
-
-											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">순번</label>
-												<div class="col-sm-9">[[${notice.no}]]</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">제목</label>
-												<div class="col-sm-9">[[${notice.boardTitle}]]</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">내용</label>
-												<div class="col-sm-9">[[${notice.boardSubject}]]</div>
-											</div>
-
-											<div class="form-group row">
-												<label class="col-sm-3" for="exampleFormControlTextarea1">작성일자</label>
-												<div class="col-sm-9">[[${#dates.format(notice.boardDate,'yyyy년
-													MM월 dd일')}]]</div>
-											</div>
-											<div class="form-group row">
-												<label class="col-sm-3 col-form-label">작성자</label>
-												<div class="col-sm-9">[[${notice.userId }]]</div>
-											</div>
-										</div>
-										<div align="center">
-											<input type="button" class="btn btn-light" value="NoticeList"
-												onclick="location.href='/admin/adminNotice'">
-										</div>
-									</form>
+							<div class="card shadow mb-4">
+								<div class="card-header" style="width: 700px; margin: 10px;">
+									<strong class="card-title">NOTICE 상세보기</strong>
 								</div>
+								<form id="frm" method="post" style="width: 800px">
+									<div class="card-body" style="width: 800px; margin: 10px;"
+										id="myForm">
+
+										<div class="form-group row">
+											<label class="col-sm-3 col-form-label">순번</label>
+											<div class="col-sm-9">[[${notice.no}]]</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 col-form-label">제목</label>
+											<div class="col-sm-9">[[${notice.boardTitle}]]</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 col-form-label">내용</label>
+											<div class="col-sm-9">[[${notice.boardSubject}]]</div>
+										</div>
+
+										<div class="form-group row">
+											<label class="col-sm-3" for="exampleFormControlTextarea1">작성일자</label>
+											<div class="col-sm-9">[[${#dates.format(notice.boardDate,'yyyy년
+												MM월 dd일')}]]</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-3 col-form-label">작성자</label>
+											<div class="col-sm-9">[[${notice.userId }]]</div>
+										</div>
+									</div>
+									<div align="center">
+										<input type="button" class="btn btn-light" value="NoticeList"
+											onclick="location.href='/admin/adminNotice'">
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
 				</div>
-<!-- 		</div> -->
+			</div>
+			<!-- 		</div> -->
+		</main>
 	</div>
-	</main>
+
 	<!-- main -->
-	</div>
 	<!-- .wrapper -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/popper.min.js"></script>

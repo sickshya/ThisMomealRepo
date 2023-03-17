@@ -27,11 +27,7 @@
 
 <!-- Icons CSS -->
 <link rel="stylesheet" href="/assets/css/feather.css">
-<!-- <!-- Date Range Picker CSS -->
-<!-- <link rel="stylesheet" href="/assets/css/daterangepicker.css"> -->
-<!-- <!-- App CSS -->
-<!-- <link rel="stylesheet" href="/assets/css/app-light.css" id="lightTheme"> -->
-<!-- <link rel="stylesheet" href="/assets/css/app-dark.css" id="darkTheme" disabled> -->
+
 </head>
 <body>
 	<div layout:fragment="content">
@@ -98,7 +94,7 @@
 						<tr>
 							<th>총 금액</th>
 							<td><input type="number" id="totalPrice" name="totalPrice"
-								th:value="${totalPrice}"></td>
+								th:value="${totalPrice}" ></td>
 						</tr>
 						<tr>
 							<td><input type="hidden" id="listNo" name="listNo"
@@ -278,7 +274,21 @@
 		</div>
 	</div>
 
-
+	<script type="text/javascript">
+	
+	function totalCal() {
+		let totalGd = document.getElementById("totalGd").value;
+		let price = document.getElementById("price").innerText;
+		let total = (parseInt(totalGd) * parseInt(price.replace(",", ""))) +'원' //콤마제거
+		total= total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); //콤마생성
+		document.getElementById('totalSum').value = total
+		let cal = document.getElementById('totalSum').value;
+		console.log(totalSum);
+		console.log(totalGd);
+	}
+</script>
+	
+	</script>
 
 	<!-- Scripts -->
 	<script src="/assets/js/tippy.all.min.js"></script>

@@ -59,7 +59,11 @@ public class GroupPurchaseController {
 	// 공동구매 리스트에서 단건조회를 하면 그 상품에 대한 상세페이지
 	@GetMapping("/pch/pchDetail/{no}")
 	public String pchDetail(Model model, @PathVariable int no, HttpSession session, GroupPurchaseSettlementVO pvo) {
+		String userId = (String) session.getAttribute("userId");
+		System.out.println(session +"=============================================");
+		String boardCode = "CT03";
 		model.addAttribute("pchDetail", groupPurchaseService.pchDetail(no));
+		model.addAttribute("detailImg", imageService.imageList(boardCode, no));
 		model.addAttribute("no", no);
 		return "purchase/pchDetail";
 	}
