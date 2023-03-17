@@ -53,24 +53,24 @@ public class UserController {
 	public String userEdit(UsersVO vo) {
 
 		userService.updateUserInfo(vo);
-		
+
 		return "redirect:/userEditForm";
 	}
 
 	// 회원탈퇴신청폼 호출
-		@RequestMapping("/userWithdrawForm")
-		public String userWithdrawForm(UsersVO vo, HttpSession session, Model model) {
-			model.addAttribute("userInfo", userService.userSelect((String)session.getAttribute("userId")));
-			return "users/userWithdrawForm";
-		}
+	@RequestMapping("/userWithdrawForm")
+	public String userWithdrawForm(UsersVO vo, HttpSession session, Model model) {
+		model.addAttribute("userInfo", userService.userSelect((String) session.getAttribute("userId")));
+		return "users/userWithdrawForm";
+	}
 
-		// 회원탈퇴신청 동작
-		@RequestMapping("/userWithdraw")
-		public String userWithdraw(UsersVO vo) {
-			
-			userService.updateWithdraw(vo);
-			return "users/loginFrm";
-		}
+	// 회원탈퇴신청 동작
+	@RequestMapping("/userWithdraw")
+	public String userWithdraw(UsersVO vo) {
+
+		userService.updateWithdraw(vo);
+		return "users/loginFrm";
+	}
 
 	// =============관리자 유저=================================
 	// 페이징
@@ -85,11 +85,11 @@ public class UserController {
 		return "admin/allUserList";
 
 	}
-	
-	//마이페이지 포인트
+
+	// 마이페이지 포인트
 	@RequestMapping("/myPoint")
 	public String myPoint(CommonCodeVO cvo, PointLogVO pvo, UsersVO uvo, Model model, HttpSession session) {
-		String userId= (String)session.getAttribute("userId");
+		String userId = (String) session.getAttribute("userId");
 		model.addAttribute("pointList", userService.pointList(userId));
 		model.addAttribute("selects", userService.myPoint(userId));
 		return "myPages/myPoint";

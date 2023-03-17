@@ -51,10 +51,10 @@
 								</a>
 								<div
 									class="absolut absolute bottom-0 flex items-center justify-between px-4 py-3 space-x-2 text-white w-full">
-									<div class="flex space-x-3">
+									<div class="flex space-x-3" id="noSave" th:data-cmntno="${cmnt.NO}">
 										<!-- 좋아요 하트 붙일 곳 -->
 										<!-- 좋아요 처리 -->
-										<div th:if="${session.userId != null}" class="heart" th:data-likeno="${cmnt.LIKE_NO}">
+										<div th:if="${session.userId != null}" class="heart" th:data-likeno="${cmnt.LIKE_NO}" >
 											<th:block th:if="${cmnt.LIKE_NO != 0}">
 												
 													<img src="/assets/images/heart.svg" class="fullHeart">
@@ -131,12 +131,12 @@
 						<div class="story-content p-4" data-simplebar id="scrollDiv">
 							<div id="subject"></div>
 
-							<div class="py-4 ">
+							<div class="py-4 inHeart">
 								<div class="flex justify-around">
 									<th:block th:if="${session.userId != null}">
 										<a href="#" class="flex items-center space-x-3">
 										
-											<div class="flex font-bold items-baseline modalHeart heart ">
+											<div class="flex font-bold items-baseline modalHeart heart" >
 												<!-- 모달안에 좋아요 -->
 											</div>
 												
@@ -412,7 +412,8 @@
             	$(".modalHeart").data("likeno", obj.likeNo);
             } else {
             	$(".modalHeart").append( 	`<img src="/assets/images/emptyHeart.svg" class="emptyHeart">`        	)
-            	$(".modalHeart").closest(".oneCmnt").data("cmntno", obj.no);
+            	$(".modalHeart").closest(".inHeart").data("cmntno", obj.no);
+            	console.log(obj.no);
             }
             
             // 댓글 리스트 출력 함수 호출
@@ -483,16 +484,19 @@
 			// 좋아요 인서트
 			$(document).on("click", ".emptyHeart", function(){
 				event.preventDefault() // a, submit (페이지 이동 막음)
-				event.stopPropagation()
+				event.stopPropagation()				
 				
+				let oneCmnt 
+				if($(this).parent().hasClass("modalHeart")){
+					oneCmnt = $(this).closest(".inHeart")
+				} else {
+					oneCmnt = $(this).closest(".oneCmnt")
+				}
+				                       
 				
-				let oneCmnt = $(this).closest(".oneCmnt")
-				console.log(oneCmnt);
-				let no = $(this).closest(".oneCmnt").data("cmntno");
+				let no = oneCmnt.data("cmntno");
 				let heart = $(this).parent(".heart")
 
-				console.log(no);
-				
 				$.ajax({
 					type: 'POST',
 					url: "/insertLikeMeal/" + no,
@@ -500,7 +504,6 @@
 					.then(result => {
 						oneCmnt.data("likeno", result.no);
 							heart.html(`<img src="/assets/images/heart.svg" class="fullHeart">`) // 빨간하트
-				//    location.reload();
 					
 					});
 				});
@@ -509,12 +512,11 @@
 			
 			// 좋아요 삭제
 	         $(document).on("click", ".fullHeart", function(){
-	            let no = $(this).parent(".heart").data("likeno");
-	            console.log(no + "먼데요...........")
-	            let heart = $(this).parent(".heart")
-	            
 	            event.preventDefault()
 	            event.stopPropagation()
+	            
+	            let no = $(this).parent(".heart").data("likeno");
+	            let heart = $(this).parent(".heart")
 
 	            $.ajax({
 	               type: 'POST',
@@ -523,7 +525,6 @@
 	               .then(result => {
 	                  console.log(result)
 	                  heart.html(`<img src="/assets/images/emptyHeart.svg" class="emptyHeart">`)// 빈 하트
-	           //      location.reload();
 	               });
 	            });
 	         });

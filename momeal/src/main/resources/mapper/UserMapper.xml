@@ -19,7 +19,7 @@
 		WHERE USER_ID =
 		#{userId}
 	</select>
-
+	
 	<!-- 회원정보수정 -->
 	<update id="updateUserInfo"
 		parameterType="co.doeat.community.service.UsersVO">
@@ -49,8 +49,8 @@
 	<update id="updateWithdraw"
 		parameterType="co.doeat.community.service.UsersVO">
 		UPDATE USERS
-		SET QUIT_REQ = 'Y'
-		WHERE QUIT_REQ = 'N' AND
+		SET IS_ENABLED = 'N'
+		WHERE IS_ENABLED = 'Y' AND
 		USER_ID = #{userId}
 	</update>
 

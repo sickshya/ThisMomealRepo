@@ -108,24 +108,14 @@
 		</div>
 		<script>
 			function formCheck() {
-				let pass1 = document
-					.getElementById("memberpw")
-					.value;
-				let pass2 = document
-					.getElementById("pwchk")
-					.value;
+				let pass1 = document.getElementById("password").value;
+				let pass2 = document.getElementById("pwdchk").value;
 
 				if (pass1 != pass2) {
 					alert("패스워드가 일치하지 않습니다");
-					document
-						.getElementById("memberPassword")
-						.value = "";
-					document
-						.getElementById("passwordChk")
-						.value = "";
-					document
-						.getElementById("memberPassword")
-						.focus();
+					document.getElementById("password").value = "";
+					document.getElementById("pwdchk").value = "";
+					document.getElementById("password").focus();
 					return false;
 				}
 

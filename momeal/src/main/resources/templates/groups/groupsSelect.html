@@ -66,8 +66,7 @@
 	<div layout:fragment="content" align="center">
 		<br> <br>
 		<form id="frm" action="/groupsFeed" method="post">
-			<img th:src="${selects.profileImgPath}" class="w-13 h-13 rounded-full relative flex-shrink-0 one">&nbsp;&nbsp;<b>[[${selects.nickName}]]</b>
-			<br>
+			
 			<div class="col-lg-8 two">
 				<br>
 				<div class="block flex items-center py-3 px-4 space-x-3">
@@ -75,8 +74,7 @@
 					<div th:each="meals : ${mealImg}" class="three">
 						<img th:src="${meals.fileDir}" alt="" class="card-img-top">
 						<div class="flex-1 min-w-0 relative text-gray-500 four">
-							<span class="text-black dark:text-white">[[${meals.typeCode}]]
-								: [[${meals.mealTime}]]</span>
+							<span class="text-black dark:text-white">[[${meals.typeCode}]]  [[${meals.mealTime}]]</span>
 							<p class="truncate text-black">[[${meals.mealAmount}]]</p>
 							<p class="text-black font-semibold dark:text-white">[[${meals.subject}]]</p>
 						</div>
