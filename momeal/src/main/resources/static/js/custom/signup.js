@@ -23,15 +23,17 @@ $(function () {
 
     // 아이디 정규식 검사
     $userId.on("keyup", function () { // 키보드 눌렀을 때 실행
-        var regExp = /^[a-zA-Z0-9]{5,15}$/g;
+        var regExp = /^[a-zA-Z0-9]{5,15}$/g; // 소대문자,숫자로 5-15글자로만 허용
 
         if (!regExp.test($userId.val())) { // id 가 공백인 경우 체크
             idchk = false;
             $id.html("<span id='check'>사용할 수 없는 아이디입니다.</span>");
-            $("#check").css(
-                {"color": "#FA3E3E", "font-weight": "bold", "font-size": "10px"}
-            )
-        } else { // 공백아니면 중복체크
+            $("#check").css({
+                "color": "#FA3E3E",
+                "font-weight": "bold",
+                "font-size": "12px"
+            })
+        } else { // 공백이 아닐시 중복체크
             $.ajax({
                 type: "POST",
                 url: "/signup/checkId.do",
@@ -42,17 +44,21 @@ $(function () {
                     if (data == 1) { // 1이면 중복
                         idchk = false;
                         $id.html("<span id='check'>이미 존재하는 아이디입니다</span>")
-                        $("#check").css(
-                            {"color": "#FA3E3E", "font-weight": "bold", "font-size": "10px"}
-                        )
+                        $("#check").css({
+                            "color": "#FA3E3E",
+                            "font-weight": "bold",
+                            "font-size": "12px"
+                        })
                         //console.log("중복아이디");
-                    } else { // 아니면 중복아님
+                    } else { // 반환값이 1이 아니면 중복아님
                         idchk = true;
                         $id.html("<span id='check'>사용가능한 아이디입니다</span>")
 
-                        $("#check").css(
-                            {"color": "#0D6EFD", "font-weight": "bold", "font-size": "10px"}
-                        )
+                        $("#check").css({
+                            "color": "#0D6EFD",
+                            "font-weight": "bold",
+                            "font-size": "12px"
+                        })
                         //console.log("중복아닌 아이디");
                     }
                 }
@@ -60,22 +66,56 @@ $(function () {
         }
     });
 
-    // 패스워드 2중 검사
+    // 비밀번호 정규식 검사
+    $password.on("keyup", function () {
+        var regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/;
+        // 비밀번호는 최소 8자 + 최대 10자 최소 한개의 소문자 + 최소 한개의 대문자 최소 한개의 숫자 + 최소 한개의 특수 문자
+        // console.log("email : "+$memail.val());
+        if (!regExp.test($password.val())) {
+            //console.log("형식 미확인");
+
+            $("#pwdconfirmchk").html("<span id='chkpwd'>패스워드 형식이 맞지 않습니다</span>")
+            $("#chkpwd").css({
+                "color": "#FA3E3E",
+                "font-weight": "bold",
+                "font-size": "12px"
+            })
+            pwdchk = false;
+        } else {
+            //console.log("형식 확인");
+            $("#pwdconfirmchk").html("<span id='chkpwd'>패스워드 형식을 확인했습니다</span>")
+            $("#chkpwd").css({
+                "color": "#0D6EFD",
+                "font-weight": "bold",
+                "font-size": "12px"
+            })
+            pwdchk = true;
+            // console.log("idchk : "+idchk); console.log("pwdconfrimchk : "+pwdconfrimchk);
+            // console.log("emlchkchk : "+emlchkchk);
+
+        }
+    })
+
+    // 가입시 입력한 패스워드 2중 검사
     $pwdconfirm.on("keyup", function () {
         if ($pwdconfirm.val() != $password.val()) {
             pwdconfirmchk = false;
             //console.log("불일치");
             $("#pwdconfirmchk").html("<span id='checkpwd'>비밀번호가 일치하지 않습니다</span>")
-            $("#checkpwd").css(
-                {"color": "#FA3E3E", "font-weight": "bold", "font-size": "10px"}
-            )
+            $("#checkpwd").css({
+                "color": "#FA3E3E",
+                "font-weight": "bold",
+                "font-size": "12px"
+            })
         } else {
             pwdconfirmchk = true;
             //console.log("동일한 비밀번호");
             $("#pwdconfirmchk").html("<span id='checkpwd'>비밀번호 일치 확인</span>")
-            $("#checkpwd").css(
-                {"color": "#0D6EFD", "font-weight": "bold", "font-size": "10px"}
-            )
+            $("#checkpwd").css({
+                "color": "#0D6EFD",
+                "font-weight": "bold",
+                "font-size": "12px"
+            })
         }
     })
 
@@ -88,17 +128,21 @@ $(function () {
             emchk = false;
 
             $("#mailTxt").html("<span id='chkmail'>이메일 형식이 맞지 않습니다</span>")
-            $("#chkmail").css(
-                {"color": "#FA3E3E", "font-weight": "bold", "font-size": "10px"}
-            )
+            $("#chkmail").css({
+                "color": "#FA3E3E",
+                "font-weight": "bold",
+                "font-size": "12px"
+            })
         } else {
             emchk = true;
 
             //console.log("형식 확인");
             $("#mailTxt").html("<span id='chkmail'>이메일을 형식을 확인했습니다</span>")
-            $("#chkmail").css(
-                {"color": "#0D6EFD", "font-weight": "bold", "font-size": "10px"}
-            )
+            $("#chkmail").css({
+                "color": "#0D6EFD",
+                "font-weight": "bold",
+                "font-size": "12px"
+            })
         }
     })
 
@@ -124,17 +168,21 @@ $(function () {
             if (data != $memailconfirm.val()) {
                 emconfirmchk = false;
                 $memailconfirmTxt.html("<span id='emconfirmchk'>인증번호가 잘못되었습니다</span>")
-                $memconfirmchk.css(
-                    {"color": "#FA3E3E", "font-weight": "bold", "font-size": "10px"}
-                )
+                $memconfirmchk.css({
+                    "color": "#FA3E3E",
+                    "font-weight": "bold",
+                    "font-size": "12px"
+                })
                 //console.log("중복아이디");
             } else {
                 emconfirmchk = true;
                 $memailconfirmTxt.html("<span id='emconfirmchk'>인증번호 확인 완료</span>")
 
-                $memconfirmchk.css(
-                    {"color": "#0D6EFD", "font-weight": "bold", "font-size": "10px"}
-                )
+                $memconfirmchk.css({
+                    "color": "#0D6EFD",
+                    "font-weight": "bold",
+                    "font-size": "12px"
+                })
             }
         })
     }
@@ -148,7 +196,6 @@ $(function () {
         // console.log("emconfirmchk : "+emconfirmchk) console.log("phchk : "+phchk)
         // console.log("select : "+$("#select").val())
 
-        /*
         if (!idchk) {
             frm
                 .userId
@@ -164,11 +211,6 @@ $(function () {
                 .pwdconfirm
                 .focus();
             return false;
-        } else if (!namechk) {
-            frm
-                .mname
-                .focus();
-            return false;
         } else if (!emchk) {
             frm
                 .memail
@@ -179,7 +221,7 @@ $(function () {
                 .memailconfirm
                 .focus();
             return false;
-        } else if ($("#maddr").val() == "") {
+        } else if ($("#addr").val() == "") {
             frm
                 .maddr
                 .focus();
@@ -187,6 +229,6 @@ $(function () {
         } else {
             return true;
         }
-        */
+
     }
 })
