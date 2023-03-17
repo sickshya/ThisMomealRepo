@@ -77,42 +77,53 @@
                         <div class="col-12">
 <!--                             <div class="row"> -->
                                 <!-- 회원리스트 -->
-                                <form id="searchFrm">                   
-                                	  <input type="date" name="datekeyword1" id="inputDate" th:value="${#dates.format(paging.datekeyword1, 'yyyy-MM-dd')}" onchange="startdate()">
-  											  ~
-    								<input type="date" name="datekeyword2" id="inputeDate" th:value="${#dates.format(paging.datekeyword2, 'yyyy-MM-dd')}"  >
-    									
-    									<button type="submit">검색</button>
-    							</form>		
-    							<form id="searchFrm">  
-                                    <select name="type">
-                                        <option value="G" th:selected="${paging.type == 'G'}">제품명</option>
-                                        <option value="N" th:selected="${paging.type == 'N'}">회사명</option>
                                
-                                    </select>
-                             
-                                    <input type="text" name="keyword" th:value="${paging.keyword}">
-                                    
-                                    
-                                    
-                                    <button type="submit">검색</button>
-                            	</form>
-                            	<form id="searchFrm">
-                                <input type="radio" value="" name="gpstatus">전체
-                                    <input type="radio" value="0" name="gpstatus">진행중	
-                                    <input type="radio" value="1" name="gpstatus">완료
-                                    <input type="radio" value="2" name="gpstatus">진행전
-                                    <button type="submit">검색</button>
-                                    <button type="button" onclick="location.href='/admin/adminGroupPurchase'">초기화</button>
-                                </form>
                                 <!-- 표 시작 Striped rows -->
                                 <div class="col-md-20 my-4">
                                     <div class="card shadow">
                                         <div class="card-body">
                                             <h5 class="card-title">공동구매</h5>
                                             <p class="card-text">
-                                                <input type="button" value="등록하기"
-                                                    onclick="location.href='adminGPInsertFrom'">
+                                           <!-- 검색 --> 
+                                             <form id="searchFrm">  
+                                	  기간별 : &nbsp;                
+                                	  <input type="date" name="datekeyword1" style="width:45%; text-align:center" id="inputDate" th:value="${#dates.format(paging.datekeyword1, 'yyyy-MM-dd')}" onchange="startdate()">
+  											  ~
+    								<input type="date" name="datekeyword2" style="width:45%; text-align:center" id="inputeDate" th:value="${#dates.format(paging.datekeyword2, 'yyyy-MM-dd')}"  >
+    									
+<!--     									<button type="submit">검색</button> -->
+<!--     							</form>		 -->
+<!--     							<form id="searchFrm">   -->
+									<br><hr>
+                                   선  택 :&nbsp;  <select name="type" style="width:10%; text-align:center;">
+                                   		 <option value="A" th:selected="${paging.type == 'A'}">::: 선택 :::</option>
+                                        <option value="G" th:selected="${paging.type == 'G'}">제품명</option>
+                                        <option value="N" th:selected="${paging.type == 'N'}">회사명</option>
+                               
+                                    </select>
+                             
+                                    <input type="text" name="keyword" th:value="${paging.keyword}" style="width:82%;" >
+                                    
+                                    
+                                    
+<!--                                     <button type="submit">검색</button> -->
+<!--                             	</form> -->
+<!--                             	<form id="searchFrm"> -->
+									<br><hr>
+                               상  태 :&nbsp; <input type="radio" value="" name="gpstatus" style="width:50px;"> 전체
+                                    <input type="radio" value="0" name="gpstatus" style="width:50px;">  진행중	
+                                    <input type="radio" value="1" name="gpstatus" style="width:50px;">  완료
+                                    <input type="radio" value="2" name="gpstatus" style="width:50px;">  진행전
+                                    <br><hr>
+                                    <div style="text-align:leftr;">
+                                    <button type="submit">검색</button> &nbsp;&nbsp;
+                                    <button type="button" onclick="location.href='/admin/adminGroupPurchase'">초기화</button>
+                                    </div>
+                                </form>
+                                            
+                                            <!--  -->
+<!--                                                 <input type="button" value="등록하기" 
+                                                    onclick="location.href='adminGPInsertFrom'">-->
                                             </p>
                                             <table class="table table-striped table-hover">
                                                 <thead>
@@ -206,6 +217,17 @@ function Gpdel(res){
 	}
 	
 }
+
+
+$(document).ready(function() {
+    let message = "[[${msg}]]";
+    console.log(message)
+    if (message != "") {
+        alert(message);
+    }else {
+    }
+})
+
 
 </script>
 

@@ -46,31 +46,32 @@
         }
     </style>
 
-</head>
+</head>allUser
 
 <body class="vertical  light  ">
     <div layout:fragment="content">
         <script>
             function gopage(page) {
-                location.href = "admin/usrList?page=" + page;
+                location.href = "usrList?page=" + page;
                 searchFrm.page.value = page;
                 searchFrm.submit();
             }
         </script>
 
         <div class="wrapper">
-            <main role="main" class="main-content">
+            <main role="main" class="main-content" style="margin-left :auto">
                 <div class="container-fluid">
                     <div class="row justify-content-center">
                         <div class="col-12">
-                            <div class="row">
+<!--                             <div class="row"> -->
 
                                 <!-- 회원리스트 -->
                                 <form id="searchFrm">
                                     <select name="type">
-                                        <option value="GN" th:selected="${paging.type == 'GN'}">선택</option>
+                                       
                                         <option value="G" th:selected="${paging.type == 'G'}">등급</option>
                                         <option value="N" th:selected="${paging.type == 'N'}">이름</option>
+                                        <option value="A" th:selected="${paging.type == 'A'}">닉네임</option>
                                     </select>
                                     <input type="text" name="keyword" th:value="${paging.keyword}">
                                     <button type="submit">검색</button>
@@ -148,7 +149,7 @@
                                         </div>
                                     </div>
                                     <!-- Striped rows -->
-                                </div>
+<!--                                 </div> -->
                             </div>
                         </div>
                     </div>
@@ -157,17 +158,17 @@
             </div>
             <!-- .wrapper -->
 
-            <script src="/js/jquery.min.js"></script>
-            <script src="/js/popper.min.js"></script>
-            <script src="/js/moment.min.js"></script>
-            <script src="/js/bootstrap.min.js"></script>
-            <script src="/js/simplebar.min.js"></script>
-            <script src='/js/daterangepicker.js'></script>
-            <script src='/js/jquery.stickOnScroll.js'></script>
-            <script src="/js/tinycolor-min.js"></script>
-            <script src="/js/config.js"></script>
-            <script src='/js/jquery.dataTables.min.js'></script>
-            <script src='/js/dataTables.bootstrap4.min.js'></script>
+<!--             <script src="/js/jquery.min.js"></script> -->
+<!--             <script src="/js/popper.min.js"></script> -->
+<!--             <script src="/js/moment.min.js"></script> -->
+<!--             <script src="/js/bootstrap.min.js"></script> -->
+<!--             <script src="/js/simplebar.min.js"></script> -->
+<!--             <script src='/js/daterangepicker.js'></script> -->
+<!--             <script src='/js/jquery.stickOnScroll.js'></script> -->
+<!--             <script src="/js/tinycolor-min.js"></script> -->
+<!--             <script src="/js/config.js"></script> -->
+<!--             <script src='/js/jquery.dataTables.min.js'></script> -->
+<!--             <script src='/js/dataTables.bootstrap4.min.js'></script> -->
 
         </div>
     </body>
