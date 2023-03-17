@@ -65,7 +65,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	// 챌린지 참여하기
 	@Override
-	public int attendChall(ChallengeParticipationVO vo) {
+	public int attendChall(ChallengeVO vo) {
 		return challengeMapper.attendChall(vo);
 	}
 
@@ -78,7 +78,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	// 진행중 - 단건조회
 	@Override
-	public Map<String, Object> getMyChall(String userId, int chalNo) {
+	public ChallengeVO getMyChall(String userId, int chalNo) {
 		return challengeMapper.getMyChall(userId, chalNo);
 	}
 	
