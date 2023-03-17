@@ -310,9 +310,10 @@ img {
                              <!-- 좋아요 들어간 자리 -->
                            </div>
                         </a>
+                        <th:block th:if="${session.userId == selects.userId}">
                         <button type="button" onclick = "feedUpdteForm();">글수정</button>
                         <button type="button"  onclick="feedDel();">글삭제</button>
-
+						</th:block>
                      </div>
                      <hr class="-mx-4 my-3">
                      
@@ -429,9 +430,9 @@ function buildCalendar() {
           $('#tbd').empty()
          //console.log(res[0].typeCode)
          if(res[0] == null){
-        	 
+        	 if(userId == sessionId){
         	 toastr.success('등록된식단이 없습니다.');
-        	 
+        	 }
          }
          $(res).each(function(i, res){
             console.log(res)

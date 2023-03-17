@@ -70,6 +70,10 @@
 			<when test="type == 'N'.toString()">
 				user_name like '%'||#{keyword}||'%'
 			</when>
+			<when test="type == 'A'.toString()">
+				nick_name like '%'||#{keyword}||'%'
+			</when>
+			
 		</choose>
 	</sql>
 

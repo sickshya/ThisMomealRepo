@@ -149,19 +149,19 @@
 	<!-- +++++++++++++++++관리자+++++++++++++++++++++++++++++++ -->
 	<!-- 관리자 -공동구매 물품 리스트 -->
 	<sql id="creiteria">
-		<choose>
-			<when test="type == 'G'.toString()">
+	
+			<if test="type == 'G'.toString()">
 				and NAME like '%'||#{keyword}||'%'
-			</when>
-			<when test="type == 'N'.toString()">
+			</if>
+			<if test="type == 'N'.toString()">
 				and co_name like '%'||#{keyword}||'%'  
-			</when>
-			<when test="datekeyword1 != null">
+			</if>
+			<if test="datekeyword1 != null">
 				<![CDATA[
 				and not( grp_end_date < #{datekeyword1} or	grp_start_date > #{datekeyword2})
 				]]>
-			</when>
-			<when test="gpstatus != null and gpstatus != ''">
+			</if>
+			<if test="gpstatus != null and gpstatus != ''">
 				<if test='gpstatus == "0"'>
 					and <![CDATA[TRUNC(grp_start_date) <= TRUNC(current_date) and
 	            	 trunc(current_date) <= grp_end_date]]>
@@ -173,9 +173,9 @@
 				<if test='gpstatus == "2"'>
 				 	  and <![CDATA[grp_start_date > trunc(current_date) ]]>
 				</if>
-			</when>
+			</if>
 
-		</choose>
+		
 	</sql>
 	<select id="getCountTotal"
 		parameterType="co.doeat.management.service.GroupPurchaseListVO"
@@ -248,11 +248,11 @@
 	<!-- 삭제 -->
 	<delete id="adminGPDelete"
 		parameterType="co.doeat.management.service.GroupPurchaseListVO">
-		DELETE FROM GROUP_PURCHASE_LISTS WHERE NO= #{no}
-<!-- 		delete from group_purchase_lists -->
-<!-- 			where NO= #{no} and not exists(select * -->
-<!-- 			from group_purchase_settlement -->
-<!-- 			where list_no = #{no} ); -->
+<!-- 		DELETE FROM GROUP_PURCHASE_LISTS WHERE NO= #{no} -->
+		delete from group_purchase_lists
+			where NO= #{no} and not exists(select *
+			from group_purchase_settlement
+			where list_no = #{no} )
 	</delete>
 
 	<!-- 수정 -->

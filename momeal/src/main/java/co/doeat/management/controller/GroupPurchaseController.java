@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import co.doeat.Paging;
 import co.doeat.common.service.ImageService;
@@ -65,11 +66,8 @@ public class GroupPurchaseController {
 
 	// 공동구매를 신청하기 위한 서류 작성 form 호출 ( 신청form )
 	@RequestMapping("/pch/pchOrderFrm")
-	public String pchOrderFrm(
-						HttpServletRequest request, 
-						Model model, 
-						GroupPurchaseSettlementVO vo,
-						@RequestParam int totalGd) {
+	public String pchOrderFrm(HttpServletRequest request, Model model, GroupPurchaseSettlementVO vo,
+			@RequestParam int totalGd) {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
 		List<GroupPurchaseListVO> gvo = groupPurchaseService.pchDetail(vo.getNo());
@@ -93,7 +91,7 @@ public class GroupPurchaseController {
 	@RequestMapping("/pch/pchOrderList/{no}")
 	public String orderList(Model model, @PathVariable int no, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
-		model.addAttribute("orderlist", groupPurchaseService.pchOrderList(userId,no));
+		model.addAttribute("orderlist", groupPurchaseService.pchOrderList(userId, no));
 		model.addAttribute("no", no);
 		return "purchase/pchOrderList";
 	}
@@ -176,12 +174,15 @@ public class GroupPurchaseController {
 
 	// 관리자 공동구매 delete
 	@RequestMapping("/admin/adminGPDelete/{no}")
-	public String adminGPDelete(@PathVariable int no, Model model, GroupPurchaseListVO vo, ImageVO ivo) {
+	public String adminGPDelete(@PathVariable int no, RedirectAttributes redirectAttributes, GroupPurchaseListVO vo, ImageVO ivo) {
 		String boardCode = "CT03";
 		int postNo = vo.getNo();
 		imageService.adminGPIDelete(postNo, boardCode);
-		groupPurchaseService.adminGPDelete(no);
-		return "redirect:/admin/adminGroupPurchase";
+		int delCnt=groupPurchaseService.adminGPDelete(no);
+		if (delCnt == 0) {
+			redirectAttributes.addFlashAttribute("msg", "신청자가있는 공동구매는 삭제할 수 없습니다");
+		}
+		return "redirect:/admin/adminGroupPurchase";	
 	}
 
 	// 관리자 공동구매 update
@@ -197,7 +198,8 @@ public class GroupPurchaseController {
 
 	@RequestMapping("/adminGPUpdate")
 	@ResponseBody
-	public String adminGPUpdate(GroupPurchaseListVO vo, ImageVO ivo, Model model, List<MultipartFile> files, MultipartFile tfile) {
+	public String adminGPUpdate(GroupPurchaseListVO vo, ImageVO ivo, Model model, List<MultipartFile> files,
+			MultipartFile tfile) {
 		if (!tfile.isEmpty()) {// 첨부파일이 존재하면
 			String fileName = UUID.randomUUID().toString();
 			fileName = fileName + tfile.getOriginalFilename();
