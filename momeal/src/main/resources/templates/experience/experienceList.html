@@ -89,10 +89,12 @@
 												<h4 class="card-product__title">
 													<a th:text="${getExp.title}"></a>
 												</h4>
-												<p th:unless="${getExp.expeStartDate == '0'}"
-													style="color: green;">마감기한 : D [[ ${getExp.startDate} ]]</p>
-												<p style="color: red;">신청인원 :
-													[[${getExp.ordCnt}]]/[[${getExp.lmtAplyt}]]</p>
+													<br>
+													<p>🎈 참여등급 : [[${getExp.nessGrd}]]</p>
+													<p style="color: red;">😎 모집인원 : [[${getExp.lmtAplyt}]]명</p>
+													<p th:unless="${getExp.expeStartDate == '0'}"
+														style="color: green;">🕓 종료일 : D [[ ${getExp.startDate} ]]일</p>
+													<br>
 											</div>
 										</div>
 									</div>
@@ -132,10 +134,12 @@
 													<h4 class="card-product__title">
 														<a th:text="${getExp.title}"></a>
 													</h4>
+													<br>
+													<p>🎈 참여등급 : [[${getExp.nessGrd}]]</p>
+													<p style="color: red;">😎 모집인원 : [[${getExp.lmtAplyt}]]명</p>
 													<p th:unless="${getExp.expeStartDate == '0'}"
-														style="color: green;">마감기한 : D [[ ${getExp.startDate} ]]</p>
-													<p style="color: red;">신청인원 :
-														[[${getExp.ordCnt}]]/[[${getExp.lmtAplyt}]]</p>
+														style="color: green;">🕓 종료일 : D [[ ${getExp.startDate} ]]일</p>
+													<br>
 												</div>
 											</div>
 										</div>

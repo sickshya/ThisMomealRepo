@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>experienceDetail</title>
 
-<!-- <!-- Google Font --> -->
+<!-- <!-- Google Font -->
 <!-- <link -->
 <!-- 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" -->
 <!-- 	rel="stylesheet"> -->
@@ -58,25 +58,26 @@ textarea {
 						<div class="product__details__price">[[${ExpOne[0].subject}]]</div>
 						<p th:if="${ExpOne[0].expeStartDate == '0'}" style="color: red;"></p>
 						<p th:unless="${ExpOne[0].expeStartDate == '0'}"
-							style="color: red;">[[${#dates.format(ExpOne[0].expeStartDate,'MM월dd일')}]]
-							에 시작해요!</p>
+							style="color: red;">[[${#dates.format(ExpOne[0].expeStartDate,'MM월
+							dd일')}]] 에 시작해요!</p>
 						<ul>
 							<li><b>참여 등급</b> <span>[[${ExpOne[0].nessGrd}]]</span></li>
-							<li><b>참여 인원</b> <span>[[${ExpOne[0].ordCnt}]] 명 신청 / [[${ExpOne[0].aplyt}]] 명 신청 가능!</span></li>
+							<li><b>참여 인원</b> <span>현재 [[${ExpOne[0].nowAplyt}]] 명
+									신청 </span> / <span style="color: red;" id="aplytCnt"><b>[[${ExpOne[0].aplytCnt}]]
+										명 신청가능 💥</b></span></li>
+
 							<li><b>모집 기간</b> <span>[[${#dates.format(ExpOne[0].expeStartDate,
 									'MM-dd')}]]([[${#dates.dayOfWeekName(ExpOne[0].expeStartDate)}]])
-									 -  [[${#dates.format(ExpOne[0].expeEndDate,
+									- [[${#dates.format(ExpOne[0].expeEndDate,
 									'MM-dd')}]]([[${#dates.dayOfWeekName(ExpOne[0].expeEndDate)}]])</span></li>
 							<li><b>리뷰 기간</b> <span>[[${#dates.format(ExpOne[0].reviewStartDate,
 									'MM-dd')}]]([[${#dates.dayOfWeekName(ExpOne[0].reviewStartDate)}]])
-									 -  [[${#dates.format(ExpOne[0].reviewEndDate,
+									- [[${#dates.format(ExpOne[0].reviewEndDate,
 									'MM-dd')}]]([[${#dates.dayOfWeekName(ExpOne[0].reviewEndDate)}]])</span></li>
 						</ul>
 						<br>
-						<form class="purchaseBtn" th:action="@{/expr/exprFrm/{no}(no = ${ExpOne[0].no})}">
-							<button class="primary-btn" id="btn" onclick="ExpBtn()">신청하기</button>
-						</form>
-						
+						<button type="button" class="primary-btn" id="btn" name="btn" onclick="ExpBtn()">신청하기</button>
+
 
 					</div>
 				</div>
@@ -86,7 +87,7 @@ textarea {
 							<li class="nav-item"><a class="nav-link active"
 								data-toggle="tab" href="#detail" role="tab" aria-selected="true">상세설명</a></li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"
-								href="#review" role="tab" aria-selected="false">문의하기</a></li>
+								href="#review" role="tab" aria-selected="false">리뷰</a></li>
 						</ul>
 
 						<!--                   탭 내용들 -->
@@ -94,8 +95,10 @@ textarea {
 							<!--                      상세 탭 시작 -->
 							<div class="tab-pane active" id="detail" role="tabpanel">
 								<div class="product__details__tab__desc">
-									<img class="product__details__pic__item--large"
-										th:each="exponeImg:${ExpOne}" th:src="${exponeImg.atchPath}">
+									<h6>상세설명</h6>
+									<th:block th:each="img : ${detailImg}">
+										<img th:src="${img.atchPath}">
+									</th:block>
 								</div>
 							</div>
 							<!--                      상세 탭 끝 후기 탭 시작 -->
@@ -123,25 +126,28 @@ textarea {
 				</div>
 			</div>
 		</div>
+
+
+		<!-- 체험단 신청인원이 다차면 버튼비활성화 -->
 		
-		<script>
-		
-		//체험단 신청인원이 다차면 버튼비활성화   //빼야할듯...
-		function ExpBtn() {
-			  let nowAplyt = document.getElementById("nowAplyt").value;
-			  let ordCnt = document.getElementById("ordCnt").value;
-			  document.getElementById('btn').addEventListener('input', function(event) {
-			    if (btn > 0) { //btn의 값이 0이거나 0보다 작아질경우.
-			      document.getElementById('submit').disabled = !this.value;  //버튼이 비활성화.
-			    } else {
-			      document.getElementById('submit').disabled = true; //0보다 큰경우에만 사용가능.
-			    }
-			  }, false);
+		<script th:inline="javascript">
+				let no = /*[[${ExpOne[0].no}]]*/
+				console.log(no);
+			function ExpBtn() {
+
+				let aplyt = /*[[${ExpOne[0].aplytCnt}]]*/
+				console.log(aplyt);
+				console.dir($("#btn"));
+
+				if (aplyt == 0) {
+					alert("신청이 마감되었습니다.");
+				} else {
+						location.href = "/expr/exprFrm/" + no
+				}
 			}
-		
 		</script>
 
-		
+
 		<!-- Js Plugins -->
 		<script src="/second-template/js/bootstrap.min.js"></script>
 		<script src="/second-template/js/jquery-ui.min.js"></script>

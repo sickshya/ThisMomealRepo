@@ -28,10 +28,6 @@ public interface ExperienceMapper {
 	// 체험단-조회
 	public List<ExprParticipantsVO> expOrderList(String userId, int no); // 체험단 참여내역 조회
 	
-//	// 체험단-신청인원 제한버튼
-//	public Boolean ajaxExpBtn(ExperienceVO vo); // 신청인원 제한 시 버튼 막기
-	
-	
 	
 
 	// 관리자 +++++++++++++++++++++++++++++++++++

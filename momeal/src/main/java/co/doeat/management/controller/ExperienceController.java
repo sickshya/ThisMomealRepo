@@ -64,8 +64,9 @@ public class ExperienceController {
 	@GetMapping("/experienceDetail/{no}")
 	public String experienceDetail(Model model, @PathVariable int no, HttpSession session) {
 		String id = (String) session.getAttribute("userId");
+		String boardCode = "CT02";
 		model.addAttribute("ExpOne", experienceService.ExperOne(no));
-		System.out.println(id+"유저아아디" + no +"번호");
+		model.addAttribute("detailImg", imageService.imageList(boardCode, no));
 		model.addAttribute("no", no);
 		return "experience/experienceDetail";
 	}

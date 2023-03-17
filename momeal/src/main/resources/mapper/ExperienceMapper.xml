@@ -7,7 +7,7 @@
 		SELECT  EG.NO
 		        ,EG.TITLE
 		        ,EG.SUBJECT
-		        ,EG.NOW_APLYT
+		        ,(EG.NOW_APLYT - TRUNC(EG.LMT_APLYT)) as aplytCnt
 		        ,EG.LMT_APLYT
 		        ,EG.NESS_GRD
 		        ,EG.SAVE_POINT
@@ -79,8 +79,8 @@
 		SELECT  g.NO,
 		        g.TITLE,
 		        g.SUBJECT,
-		        g.NOW_APLYT - g.LMT_APLYT AS APLYT,
-		        g.LMT_APLYT,
+		        g.NOW_APLYT,
+		        (g.LMT_APLYT - TRUNC(g.NOW_APLYT)) as aplytCnt,
 		        g.NESS_GRD,
 		        g.SAVE_POINT,
 		        g.EXPE_START_DATE,
@@ -88,15 +88,9 @@
 		        g.REVIEW_START_DATE,
 		        g.REVIEW_END_DATE,
 		        g.THUMBNAIL_IMG,
-		        g.THUMBNAIL_IMG_PATH, 
-		       i.*, 
-		       (SELECT COUNT(*) 
-		          FROM EXPERIENCE_PARTICIPANTS
-		          WHERE NO = i.POST_NO) ord_cnt
-		FROM
-		EXPERIENCE_GROUP g LEFT JOIN IMAGES i
-		ON (g.NO = i.POST_NO)
-		WHERE i.POST_NO = #{postNo} and i.board_code='CT02'
+		        g.THUMBNAIL_IMG_PATH 
+		FROM EXPERIENCE_GROUP g
+		WHERE g.NO = #{no}
 		ORDER BY g.NO
 	</select>
 	

@@ -18,7 +18,6 @@ public class ExperienceVO extends ImageVO {
 	private String subject; //글내용
 	private int nowAplyt; //신청인원
 	private int lmtAplyt; //마감인원
-	private int Aplyt; // 남은인원 카운트
 	private String nessGrd; //필요등급
 	private int savePoint; //적립포인트
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -39,6 +38,7 @@ public class ExperienceVO extends ImageVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private int startDate; //체험단시작날짜 
+	private int aplytCnt; //남은인원 카운트
 	
 	
 	// 이미지
