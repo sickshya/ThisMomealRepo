@@ -87,7 +87,7 @@
 												<a href="#" th:text="${pch.name}"></a>
 											</h4>
 											<span th:text="${#numbers.formatInteger(pch.price, 3, 'COMMA') + '원'}" ></span>
-											<p style="color: red;">[[${pch.ordCnt}]]명이 주문 중</p>
+											<p style="color: red;"><b> 👆 [[${pch.ordCnt}]]명이 참여</b></p>
 										</div>
 									</div>
 								</div>
@@ -125,7 +125,7 @@
 														<a href="#" th:text="${pch.name}"></a>
 													</h4>
 													<span th:text="${#numbers.formatInteger(pch.price, 3, 'COMMA') + '원'}"></span>
-													<p style="color: red;">[[${pch.ordCnt}]]명이 주문 중</p>
+													<p style="color: red;"><b>👆[[${pch.ordCnt}]]명이 참여</b></p>
 												</div>
 											</div>
 										</div>

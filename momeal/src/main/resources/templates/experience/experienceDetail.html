@@ -64,7 +64,7 @@ textarea {
 							<li><b>참여 등급</b> <span>[[${ExpOne[0].nessGrd}]]</span></li>
 							<li><b>참여 인원</b> <span>현재 [[${ExpOne[0].nowAplyt}]] 명
 									신청 </span> / <span style="color: red;" id="aplytCnt"><b>[[${ExpOne[0].aplytCnt}]]
-										명 신청가능 💥</b></span></li>
+										명 신청가능 ✨</b></span></li>
 
 							<li><b>모집 기간</b> <span>[[${#dates.format(ExpOne[0].expeStartDate,
 									'MM-dd')}]]([[${#dates.dayOfWeekName(ExpOne[0].expeStartDate)}]])
@@ -129,7 +129,6 @@ textarea {
 
 
 		<!-- 체험단 신청인원이 다차면 버튼비활성화 -->
-		
 		<script th:inline="javascript">
 				let no = /*[[${ExpOne[0].no}]]*/
 				console.log(no);

@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{frame/usual}">
+	layout:decorate="~{frame/board}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Insert title here</title>
 <!-- Css Styles -->
-<link rel="stylesheet" href="/second-template/css/bootstrap.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/second-template/css/font-awesome.min.css"
-	type="text/css">
-<link rel="stylesheet" href="/second-template/css/style.css"
-	type="text/css">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="/second-template/css/bootstrap.min.css" -->
+<!-- 	type="text/css"> -->
+<!-- <link rel="stylesheet" href="/second-template/css/font-awesome.min.css" -->
+<!-- 	type="text/css"> -->
+<!-- <link rel="stylesheet" href="/second-template/css/style.css" -->
+<!-- 	type="text/css"> -->
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
 
 </head>
 <style>
+table, th, td {
+     border: 1px solid black;
+}
+ table {
+     border-collapse: collapse;
+     width: 100%;
+}
+ th {
+     text-align: left;
+}
+ td {
+     text-align: center;
+}
 </style>
 <body>
 	<div layout:fragment="content">
@@ -33,7 +46,7 @@
 				<form id="frm" method="post">
 					<div>
 
-						<table border="1" id="table">
+						<table style="border: 1px, solid; border-color: black;" id="table">
 							<tr>
 								<td width="80"><select name="key" id="key">
 										<option value="all">전체</option>
@@ -41,7 +54,7 @@
 										<option value="boardSubject">내용</option>
 								</select></td>
 								<td width="150"><input type="text" name="val" id="val"></td>
-								<td width="80"><input type="button" class="btn btn-dark"
+								<td width="80"><input type="button" class="btn btn-outline-success" id="SearchBtn"
 									onclick="searchList()" value="검색"></td>
 							</tr>
 						</table>
@@ -51,8 +64,8 @@
 			</div>
 			<br>
 			<div>
-				<table border="1" id="list-table">
-					<thead>
+				<table style="border: 1px, solid; border-color: black;" id="list-table">
+					<thead style="border: 1px, solid;">
 						<tr>
 							<td align="center" width="100">번호</td>
 							<td align="center" width="250">제목</td>
@@ -63,11 +76,11 @@
 					</thead>
 					<tbody id="notice-list">
 						<tr th:each="n : ${noticeList}"
-							onmouseover='this.style.background="#fcecae";'
+							onmouseover='this.style.background="#EBFCD9";'
 							onmouseleave='this.style.background="#FFFFFF";'
 							th:onclick="'location.href=\''+ @{/noticeSel/{no}(no = ${n.no})} + '\''">
 							<td align="center" th:text="${n.no}"></td>
-							<td align="center" th:text="${n.boardTitle}"></td>
+							<td align="left" th:text="${n.boardTitle}" class="truncate"></td>
 							<td align="center"
 								th:text="${#dates.format(n.boardDate,'yyyy-MM-dd')}"></td>
 							<td align="center" th:text="${n.userId}"></td>
@@ -110,7 +123,7 @@
 			
 			function createHTMLString(data) { // html 변환 코드 css
 
-				let str = "<tr onmouseover='this.style.background='#fcecae';"
+				let str = "<tr onmouseover='this.style.background='#EBFCD9';"
 					str += " onmouseleave='this.style.background='#FFFFFF';" // 앞쪽 공백 주의
 					str += " onclick="; // 앞쪽 공백 주의
 					str += "noticeSel('" + data.userId + "')" + ">";

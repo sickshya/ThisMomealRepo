@@ -42,10 +42,10 @@ textarea {
 }
 </style>
 
-<body>	
-	
+<body>
+
 	<div layout:fragment="content">
-	
+
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-6">
@@ -61,12 +61,15 @@ textarea {
 						<h3>[[ ${pchDetail[0].name} ]]</h3>
 						<p th:if="${pchDetail[0].grpStartDate == '0'}" style="color: red;"></p>
 						<p th:unless="${pchDetail[0].grpStartDate == '0'}"
-							style="color: red;">[[${#dates.format(pchDetail[0].grpStartDate,'MM월 dd일')}]]
-						에 시작해요!</p>
-						<div class="product__details__price" ><span id="price"  th:text="${#numbers.formatInteger(pchDetail[0].price, 3, 'COMMA')}"></span>원</div>
+							style="color: red;">[[${#dates.format(pchDetail[0].grpStartDate,'MM월
+							dd일')}]] 에 시작해요!</p>
+						<div class="product__details__price">
+							<span id="price"
+								th:text="${#numbers.formatInteger(pchDetail[0].price, 3, 'COMMA')}"></span>원
+						</div>
 						<ul>
 							<li><b>주문자 수</b> <span>[[${pchDetail[0].ordCnt}]]명</span></li>
-							<li><b>주문 가능수량</b> <span>총
+							<li><b>주문 가능수량</b> <span id="pchOrdCnt">총
 									[[${pchDetail[0].pchOrdCnt}]]개</span></li>
 							<li><b>진행 기간</b> <span>[[${#dates.format(pchDetail[0].grpStartDate,
 									'MM-dd')}]]([[${#dates.dayOfWeekName(pchDetail[0].grpStartDate)}]])
@@ -74,8 +77,7 @@ textarea {
 									'MM-dd')}]]([[${#dates.dayOfWeekName(pchDetail[0].grpEndDate)}]])</span></li>
 						</ul>
 
-
-						<form class="purchaseBtn" action="/pch/pchOrderFrm">
+						<form class="purchaseBtn" action="/pch/pchOrderFrm/" >
 
 							<!-- 수량 입력칸 -->
 							<input type="number" name="totalGd" id="totalGd" size="2" min="1"
@@ -85,11 +87,13 @@ textarea {
 							<!-- 수량 입력시 합계 -->
 							<input type="text" id="totalSum" size="2" min="1" maxlength="12"
 								value="1" title="" onclick="totalCal()" class="input-text qty"
-								th:value="${#numbers.formatInteger(pchDetail[0].price, 3, 'COMMA') + '원'}"> 
-								<input type="hidden" id="no" name="no" th:value="${pchDetail[0].no}"> 
-								<input	type="hidden" name="listNo" th:value="${pchDetail[0].ListNo}">
+								th:value="${#numbers.formatInteger(pchDetail[0].price, 3, 'COMMA') + '원'}">
+							<input type="hidden" id="no" name="no"
+								th:value="${pchDetail[0].no}"> <input type="hidden"
+								name="listNo" th:value="${pchDetail[0].ListNo}">
 
-							<button class="primary-btn">구매하기</button>
+							<button type="button" class="primary-btn" onclick="PchBtn()" id="btn"
+								name="btn" >구매하기</button>
 
 						</form>
 
@@ -141,21 +145,38 @@ textarea {
 				</div>
 			</div>
 		</div>
-		
-		
+
 		<!-- 주문수량에 맞게 가격변동 -->
 		<script type="text/javascript">
 			function totalCal() {
 				let totalGd = document.getElementById("totalGd").value;
 				let price = document.getElementById("price").innerText;
-				let total = (parseInt(totalGd) * parseInt(price.replace(",", ""))) +'원' //콤마제거
-				total= total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); //콤마생성
+				let total = (parseInt(totalGd) * parseInt(price
+						.replace(",", "")))
+						+ '원' //콤마제거
+				total = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); //콤마생성
 				document.getElementById('totalSum').value = total
 				let cal = document.getElementById('totalSum').value;
 				console.log(totalSum);
 				console.log(totalGd);
 			}
 		</script>
+
+		<!-- 공동구매 신청인원이 다차면 버튼비활성화 -->
+		<script th:inline="javascript">
+			function PchBtn() {
+				let pchOrdCnt = /*[[${pchDetail[0].pchOrdCnt}]]*/
+				console.log(pchOrdCnt + "신청인원");
+				console.dir($("#btn"));
+
+				if ( pchOrdCnt == 0 ) {
+					alert("신청인원이 마감되었습니다");
+				} else {
+						location.href = "/pch/pchOrderFrm/" //요기에 totalGd를 어떻게 넘기지.?
+				}
+			}
+		</script>
+
 
 		<!-- Js Plugins -->
 		<script src="/second-template/js/bootstrap.min.js"></script>
