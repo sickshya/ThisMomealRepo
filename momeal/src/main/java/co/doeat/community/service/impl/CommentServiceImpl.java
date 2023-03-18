@@ -20,6 +20,12 @@ public class CommentServiceImpl implements CommentService{
 	public List<CommentVO> commentsList(CommentVO vo) {
 		return commentMapper.commentsList(vo);
 	}
+	
+	// 그룹 댓글 조회
+	@Override
+	public List<CommentVO> groupCommentsList(CommentVO vo) {
+		return commentMapper.groupCommentsList(vo);
+	}
 
 	// 댓글 등록
 	@Override

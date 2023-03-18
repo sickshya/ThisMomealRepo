@@ -21,6 +21,7 @@ public class CommentVO {
 	private int cmmtGroup; // 댓글 묶음을 구분짓는 순서
 	private int postNo; // 커뮤니티 게시글 번호
 	private String boardCode; // 게시글 타입 (식단 = CT04, 그룹 = CT05)
+	private String groupMember; // 그룹 회원 아이디
 	
 	private String nickName; // 댓글 작성자 닉네임
 	private String profileImgPath; // 댓글 작성자 프로필 사진

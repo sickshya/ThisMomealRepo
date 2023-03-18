@@ -175,14 +175,21 @@ img {
                </div>
 
 
-               <div
-                  class="capitalize flex font-semibold space-x-3 text-center text-sm my-2">
-                  <a href="/feedUpload"
-                     class="bg-gray-300 shadow-sm p-2 px-6 rounded-md dark:bg-gray-700">
-                     식단기록</a> 
-                     <a   href="javascript:atCk();"
-                     class="bg-pink-500 shadow-sm p-2 pink-500 px-6 rounded-md text-white hover:text-white hover:bg-pink-600">
-                     출석체크</a>
+				<div th:if="${session.userId == selects.userId}">
+	               <div
+	                  class="capitalize flex font-semibold space-x-3 text-center text-sm my-2">
+	                  <a href="/feedUpload"
+	                     class="bg-gray-300 shadow-sm p-2 px-6 rounded-md dark:bg-gray-700">
+	                     식단기록</a> 
+	                     <a   href="javascript:atCk();"
+	                     class="bg-pink-500 shadow-sm p-2 pink-500 px-6 rounded-md text-white hover:text-white hover:bg-pink-600">
+	                     출석체크</a>
+	               </div>
+               </div>
+               <div th:unless="${session.userId == selects.userId}" id="followButton">
+               		<!-- 팔로우  -->
+					<button type="button" class="follow" style="font-size:17px; padding:auto 30px auto 30px"></button>
+					<br><br>
                </div>
 
                <div
@@ -191,12 +198,13 @@ img {
                      onclick="">[[${mealcnt.POST_CNT}]]
                    <strong class="lg:pl-2">게시글</strong>
                   </div>
-                  <div class="lg:pl-4 flex lg:flex-row flex-col" style="cursor: pointer" data-toggle="modal" data-target="#followerModal" th:onclick="followerList([[${selects.userId}]])">
-                     [[ ${follow.FOLLOWEE_CNT} ]] <strong class="lg:pl-2">팔로워</strong>
+                  <div class="lg:pl-4 flex lg:flex-row flex-col" style="cursor: pointer" data-toggle="modal" data-target="#followerModal" th:onclick="followerList([[${selects.userId}]])"  id="followee">
+                     [[ ${follow.followeeCnt} ]] <strong class="lg:pl-2">팔로워</strong>
                   </div>
                   <div class="lg:pl-4 flex lg:flex-row flex-col" style="cursor: pointer" data-toggle="modal" data-target="#followerModal" th:onclick="followingList([[${selects.userId}]])">
-                     [[ ${follow.FOLLOWER_CNT} ]] <strong class="lg:pl-2">팔로잉</strong>
+                     [[ ${follow.followerCnt} ]] <strong class="lg:pl-2">팔로잉</strong>
                   </div>
+                  <input type="hidden" id="followeeCnt" th:value="${follow.followeeCnt}">
                </div>
 
             </div>
@@ -400,8 +408,37 @@ toastr.options = {
 
 <script>
 let sessionId = $("#sessionId").val();
+let storyUserId = $("#feedUserId").val();
+let followeeCnt = $("#followeeCnt").val();
 
-window.onload = function () { buildCalendar(); }    // 웹 페이지가 로드되면 buildCalendar 실행
+window.onload = function () { 
+	
+	buildCalendar(); // 웹 페이지가 로드되면 buildCalendar 실행
+	
+	// ▶ 팔로우 유무 체크 후 버튼 띄우기
+	// ajax 처리
+	$.ajax ({
+	type: 'post',
+	url: '/followCheck/' + storyUserId
+	})
+	.then (result => {
+		if(sessionId != storyUserId) {
+			if(result == 0) {
+				$(".follow").attr("id", "followBtn");
+                $(".follow").attr("value", storyUserId);
+                $(".follow").attr("onclick", "follow('" + storyUserId + "')");
+                $(".follow").addClass("btn btn-outline-success");
+                $(".follow").text("팔로우");
+			}else {
+				$(".follow").attr("id", "unfollowBtn");
+                $(".follow").attr("value", storyUserId);
+                $(".follow").attr("onclick", "unfollow('" + storyUserId + "')");
+                $(".follow").addClass("btn btn-outline-secondary");
+                $(".follow").text("언팔로우");
+			}
+		}
+	})
+}    
 
 let postNo = $(this).data("no");
 let today = new Date();     // 페이지를 로드한 날짜를 저장
@@ -635,7 +672,65 @@ function feedUpdteForm(){
 
 
 
-//▶ 팔로우 관련
+// ▶ 팔로우 관련
+// ▶ 팔로우 처리
+      function follow(userId) {
+         event.preventDefault()
+
+         // ajax 처리
+         $.ajax ({
+            type: 'post',
+            url: '/follow/' + userId, // 피드 유저의 id를 넘겨줘야함
+            contentType: 'application/json'   // Content-Type을 Json으로 변경
+         })
+         .then(result => {
+            console.log("팔로우 신청 결과 ===== " + result.followeeId)
+            $(".follow").remove();
+            $("#followButton").prepend(
+            `
+            <button type="button" class="follow" style="font-size:17px; padding:auto 30px auto 30px"></button>
+            `		
+            )
+            $(".follow").attr("id", "unfollowBtn");
+            $(".follow").attr("value", result.followeeId);
+            $(".follow").attr("onclick", "unfollow('" + result.followeeId + "')");
+            $(".follow").addClass("btn btn-outline-secondary");
+            $(".follow").text("언팔로우");
+            followeeCnt = Number(followeeCnt) + 1;
+            $("#followee").html(followeeCnt + '<strong class="lg:pl-2">팔로워</strong>')
+         })
+      }
+      
+      
+      // ▶ 언팔로우 처리
+      function unfollow(userId) {
+         console.log("언팔할 아이디 가져왔어? ===== " + userId);
+         
+         // ajax 처리
+         $.ajax ({
+            type: 'post',
+            url: '/unfollow/' + userId, // 피드 유저의 id를 넘겨줘야함
+            contentType: 'application/json'   // Content-Type을 Json으로 변경
+         })
+         .then(result => {
+            console.log("언팔로우 결과 ===== " + result.followeeId)
+            $(".follow").remove();
+            $("#followButton").prepend(
+            `
+            <button type="button" class="follow" style="font-size:17px; padding:auto 30px auto 30px"></button>
+            `		
+            )
+            $(".follow").attr("id", "followBtn");
+            $(".follow").attr("value", result.followeeId);
+            $(".follow").attr("onclick", "follow('" + result.followeeId + "')");
+            $(".follow").addClass("btn btn-outline-success");
+            $(".follow").text("팔로우");
+            followeeCnt = Number(followeeCnt) - 1;
+            $("#followee").html(followeeCnt + '<strong class="lg:pl-2">팔로워</strong>')
+         })
+      };
+
+      
 // 팔로워 리스트 출력
 function followerList(userId) {
    // 제목 생성
@@ -650,6 +745,11 @@ function followerList(userId) {
       type: "post"
    })
    .then(result => {
+	   if(result.length == 0) {
+		   $("#followList").append(
+			`<p>팔로워가 없습니다.</p>`	   
+		   )
+	   }
       // 리스트 목록 반복문 돌려서 붙이기
       $(result).each(function(index, item) {
          $("#followList").append(
@@ -660,7 +760,7 @@ function followerList(userId) {
                   <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
                      <img src="${item.profileImgPath}" class="bg-gray-200 border border-white rounded-full w-8 h-8">
                   </div>
-               </a>
+               </a> 
                <span class="block text-lg font-semibold">${item.nickName}</span>
             </div>
          </div>
@@ -684,6 +784,12 @@ function followingList(userId) {
       type: "post"
    })
    .then(result => {
+	   if(result.length == 0) {
+		   $("#followList").append(
+			`<p>팔로잉 중인 회원이 없습니다.</p>`	   
+		   )
+	   }
+	   
       // 리스트 목록 반복문 돌려서 붙이기
       $(result).each(function(index, item) {
          $("#followList").append(

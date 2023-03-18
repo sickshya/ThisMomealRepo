@@ -48,13 +48,13 @@ public class FollowServiceImpl implements FollowService{
    
    // 팔로워, 팔로잉 리스트 조회
    @Override
-   public Map<String, Object> followCount(String userId) {
+   public FollowVO followCount(String userId) {
       return followMapper.followCount(userId);
    }
-
+   
    // 탈퇴시 팔로우 전체 삭제
    @Override
    public void deleteAllFollow(String userId) {
    }
-   
+
 }

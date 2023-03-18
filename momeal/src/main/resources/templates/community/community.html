@@ -14,7 +14,7 @@
 		<div class="container-fluid search_box" style="width: 520px;">
 			<form id="searchForm" class="d-flex" onsubmit="return false;" autocomplete="off">
 			<select id="type" name="type" class="form-select" aria-label="Default select example"
-				style="width: 110px; float: left; margin-right: 10px; font-size:15px;" required>
+				style="width: 110px; float: left; margin-right: 10px; font-size:15px;">
 				<option value="" selected>전체검색</option>
 				<option value="typeCode">식단타입</option>
 				<option value="nickName">닉네임</option>
@@ -380,7 +380,7 @@
             $("#postNo").val(obj.no);
             console.log(sessionId)
             if(sessionId != null) {
-            	$("#feedUserId").attr("href", "/myFeed/" + obj.userId);
+            	$("#feedUserId").attr("href", "/usr/myFeed/" + obj.userId);
             }else {
             	$("#feedUserId").attr("href", "#"); // 모달 닫히면 모달 띄우는거 붙여보기
             }
