@@ -140,14 +140,33 @@
 	<!-- 관리자 +++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 	<!-- 관리자 체험단 전체리스트 출력 -->
 	<sql id="creiteria">
-		<choose>
-			<when test="type == 'G'.toString()">
-				title like '%'||#{keyword}||'%'
-			</when>
-			<when test="type == 'R'.toString()">
-				NESS_GRD like '%'||#{keyword}||'%'
-			</when>
-		</choose>
+		
+			<if test="type == 'G'.toString()">
+				and title like '%'||#{keyword}||'%'
+			</if>
+			<if test="type == 'R'.toString()">
+				and NESS_GRD like '%'||#{keyword}||'%'
+			</if>
+			<if test="datekeyword1 != null">
+				<![CDATA[
+				and not( expe_end_date < #{datekeyword1} or	expe_start_date > #{datekeyword2})
+				]]>
+			</if>
+			<if test="exstatus != null and exstatus != ''">
+				<if test='exstatus == "0"'>
+					and <![CDATA[TRUNC(expe_start_date) <= TRUNC(current_date) and
+	            	 trunc(current_date) <= expe_end_date]]>
+				</if>
+				<if test='exstatus == "1"'>
+			
+	            	and <![CDATA[ expe_end_date <= trunc(current_date) ]]>
+				</if>
+				<if test='exstatus == "2"'>
+				 	  and <![CDATA[expe_start_date > trunc(current_date) ]]>
+				</if>
+			
+			</if>
+	
 	</sql>
 	<select id="getCountTotal"
 		parameterType="co.doeat.management.service.ExperienceVO"

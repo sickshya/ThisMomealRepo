@@ -146,11 +146,23 @@
 	
 	<!-- 포인트로그 -->
 	<select id="pointList" resultType="co.doeat.record.service.PointLogVO">
+
 		select c.cd_desct, c.point, p.save_date
 		from common_code c, point_log p
 		where p.reason_code=c.cd_nm and user_id=#{uesrId}
 		order by p.save_date
+
 	</select>
+	<!-- 카운트 -->
+	<select id="getCountTotals" parameterType="co.doeat.record.service.PointLogVO"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM point_log
+		where user_Id=#{userId}
+		
+	</select>
+	
+	
 	
 	<!-- 마이포인트 -->
 	<select id="myPoint" resultType="co.doeat.community.service.UsersVO">
