@@ -24,4 +24,5 @@ public class PointLogVO {
 	String cdNm;
 	String cdDesct;
 	String point;
+	
 }

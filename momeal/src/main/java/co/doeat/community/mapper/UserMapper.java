@@ -3,6 +3,7 @@ package co.doeat.community.mapper;
 import java.util.List;
 import java.util.Map;
 
+import co.doeat.Paging;
 import co.doeat.community.service.UserSearchVO;
 import co.doeat.community.service.UsersVO;
 import co.doeat.record.service.PointLogVO;
@@ -44,5 +45,8 @@ public interface UserMapper {
 	
 	//누적포인트
 	UsersVO myPoint(String userId);
+	
+	//갯수
+	int getCountTotals(Paging paging,String userId);
 	
 }

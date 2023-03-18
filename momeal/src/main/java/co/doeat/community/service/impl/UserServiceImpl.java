@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.doeat.Paging;
 import co.doeat.common.service.CommonCodeVO;
 import co.doeat.community.mapper.UserMapper;
 import co.doeat.community.service.UserService;
@@ -85,6 +86,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UsersVO myPoint(String userId) {
 		return userMapper.myPoint(userId);
+	}
+
+	@Override
+	public int getCountTotals(Paging paging, String userId) {
+		return userMapper.getCountTotals(paging, userId);
 	}
 
 

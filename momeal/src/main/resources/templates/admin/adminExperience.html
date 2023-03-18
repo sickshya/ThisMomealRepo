@@ -61,20 +61,25 @@
                                 searchFrm.submit();
                             }
                         </script>
+                        <script>
+      
+  		function startdate(){
+  			var startdates = $('#inputDate').val()
+  			console.log(startdates)
+  			
+  			$("#inputeDate").prop("min", startdates);
+  			console.log()
+  		};
+  		
+        
+        </script>
 
                         <div class="col-12">
 <!--                             <div class="row"> -->
 
                                 <!-- 체험단 리스트 출력 -->
 
-                                <form id="searchFrm">
-                                    <select name="type">
-                                        <option value="G" th:selected="${paging.type == 'G'}">상품명</option>
-                                        <option value="R" th:selected="${paging.type == 'R'}">필요등급</option>
-                                    </select>
-                                    <input type="text" name="keyword" th:value="${paging.keyword}">
-                                    <button type="submit">검색</button>
-                                </form>
+                               
                                 <!-- 표 시작 Striped rows -->
 
                                 <div class="col-md-20 my-4">
@@ -82,6 +87,36 @@
                                         <div class="card-body">
                                             <h5 class="card-title">체험단 리스트</h5>
                                             <p class="card-text">
+                                            <!-- 검색 -->
+                                             <form id="searchFrm">
+                                              기간별 : &nbsp;                
+                                	  <input type="date" name="datekeyword1" style="width:45%; text-align:center" id="inputDate" th:value="${#dates.format(paging.datekeyword1, 'yyyy-MM-dd')}" onchange="startdate()">
+  											  ~
+    								<input type="date" name="datekeyword2" style="width:45%; text-align:center" id="inputeDate" th:value="${#dates.format(paging.datekeyword2, 'yyyy-MM-dd')}"  >
+                                             
+                                             
+                                     	<br><hr>        
+                                   선  택 :&nbsp; <select name="type">
+                                   		<option value="A" th:selected="${paging.type == 'A'}">::: 선택 :::</option>
+                                        <option value="G" th:selected="${paging.type == 'G'}">상품명</option>
+                                        <option value="R" th:selected="${paging.type == 'R'}">필요등급</option>
+                                    </select>
+                                    <input type="text" name="keyword" th:value="${paging.keyword}">
+                                    <br><hr>
+                               상  태 :&nbsp; <input type="radio" value="" name="exstatus" style="width:50px;"> 전체
+                                    <input type="radio" value="0" name="exstatus" style="width:50px;">  진행중	
+                                    <input type="radio" value="1" name="exstatus" style="width:50px;">  완료
+                                    <input type="radio" value="2" name="exstatus" style="width:50px;">  진행전
+                                    <br><hr>
+                                    <div style="text-align:leftr;">
+                                    <button type="submit">검색</button> &nbsp;&nbsp;
+                                    <button type="button" onclick="location.href='/admin/adminExperience'">초기화</button>
+                                    </div>
+                               
+                               
+                               
+                               
+                                </form>
                                                 <input type="button" value="등록하기"
                                                     onclick="location.href='adminEXInsertForm'">
                                             </p>

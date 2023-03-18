@@ -289,14 +289,34 @@
 	<!-- 관리자 챌린지 리스트 -->
 	
 		<sql id="creiteria">
-		<choose>
-			<when test="type == 'G'.toString()">
-				title like '%'||#{keyword}||'%'
-			</when>
-			<when test="type == 'N'.toString()">
-				chal_round like '%'||#{keyword}||'%'
-			</when>
-		</choose>
+		
+			<if test="type == 'G'.toString()">
+				and title like '%'||#{keyword}||'%'
+			</if>
+			<if test="type == 'N'.toString()">
+				and chal_round like '%'||#{keyword}||'%'
+			</if>
+			
+			<if test="datekeyword1 != null">
+				<![CDATA[
+				and not( chal_end_date < #{datekeyword1} or chal_start_date > #{datekeyword2})
+				]]> 
+			</if>
+			
+			<if test="chstatus != null and chstatus != ''">
+				<if test='chstatus == "0"'>
+					and <![CDATA[TRUNC(chal_start_date) <= TRUNC(current_date) and
+	            	 trunc(current_date) <= chal_end_date]]>
+				</if>
+				<if test='chstatus == "1"'>
+			
+	            	and <![CDATA[ chal_end_date <= trunc(current_date) ]]>
+				</if>
+				<if test='chstatus == "2"'>
+				 	  and <![CDATA[chal_start_date > trunc(current_date) ]]>
+				</if>
+			</if>
+		
 	</sql>
 	
 
@@ -320,7 +340,7 @@
 		no,title,deduct_point,chal_start_date,chal_end_date,chal_round,
 		<![CDATA[
 	        CASE WHEN chal_start_date <=trunc(current_date) 
-	        		AND chal_end_date <= trunc(current_date) THEN '완료'
+	        		AND chal_end_date < trunc(current_date) THEN '완료'
 	            WHEN TRUNC(chal_start_date) <= TRUNC(current_date) 
 	            	And trunc(current_date) <= chal_end_date Then '진행중' 
 	            Else '진행전' END as chstatus

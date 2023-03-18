@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import co.doeat.Paging;
 import co.doeat.record.service.PointLogVO;
 
 @Service
@@ -46,4 +47,6 @@ public interface UserService {
 
 	// 누적포인트
 	UsersVO myPoint(String userId);
+	
+	int getCountTotals(Paging paging, String userId);
 }
