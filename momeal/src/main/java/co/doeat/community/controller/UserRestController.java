@@ -45,7 +45,6 @@ public class UserRestController {
 	}
 
 	// 비밀번호 일치하는지 확인
-	// 수정 예정
 	@GetMapping("/chkPwdFrm")
 	public boolean userPwdForm(UsersVO vo, HttpSession session) {
 		boolean a = false;
@@ -61,5 +60,15 @@ public class UserRestController {
 		}
 		return a;
 	}
+
+	// 회원정보 수정시
+//	@PostMapping("/userEdit")
+//	public String userEdit(UsersVO vo) {
+//
+//		vo.setPassword(bcryptEncoder.encode(vo.getPassword()));
+//		userService.updateUserInfo(vo);
+//
+//		return "redirect:/userEdit";
+//	}
 
 }

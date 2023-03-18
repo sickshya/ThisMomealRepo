@@ -4,10 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.doeat.Paging;
@@ -24,8 +26,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	BCryptPasswordEncoder bcryptEncoder;
 
 	// 회원가입 폼 호출
 	@RequestMapping("/signup/signupFrm")
@@ -42,19 +45,27 @@ public class UserController {
 	// 회원정보 수정폼 호출
 	@RequestMapping("/userEditForm")
 	public String userEditForm(UsersVO vo, Model model, HttpSession session) {
-
 		model.addAttribute("userInfo", userService.userSelect((String) session.getAttribute("userId")));
-
 		return "users/userEditForm";
 	}
 
+//	// 회원정보 수정시
+//	@RequestMapping("/userEdit")
+//	public String userEdit(UsersVO vo) {
+//
+//		userService.updateUserInfo(vo);
+//
+//		return "redirect:/userEditForm";
+//	}
+
 	// 회원정보 수정시
-	@RequestMapping("/userEdit")
+	@PostMapping("/userEdit")
 	public String userEdit(UsersVO vo) {
 
+		vo.setPassword(bcryptEncoder.encode(vo.getPassword()));
 		userService.updateUserInfo(vo);
 
-		return "redirect:/userEditForm";
+		return "redirect:/main";
 	}
 
 	// 회원탈퇴신청폼 호출
@@ -67,7 +78,6 @@ public class UserController {
 	// 회원탈퇴신청 동작
 	@RequestMapping("/userWithdraw")
 	public String userWithdraw(UsersVO vo) {
-
 		userService.updateWithdraw(vo);
 		return "users/loginFrm";
 	}
