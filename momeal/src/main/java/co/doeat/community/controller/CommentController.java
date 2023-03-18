@@ -33,6 +33,16 @@ public class CommentController {
 		return commentService.commentsList(vo);
 	}
 	
+	@PostMapping("/GroupComment")
+	@ResponseBody
+	public List<CommentVO> groupCommentsList(CommentVO vo, @RequestParam String groupMember, @RequestParam int postNo) {
+		System.out.println("컨트롤러 왔어?????????");
+		vo.setGroupMember(groupMember);
+		vo.setPostNo(postNo);
+		vo.setBoardCode("CT05");
+		return commentService.groupCommentsList(vo);
+	}
+	
 	// 댓글 등록
 	@PostMapping("/insertComment/{postNo}")
 	@ResponseBody

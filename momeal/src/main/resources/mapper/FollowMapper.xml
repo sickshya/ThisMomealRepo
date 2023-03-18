@@ -19,8 +19,8 @@
    <select id="isFollow" resultType="int">
       SELECT COUNT(*) 
       FROM FOLLOW 
-      WHERE FOLLOWER_ID = 'user3' 
-      AND FOLLOWEE_ID = 'user1'
+      WHERE FOLLOWER_ID = #{followerId}
+      AND FOLLOWEE_ID = #{followeeId}
    </select>
    
    <!-- 팔로워 리스트 조회(로그인 한 회원을 팔로우한 회원들) -->
@@ -40,7 +40,7 @@
    </select>
    
    <!-- 팔로워, 팔로잉 회원 수 카운트 -->
-   <select id="followCount" resultType="map">
+   <select id="followCount" resultType="FollowVO">
       SELECT COUNT(CASE WHEN FOLLOWER_ID = #{userId} THEN 1 END) AS FOLLOWER_CNT,
       COUNT(CASE WHEN FOLLOWEE_ID = #{userId} THEN 1 END) AS FOLLOWEE_CNT
       FROM FOLLOW

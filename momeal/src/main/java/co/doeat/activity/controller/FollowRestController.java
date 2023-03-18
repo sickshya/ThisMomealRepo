@@ -20,6 +20,14 @@ public class FollowRestController {
 	@Autowired
 	private FollowService followService;
 	
+	// 팔로우 유무 체크
+	@PostMapping("/followCheck/{storyUserId}")
+	public int isFollow(FollowVO vo, HttpSession session, @PathVariable String storyUserId) {
+		vo.setFollowerId((String)session.getAttribute("userId"));
+		vo.setFolloweeId(storyUserId);
+
+		return followService.isFollow(vo);
+	}
 	
 	// 팔로우 하기(ajax)
 	@PostMapping("/follow/{userId}")

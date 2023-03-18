@@ -17,7 +17,7 @@ public interface FollowMapper {
 	
 	List<FollowVO> selectFollowingList(String userId); // 팔로잉 리스트 조회
 	
-	Map<String, Object> followCount(String userId); // 팔로워, 팔로잉 회원 수 카운트
+	FollowVO followCount(String userId); // 팔로워, 팔로잉 회원 수 카운트
 	
 	void deleteAllFollow(String userId); // 탈퇴시 팔로우 전체 삭제
 }
