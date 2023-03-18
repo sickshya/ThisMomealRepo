@@ -47,7 +47,7 @@
 <body>
 	<!-- 마이페이지 공동구매 상세내역 -->
 	<div layout:fragment="content" align="center">
-		<h1>공동구매</h1>
+		<h4>MY PURCHASE</h4>
 		<br> <br>
 		<form id="frm" action="/myPurchaseList" method="post">
 			<div>
@@ -64,7 +64,7 @@
 							<span class="absolute right-0 top-1 text-xs">회사명 : [[${myPurchase.CO_NAME}]]</span>
 							<p class="truncate">상품설명 : [[${myPurchase.SUBJECT}]]</p>
 							<p class="text-black font-semibold dark:text-white">가격 : [[${myPurchase.PRICE}]]</p>
-							<p class="truncate">수량: [[${myPurchase.TOTAL_GD}]]</p>
+							<p class="truncate">수량 : [[${myPurchase.TOTAL_GD}]]</p>
 						</div>
 					</div>
 					<br> <br>
@@ -87,7 +87,7 @@
 					</div>
 					<br><br>
 					
-					<button type="submit" class="button bg-blue-700">목록으로</button>
+					<button type="button" class="button bg-blue-700" onclick="location.href='/myPurchaseList'">목록으로</button>
 				</div>
 			</div>
 		</form>
