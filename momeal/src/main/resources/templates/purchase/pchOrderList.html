@@ -25,39 +25,54 @@
 
 	<div layout:fragment="content" align="center">
 		<h1
-			class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">주문
-			내역</h1>
+			class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">나의
+			주문 내역</h1>
+			<br>
 		<hr>
 
 		<form id="frm" action="" method="post">
 			<div id="wrapper">
-			<br>
+				<br> <br>
 				<div class="col-lg-7">
 					<ul>
-						<li th:each="order : ${orderlist}">
+						<li th:each="pch : ${pchDetail}">
 							<div align="left">
+					<p><b>나의 공구정보</b></p>
+						<br>
 								<p class="truncate"></p>
 							</div> <a class="block flex items-center py-3 px-4 space-x-3">
+
 								<div class="w-13 h-13 rounded-full relative flex-shrink-0">
-									<img th:src="${order.thumbnailImgPath }" style="width: 100px; height: 110px;">
+									<img th:src="${pch.thumbnailImgPath }"
+										style="width: 100px; height: 110px;">
 								</div>
 								<div class="flex-1 min-w-0 relative text-gray-500" align="left">
 									<h4 class="text-black font-semibold dark:text-white"></h4>
 									<span class="absolute right-0 top-1 text-xs"
-										th:text="${order.totalPrice}">총금액</span>
+										th:text="${#numbers.formatInteger(pch.totalPrice, 3, 'COMMA') + '원'}">총금액</span>
 									<p class="text-black font-semibold dark:text-white"
-										th:text="${order.name}">공구명</p>
-									<p style="color: red;">[[${order.totalGd}]]개</p>
-									<p class="truncate" th:text="${order.subject}">상품설명</p>
+										th:text="${pch.name}"></p>
+									<p style="color: red;">주문 수 : [[${pch.totalGd}]]개</p>
+									<p class="truncate" th:text="${pch.subject}">상품설명</p>
+
 									<div align="right"></div>
 								</div>
-						</a>
-						<br>
+						</a> <br>
+							<hr> <br> <br>
+							<div align="left">
+								<p>
+									<b>나의 배송정보</b>
+								</p>
+							</div> <br>
+							<p>주문아이디 : [[${pch.userId}]]</p>
+							<p>전화번호 : [[${pch.tel}]]</p>
+							<p>배송지 : [[${pch.deliveryAddr}]]</p> <br> <br>
 							<hr>
 						</li>
 					</ul>
-					<br>
-					<br> <input type="button" value="공동구매 홈으로" style="width: 150px; height: 40px;" th:onclick="|location.href='@{/pch/pchMain}'|">   
+					<br> <br> <input type="button" value="공동구매 홈으로"
+						style="width: 150px; height: 40px;"
+						th:onclick="|location.href='@{/pch/pchMain}'|">
 				</div>
 			</div>
 		</form>

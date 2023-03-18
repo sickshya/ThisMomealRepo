@@ -69,7 +69,7 @@ public class GroupPurchaseController {
 	}
 
 	// 공동구매를 신청하기 위한 서류 작성 form 호출 ( 신청form )
-	@RequestMapping("/pch/pchOrderFrm")
+	@RequestMapping("/pch/pchOrderFrm/")
 	public String pchOrderFrm(HttpServletRequest request, Model model, GroupPurchaseSettlementVO vo,
 			@RequestParam int totalGd) {
 		HttpSession session = request.getSession();
@@ -93,9 +93,12 @@ public class GroupPurchaseController {
 
 	// 공동구매(구매내역조회)
 	@RequestMapping("/pch/pchOrderList/{no}")
-	public String orderList(Model model, @PathVariable int no, HttpSession session) {
+	public String orderList(Model model, @PathVariable int no, HttpSession session, GroupPurchaseSettlementVO pvo) {
 		String userId = (String) session.getAttribute("userId");
-		model.addAttribute("orderlist", groupPurchaseService.pchOrderList(userId, no));
+		String boardCode = "CT03";
+		model.addAttribute("pchDetail", groupPurchaseService.pchOrderList(no));
+		model.addAttribute("detailImg", imageService.imageList(boardCode, no));
+		System.out.println(groupPurchaseService.pchOrderList(no) +"뭘까"+imageService.imageList(boardCode, no) +"이미지?");
 		model.addAttribute("no", no);
 		return "purchase/pchOrderList";
 	}
