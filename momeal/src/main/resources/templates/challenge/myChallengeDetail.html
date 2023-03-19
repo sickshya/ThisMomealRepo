@@ -114,7 +114,7 @@
 								${#dates.format(chall.chalEndDate, 'MM-dd')} ]]([[
 								${#dates.dayOfWeekName(chall.chalEndDate)} ]])</p>
 							<th:block th:if="${chall.codeId == 'CL01'}">
-								<p style="color: red;"><b>[[ ${chall.deductPoint} ]]포인트를 획득했어요!</b></p>
+								<p style="color: red;"><b>[[ ${chall.rewardPoint} ]]포인트를 획득했어요!</b></p>
 							</th:block>
 							<th:block th:if="${chall.codeId == 'CL02'}">
 								<p style="color: red;"><b>포인트 획득에 실패했어요😥</b></p>

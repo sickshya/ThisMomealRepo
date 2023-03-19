@@ -39,6 +39,7 @@ public class ChallengeVO extends ImageVO {
 	private String nickName; // 회원 닉네임
 	private String userId; // 회원 아이디
 	private String codeId; // 챌린지 성공, 실패 여부 코드
+	private int rewardPoint; // 챌린지 성공시 획득하는 리워드 포인트
 	private int percent; // 챌린지 성공 확률(절상)
 	private int totalDay; // 챌린지 총 진행일수
 	private int success; // 챌린지 인증 성공 횟수
