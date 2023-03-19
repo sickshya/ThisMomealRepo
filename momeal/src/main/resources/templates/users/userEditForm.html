@@ -43,8 +43,7 @@
 				<div class="mt-10 gap-6">
 					<div class="bg-white rounded-md lg:shadow-lg shadow editForm" style="width: 700px; margin: auto;">
 						<div class="grid grid-cols-1 gap-3 lg:p-5 p-10">
-							<input type="hidden" id="userId" name="userId" th:value="${session.userId}"
-								required="required">
+							<input type="hidden" id="userId" name="userId" th:value="${session.userId}" required="required">
 							<div>
 								<label for="name">이름</label>
 								<input type="text" id="userName" name="userName" th:value="${userInfo.userName}"
