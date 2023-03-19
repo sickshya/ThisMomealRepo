@@ -101,10 +101,13 @@ public class UserController {
 	public String myPoint(CommonCodeVO cvo, PointLogVO pvo, UsersVO uvo, Model model, HttpSession session, Paging paging) {
 		String userId = (String) session.getAttribute("userId");		
 		pvo.setUserId(userId);
-		paging.setFirst(paging.getFirst());
-		paging.setLast(paging.getLast());
+		
+		
+		
 		paging.setTotalRecord(userService.getCountTotals(paging,userId));
-		model.addAttribute("pointList", userService.pointList(userId));
+		pvo.setFirst(paging.getFirst());
+		pvo.setLast(paging.getLast());
+		model.addAttribute("pointList", userService.pointList(pvo));
 		model.addAttribute("selects", userService.myPoint(userId));
 		return "myPages/myPoint";
 	}

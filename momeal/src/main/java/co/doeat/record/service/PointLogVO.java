@@ -25,4 +25,13 @@ public class PointLogVO {
 	String cdDesct;
 	String point;
 	
+	int first;
+	int last;
+	String keyword;
+	String typeArr;
+	String type;
+	
+	int startPage;			
+	int endPage;
+	
 }

@@ -146,11 +146,19 @@
 	
 	<!-- 포인트로그 -->
 	<select id="pointList" resultType="co.doeat.record.service.PointLogVO">
-
+			SELECT * FROM( SELECT rownum rn, a.*
+		from(
+		
 		select c.cd_desct, c.point, p.save_date
 		from common_code c, point_log p
-		where p.reason_code=c.cd_nm and user_id=#{uesrId}
+		<where>
+		p.reason_code=c.cd_nm and user_id=#{userId}
+		</where>
 		order by p.save_date
+		
+		<![CDATA[
+		)a where rownum <= #{last}) b where rn  >= #{first} 
+		]]>
 
 	</select>
 	<!-- 카운트 -->
@@ -158,7 +166,7 @@
 		resultType="int">
 		SELECT COUNT(*)
 		FROM point_log
-		where user_Id=#{userId}
+		where user_Id=#{userId} and (reason_code='AT01' or reason_code='AT02')
 		
 	</select>
 	

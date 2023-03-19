@@ -43,7 +43,7 @@ public interface UserService {
 	UsersVO myFeedUserSelect(String id);
 
 	// 포인트조회
-	List<PointLogVO> pointList(String userId);
+	List<PointLogVO> pointList(PointLogVO pvo);
 
 	// 누적포인트
 	UsersVO myPoint(String userId);
