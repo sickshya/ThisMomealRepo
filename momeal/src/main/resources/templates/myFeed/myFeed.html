@@ -305,12 +305,18 @@ img {
                   </a>
                </div>
                <div class="story-content p-4 oneFeed" data-simplebar id="scrollDiv">
-                     <span>식단점수<p id="mealScore"></p></span> <span>식사<p id="typeCode">식단점수</p></span>
+<!--                      <span>식단점수<p id="mealScore"></p></span> <span>식사<p id="typeCode">식단점수</p></span> -->
                      <input type="hidden" id="no">
                      
-                     <span>시간<p id="mealTime">식단점수</p></span>
-                      <span>얼마만큼?<p id="mealAmount">식단점수</p></span>
-                      <span><p id="subject">식단점수</p></span>
+<!--                      <span>시간<p id="mealTime"></p></span> -->
+<!--                       <span>얼마만큼?<p id="mealAmount"></p></span> -->
+<!--                       <span><p id="subject"></p></span> -->
+							<span><b><span id="typeCode"></span></b>&nbsp;<span id="mealTime"></span>&nbsp;<span id="mealAmount"></span></span>
+							<br>
+							식단 점수 : <span id="mealScore"></span>
+							<br>
+							<p id="subject"></p>
+							
                   <div class="py-4 ">
                      <div class="flex justify-around">
                         <a href="#" class="flex items-center space-x-3">
@@ -479,7 +485,7 @@ function buildCalendar() {
               <td colspan="6">
                <div class="card" >
                 <a href="#story-modal" class="show" uk-toggle data-no="${res.no}">
-                <img src="${res.fileDir}" alt="Avatar" style="width:100%; height:500px;">
+                <img src="${res.fileDir}" alt="Avatar" style="width:100%; height:100%;">
                 </a>
                 <div class="Cardcontainer">
                       <div>${res.typeCode}<b></b></div> 

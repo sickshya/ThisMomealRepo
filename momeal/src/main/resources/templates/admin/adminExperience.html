@@ -96,12 +96,12 @@
                                              
                                              
                                      	<br><hr>        
-                                   선  택 :&nbsp; <select name="type">
+                                   선  택 :&nbsp; <select name="type" style="width:10%; text-align:center;">
                                    		<option value="A" th:selected="${paging.type == 'A'}">::: 선택 :::</option>
                                         <option value="G" th:selected="${paging.type == 'G'}">상품명</option>
                                         <option value="R" th:selected="${paging.type == 'R'}">필요등급</option>
                                     </select>
-                                    <input type="text" name="keyword" th:value="${paging.keyword}">
+                                    <input type="text" name="keyword" th:value="${paging.keyword}" style="width:82%;">
                                     <br><hr>
                                상  태 :&nbsp; <input type="radio" value="" name="exstatus" style="width:50px;"> 전체
                                     <input type="radio" value="0" name="exstatus" style="width:50px;">  진행중	

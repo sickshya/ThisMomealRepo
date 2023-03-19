@@ -129,7 +129,12 @@
 							</th:block>
 						</div>
 						<div class="story-content p-4" data-simplebar id="scrollDiv">
-							<div id="subject"></div>
+							<span><b><span id="typeCode"></span></b>&nbsp;<span id="mealTime"></span>&nbsp;<span id="mealAmount"></span></span>
+							<br>
+							식단 점수 : <span id="mealScore"></span>
+							<br>
+							<p id="subject"></p>
+<!-- 							<div id="subject"></div> -->
 
 							<div class="py-4 inHeart">
 								<div class="flex justify-around">
@@ -378,6 +383,10 @@
             $("#nickName").text(obj.nickName);
             $("#feedFrofile").attr("src", obj.profileImgPath);
             $("#postNo").val(obj.no);
+            $("#mealScore").text(obj.mealScore);
+            $('#typeCode').text(obj.typeCode);
+            $('#mealTime').text(obj.mealTime);
+            $('#mealAmount').text(obj.mealAmount);
             console.log(sessionId)
             if(sessionId != null) {
             	$("#feedUserId").attr("href", "/usr/myFeed/" + obj.userId);

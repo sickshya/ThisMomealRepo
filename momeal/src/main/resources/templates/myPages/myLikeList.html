@@ -103,8 +103,12 @@
 										<a href="#"></a>
 									</div>
 									<div class="story-content p-4 likeOne" data-simplebar>
-
-										<p id="subject"></p>
+											<span><b><span id="typeCode"></span></b>&nbsp;<span id="mealTime"></span>&nbsp;<span id="mealAmount"></span></span>
+											<br>
+											식단 점수 : <span id="mealScore"></span>
+											<br>
+											<p id="subject"></p>
+<!-- 										<p id="subject"></p> -->
 
 										<div class="py-4 ">
 											<div class="flex justify-around">
@@ -276,7 +280,10 @@
 					$("#profileImg").attr("src", result.PROFILE_IMG_PATH)
 					$("#nickName").text(result.NICK_NAME)
 					$("#subject").text(result.SUBJECT)
-					
+					$("#mealScore").text(result.MEAL_SCORE);
+					$("#typeCode").text(result.TYPE_CODE);
+				    $("#mealTime").text(result.MEAL_TIME);
+				    $("#mealAmount").text(result.MEAL_AMOUNT); 
 					console.log(result)
 					 // 모달안에 좋아요
 		            if(result.NO != 0) {  
