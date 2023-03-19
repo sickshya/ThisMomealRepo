@@ -28,7 +28,7 @@
 			FROM COMMENTS
 		</selectKey>
 		INSERT INTO COMMENTS
-		VALUES (#{no}, #{userId}, sysdate, #{subject}, 0, 1, #{no}, #{postNo}, #{boardCode}, null)
+		VALUES (#{no}, #{userId}, sysdate, #{subject}, 0, 1, #{no}, #{postNo}, #{boardCode}, #{groupMember})
 	</insert>
 	
 	<!-- 대댓글 등록 -->
@@ -38,7 +38,7 @@
 			FROM COMMENTS
 		</selectKey>
 		INSERT INTO COMMENTS
-		VALUES (#{no}, #{userId}, sysdate, #{subject}, 1, #{cmmtOrder}, #{cmmtGroup}, #{postNo}, #{boardCode}, null)
+		VALUES (#{no}, #{userId}, sysdate, #{subject}, 1, #{cmmtOrder}, #{cmmtGroup}, #{postNo}, #{boardCode}, #{groupMember})
 	</insert>
 	
 	<!-- 댓글 수정 -->

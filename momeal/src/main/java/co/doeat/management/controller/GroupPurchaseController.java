@@ -69,13 +69,14 @@ public class GroupPurchaseController {
 	}
 
 	// 공동구매를 신청하기 위한 서류 작성 form 호출 ( 신청form )
-	@RequestMapping("/pch/pchOrderFrm/")
+	@RequestMapping("/pch/pchOrderFrm/{totalGd}")
 	public String pchOrderFrm(HttpServletRequest request, Model model, GroupPurchaseSettlementVO vo,
 			@RequestParam int totalGd) {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
 		List<GroupPurchaseListVO> gvo = groupPurchaseService.pchDetail(vo.getNo());
 		model.addAttribute("purOne", gvo);
+		System.out.println(gvo + " 무엇이들어있을까");
 		model.addAttribute("userInfo", userService.userSelect(userId));
 		model.addAttribute("totalPrice", totalGd * gvo.get(0).getPrice()); // totalPrice 구하기
 		return "purchase/pchOrderFrm";

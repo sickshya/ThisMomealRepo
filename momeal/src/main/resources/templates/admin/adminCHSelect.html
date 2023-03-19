@@ -27,7 +27,7 @@
 			width: 550px;
 			min-height: 150px;
 			padding: 10px;
-			border: 1px dotted #00f;
+			border: 1px dotted #060;
 		}
 
 		#att_zone:empty:before {
@@ -73,13 +73,13 @@
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">시작일자</label>
 												<div class="col-sm-9">
-													[[${selects.chalStartDate }]]
+													[[${#dates.format(selects.chalStartDate,'yyyy-MM-dd') }]]
 												</div>
 											</div>
 											<div class="form-group row">
 												<label class="col-sm-3 col-form-label">종료일자</label>
 												<div class="col-sm-9">
-													[[${selects.chalEndDate }]]
+													[[${#dates.format(selects.chalEndDate,'yyyy-MM-dd') }]]
 												</div>
 											</div>
 											
@@ -106,7 +106,7 @@
 														data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
 														<div>[[${selects.atchPath }]]</div>
 														<div th:each="sel : ${imgselect}">
-															<img th:src="${sel.atchPath }" style="width:150px; height:150px;">
+															<img th:src="${sel.atchPath }" style="width:100%; height:80%;">
 														</div>
 													</div>
 													<!-- for문 돌려야함 -->

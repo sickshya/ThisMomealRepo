@@ -96,9 +96,12 @@
         // ajax 처리
         $.ajax({
                 type: 'post',
-                url: '/insertComment/' + postNo,
+                url: '/insertComment',
                 data: {
-                    "subject": cmmtSubject
+						"postNo" : postNo,
+	                    "subject": cmmtSubject,
+	                    "boardCode" : "CT04",
+	                    "groupMember" : null
                 }
             })
             .then(result => {
@@ -128,10 +131,13 @@
         // ajax 처리
         $.ajax({
                 type: 'post',
-                url: '/insertReply/' + postNo,
+                url: '/insertReply',
                 data: {
-                    "subject": replySubject,
-                    "cmmtGroup": cmmtGroup
+						"postNo" : postNo,
+	                    "subject" : replySubject,
+	                    "cmmtGroup" : cmmtGroup,
+	                    "boardCode" : "CT04",
+	                    "groupMember" : null
                 }
             })
             .then(result => {
@@ -239,8 +245,8 @@
                 type: 'post',
                 url: '/updateComment/' + no,
                 data: {
-                    "subject": updateSubject,
-                    "no": no
+	                    "subject": updateSubject,
+	                    "no": no
                 }
             })
             .then(result => {
@@ -263,8 +269,8 @@
                 type: 'post',
                 url: '/updateComment/' + no,
                 data: {
-                    "subject": subject,
-                    "no": no
+	                    "subject": subject,
+	                    "no": no
                 }
             })
             .then(result => {

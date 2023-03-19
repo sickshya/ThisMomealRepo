@@ -33,10 +33,10 @@ public class CommentController {
 		return commentService.commentsList(vo);
 	}
 	
+	// 그룹 댓글 출력
 	@PostMapping("/GroupComment")
 	@ResponseBody
 	public List<CommentVO> groupCommentsList(CommentVO vo, @RequestParam String groupMember, @RequestParam int postNo) {
-		System.out.println("컨트롤러 왔어?????????");
 		vo.setGroupMember(groupMember);
 		vo.setPostNo(postNo);
 		vo.setBoardCode("CT05");
@@ -44,16 +44,16 @@ public class CommentController {
 	}
 	
 	// 댓글 등록
-	@PostMapping("/insertComment/{postNo}")
+	@PostMapping("/insertComment")
 	@ResponseBody
-	public String commentInsert(CommentVO vo, HttpSession session, @PathVariable int postNo, @RequestParam String subject) {
+	public String commentInsert(CommentVO vo, HttpSession session, @RequestParam int postNo, @RequestParam String subject, @RequestParam String boardCode, @RequestParam String groupMember) {
 		
 		System.out.println("글 번호 ========== " + postNo);
 		vo.setPostNo(postNo);
 		vo.setSubject(subject);
 		vo.setUserId((String) session.getAttribute("userId"));
-		vo.setBoardCode("CT04");
-		
+		vo.setBoardCode(boardCode);
+		vo.setGroupMember(groupMember);
 		System.out.println("========== 댓글등록용 VO ▶ " + vo);
 		
 		commentService.commentInsert(vo);
@@ -62,15 +62,16 @@ public class CommentController {
 	}
 	
 	// 대댓글 등록
-	@PostMapping("/insertReply/{postNo}")
+	@PostMapping("/insertReply")
 	@ResponseBody
-	public String replyInsert(CommentVO vo, HttpSession session, @PathVariable int postNo, @RequestParam String subject, @RequestParam int cmmtGroup) {
+	public String replyInsert(CommentVO vo, HttpSession session, @RequestParam int postNo, @RequestParam String subject, @RequestParam int cmmtGroup, @RequestParam String boardCode, @RequestParam String groupMember) {
 		
 		vo.setPostNo(postNo);
 		vo.setSubject(subject);
 		vo.setCmmtGroup(cmmtGroup);
 		vo.setUserId((String) session.getAttribute("userId"));
-		vo.setBoardCode("CT04");
+		vo.setBoardCode(boardCode);
+		vo.setGroupMember(groupMember);
 		
 		System.out.println("========== 댓글등록용 VO ▶ " + vo);
 		
@@ -83,9 +84,6 @@ public class CommentController {
 	@PostMapping("/updateComment/{no}")
 	@ResponseBody
 	public String commentUpdate(CommentVO vo, @PathVariable int no, @RequestParam String subject) {
-		System.out.println("수정 왔냐고...................");
-		System.out.println("번호 ===== " + no);
-		System.out.println("수정할 내용 ===== " + no);
 		vo.setNo(no);
 		vo.setSubject(subject);
 		
@@ -98,8 +96,6 @@ public class CommentController {
 	@PostMapping("/deleteComment/{no}")
 	@ResponseBody
 	public String commentDelete(@PathVariable int no) {
-		
-		System.out.println("글 번호 ========== " + no);
 		
 		commentService.commentDelete(no);
 		
