@@ -58,8 +58,7 @@ textarea {
 						<div class="product__details__price">[[${ExpOne[0].subject}]]</div>
 						<p th:if="${ExpOne[0].expeStartDate == '0'}" style="color: red;"></p>
 						<p th:unless="${ExpOne[0].expeStartDate == '0'}"
-							style="color: red;">[[${#dates.format(ExpOne[0].expeStartDate,'MM월
-							dd일')}]] 에 시작해요!</p>
+							style="color: red;">[[${#dates.format(ExpOne[0].expeStartDate, 'MM월 dd일')}]] 에 시작해요!</p>
 						<ul>
 							<li><b>참여 등급</b> <span>[[${ExpOne[0].nessGrd}]]</span></li>
 							<li><b>참여 인원</b> <span>현재 [[${ExpOne[0].nowAplyt}]] 명

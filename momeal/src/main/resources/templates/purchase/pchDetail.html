@@ -62,7 +62,7 @@ textarea {
 						<p th:if="${pchDetail[0].grpStartDate == '0'}" style="color: red;"></p>
 						<p th:unless="${pchDetail[0].grpStartDate == '0'}"
 							style="color: red;">[[${#dates.format(pchDetail[0].grpStartDate,'MM월
-							dd일')}]] 에 시작해요!</p>
+							dd일')}]] 에 시작해요!</p>    
 						<div class="product__details__price">
 							<span id="price"
 								th:text="${#numbers.formatInteger(pchDetail[0].price, 3, 'COMMA')}"></span>원
@@ -91,12 +91,11 @@ textarea {
 							<input type="hidden" id="no" name="no"
 								th:value="${pchDetail[0].no}"> <input type="hidden"
 								name="listNo" th:value="${pchDetail[0].ListNo}">
-
+							<input type="hidden" id="totalGd" name="totalGd" value="3">
 							<button type="button" class="primary-btn" onclick="PchBtn()" id="btn"
 								name="btn" >구매하기</button>
 
 						</form>
-
 
 					</div>
 				</div>
@@ -172,7 +171,7 @@ textarea {
 				if ( pchOrdCnt == 0 ) {
 					alert("신청인원이 마감되었습니다");
 				} else {
-						location.href = "/pch/pchOrderFrm/" //요기에 totalGd를 어떻게 넘기지.?
+					location.href = "/pch/pchOrderFrm/"+totalGd
 				}
 			}
 		</script>
