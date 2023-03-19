@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import co.doeat.Paging;
 import co.doeat.common.service.ImageService;
@@ -262,11 +263,14 @@ public class ChallengeController {
 
 	// 관리자 챌린지 삭제
 	@RequestMapping("/admin/adminCHDelete/{no}")
-	public String adminCHDelete(@PathVariable int no, Model model, ChallengeVO vo, ImageVO evo) {
+	public String adminCHDelete(@PathVariable int no, Model model, RedirectAttributes redirectAttributes, ChallengeVO vo, ImageVO evo) {
 		String boardCode = "CT01";
 		int postNo = vo.getNo();
 		imageService.adminGPIDelete(postNo, boardCode);
-		challengeService.adminCHDelete(no);
+		int delCnt=challengeService.adminCHDelete(no);
+		if (delCnt == 0) {
+			redirectAttributes.addFlashAttribute("msg", "신청자가있는 첼린지는 삭제할 수 없습니다");
+		}
 		return "redirect:/admin/adminChallenge";
 	}
 	

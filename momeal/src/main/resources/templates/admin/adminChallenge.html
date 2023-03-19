@@ -160,7 +160,7 @@
 																	<a class="dropdown-item"
 																		th:href="|adminCHUpdateForm/${chal.no}|">수정</a>
 																	<a class="dropdown-item"
-																		th:href="|adminCHDelete/${chal.no}|">삭제</a>
+																		th:href="|adminCHDelete/${chal.no}|" onclick="Gpdel()">삭제</a>
 																	<a class="dropdown-item"
 																		th:href="|adminCHSelect/${chal.no}|">상세보기</a>
 																</div>
@@ -211,6 +211,28 @@
             <script src="/js/config.js"></script>
             <script src='/js/jquery.dataTables.min.js'></script>
             <script src='/js/dataTables.bootstrap4.min.js'></script>-->
+            <script>
+function Gpdel(res){
+	if (res == success){
+		alert("삭제되었습니다.")
+	}else{
+		alert("이미 참여자가 있는 체험단입니다.")
+	}
+	
+}
+
+
+$(document).ready(function() {
+    let message = "[[${msg}]]";
+    console.log(message)
+    if (message != "") {
+        alert(message);
+    }else {
+    }
+})
+
+
+</script>
 
         </div>
     </body>

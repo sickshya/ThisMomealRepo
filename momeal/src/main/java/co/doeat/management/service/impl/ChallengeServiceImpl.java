@@ -181,7 +181,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	@Override
 	public int adminCHReInsert(ChallengeVO vo) {
-		return challengeMapper.adminCHReInsert(vo);
+		challengeMapper.adminCHReInsert(vo);
+		return vo.getNo();
 	}
 
 	@Override
