@@ -148,6 +148,7 @@
 			   P.USER_ID, 
 			   P.NO, 
 			   P.CHAL_ROUND, 
+			   P.REWARD_POINT,
 			   NVL(P.CODE_ID, '0') AS CODE_ID, 
 			   C.TITLE, 
 			   C.CHAL_START_DATE, 

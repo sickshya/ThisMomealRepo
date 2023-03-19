@@ -8,4 +8,5 @@ public class ChallengeParticipationVO {
 	private int no;
 	private int chalRound;
 	private String codeId;
+	private int rewardPoint;
 }
