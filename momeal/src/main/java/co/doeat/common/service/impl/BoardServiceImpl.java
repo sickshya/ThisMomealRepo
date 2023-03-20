@@ -53,6 +53,19 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// NOTICE
+	
+
+	// 전체조회(USER)
+	@Override
+	public List<BoardVO> userNotice() {
+		return boardMapper.userNotice();
+	}
+
+	// 전체조회(ADMIN)
+	@Override
+	public List<BoardVO> noticeList(BoardSearchVO svo) {
+		return boardMapper.noticeList(svo);
+	}
 
 	// 검색기능
 	@Override
@@ -60,15 +73,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.noticeSearch(key, val);
 	}
 
-	// 단건조회
+	// 상세
 	@Override
 	public BoardVO noticeSelect(int no) {
 		return boardMapper.noticeSelect(no);
-	}
-
-	@Override // 보류
-	public void noticeHitUpdate(String userId) {
-		return;
 	}
 
 	// 등록
@@ -89,14 +97,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.noticeDelete(vo);
 	}
 
+	// 페이징 수 카운트
 	@Override
-	public List<BoardVO> noticeList(BoardSearchVO svo) {
-		return boardMapper.noticeList(svo);
-	}
-
-	@Override
-	public List<BoardVO> userNotice() {
-		return boardMapper.userNotice();
+	public int NoticeCnt(BoardSearchVO svo) {
+		return boardMapper.NoticeCnt(svo);
 	}
 
 }

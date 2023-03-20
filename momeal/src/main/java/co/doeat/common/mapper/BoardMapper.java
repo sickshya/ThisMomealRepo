@@ -28,11 +28,12 @@ public interface BoardMapper {
 	int faqDelete(BoardVO vo); // faq 삭제
 
 	// NOTICE
-	List<BoardVO> userNotice(); // 전체 조회
+	
+	List<BoardVO> userNotice(); // 전체 조회(USER)
 
-	List<BoardVO> noticeList(BoardSearchVO svo); // 전체 조회
+	List<BoardVO> noticeList(BoardSearchVO svo); // 전체 조회 (ADMIN)
 
-	BoardVO noticeSelect(int no); // 단건조회
+	BoardVO noticeSelect(int no); // 상세
 
 	int noticeInsert(BoardVO vo); // 등록
 
@@ -42,10 +43,5 @@ public interface BoardMapper {
 
 	List<BoardVO> noticeSearch(@Param("key") String key, @Param("val") String val); // 검색
 
-	void noticeHitUpdate(String userId); // 조회수 증가
-
-	int getCountTotal(Paging paging, String userId); // 페이징
-
-	List<BoardVO> getnoticeUserList(BoardVO bvo); // 페이징하는 목록
-
+	int NoticeCnt(BoardSearchVO svo); // 전체 수 계산
 }
