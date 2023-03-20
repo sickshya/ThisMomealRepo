@@ -8,7 +8,7 @@
 		parameterType="co.doeat.management.service.LikesVO">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			SELECT
-			MAX(NO)+1 FROM LIKES
+			NVL(MAX(NO)+1, 1) FROM LIKES
 		</selectKey>
 		INSERT INTO LIKES
 		VALUES(#{no}, #{postNo}, #{userId}, #{boardCode})
@@ -19,7 +19,7 @@
 		parameterType="co.doeat.management.service.LikesVO">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			SELECT
-			MAX(NO)+1 FROM LIKES
+			NVL(MAX(NO)+1, 1) FROM LIKES
 		</selectKey>
 		INSERT INTO LIKES
 		VALUES(#{no}, #{postNo}, #{userId}, #{boardCode})
