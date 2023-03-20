@@ -5,13 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.doeat.Paging;
 import co.doeat.common.mapper.BoardMapper;
 import co.doeat.common.service.BoardSearchVO;
 import co.doeat.common.service.BoardService;
 import co.doeat.common.service.BoardVO;
-import co.doeat.community.service.UsersVO;
-import co.doeat.management.service.GroupPurchaseSearchVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -57,7 +54,6 @@ public class BoardServiceImpl implements BoardService {
 
 	// NOTICE
 
-
 	// 검색기능
 	@Override
 	public List<BoardVO> noticeSearch(String key, String val) {
@@ -92,20 +88,15 @@ public class BoardServiceImpl implements BoardService {
 	public int noticeDelete(BoardVO vo) {
 		return boardMapper.noticeDelete(vo);
 	}
-  
+
 	@Override
 	public List<BoardVO> noticeList(BoardSearchVO svo) {
 		return boardMapper.noticeList(svo);
 	}
-	
+
 	@Override
 	public List<BoardVO> userNotice() {
 		return boardMapper.userNotice();
-	}
-
-	@Override
-	public int cntTotal(BoardSearchVO svo) {
-		return boardMapper.cntTotal(svo);
 	}
 
 }
