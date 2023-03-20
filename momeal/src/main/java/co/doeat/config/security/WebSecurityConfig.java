@@ -57,8 +57,11 @@ public class WebSecurityConfig {
 				)
 //				.sessionManagement(session -> session.maximumSessions(5)) // 동시 접속자 수 5
 				.exceptionHandling((denied) -> denied.accessDeniedPage("/users/accessError"))
-				.logout((logout) -> logout.permitAll().logoutUrl("/logout") // 로그아웃 시 맵핑되는 url
-						.logoutSuccessUrl("/") // 로그아웃 성공 시 리다이렉트 주소
+				.logout(
+						(logout) -> logout
+						.permitAll()
+						.logoutUrl("/logout") // 로그아웃 시 맵핑되는 url
+						.logoutSuccessUrl("/login") // 로그아웃 성공 시 리다이렉트 주소
 						.invalidateHttpSession(true) // session clear
 						.deleteCookies("remember-me", "JSESSION_ID"))
 				.csrf().disable();

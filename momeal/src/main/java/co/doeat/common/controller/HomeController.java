@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.doeat.community.service.CommunityService;
+import co.doeat.community.service.UserService;
 import co.doeat.management.service.ChallengeService;
 import co.doeat.management.service.ExperienceService;
 import co.doeat.management.service.GroupPurchaseService;
@@ -19,11 +20,13 @@ public class HomeController {
 	@Autowired CommunityService communityService;
 	@Autowired ExperienceService ExperienceService;
 	@Autowired GroupPurchaseService groupPurchaseService;
-	
+	@Autowired UserService userService;
 	@RequestMapping(value = {"/", "/home", "/main"})
 	public String home(Model model, HttpSession session) {
 		model.addAttribute("hmChlgList", challengeService.hmChlgList());
 		
+		String userId = (String) session.getAttribute("userId");
+		model.addAttribute("userInfo", userService.userSelect(userId));
 		return "base/home";
 	}
 }
