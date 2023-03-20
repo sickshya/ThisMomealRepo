@@ -100,6 +100,7 @@ public class GroupPurchaseController {
 		vo.setTotalGd(totalGd);
 		model.addAttribute("purOne", groupPurchaseService.pchDetail(vo.getNo()));
 		model.addAttribute("userInfo", userService.userSelect(userId));
+		System.out.println(userService.userSelect(userId));
 		model.addAttribute("totalGd", totalGd);
 		model.addAttribute("totalPrice", totalGd * groupPurchaseService.pchDetail(vo.getNo()).get(0).getPrice()); // totalPrice 구하기
 		return "purchase/pchOrderFrm";
@@ -120,11 +121,11 @@ public class GroupPurchaseController {
 	@RequestMapping("/pch/pchOrderList/{no}")
 	public String orderList(Model model, 
 							@PathVariable int no, 
-							HttpSession session, 
-							GroupPurchaseSettlementVO pvo) {
+							HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		String boardCode = "CT03";
-		model.addAttribute("pchDetail", groupPurchaseService.pchOrderList(no));
+		model.addAttribute("pchDetail", groupPurchaseService.pchOrderList(no, userId));
+		model.addAttribute("userInfo", userService.userSelect(userId));
 		model.addAttribute("detailImg", imageService.imageList(boardCode, no));
 		model.addAttribute("no", no);
 		return "purchase/pchOrderList";
