@@ -2,44 +2,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.common.mapper.BoardMapper">
 
+	<!-- 유저 faq 리스트 출력 -->
+	<select id="userFaq"
+		resultType="co.doeat.common.service.BoardVO">
+		SELECT * FROM BOARD
+		WHERE BOARD_CODE = 'BD02'
+	</select>
+
+
 	<!-- 페이징 -->
 	<sql id="creiteria">
 		<choose>
 			<when test="type == 'T'.toString()">
-				title like '%'||#{keyword}||'%'
+			AND	board_title like '%'||#{keyword}||'%'
 			</when>
 			<when test="type == 'S'.toString()">
-				subject like '%'||#{keyword}||'%'
+			AND	board_subject like '%'||#{keyword}||'%'
 			</when>
 		</choose>
 	</sql>
 
-	<!-- faq 전체리스트 출력 -->
+	<!-- 관리자 faq 리스트 출력 -->
 	<select id="faqList"
-		resultType="co.doeat.common.service.BoardVO" parameterType="co.doeat.community.service.UsersVO">
-		SELECT * 
-		  FROM( SELECT 	ROWNUM RN, 
-		  				A.* 
-		  		  FROM( SELECT * 
-		  		  		FROM BOARD
-		  		  <where>
-		  		  	<include refid="creiteria"></include>
-		  		  	 BOARD_CODE = 'BD02'
-		  		  </where>
-					ORDER BY NO
+		resultType="co.doeat.common.service.BoardVO"
+		parameterType="co.doeat.community.service.UsersVO">
+		SELECT *
+		FROM( SELECT ROWNUM RN,
+		A.*
+		FROM( SELECT *
+		FROM BOARD
+		WHERE BOARD_CODE = 'BD02'
+		<include refid="creiteria"></include>
+		ORDER BY NO
 					<![CDATA[
 	 		)A WHERE ROWNUM <= #{last}) B 
  		 WHERE RN >= #{first} 
  		 ]]>
 	</select>
-	
+
 	<!-- 전제 수 계산 -->
-	<select id="cntTotal" parameterType="co.doeat.community.service.UsersVO" resultType="int">
+	<select id="cntTotal"
+		parameterType="co.doeat.community.service.UsersVO" resultType="int">
 		SELECT COUNT(*)
 		FROM BOARD
-		<where>
+		WHERE BOARD_CODE = 'BD02'
 			<include refid="creiteria"></include>
-		</where>
 	</select>
 
 	<select id="faqSelect"
@@ -89,7 +96,7 @@
 	<select id="noticeList"
 		resultType="co.doeat.common.service.BoardVO">
 		SELECT * FROM BOARD
-		WHERE BOARD_CODE = 'BD01' 
+		WHERE BOARD_CODE = 'BD01'
 	</select>
 
 	<!-- notice 상세보기 -->
@@ -114,12 +121,12 @@
 		BOARD_CODE,
 		USER_ID
 		)
-		VALUES(#{no}, 
-			   #{boardTitle}, 
-			   #{boardSubject}, 
-			   sysdate, 
-			   'BD01', 
-			   'ADMIN' )
+		VALUES(#{no},
+		#{boardTitle},
+		#{boardSubject},
+		sysdate,
+		'BD01',
+		'ADMIN' )
 	</insert>
 
 	<!-- notice 수정 -->
@@ -130,7 +137,7 @@
 			<if test="boardSubject != null">BOARD_SUBJECT = #{boardSubject},</if>
 			<if test="boardDate != null">BOARD_DATE = #{boardDate},</if>
 		</set>
-		WHERE no = #{no} 
+		WHERE no = #{no}
 	</update>
 
 	<!-- notice 삭제 -->

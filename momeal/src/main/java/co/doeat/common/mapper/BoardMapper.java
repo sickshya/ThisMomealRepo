@@ -4,15 +4,17 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import co.doeat.common.service.BoardSearchVO;
 import co.doeat.common.service.BoardVO;
-import co.doeat.community.service.UserSearchVO;
 
 public interface BoardMapper {
 	public String formLoginpage();
+	
+	List<BoardVO> userFaq(); // 유저 faq 리스트
 
-	List<BoardVO> faqList(); // faq 리스트
+	List<BoardVO> faqList(BoardSearchVO svo); // 관리자 faq 리스트
 
-	int cntTotal(UserSearchVO svo); // 전체 수 계산
+	int cntTotal(BoardSearchVO svo); // 전체 수 계산
 
 	BoardVO faqSelect(BoardVO vo); // faq 상세
 

@@ -1,13 +1,15 @@
 package co.doeat.common.service;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@ToString
-public class BoardSearchVO {
+@Data
+public class BoardSearchVO extends BoardVO{
 	private String key;
 	private String val;
+
+	int first;
+	int last;
+	String keyword; // 검색 내용
+	String typeArr;
+	String type; // 검색 타입
 }
