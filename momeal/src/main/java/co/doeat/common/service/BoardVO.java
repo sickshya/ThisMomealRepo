@@ -20,4 +20,13 @@ public class BoardVO {
 	private String boardCode;
 	private String userId;
 
+	int first;
+	int last;
+	String keyword;
+	String typeArr;
+	String type;
+	
+	int startPage;			
+	int endPage;
+
 }
