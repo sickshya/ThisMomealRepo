@@ -49,4 +49,6 @@ public interface UserService {
 	UsersVO myPoint(String userId);
 	
 	int getCountTotals(Paging paging, String userId);
+	
+	
 }

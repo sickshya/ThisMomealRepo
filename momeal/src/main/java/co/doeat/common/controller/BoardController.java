@@ -25,7 +25,6 @@ import co.doeat.common.service.BoardService;
 import co.doeat.common.service.BoardVO;
 import co.doeat.community.service.UserService;
 
-
 @Controller
 public class BoardController<UserVO> {
 
@@ -117,8 +116,14 @@ public class BoardController<UserVO> {
 
 	// NOTICE(USER) 전체리스트
 	@RequestMapping("/notice")
-	public String noticeList(Model model) {
-		model.addAttribute("noticeList", boardService.noticeList());
+	public String noticeList(
+							 Model model, 
+							 @ModelAttribute("esvo") BoardSearchVO svo, 
+							 Paging paging) {
+		//svo.set
+		//paging.setTotalRecord(boardService.cntTotal(svo));
+
+		//model.addAttribute("adminFaqList", boardService.noticeList(svo));
 		return "board/notice";
 	}
 	
@@ -142,7 +147,7 @@ public class BoardController<UserVO> {
 	// NOTICE(ADMIN) 전체리스트
 	@RequestMapping("/admin/adminNotice")
 	public String adminNotice(Model model) {
-		model.addAttribute("noticeList", boardService.noticeList());
+		model.addAttribute("noticeList", boardService.noticeList(null));
 		return "admin/adminNotice";
 	}
 	

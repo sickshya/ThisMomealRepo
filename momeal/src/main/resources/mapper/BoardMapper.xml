@@ -161,4 +161,18 @@
 		<if test="key == 'boardSubject'">WHERE BOARD_SUBJECT LIKE '%'||#{val}||'%'</if>
 	</select>
 
+
+	<!-- 페이징 할 리스트 -->
+	<select id="getnoticeUserList" parameterType="BoardVO"
+		resultType="BoardVO"> 
+		SELECT * 
+        FROM( SELECT 	ROWNUM RN, 
+		  				A.* 
+        FROM(	SELECT * 
+                FROM BOARD
+                ORDER BY NO
+                <![CDATA[
+	 		)A WHERE ROWNUM <= #{last}) B 
+ 		 WHERE RN >= #{first} ]]>
+	</select>
 </mapper>
