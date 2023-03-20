@@ -198,7 +198,14 @@
 	
 	<!-- 참여중 - 챌린지별 인증사진 단건조회 -->
 	<select id="getMyChallImgOne" resultType="co.doeat.management.service.ChallengeValidationVO">
-		SELECT CV.*, U.NICK_NAME
+		SELECT CV.NO,
+		       CV.USER_ID,
+		       CV.CHAL_NO,
+		       CV.VLD_DATE,
+		       CV.CHAL_IMG,
+		       CV.FILE_DIR,
+		       CV.SUCCESS_CHECK,
+		       U.NICK_NAME
 		  FROM CHALLENGE_VALIDATION CV
 	      JOIN USERS U
 	        ON CV.USER_ID = U.USER_ID
@@ -206,24 +213,22 @@
 	</select>
 	
 	<!-- 참여중 - 인증사진 등록 -->
-	<!-- select 하니까 selectKey를 못 써.. resultType = vo로 해서 결과를 vo에 받아야 append를 하는데 ㅠ -->
-<!-- 	<select id="" ></select> -->
 	<insert id="insertMyChallImg">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			SELECT
 			NVL(MAX(NO)+1, 1) FROM CHALLENGE_VALIDATION
 		</selectKey>
 		INSERT INTO CHALLENGE_VALIDATION
-		VALUES (#{no}, #{userId}, #{chalNo}, TO_DATE(CURRENT_DATE,'yyyy-MM-dd'), #{chalImg}, #{fileDir}, 'Y')
+		VALUES (#{no}, #{userId}, #{chalNo}, TRUNC(CURRENT_DATE), #{chalImg}, #{fileDir}, 'Y')
 	</insert>
 	
 	<!-- 참여중 - 인증사진 중복체크(인증버튼 막기) -->
 	<select id="valImgCheck" resultType="boolean">
-		SELECT CASE WHEN TO_DATE(VLD_DATE,'YYYY-MM-DD') = TO_DATE(CURRENT_DATE,'yyyy-MM-dd') THEN 0 ELSE 1 END AS SUCCESS_DATE
+		SELECT CASE WHEN TRUNC(VLD_DATE) = TRUNC(CURRENT_DATE) THEN 0 ELSE 1 END AS SUCCESS_DATE
 		FROM CHALLENGE_VALIDATION  
 		WHERE USER_ID = #{userId}
 		AND CHAL_NO = #{chalNo}
-		AND TO_DATE(VLD_DATE,'yyyy-MM-dd') = TO_DATE(CURRENT_DATE,'yyyy-MM-dd')
+		AND TRUNC(VLD_DATE) = TRUNC(CURRENT_DATE)
 	</select>
 	
 	
