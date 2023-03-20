@@ -26,7 +26,7 @@ public class CommunityController {
 
 	// 전체조회
 	@RequestMapping("/community")
-	public String community(Model model, HttpSession session) { // getCmniList(여기 받는 값이 없는데 = 리스트 만들수가 없는데) -> community의 매개변수로 modelList<Map<String, Object>> list를 넘기려고 하니까 No primary or single unique constructor found~ 에러가 뜨는거임 ㅠ
+	public String community(Model model, HttpSession session) {
 		
 		String id = (String) session.getAttribute("userId");
 		
@@ -56,14 +56,12 @@ public class CommunityController {
 		map.put("userId", session.getAttribute("userId"));
 		map.put("no", no);
 		
-		System.out.println("단건조회 === " + communityService.getCommunity(map));
-		
 		return communityService.getCommunity(map);
 	}
 	
-	// 커뮤니티 검색결과창
-	@RequestMapping("/communitySearch")
-	public String communitySearch() {
-		return "content/community_search";
-	}
+//	// 커뮤니티 검색결과창
+//	@RequestMapping("/communitySearch")
+//	public String communitySearch() {
+//		return "content/community_search";
+//	}
 }

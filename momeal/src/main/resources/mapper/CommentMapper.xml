@@ -48,10 +48,15 @@
 		WHERE NO = #{no}
 	</update>
 	
-	
 	<!-- 댓글 삭제 -->
 	<delete id="commentDelete">
 		DELETE COMMENTS
 		WHERE NO = #{no}
+	</delete>
+	
+	<!-- 게시물 삭제 시, 해당 게시물의 댓글 전체 삭제 -->
+	<delete id="commentAllDelete">
+		DELETE COMMENTS 
+		WHERE POST_NO = #{no}
 	</delete>
 </mapper>

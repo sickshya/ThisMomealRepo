@@ -24,11 +24,8 @@ public class CommentController {
 	@ResponseBody
 	public List<CommentVO> commentList(CommentVO vo, @PathVariable int postNo) {
 		
-		System.out.println("번호 가져왔어?? =========== " + postNo);
 		vo.setPostNo(postNo);
 		vo.setBoardCode("CT04");
-		
-		System.out.println("========== 댓글 ▶ " + commentService.commentsList(vo));
 		
 		return commentService.commentsList(vo);
 	}
@@ -36,25 +33,17 @@ public class CommentController {
 	// 그룹 댓글 출력
 	@PostMapping("/GroupComment")
 	@ResponseBody
-	public List<CommentVO> groupCommentsList(CommentVO vo, @RequestParam String groupMember, @RequestParam int postNo) {
-		vo.setGroupMember(groupMember);
-		vo.setPostNo(postNo);
+	public List<CommentVO> groupCommentsList(CommentVO vo) {
 		vo.setBoardCode("CT05");
 		return commentService.groupCommentsList(vo);
 	}
 	
 	// 댓글 등록
 	@PostMapping("/insertComment")
-	@ResponseBody
-	public String commentInsert(CommentVO vo, HttpSession session, @RequestParam int postNo, @RequestParam String subject, @RequestParam String boardCode, @RequestParam String groupMember) {
-		
-		System.out.println("글 번호 ========== " + postNo);
-		vo.setPostNo(postNo);
-		vo.setSubject(subject);
+	@ResponseBody 
+	public String commentInsert(CommentVO vo, HttpSession session) {
+		// String 대신 responseEntity
 		vo.setUserId((String) session.getAttribute("userId"));
-		vo.setBoardCode(boardCode);
-		vo.setGroupMember(groupMember);
-		System.out.println("========== 댓글등록용 VO ▶ " + vo);
 		
 		commentService.commentInsert(vo);
 		
@@ -64,19 +53,11 @@ public class CommentController {
 	// 대댓글 등록
 	@PostMapping("/insertReply")
 	@ResponseBody
-	public String replyInsert(CommentVO vo, HttpSession session, @RequestParam int postNo, @RequestParam String subject, @RequestParam int cmmtGroup, @RequestParam String boardCode, @RequestParam String groupMember) {
+	public String replyInsert(CommentVO vo, HttpSession session) {
 		
-		vo.setPostNo(postNo);
-		vo.setSubject(subject);
-		vo.setCmmtGroup(cmmtGroup);
-		vo.setUserId((String) session.getAttribute("userId"));
-		vo.setBoardCode(boardCode);
-		vo.setGroupMember(groupMember);
-		
-		System.out.println("========== 댓글등록용 VO ▶ " + vo);
-		
+		vo.setUserId((String) session.getAttribute("userId"));		
 		commentService.replyInsert(vo);
-		
+		// return 타입을 vo로 넘겨주는걸 많이 함(등록, 수정시) -> append하는것(리스트 재 조회가 아니라)
 		return "success Reply";
 	}
 	

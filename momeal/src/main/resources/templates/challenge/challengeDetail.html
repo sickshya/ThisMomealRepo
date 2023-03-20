@@ -72,20 +72,21 @@
 							</div>
 							<p th:if="${chall.startDay == '0'}" style="color: red;">오늘부터
 								시작</p>
-							<p th:unless="${chall.startDay == '0'}" style="color: red;">[[
+							<p th:unless="${chall.startDay <= '0'}" style="color: red;">[[
 								${chall.startDay} ]]일 뒤 시작</p>
+								<p th:if="${chall.startDay < '0'}" style="color: red;">모집 마감</p>
 							<p>[[${#dates.format(chall.chalStartDate,
 								'MM-dd')}]]([[${#dates.dayOfWeekName(chall.chalStartDate)}]]) ~
 								[[${#dates.format(chall.chalEndDate,
 								'MM-dd')}]]([[${#dates.dayOfWeekName(chall.chalEndDate)}]])</p>
 							<ul>
 								<li><b>참여비</b> <span><samp>
-											<b>[[${chall.deductPoint}]]포인트</b>
+											<b>[[${#numbers.formatInteger(chall.deductPoint, 3, 'COMMA')}]]포인트</b>
 										</samp></span></li>
 								<br>
 								<li><b>참여인원</b> <span>[[${chall.particir}]]명</span></li>
 								<li><b>현재까지 모인 참여비</b> <span>총
-										[[${chall.sumPoint}]]포인트 </span></li>
+										[[${#numbers.formatInteger(chall.sumPoint, 3, 'COMMA')}]]포인트 </span></li>
 								<br>
 								<li><span>80% 이상 성공시 </span><b> 참여비 페이백 + 상금</b></li>
 								<!--                            <div class="share"> -->

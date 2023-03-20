@@ -107,19 +107,21 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="product__details__text" id="challInfo">
                             <h3>[[ ${chall.title} ]]</h3>
-                            <p>챌린지 조건 있어야함!!(매일, 2주동안 이런거)</p>
-                            <!-- <div class="product__details__price">오늘부터 시작</div> -->
                             <p>[[ ${#dates.format(chall.chalStartDate, 'MM-dd')} ]]([[
 								${#dates.dayOfWeekName(chall.chalStartDate)} ]]) ~ [[
 								${#dates.format(chall.chalEndDate, 'MM-dd')} ]]([[
 								${#dates.dayOfWeekName(chall.chalEndDate)} ]])</p>
 							<th:block th:if="${chall.codeId == 'CL01'}">
-								<p style="color: red;"><b>[[ ${chall.rewardPoint} ]]포인트를 획득했어요!</b></p>
+								<br><br><br>
+								<p style="color: red;"><b>[[${#numbers.formatInteger(chall.rewardPoint, 3, 'COMMA')}]]포인트를 획득했어요!</b></p>
 							</th:block>
 							<th:block th:if="${chall.codeId == 'CL02'}">
-								<p style="color: red;"><b>포인트 획득에 실패했어요😥</b></p>
+								<br><br><br>
+								<p style="color: red;"><b>챌린지 완주에 실패했어요😥</b></p>
 							</th:block>
 							<th:block th:if="${chall.codeId == '0'}">
+	                            <p>[[ ${chall.totalDay} ]]일간 진행</p>
+	                            <br><br>
 							<br>
 								<a href="#" class="heart-icon" data-toggle="modal"
 									data-target="#Modal-1">인증방법</a> <a href="" class="primary-btn"
