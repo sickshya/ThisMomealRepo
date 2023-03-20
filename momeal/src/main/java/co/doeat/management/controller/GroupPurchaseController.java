@@ -34,6 +34,25 @@ import co.doeat.management.service.GroupPurchaseSearchVO;
 import co.doeat.management.service.GroupPurchaseService;
 import co.doeat.management.service.GroupPurchaseSettlementVO;
 
+
+/*
+ * 작성자: 김순심 
+ * 작성일자: 2023-03-20
+ * 작성내용 공동구매 
+ * 수정자:
+ * 수정일자:
+ * 수정내용:
+ */
+
+/**
+ * 
+ * @author user
+ * @since
+ * 공동구매 조회
+ *
+ */
+
+
 @Controller
 public class GroupPurchaseController {
 
@@ -45,22 +64,22 @@ public class GroupPurchaseController {
 	private ImageService imageService;
 	@Autowired
 	private UserService userService;
-	@Value("${momeal.saveImg}")
+	
+	@Value("${momeal.saveImg}") //properties 속성 가져옴 
 	private String saveImg;
-
+	
 	// 공동구매(전체조회) 리스트 폼 호출
 	@RequestMapping("/pch/pchMain")
-	public String pchMain(Model model, HttpSession session, UsersVO userVO) {
+	public String pchMain(Model model) {
 		model.addAttribute("pchAllList", groupPurchaseService.pchAllList()); // 전체 공동구매 리스트 조회
 		model.addAttribute("pchIngList", groupPurchaseService.pchIngList()); // 진행 중인 공동구매 리스트 조회
 		return "purchase/pchMain";
 	}
 
-	// 공동구매 리스트에서 단건조회를 하면 그 상품에 대한 상세페이지
+	// 공동구매 리스트에서 단건조회를 하면 그 상품에 대한 상세페이지 (단건조회)
 	@GetMapping("/pch/pchDetail/{no}")
-	public String pchDetail(Model model, @PathVariable int no, HttpSession session, GroupPurchaseSettlementVO pvo) {
-		String userId = (String) session.getAttribute("userId");
-		System.out.println(session +"=============================================");
+	public String pchDetail(Model model, 
+							@PathVariable int no) {
 		String boardCode = "CT03";
 		model.addAttribute("pchDetail", groupPurchaseService.pchDetail(no));
 		model.addAttribute("detailImg", imageService.imageList(boardCode, no));
@@ -69,37 +88,44 @@ public class GroupPurchaseController {
 	}
 
 	// 공동구매를 신청하기 위한 서류 작성 form 호출 ( 신청form )
-	@RequestMapping("/pch/pchOrderFrm/{totalGd}")
-	public String pchOrderFrm(HttpServletRequest request, Model model, GroupPurchaseSettlementVO vo,
-			@RequestParam int totalGd) {
+	@RequestMapping("/pch/pchOrderFrm/{totalGd}/{no}")
+	public String pchOrderFrm(HttpServletRequest request, 
+							  Model model, 
+							  GroupPurchaseListVO vo,
+							  @PathVariable int totalGd,
+							  @PathVariable int no) {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
-		List<GroupPurchaseListVO> gvo = groupPurchaseService.pchDetail(vo.getNo());
-		model.addAttribute("purOne", gvo);
-		System.out.println(gvo + " 무엇이들어있을까");
+		vo.setNo(no); 
+		vo.setTotalGd(totalGd);
+		model.addAttribute("purOne", groupPurchaseService.pchDetail(vo.getNo()));
 		model.addAttribute("userInfo", userService.userSelect(userId));
-		model.addAttribute("totalPrice", totalGd * gvo.get(0).getPrice()); // totalPrice 구하기
+		model.addAttribute("totalGd", totalGd);
+		model.addAttribute("totalPrice", totalGd * groupPurchaseService.pchDetail(vo.getNo()).get(0).getPrice()); // totalPrice 구하기
 		return "purchase/pchOrderFrm";
 	}
 
 	// 공동구매(결제)
 	@PostMapping("/pch/purchase.do") // 아작스부를떄 호출
 	@ResponseBody // 무조건 데이터로 넘어감.
-	public String purchase(HttpSession session, HttpServletRequest request, UsersVO vo,
-			@RequestBody GroupPurchaseSettlementVO pvo) {
-		session = request.getSession();
+	public String purchase(HttpSession session, 
+						   HttpServletRequest request, 
+						   UsersVO vo,
+						   @RequestBody GroupPurchaseSettlementVO pvo) {
 		groupPurchaseService.payInsert(pvo);
 		return "ok";
 	}
 
 	// 공동구매(구매내역조회)
 	@RequestMapping("/pch/pchOrderList/{no}")
-	public String orderList(Model model, @PathVariable int no, HttpSession session, GroupPurchaseSettlementVO pvo) {
+	public String orderList(Model model, 
+							@PathVariable int no, 
+							HttpSession session, 
+							GroupPurchaseSettlementVO pvo) {
 		String userId = (String) session.getAttribute("userId");
 		String boardCode = "CT03";
 		model.addAttribute("pchDetail", groupPurchaseService.pchOrderList(no));
 		model.addAttribute("detailImg", imageService.imageList(boardCode, no));
-		System.out.println(groupPurchaseService.pchOrderList(no) +"뭘까"+imageService.imageList(boardCode, no) +"이미지?");
 		model.addAttribute("no", no);
 		return "purchase/pchOrderList";
 	}
@@ -111,6 +137,8 @@ public class GroupPurchaseController {
 
 		String userId = (String) session.getAttribute("userId");
 		model.addAttribute("myPrList", groupPurchaseService.getPurchaseList(userId));
+		model.addAttribute("pchInfo",groupPurchaseService.pchAllList());
+	
 		return "myPages/myPurchaseList";
 	}
 
@@ -120,7 +148,7 @@ public class GroupPurchaseController {
 		String userId = (String) session.getAttribute("userId");
 		int no = prdtNo;
 		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(userId, no));
-		System.out.println("결과 ==========" + groupPurchaseService.purchaseSelect(userId, no));
+	//	model.addAttribute("pchInfo",groupPurchaseService.pchAllList());
 		return "myPages/myPurchaseSelect";
 	}
 

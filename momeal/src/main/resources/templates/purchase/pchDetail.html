@@ -59,10 +59,19 @@ textarea {
 				<div class="col-lg-6 col-md-6">
 					<div class="product__details__text">
 						<h3>[[ ${pchDetail[0].name} ]]</h3>
+						
 						<p th:if="${pchDetail[0].grpStartDate == '0'}" style="color: red;"></p>
 						<p th:unless="${pchDetail[0].grpStartDate == '0'}"
 							style="color: red;">[[${#dates.format(pchDetail[0].grpStartDate,'MM월
-							dd일')}]] 에 시작해요!</p>    
+							dd일')}]] 에 시작해요!</p>
+							
+<!--                         <p th:if="${pchDetail[0].grpStartDate == '0'}" style="color: red;">오늘부터 -->
+<!--                         시작</p> -->
+<!--                      <p th:unless="${pchDetail[0].grpStartDate <= '0'}" style="color: red;">[[ -->
+<!--                         ${pchDetail[0].grpStartDate} ]]일 뒤 시작</p> -->
+<!--                         <p th:if="${pchDetail[0].grpStartDate < '0'}" style="color: red;">모집 마감</p> -->
+                        
+                        
 						<div class="product__details__price">
 							<span id="price"
 								th:text="${#numbers.formatInteger(pchDetail[0].price, 3, 'COMMA')}"></span>원
@@ -94,6 +103,7 @@ textarea {
 							<input type="hidden" id="totalGd" name="totalGd" value="3">
 							<button type="button" class="primary-btn" onclick="PchBtn()" id="btn"
 								name="btn" >구매하기</button>
+								<input type="hidden" th:value="${pchDetail[0].pchOrdCnt}" id="pchOrdCntTotal">
 
 						</form>
 
@@ -115,7 +125,7 @@ textarea {
 								<div class="product__details__tab__desc">
 									<h6>상세설명</h6>
 									<th:block th:each="img : ${detailImg}">
-										<img th:src="${img.atchPath}">
+										<img th:src="${img.atchPath}" style=" width: 100% ;">
 									</th:block>
 								</div>
 							</div>
@@ -159,19 +169,19 @@ textarea {
 				console.log(totalSum);
 				console.log(totalGd);
 			}
-		</script>
 
-		<!-- 공동구매 신청인원이 다차면 버튼비활성화 -->
-		<script th:inline="javascript">
+		// 공동구매 신청인원이 다차면 버튼비활성화
 			function PchBtn() {
-				let pchOrdCnt = /*[[${pchDetail[0].pchOrdCnt}]]*/
+				let no = $('#no').val();
+				let pchOrdCntTotal = $('#pchOrdCntTotal').val()
+				let totalGd = document.getElementById("totalGd").value;
 				console.log(pchOrdCnt + "신청인원");
 				console.dir($("#btn"));
 
-				if ( pchOrdCnt == 0 ) {
+				if ( pchOrdCntTotal == 0 ) {
 					alert("신청인원이 마감되었습니다");
 				} else {
-					location.href = "/pch/pchOrderFrm/"+totalGd
+					location.href = "/pch/pchOrderFrm/" +totalGd + "/" + no
 				}
 			}
 		</script>
