@@ -5,7 +5,9 @@
 	<insert id="insertMeal" parameterType="co.doeat.activity.service.MealVO">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			SELECT
-			MAX (NO)+1 FROM MEALS
+			NVL(MAX (NO)+1,1) FROM MEALS
+			
+		
 		</selectKey>
 		insert into Meals(
 		no,

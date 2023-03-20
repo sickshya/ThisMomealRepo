@@ -237,7 +237,7 @@
 		parameterType="co.doeat.management.service.GroupPurchaseListVO">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			SELECT
-			MAX (NO)+1 FROM GROUP_PURCHASE_LISTS
+			NVL(MAX(NO)+1, 1) FROM GROUP_PURCHASE_LISTS
 		</selectKey>
 		INSERT INTO GROUP_PURCHASE_LISTS(NO,
 		NAME,

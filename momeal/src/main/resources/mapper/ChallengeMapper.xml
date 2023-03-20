@@ -366,7 +366,7 @@
 		parameterType="co.doeat.management.service.ChallengeVO">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			SELECT
-			MAX(NO)+1 FROM CHALLENGES
+			NVL(MAX(NO)+1, 1) FROM CHALLENGES
 		</selectKey>
 		INSERT INTO CHALLENGES(
 			NO,
