@@ -25,7 +25,7 @@ public class LikesController {
 //	}
 
 	// 마이페이지 - 식단 좋아요 리스트 출력
-	@RequestMapping("/myLikeList")
+	@RequestMapping("/usr/myLikeList")
 	public String myLikeList() {
 		return "myPages/myLikeList";
 	}

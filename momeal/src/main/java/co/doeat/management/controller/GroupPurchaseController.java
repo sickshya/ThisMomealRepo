@@ -131,24 +131,23 @@ public class GroupPurchaseController {
 	}
 
 	// 마이페이지 공동구매내역 리스트
-	@RequestMapping("/myPurchaseList")
+	@RequestMapping("/usr/myPurchaseList")
 	public String myPurchaseList(Model model, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
 
 		String userId = (String) session.getAttribute("userId");
 		model.addAttribute("myPrList", groupPurchaseService.getPurchaseList(userId));
 		model.addAttribute("pchInfo",groupPurchaseService.pchAllList());
-	
 		return "myPages/myPurchaseList";
 	}
 
 	// 마이페이지 공동구매상세내역
-	@RequestMapping("/myPurchaseSelect/{prdtNo}")
+	@RequestMapping("/usr/myPurchaseSelect/{prdtNo}")
 	public String myPurchaseSelect(Model model, @PathVariable int prdtNo, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		int no = prdtNo;
 		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(userId, no));
-	//	model.addAttribute("pchInfo",groupPurchaseService.pchAllList());
+		// model.addAttribute("pchInfo",groupPurchaseService.pchAllList());
 		return "myPages/myPurchaseSelect";
 	}
 
@@ -183,7 +182,7 @@ public class GroupPurchaseController {
 				e.printStackTrace();
 			}
 			vo.setThumbnailImg(tfile.getOriginalFilename());// 원본파일명
-			vo.setThumbnailImgPath("/mm_images/" + fileName);// 디렉토리 포함 원본파일
+			vo.setThumbnailImgPath("/home/mm_images/" + fileName);// 디렉토리 포함 원본파일
 		}
 
 		int no = groupPurchaseService.adminGPInsert(vo);
@@ -210,15 +209,16 @@ public class GroupPurchaseController {
 
 	// 관리자 공동구매 delete
 	@RequestMapping("/admin/adminGPDelete/{no}")
-	public String adminGPDelete(@PathVariable int no, RedirectAttributes redirectAttributes, GroupPurchaseListVO vo, ImageVO ivo) {
+	public String adminGPDelete(@PathVariable int no, RedirectAttributes redirectAttributes, GroupPurchaseListVO vo,
+			ImageVO ivo) {
 		String boardCode = "CT03";
 		int postNo = vo.getNo();
 		imageService.adminGPIDelete(postNo, boardCode);
-		int delCnt=groupPurchaseService.adminGPDelete(no);
+		int delCnt = groupPurchaseService.adminGPDelete(no);
 		if (delCnt == 0) {
 			redirectAttributes.addFlashAttribute("msg", "신청자가있는 공동구매는 삭제할 수 없습니다");
 		}
-		return "redirect:/admin/adminGroupPurchase";	
+		return "redirect:/admin/adminGroupPurchase";
 	}
 
 	// 관리자 공동구매 update
@@ -246,7 +246,7 @@ public class GroupPurchaseController {
 				e.printStackTrace();
 			}
 			vo.setThumbnailImg(tfile.getOriginalFilename());// 원본파일명
-			vo.setThumbnailImgPath("/mm_images/" + fileName);// 디렉토리 포함 원본파일
+			vo.setThumbnailImgPath("/home/mm_images/" + fileName);// 디렉토리 포함 원본파일
 		}
 		groupPurchaseService.adminGPUpdate(vo);
 		String boardCode = "CT03";

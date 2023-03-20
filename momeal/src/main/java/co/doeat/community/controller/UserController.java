@@ -26,7 +26,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	BCryptPasswordEncoder bcryptEncoder;
 
@@ -37,13 +37,13 @@ public class UserController {
 	}
 
 	// 마이페이지 접근을 위해서, 본인확인용 비밀번호 입력창 호출
-	@RequestMapping("/users/enterMypage")
+	@RequestMapping("/usr/enterMypage")
 	public String membpw(UsersVO vo) {
 		return "users/chkPwdFrm";
 	}
 
 	// 회원정보 수정폼 호출
-	@RequestMapping("/userEditForm")
+	@RequestMapping("/usr/userEditForm")
 	public String userEditForm(UsersVO vo, Model model, HttpSession session) {
 		model.addAttribute("userInfo", userService.userSelect((String) session.getAttribute("userId")));
 		return "users/userEditForm";
@@ -69,7 +69,7 @@ public class UserController {
 	}
 
 	// 회원탈퇴신청폼 호출
-	@RequestMapping("/userWithdrawForm")
+	@RequestMapping("/usr/userWithdrawForm")
 	public String userWithdrawForm(UsersVO vo, HttpSession session, Model model) {
 		model.addAttribute("userInfo", userService.userSelect((String) session.getAttribute("userId")));
 		return "users/userWithdrawForm";
@@ -98,13 +98,12 @@ public class UserController {
 
 	// 마이페이지 포인트
 	@RequestMapping("/myPoint")
-	public String myPoint(CommonCodeVO cvo, PointLogVO pvo, UsersVO uvo, Model model, HttpSession session, Paging paging) {
-		String userId = (String) session.getAttribute("userId");		
+	public String myPoint(CommonCodeVO cvo, PointLogVO pvo, UsersVO uvo, Model model, HttpSession session,
+			Paging paging) {
+		String userId = (String) session.getAttribute("userId");
 		pvo.setUserId(userId);
-		
-		
-		
-		paging.setTotalRecord(userService.getCountTotals(paging,userId));
+
+		paging.setTotalRecord(userService.getCountTotals(paging, userId));
 		pvo.setFirst(paging.getFirst());
 		pvo.setLast(paging.getLast());
 		model.addAttribute("pointList", userService.pointList(pvo));

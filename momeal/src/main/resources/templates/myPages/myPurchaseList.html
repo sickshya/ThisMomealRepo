@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{frame/myPage}">
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{frame/myPage}">
 <head>
 <!-- Favicon -->
 <link href="assets/images/favicon.png" rel="icon" type="image/png">
@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description"
-	content="Instello - Sharing Photos platform HTML Template">
+   content="Instello - Sharing Photos platform HTML Template">
 
 <!-- icons
     ================================================== -->
@@ -25,39 +25,39 @@
 <link rel="stylesheet" href="assets/css/tailwind-dark.css">
 </head>
 <body>
-	<!-- 마이페이지 공동구매내역 -->
-	<div layout:fragment="content" align="center">
-		<h1>
-			<b>MY PURCHASE</b>
-		</h1>
-		<form id="frm" action="myPurchaseSelect" method="post">
-			<div id="wrapper">
-				<div class="col-lg-7">
-					<ul>
-						<li th:each="pur : ${pchInfo}">
-							<div align="left">
-								<p class="truncate">[[${pur.no}]]</p>
-								<!-- 						<input type="hidden" name="no" value="${pur.no}"> -->
-								<a th:href="@{/myPurchaseSelect/{prdtNo}(prdtNo = ${pur.no})}"
-									class="block flex items-center py-3 px-4 space-x-3"> <img
-									th:src="${pur.thumbnailImgPath}" alt=""
-									style="width: 100px; height: 110px;">
+   <!-- 마이페이지 공동구매내역 -->
+   <div layout:fragment="content" align="center">
+      <h1>
+         <b>MY PURCHASE</b>
+      </h1>
+      <form id="frm" action="/usr/myPurchaseSelect" method="post">
+         <div id="wrapper">
+            <div class="col-lg-7">
+               <ul>
+                  <li th:each="pur : ${pchInfo}">
+                     <div align="left">
+                        <p class="truncate">[[${pur.no}]]</p>
+                        <!--                   <input type="hidden" name="no" value="${pur.no}"> -->
+                        <a th:href="@{/myPurchaseSelect/{prdtNo}(prdtNo = ${pur.no})}"
+                           class="block flex items-center py-3 px-4 space-x-3"> <img
+                           th:src="${pur.thumbnailImgPath}" alt=""
+                           style="width: 100px; height: 110px;">
 
-									<div class="flex-1 min-w-0 relative text-gray-500" align="left">
-										<h4 class="text-black font-semibold dark:text-white">[[${pur.name}]]</h4>
-										<span class="absolute right-0 top-1 text-xs">[[${pur.coName}]]</span>
-										<p class="truncate">[[${pur.subject}]]</p>
-										<p class="text-black font-semibold dark:text-white">[[${pur.price}]]</p>
-										<!-- 	<p class="truncate">수량</p>   -->
-									</div>
-								</a>
-							</div>
-							<hr>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</form>
-	</div>
+                           <div class="flex-1 min-w-0 relative text-gray-500" align="left">
+                              <h4 class="text-black font-semibold dark:text-white">[[${pur.name}]]</h4>
+                              <span class="absolute right-0 top-1 text-xs">[[${pur.coName}]]</span>
+                              <p class="truncate">[[${pur.subject}]]</p>
+                              <p class="text-black font-semibold dark:text-white">[[${pur.price}]]</p>
+                              <!--    <p class="truncate">수량</p>   -->
+                           </div>
+                        </a>
+                     </div>
+                     <hr>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </form>
+   </div>
 </body>
 </html>

@@ -57,7 +57,7 @@ public class ImageServiceImpl implements ImageService {
 				// image.setAtchNo(atchNo);
 				image.setAtchImg(file.getOriginalFilename());
 				// image.setAtchPath(saveImg +fileName);
-				image.setAtchPath("/mm_images/" + fileName);
+				image.setAtchPath("/home/mm_images/" + fileName);
 				image.setAtchExtn("jpg");
 				image.setAtchUUID(fileName);
 				image.setAtchSize(file.getSize());

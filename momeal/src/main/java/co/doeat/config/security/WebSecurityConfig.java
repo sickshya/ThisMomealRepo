@@ -40,7 +40,7 @@ public class WebSecurityConfig {
 						"/signup/**", "/contentsMain/**", "/contentsDetail/**")
 				.permitAll()
 				// ▲ 비로그인 유저까지 허가되는 접근 url
-				.antMatchers("/usrs/**", "/chlg/**", "/pch/**", "/exp/**", "/fllw/**", "/cmt/**", "/cty/**")
+				.antMatchers("/usr/**", "/chlg/**", "/pch/**", "/exp/**", "/fllw/**", "/cmt/**", "/cty/**")
 				.hasAuthority("ROLE_USER") // 일반유저 접근 허용 경로
 				.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // 관리자권한 접근 허용 경로
 				.anyRequest().authenticated()) // permitAll 외의 요청엔 로그인 요구
