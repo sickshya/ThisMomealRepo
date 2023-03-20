@@ -188,6 +188,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Override
 	public int adminCHUpdate(ChallengeVO vo) {
 		return challengeMapper.adminCHUpdate(vo);
+		
 	}
 
 }

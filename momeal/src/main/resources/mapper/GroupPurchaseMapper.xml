@@ -223,7 +223,7 @@
 		<where>
 		<include refid="creiteria"></include>
 		</where>
-		order by no
+		order by no desc
 		
 		<![CDATA[
 		)a where rownum <= #{last}) b where rn  >= #{first} 
