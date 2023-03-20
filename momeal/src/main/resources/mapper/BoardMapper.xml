@@ -92,11 +92,52 @@
 
 	<!--- Notice -->
 
-	<!-- notice 전체리스트 출력 -->
+	<!-- Notice 전체리스트(ADMIN) -->
 	<select id="noticeList"
+		resultType="co.doeat.common.service.BoardVO">
+		SELECT *
+		FROM( SELECT ROWNUM RN,
+		A.*
+		FROM( SELECT *
+		FROM BOARD
+		WHERE BOARD_CODE = 'BD01'
+		<include refid="creite"></include>
+		ORDER BY NO
+					<![CDATA[
+	 		)A WHERE ROWNUM <= #{last}) B 
+ 		 WHERE RN >= #{first} 
+ 		 ]]>
+	</select>
+
+	<!--- Notice 전체리스트(USER) -->
+	<select id="userNotice"
 		resultType="co.doeat.common.service.BoardVO">
 		SELECT * FROM BOARD
 		WHERE BOARD_CODE = 'BD01'
+	</select>
+
+	<!-- 페이징 -->
+	<sql id="creite">
+		<choose>
+			<when test="type == 'A'.toString()">
+			AND	ALL like '%'||#{keyword}||'%'
+			</when>
+			<when test="type == 'N'.toString()">
+			AND	board_title like '%'||#{keyword}||'%'
+			</when>
+			<when test="type == 'S'.toString()">
+			AND	board_subject like '%'||#{keyword}||'%'
+			</when>
+		</choose>
+	</sql>
+
+		<!-- 페이징 전체 수 계산 -->
+	<select id="NoticeCnt"
+		parameterType="co.doeat.community.service.UsersVO" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE BOARD_CODE = 'BD01'
+			<include refid="creite"></include>
 	</select>
 
 	<!-- notice 상세보기 -->
@@ -146,33 +187,5 @@
 		DELETE FROM BOARD WHERE NO = #{no}
 	</delete>
 
-	<!-- notice 조회수증가 -->
-	<update id="noticeHitUpdate">
-		UPDATE BOARD SET NOTICE_HIT = BOARD_HIT + 1 WHERE
-		USER_ID = #{id}
-	</update>
 
-	<!-- notice 전체리스트 검색어 기능 -->
-	<select id="noticeSearch"
-		resultType="co.doeat.common.service.BoardVO">
-		SELECT * FROM BOARD
-		<if test="key == 'all'">WHERE 1 = 1 AND BOARD_CODE = 'BD01'</if>
-		<if test="key == 'boardTitle'">WHERE BOARD_TITLE LIKE '%'||#{val}||'%'</if>
-		<if test="key == 'boardSubject'">WHERE BOARD_SUBJECT LIKE '%'||#{val}||'%'</if>
-	</select>
-
-
-	<!-- 페이징 할 리스트 -->
-	<select id="getnoticeUserList" parameterType="BoardVO"
-		resultType="BoardVO"> 
-		SELECT * 
-        FROM( SELECT 	ROWNUM RN, 
-		  				A.* 
-        FROM(	SELECT * 
-                FROM BOARD
-                ORDER BY NO
-                <![CDATA[
-	 		)A WHERE ROWNUM <= #{last}) B 
- 		 WHERE RN >= #{first} ]]>
-	</select>
 </mapper>

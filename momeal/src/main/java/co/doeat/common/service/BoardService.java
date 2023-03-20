@@ -25,12 +25,14 @@ public interface BoardService {
 
 	int faqDelete(BoardVO vo); // faq 삭제
 
+	
 	// NOTICE
-	List<BoardVO> userNotice(); // 전체 조회
+	
+	List<BoardVO> userNotice(); // 전체 조회(USER)
 
-	List<BoardVO> noticeList(BoardSearchVO svo); // 전체 조회
+	List<BoardVO> noticeList(BoardSearchVO svo); // 전체 조회 (ADMIN)
 
-	BoardVO noticeSelect(int no); // 단건조회
+	BoardVO noticeSelect(int no); // 상세
 
 	int noticeInsert(BoardVO vo); // 등록
 
@@ -40,6 +42,6 @@ public interface BoardService {
 
 	List<BoardVO> noticeSearch(@Param("key") String key, @Param("val") String val); // 검색
 
-	void noticeHitUpdate(String userId); // 조회수 증가
+	int NoticeCnt(BoardSearchVO svo); // 페이징 수 계산
 
 }

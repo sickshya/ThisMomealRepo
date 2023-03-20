@@ -39,10 +39,9 @@ public class BoardController<UserVO> {
 
 	@Autowired
 	ServletContext servletContext;
-	
+
 	@Autowired
 	UserService userService;
-	
 
 	// 자주묻는질문 FAQ
 
@@ -112,45 +111,43 @@ public class BoardController<UserVO> {
 		return "redirect:/admin/adminFaq";
 	}
 
-	// 공지사항 NOTICE ===================================================================
+	// 공지사항 NOTICE
+	// ===================================================================
 
 	// NOTICE(USER) 전체리스트
 	@RequestMapping("/notice")
-	public String noticeList(
-							 Model model, 
-							 @ModelAttribute("esvo") BoardSearchVO svo, 
-							 Paging paging) {
-		//svo.set
-		//paging.setTotalRecord(boardService.cntTotal(svo));
+	public String noticeList(Model model, @ModelAttribute("esvo") BoardSearchVO svo, Paging paging) {
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		paging.setTotalRecord(boardService.cntTotal(svo));
 
-		//model.addAttribute("adminFaqList", boardService.noticeList(svo));
+		model.addAttribute("noticeList", boardService.noticeList(svo));
 		return "board/notice";
 	}
-	
+
 	// NOTICE(USER) 글 상세보기
 	@GetMapping("/noticeSel/{no}")
 	public String noticeSel(@PathVariable int no, BoardVO vo, Model model) {
 		model.addAttribute("notice", boardService.noticeSelect(no));
 		return "board/noticeSelect";
 	}
-	
-	
+
 	// NOTICE(ADMIN) 글 상세보기
-	@GetMapping("/admin/adminNoticeSelect/{no}") 
+	@GetMapping("/admin/adminNoticeSelect/{no}")
 	public String noticeSelect(@PathVariable int no, BoardVO vo, Model model) {
-		//boardService.noticeHitUpdate(vo.getUserId());
+		// boardService.noticeHitUpdate(vo.getUserId());
 		model.addAttribute("notice", boardService.noticeSelect(no));
 		String boardCode = "BD01";
 		return "admin/adminNoticeSelect";
 	}
-	
+
 	// NOTICE(ADMIN) 전체리스트
 	@RequestMapping("/admin/adminNotice")
 	public String adminNotice(Model model) {
-		model.addAttribute("noticeList", boardService.noticeList(null));
+		model.addAttribute("noticeList", boardService.userNotice());
 		return "admin/adminNotice";
 	}
-	
+
 	// NOTICE(ADMIN) 등록폼 호출
 	@RequestMapping("/admin/adminNoticeInsertForm")
 	public String noticeInsertForm() {
@@ -160,16 +157,15 @@ public class BoardController<UserVO> {
 	// NOTICE(ADMIN) 글 등록
 	@PostMapping("/admin/adminNoticeInsert")
 	public String noticeInsert(BoardVO vo, MultipartFile file) {
-		
+
 		vo.setBoardCode("BD01");
 		// DB 저장
 		boardService.noticeInsert(vo);
 
 		return "redirect:/admin/adminNotice";
 	}
-	
-	
-	//  NOTICE(ADMIN) 글 수정폼 호출
+
+	// NOTICE(ADMIN) 글 수정폼 호출
 	@RequestMapping("/admin/adminNoticeUpdateForm/{no}")
 	public String adminNoticeUpdateForm(@PathVariable int no, Model model, BoardVO vo) {
 
@@ -190,19 +186,17 @@ public class BoardController<UserVO> {
 
 		return "redirect:/admin/adminNotice";
 	}
-	
-	
+
 	// NOTICE(ADMIN) 글 삭제 처리
 	@RequestMapping("/admin/adminNoticeDelete/{no}")
 	public String noticeDelete(@PathVariable int no, Model model, BoardVO vo) {
-		
+
 		// DB에서 삭제
 		String boardCode = "BD01";
 		no = vo.getNo();
 		boardService.noticeDelete(vo);
-		
+
 		return "redirect:/admin/adminNotice";
 	}
-	
 
 }
