@@ -112,7 +112,7 @@
 		parameterType="co.doeat.community.service.GroupsVO">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			SELECT
-			MAX(NO)+1 FROM GROUP_LISTS
+			NVL(MAX(NO)+1, 1) FROM GROUP_LISTS
 		</selectKey>
 		INSERT INTO GROUP_LISTS
 		VALUES(#{no}, #{grpLeader}, #{grpName}, null, #{grpCode})
