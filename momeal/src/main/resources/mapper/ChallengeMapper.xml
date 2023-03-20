@@ -96,17 +96,18 @@
 	<select id="getChallenge"
 		resultType="co.doeat.management.service.ChallengeVO">
 		SELECT C.*,
-       (C.PARTICIR * C.DEDUCT_POINT) AS SUM_POINT,
-       (C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY,
-       NVL((SELECT L.NO 
-              FROM LIKES L
-             WHERE L.POST_NO = C.NO 
-               AND L.USER_ID = #{userId} 
-               AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO,
-       NVL((SELECT P.NO
-              FROM CHALLENGE_PARTICIPATION P 
-             WHERE C.NO = P.NO 
-               AND P.USER_ID = #{userId}), 0) AS ATTEND_NO
+		       (C.PARTICIR * C.DEDUCT_POINT) AS SUM_POINT,
+		       (C.CHAL_START_DATE - TRUNC(SYSDATE)) AS START_DAY,
+		       (C.CHAL_END_DATE - C.CHAL_START_DATE) AS TOTAL_DAY,
+		       NVL((SELECT L.NO 
+		              FROM LIKES L
+		             WHERE L.POST_NO = C.NO 
+		               AND L.USER_ID = #{userId} 
+		               AND L.BOARD_CODE = 'CT01'),0) AS LIKE_NO,
+		       NVL((SELECT P.NO
+		              FROM CHALLENGE_PARTICIPATION P 
+		             WHERE C.NO = P.NO 
+		               AND P.USER_ID = #{userId}), 0) AS ATTEND_NO
 		 FROM CHALLENGES C
 		WHERE C.NO = #{no}
 	</select>
@@ -116,7 +117,8 @@
         { CALL attend_challenge_proc(
                 #{no, mode=IN, jdbcType=INTEGER},
                 #{chalRound, mode=IN, jdbcType=INTEGER},
-                #{userId, mode=IN, jdbcType=VARCHAR}
+                #{userId, mode=IN, jdbcType=VARCHAR},
+                #{result, mode=OUT, jdbcType=VARCHAR}
             	)
         }
 	</insert>

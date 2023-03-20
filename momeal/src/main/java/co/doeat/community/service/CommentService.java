@@ -8,6 +8,7 @@ public interface CommentService {
 	public void replyInsert(CommentVO vo); // 대댓글 등록
 	public void commentUpdate(CommentVO vo); // 댓글 수정
 	public void commentDelete(int no); // 댓글 삭제
+	public void commentAllDelete(int no); // 게시물 삭제 시 해당 게시물의 댓글 전체 삭제
 	
 	public List<CommentVO> groupCommentsList(CommentVO vo); // 그룹 댓글 조회
 }

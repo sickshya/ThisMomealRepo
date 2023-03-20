@@ -12,13 +12,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.doeat.activity.service.MealService;
 import co.doeat.activity.service.MealVO;
-import co.doeat.management.service.GroupPurchaseListVO;
+import co.doeat.community.service.CommentService;
 
 @RestController
 public class MealRestController {
@@ -26,7 +25,8 @@ public class MealRestController {
 	ServletContext servletContext;
 	@Autowired
 	MealService mealService;
-	
+	@Autowired
+	CommentService commentService;
 	@Value("${momeal.saveImg}")
 	private String saveImg;
 
@@ -85,6 +85,8 @@ public class MealRestController {
 	//식단 삭제
 	@RequestMapping("/mealDelete/{no}")
 	public int mealDelete(@PathVariable int no, MealVO vo) {
+		// 댓글 전체 삭제
+		commentService.commentAllDelete(no);
 		return mealService.mealDelete(no);
 		
 	}

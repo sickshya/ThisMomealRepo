@@ -16,7 +16,6 @@ import co.doeat.activity.service.MealVO;
 public class MealServiceImpl implements MealService{
 	@Autowired
 	MealMapper mealMapper;
-
 	@Override
 	public int insertMeal(MealVO vo) {
 		return mealMapper.insertMeal(vo);

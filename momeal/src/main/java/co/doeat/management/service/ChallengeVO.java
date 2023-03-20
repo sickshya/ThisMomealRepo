@@ -50,6 +50,8 @@ public class ChallengeVO extends ImageVO {
 	private String startDay; // 시작까지 남은 날짜
 	private int likeNo; // 좋아요 유무 체크 (좋아요 한 상태 = 해당 좋아요 번호 / 아니면 = 0)
 	private int attendNo; // 챌린지 참여 유무 체크 (참여한 상태 = 1 / 아니면 = 0)
+	
+	private String result; // 챌린지 참여신청 결과 확인
 
 	private List<ImageVO> imgPath; // 관리자 상세조회 시, 이미지 경로값
 	private String chstatus; // 날짜에 따른 공동구매 진행상태

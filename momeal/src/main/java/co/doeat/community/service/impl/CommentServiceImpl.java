@@ -51,4 +51,10 @@ public class CommentServiceImpl implements CommentService{
 		commentMapper.commentDelete(no);
 	}
 
+	// 게시물 삭제 시 해당 게시물의 댓글 전체삭제
+	@Override
+	public void commentAllDelete(int no) {
+		commentMapper.commentAllDelete(no);
+	}
+
 }

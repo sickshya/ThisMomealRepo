@@ -51,15 +51,12 @@ public class ChallengeController {
 	// ▶ 챌린지 ◀
 	// 전체조회
 	// 세션에 아이디 값도 담아두기(임시)
-	@RequestMapping("/challenge")
+	@RequestMapping("/chlg/challenge")
 	public String challengeMain(Model model, HttpSession session, ChallengeVO vo) {
 		// 임시로 세션에 ID 값 담기
 		String id = (String) session.getAttribute("userId");
 		vo.setUserId(id);
 		vo.setNo(10);
-
-		// 전체조회
-//		model.addAttribute("challList", challengeService.getChallList(vo));
 		
 		// 게시물 max 번호
 		model.addAttribute("maxNo", challengeService.getMaxChallNo());
@@ -74,7 +71,6 @@ public class ChallengeController {
 	@RequestMapping("/challengeList")
 	@ResponseBody
 	public List<Map<String, Object>> challengeList(ChallengeVO vo, HttpSession session) {
-		System.out.println("도착??????");
 		String userId = (String) session.getAttribute("userId");
 		vo.setUserId(userId);
 		return challengeService.getChallList(vo);
@@ -94,7 +90,6 @@ public class ChallengeController {
 		String boardCode = "CT01";
 		model.addAttribute("chall", challengeService.getChallenge(userId, no));
 		model.addAttribute("detailImg", imageService.imageList(boardCode, no));
-//		System.out.println("이미지 ===================== " + imageService.imageList(boardCode, no));
 		return "challenge/challengeDetail";
 	}
 
@@ -102,7 +97,11 @@ public class ChallengeController {
 	@PostMapping("/attendChallenge")
 	public String attendChallenge(ChallengeVO vo) {
 		challengeService.attendChall(vo);
-		return "redirect:/myChallenge";
+		
+		// 프로시저 결과값에 따라 페이지 이동
+		if (vo.getResult().equals("success"))
+			return "redirect:/myChallenge";
+		else return "redirect:/challenge/" + vo.getNo();
 	}
 
 	// ▶ 나의 챌린지 - 진행중 ◀

@@ -37,6 +37,7 @@ public class GroupPurchaseListVO extends ImageVO {
 	private String tel;
 	private int listNo;
 	private int pchOrdCnt; // 공동구매 잔여 구매가능 수 
+	private int totalGd; // 구매수량
 
 	// 이미지
 	private String atchPath; // 첨부이미지 경로
