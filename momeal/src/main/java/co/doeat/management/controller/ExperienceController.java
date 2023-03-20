@@ -50,20 +50,19 @@ public class ExperienceController {
 	@Value("${momeal.saveImg}")
 	private String saveImg;
 
-	// 체험단(전체조회)
+	// 체험단(전체조회) 리스트 폼 호출
 	@RequestMapping("/experienceList")
-	public String experienceList(Model model, HttpServletRequest request, UsersVO userVO) {
-		HttpSession session = request.getSession();
-		session.setAttribute("userId", "user1");
+	public String experienceList(Model model, 
+								 UsersVO userVO) {
 		model.addAttribute("ExpList", experienceService.getExperList()); // 전체
 		model.addAttribute("ExpingList", experienceService.getExperiencing()); // 진행
 		return "experience/experienceList";
 	}
 
-	// 체험단(단건조회)
+	// 체험단 리스트에서 단건조회를 하면 그 상품에 대한 상세페이지 (단건조회)
 	@GetMapping("/experienceDetail/{no}")
-	public String experienceDetail(Model model, @PathVariable int no, HttpSession session) {
-		String id = (String) session.getAttribute("userId");
+	public String experienceDetail(Model model, 
+				  @PathVariable int no) {
 		String boardCode = "CT02";
 		model.addAttribute("ExpOne", experienceService.ExperOne(no));
 		model.addAttribute("detailImg", imageService.imageList(boardCode, no));
@@ -71,25 +70,24 @@ public class ExperienceController {
 		return "experience/experienceDetail";
 	}
 
-	// 체험단(호출) // select 하는곳 조회먼저.
+	// 체험단 참여하기 위한 서류 작성 form 호출 ( 신청form ) // select 하는곳 조회먼저.
 	@RequestMapping("/expr/exprFrm/{no}")
-	public String experience(HttpSession session, @PathVariable int no, Model model, ExprParticipantsVO vo) {
+	public String experience(HttpSession session, 
+			 				 @PathVariable int no, 
+			 				 Model model) {
 		String userId = (String) session.getAttribute("userId");
-		List<ExperienceVO> evo = experienceService.ExperOne(vo.getNo());
+		List<ExperienceVO> evo = experienceService.ExperOne(no);
 		model.addAttribute("expOne",evo);
 		model.addAttribute("expSelect", experienceService.ExperOne(no));
 		model.addAttribute("userInfo", userService.userSelect(userId));
-		System.out.println(no + "체험단정보" + userId + "유저정보");
 		return "experience/experienceForm";
 	}
 
 	// 체험단(신청) // insert 하는곳 값 불러와야함.
 	@RequestMapping("/expr/exprAply.do")
 	@ResponseBody
-	public String exprAply(HttpSession session,
-						   ExprParticipantsVO pvo,
-						   ExperienceVO vo,
-						   int no) {
+	public String exprAply(ExprParticipantsVO pvo,
+						   ExperienceVO vo) {
 		experienceService.expInsert(pvo);
 		experienceService.expUpdate(vo);
 		return "신청이 완료되었습니다.";
@@ -97,37 +95,15 @@ public class ExperienceController {
 
 	// 체험단(신청내역조회)
 	@RequestMapping("/expr/expOrderList/{no}")
-	public String expOrderList(Model model, HttpSession session, ExprParticipantsVO vo, @PathVariable int no) {
+	public String expOrderList(Model model, 
+							   HttpSession session, 
+							   @PathVariable int no) {
 		String userId = (String) session.getAttribute("userId");
-		List<ExperienceVO> evo = experienceService.ExperOne(vo.getNo());
+		List<ExperienceVO> evo = experienceService.ExperOne(no);
 		model.addAttribute("expOrder",evo);
-		model.addAttribute("expAplyList", experienceService.expOrderList(userId, no));
-		System.out.println(evo + "체험단배송정보"+userId+no);
-		
+		model.addAttribute("expAplyList", experienceService.expOrderList(userId, no));		
 		return "experience/expOrderList";
 	}
-	
-	
-	// 체험단(버튼수체크)
-//	@RequestMapping("/ajaxExpBtn")
-//	@ResponseBody
-//	public String ajaxExpBtn(ExperienceVO vo, HttpSession session){
-//		String userId = (String) session.getAttribute("userId");
-//		Boolean b = experienceService.ajaxExpBtn(vo);
-//		String str = (b!=null)? "true" : "false";
-//	
-//		return str;
-//	}
-//	
-//	// 체험단 리뷰
-//	
-//	//전체조회
-//	@PostMapping("/expReviewList/{no}")
-//	@ResponseBody
-//	public List<ExpReviewVO> expReviewList(@PathVariable int no) {
-//		return experienceService.ExpReviewList(no);
-//	}
-	
 	
 
 	// 관리자 ++++++++++++++++++++++++++++++++++++++++++++++++++++++

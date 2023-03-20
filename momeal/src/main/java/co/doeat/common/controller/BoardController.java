@@ -124,7 +124,7 @@ public class BoardController<UserVO> {
 	
 	
 	// NOTICE(ADMIN) 글 상세보기
-	@RequestMapping("/admin/adminNoticeSelect/{no}")
+	@GetMapping("/admin/adminNoticeSelect/{no}") 
 	public String noticeSelect(@PathVariable int no, BoardVO vo, Model model) {
 		//boardService.noticeHitUpdate(vo.getUserId());
 		model.addAttribute("notice", boardService.noticeSelect(no));
@@ -132,7 +132,6 @@ public class BoardController<UserVO> {
 		return "admin/adminNoticeSelect";
 	}
 	
-
 	// NOTICE(ADMIN) 전체리스트
 	@RequestMapping("/admin/adminNotice")
 	public String adminNotice(Model model) {
