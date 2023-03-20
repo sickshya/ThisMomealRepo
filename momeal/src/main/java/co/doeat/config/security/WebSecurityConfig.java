@@ -41,7 +41,7 @@ public class WebSecurityConfig {
 				.permitAll()
 				// ▲ 비로그인 유저까지 허가되는 접근 url
 				.antMatchers("/usr/**", "/chlg/**", "/pch/**", "/exp/**", "/fllw/**", "/cmt/**", "/cty/**")
-				.hasAuthority("ROLE_USER") // 일반유저 접근 허용 경로
+				.hasAnyAuthority("ROLE_USER","ROLE_ADMIN") // 일반유저 접근 허용 경로( + 관리자 허용 )
 				.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // 관리자권한 접근 허용 경로
 				.anyRequest().authenticated()) // permitAll 외의 요청엔 로그인 요구
 				.rememberMe((remember) -> remember.tokenValiditySeconds(86400 + 43200) // token 유효시간, 36시간

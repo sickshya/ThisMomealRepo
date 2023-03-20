@@ -1,322 +1,392 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Favicon -->
-    <link href="/assets/images/favicon.png" rel="icon" type="image/png">
+        <!-- Favicon -->
+        <link href="/assets/images/favicon.png" rel="icon" type="image/png">
 
-    <!-- Basic Page Needs ================================================== -->
-    <title>Instello Sharing Photos</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Instello - Sharing Photos platform HTML Template">
+        <!-- Basic Page Needs ================================================== -->
+        <title>Would you like to join us?</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta
+            name="description"
+            content="Instello - Sharing Photos platform HTML Template">
 
-    <!-- icons ================================================== -->
-    <link rel="stylesheet" href="/assets/css/icons.css">
+        <!-- icons ================================================== -->
+        <link rel="stylesheet" href="/assets/css/icons.css">
 
-    <!-- CSS ================================================== -->
-    <link rel="stylesheet" href="/assets/css/uikit.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/tailwind-dark.css">
+        <!-- CSS ================================================== -->
+        <link rel="stylesheet" href="/assets/css/uikit.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="stylesheet" href="/assets/css/tailwind-dark.css">
 
-    <!-- Scripts ================================================== -->
-    <script src="/assets/js/tippy.all.min.js"></script>
-    <script src="/assets/js/jquery-3.3.1.min.js"></script>
-    <script src="/assets/js/uikit.js"></script>
-    <script src="/assets/js/simplebar.js"></script>
-    <script src="/assets/js/custom.js"></script>
+        <!-- Scripts ================================================== -->
+        <script src="/assets/js/tippy.all.min.js"></script>
+        <script src="/assets/js/jquery-3.3.1.min.js"></script>
+        <script src="/assets/js/uikit.js"></script>
+        <script src="/assets/js/simplebar.js"></script>
+        <script src="/assets/js/custom.js"></script>
 
-    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+        <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 
-    <!-- 주소 찾기 -->
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <!-- 주소 찾기 -->
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-    <!-- custom signup js -->
-    <script src="/js/custom/signup.js"></script>
-</head>
+        <!-- custom signup js -->
+        <script src="/js/custom/signup.js"></script>
+    </head>
 
-<body class="bg-gray-100">
+    <body class="bg-gray-100">
 
-    <div id="wrapper" class="flex flex-col justify-between h-screen">
+        <div id="wrapper" class="flex flex-col justify-between h-screen">
 
-        <!-- header-->
-        <div class="bg-white py-4 shadow dark:bg-gray-800">
-            <div class="max-w-6xl mx-auto">
+            <!-- header-->
+            <div class="bg-white py-4 shadow dark:bg-gray-800">
+                <div class="max-w-6xl mx-auto">
 
-                <div class="flex items-center lg:justify-between justify-around">
+                    <div class="flex items-center lg:justify-between justify-around">
 
-                    <a href="trending.html">
-                        <img src="/assets/images/logo.png" alt="" class="w-32">
-                    </a>
+                        <a href="trending.html">
+                            <img src="/assets/images/logo.png" alt="" class="w-32">
+                        </a>
 
-                    <div class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
-                        <a href="/login" class="py-3 px-4">Login</a>
-                        <a href="/signup/signupFrm"
-                            class="bg-green-500 green-500 px-6 py-3 rounded-md shadow text-white">Register</a>
+                        <div
+                            class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
+                            <a href="/login" class="py-3 px-4">Login</a>
+                            <a
+                                href="/signup/signupFrm"
+                                class="bg-green-500 green-500 px-6 py-3 rounded-md shadow text-white">Register</a>
+                        </div>
+
                     </div>
-
                 </div>
             </div>
-        </div>
 
-        <!-- Content-->
+            <!-- Content-->
 
-        <div>
-            <div class="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
-                <h1 class="lg:text-3xl text-xl font-semibold mb-6">
-                    Sign in</h1>
-                <p class="mb-2 text-black text-lg">
-                    Register to manage your account
-                </p>
-                <form id="frm" action="/signup/register.do" onsubmit="return formCheck()" method="post">
-                    <div class="flex lg:flex-row flex-col lg:space-x-1">
-                        <input id="userId" name="userId" type="text" placeholder="ID "
+            <div>
+                <div class="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+                    <h1 class="lg:text-3xl text-xl font-semibold mb-6">
+                        Sign in</h1>
+                    <p class="mb-2 text-black text-lg">
+                        Register to manage your account
+                    </p>
+                    <form
+                        id="frm"
+                        action="/signup/register.do"
+                        onsubmit="return formCheck()"
+                        method="post">
+                        <div class="flex lg:flex-row flex-col lg:space-x-1">
+                            <input
+                                id="userId"
+                                name="userId"
+                                type="text"
+                                placeholder="ID "
+                                class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
+                                style="border: 1px solid #d3d5d8 !important;">
+                        </div>
+                        <label for="userId" id="id">
+                            &nbsp;&nbsp;:&nbsp;&nbsp;아이디를 입력해주세요 (5~15자 입력)</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Password"
                             class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
                             style="border: 1px solid #d3d5d8 !important;">
-                    </div>
-                    <label for="userId" id="id">
-                        &nbsp;&nbsp;:&nbsp;&nbsp;아이디를 입력해주세요 (5~15자 입력)</label>
-                    <input type="password" id="password" name="password" placeholder="Password"
-                        class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                        style="border: 1px solid #d3d5d8 !important;">
-                    <!-- 비밀번호 확인 -->
-                    <input type="password" id="pwdconfirm" name="pwdconfirm" placeholder="Confirm Password"
-                        class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                        style="border: 1px solid #d3d5d8 !important;">
-                    <label for="pwdconfirm" id="pwdconfirmchk">
-                        &nbsp;&nbsp;:&nbsp;&nbsp;비밀번호를 입력해주세요
-                    </label>
-                    <input id="userName" name="userName" type="text" placeholder="Your name"
-                        class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                        style="border: 1px solid #d3d5d8 !important;">
-                    <input id="nickName" name="nickName" type="text" placeholder="Nickname"
-                        class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                        style="border: 1px solid #d3d5d8 !important;">
-                    <input id="memail" name="email" type="email" placeholder="E-mail"
-                        class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                        style="border: 1px solid #d3d5d8 !important;">
-                    <label for="memail" id="mailTxt">이메일을 입력해주세요</label>
-                    <input id="checkEmail" name="checkEmail" type="button" value="이메일인증"
-                        class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800 bg-gradient-to-br from-green-500 py-3 rounded-md text-white text-xl to-yellow-400 w-full"
-                        style="border: 1px solid #d3d5d8 !important;">
-                    <input id="memailconfirm" name="memailconfirm" type="text" placeholder="인증번호"
-                        class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                        style="border: 1px solid #d3d5d8 !important;">
-                    <label for="memailconfirm" id="memailconfirmTxt">인증번호를 입력해주세요</label>
-                    <input id="tel" name="tel" type="tel" placeholder="Contact Number"
-                        class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                        style="border: 1px solid #d3d5d8 !important;">
-                    <div class="flex lg:flex-row flex-col lg:space-x-2">
-                        <input id="zipcode" name="zipcode" type="text" placeholder="우편번호"
+
+                        <!-- 비밀번호 확인 -->
+                        <input
+                            type="password"
+                            id="pwdconfirm"
+                            name="pwdconfirm"
+                            placeholder="Confirm Password"
                             class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
                             style="border: 1px solid #d3d5d8 !important;">
-                        <input type="button"
+                        <label for="pwdconfirm" id="pwdconfirmchk">
+                            &nbsp;&nbsp;:&nbsp;&nbsp;비밀번호를 입력해주세요
+                        </label>
+                        <input
+                            id="userName"
+                            name="userName"
+                            type="text"
+                            placeholder="Your name"
+                            class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
+                            style="border: 1px solid #d3d5d8 !important;">
+                        <input
+                            id="nickName"
+                            name="nickName"
+                            type="text"
+                            placeholder="Nickname"
+                            class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
+                            style="border: 1px solid #d3d5d8 !important;">
+
+                        <!-- 이메일 입력과 인증 -->
+                        <input
+                            id="memail"
+                            name="email"
+                            type="email"
+                            placeholder="E-mail"
+                            class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
+                            style="border: 1px solid #d3d5d8 !important;">
+                        <label for="memail" id="mailTxt">이메일을 입력해주세요</label>
+                        <input
+                            id="checkEmail"
+                            name="checkEmail"
+                            type="button"
+                            value="이메일인증"
                             class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800 bg-gradient-to-br from-green-500 py-3 rounded-md text-white text-xl to-yellow-400 w-full"
-                            style="border: 1px solid #d3d5d8 !important;" onclick="execDaumPostcode()" value="우편번호 찾기">
-                    </div>
-                    <input id="addr" name="addr" type="address" placeholder="주소"
-                        class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                        style="border: 1px solid #d3d5d8 !important;">
-                    <input id="extraAddress" name="extraAddress" type="address" placeholder="상세주소"
-                        class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                        style="border: 1px solid #d3d5d8 !important;">
+                            style="border: 1px solid #d3d5d8 !important;">
+                        <input
+                            id="memailconfirm"
+                            name="memailconfirm"
+                            type="text"
+                            placeholder="인증번호"
+                            class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
+                            style="border: 1px solid #d3d5d8 !important;">
+                        <label for="memailconfirm" id="memailconfirmTxt">인증번호를 입력해주세요</label>
 
-                    <!--파일업로드-->
-                    <!-- <div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">썸네일 등록</label>
-                            <div class="col-sm-9">
-                                <input class="form-control" id="file" type="file" name="file" onchange="preview()"><br>
-                                <img id="profileImg">
+                        <input
+                            id="tel"
+                            name="tel"
+                            type="tel"
+                            placeholder="Contact Number"
+                            class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
+                            style="border: 1px solid #d3d5d8 !important;">
+
+                        <!-- 우편주소와 주소 등록 -->
+                        <div class="flex lg:flex-row flex-col lg:space-x-2">
+                            <input
+                                id="zipcode"
+                                name="zipcode"
+                                type="text"
+                                placeholder="우편번호"
+                                class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
+                                style="border: 1px solid #d3d5d8 !important;">
+                            <input
+                                type="button"
+                                class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800 bg-gradient-to-br from-green-500 py-3 rounded-md text-white text-xl to-yellow-400 w-full"
+                                style="border: 1px solid #d3d5d8 !important;"
+                                onclick="execDaumPostcode()"
+                                value="우편번호 찾기">
+                        </div>
+                        <input
+                            id="addr"
+                            name="addr"
+                            type="address"
+                            placeholder="주소"
+                            class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
+                            style="border: 1px solid #d3d5d8 !important;">
+                        <input
+                            id="extraAddress"
+                            name="extraAddress"
+                            type="address"
+                            placeholder="상세주소"
+                            class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
+                            style="border: 1px solid #d3d5d8 !important;">
+
+                        <!--파일업로드-->
+                        <div class="flex lg:flex-row flex-col lg:space-x-2">
+                            <div class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800">
+                                <img id="profileImg"></div>
+                            <div>
+                                <label class="col-sm-3 col-form-label">썸네일 등록</label>
+                                <div class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800">
+                                    <input id="file" type="file" name="file" onchange="preview()"><br>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                -->
-                    <div class="flex justify-start my-4 space-x-1">
-                        <div class="checkbox">
-                            <input type="checkbox" id="chekcbox1" checked="checked">
-                            <label for="chekcbox1">
-                                <span class="checkbox-icon"></span>
-                                I Agree</label>
+
+                        <div class="flex justify-start my-4 space-x-1">
+                            <div class="checkbox">
+                                <input type="checkbox" id="chekcbox1" checked="checked">
+                                <label for="chekcbox1">
+                                    <span class="checkbox-icon"></span>
+                                    I Agree</label>
+                            </div>
+                            <a href="#">
+                                Terms and Conditions</a>
                         </div>
-                        <a href="#">
-                            Terms and Conditions</a>
-                    </div>
-                    <button type="submit"
-                        class="bg-gradient-to-br from-green-500 py-3 rounded-md text-white text-xl to-yellow-400 w-full">Sign
-                        up</button>
-                    <div class="flex lg:flex-row flex-col lg:space-x-2">
-                        <button type="reset" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                            style="border: 1px solid #d3d5d8 !important;">재작성</button>
-                        <button type="button" class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                            style="border: 1px solid #d3d5d8 !important;" onclick="location.href='home'">홈으로</button>
-                    </div>
-                    <div class="text-center mt-5 space-x-2">
-                        <p class="text-base">
-                            Do you have an account?
-                            <a href="/login">
-                                Go Login
-                            </a>
-                        </p>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- Footer -->
-
-        <div class="lg:mb-5 py-3 uk-link-reset">
-            <div
-                class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3">
-                <div class="flex space-x-2 text-gray-700 uppercase">
-                    <a href="#">
-                        About</a>
-                    <a href="#">
-                        Help</a>
-                    <a href="#">
-                        Terms</a>
-                    <a href="#">
-                        Privacy</a>
+                        <button
+                            type="submit"
+                            class="bg-gradient-to-br from-green-500 py-3 rounded-md text-white text-xl to-yellow-400 w-full">Sign up</button>
+                        <div class="flex lg:flex-row flex-col lg:space-x-2">
+                            <button
+                                type="reset"
+                                class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
+                                style="border: 1px solid #d3d5d8 !important;">재작성</button>
+                            <button
+                                type="button"
+                                class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
+                                style="border: 1px solid #d3d5d8 !important;"
+                                onclick="location.href='home'">홈으로</button>
+                        </div>
+                        <div class="text-center mt-5 space-x-2">
+                            <p class="text-base">
+                                Do you have an account?
+                                <a href="/login">
+                                    Go Login
+                                </a>
+                            </p>
+                        </div>
+                    </form>
                 </div>
-                <p class="capitalize">
-                    © copyright 2020 by Instello</p>
             </div>
+
+            <!-- Footer -->
+
+            <div class="lg:mb-5 py-3 uk-link-reset">
+                <div
+                    class="flex flex-col items-center justify-between lg:flex-row max-w-6xl mx-auto lg:space-y-0 space-y-3">
+                    <div class="flex space-x-2 text-gray-700 uppercase">
+                        <a href="#">
+                            About</a>
+                        <a href="#">
+                            Help</a>
+                        <a href="#">
+                            Terms</a>
+                        <a href="#">
+                            Privacy</a>
+                    </div>
+                    <p class="capitalize">
+                        © copyright 2023 by MO : MEAL </p>
+                </div>
+            </div>
+
         </div>
 
-    </div>
-
-    <script>
-        (function (window, document, undefined) {
-            'use strict';
-            if (!('localStorage' in window))
-                return;
-            var nightMode = localStorage.getItem('gmtNightMode');
-            if (nightMode) {
-                document.documentElement.className += ' dark';
-            }
-        })(window, document);
-
-        (function (window, document, undefined) {
-
-            'use strict';
-
-            // Feature test
-            if (!('localStorage' in window))
-                return;
-
-            // Get our newly insert toggle
-            var nightMode = document.querySelector('#night-mode');
-            if (!nightMode)
-                return;
-
-            // When clicked, toggle night mode on or off
-            nightMode.addEventListener('click', function (event) {
-                event.preventDefault();
-                document
-                    .documentElement
-                    .classList
-                    .toggle('dark');
-                if (document.documentElement.classList.contains('dark')) {
-                    localStorage.setItem('gmtNightMode', true);
+        <script>
+            (function (window, document, undefined) {
+                'use strict';
+                if (!('localStorage' in window)) 
                     return;
+                var nightMode = localStorage.getItem('gmtNightMode');
+                if (nightMode) {
+                    document.documentElement.className += ' dark';
                 }
-                localStorage.removeItem('gmtNightMode');
-            }, false);
+            })(window, document);
 
-        })(window, document);
-    </script>
+            (function (window, document, undefined) {
 
-    <!-- 우편번호 API -->
-    <script>
-        function execDaumPostcode() {
-            new daum
-                .Postcode({
-                    oncomplete: function (data) {
-                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분. 각 주소의 노출 규칙에 따라 주소를 조합한다. 내려오는 변수가 값이 없는
-                        // 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                        var addr = ''; // 주소 변수
-                        var extraAddr = ''; // 참고항목 변수
+                'use strict';
 
-                        //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                        if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                            addr = data.roadAddress;
-                        } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                            addr = data.jibunAddress;
-                        }
-
-                        // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                        if (data.userSelectedType === 'R') {
-                            // 법정동명이 있을 경우 추가한다. (법정리는 제외) 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                            if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-                                extraAddr += data.bname;
-                            }
-                            // 건물명이 있고, 공동주택일 경우 추가한다.
-                            if (data.buildingName !== '' && data.apartment === 'Y') {
-                                extraAddr += (
-                                    extraAddr !== '' ?
-                                    ', ' + data.buildingName :
-                                    data.buildingName
-                                );
-                            }
-                            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                            if (extraAddr !== '') {
-                                extraAddr = ' (' + extraAddr + ')';
-                            }
-                            // 조합된 참고항목을 해당 필드에 넣는다.
-                            document
-                                .getElementById("extraAddress")
-                                .value = extraAddr;
-
-                        } else {
-                            document
-                                .getElementById("extraAddress")
-                                .value = '';
-                        }
-
-                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                        document
-                            .getElementById('zipcode')
-                            .value = data.zonecode;
-                        document
-                            .getElementById("addr")
-                            .value = addr;
-
-                        // 커서를 상세주소 필드로 이동한다.
-                        $("#extraAddress").focus();
+                // Feature test
+                if (!('localStorage' in window)) 
+                    return;
+                
+                // Get our newly insert toggle
+                var nightMode = document.querySelector('#night-mode');
+                if (!nightMode) 
+                    return;
+                
+                // When clicked, toggle night mode on or off
+                nightMode.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document
+                        .documentElement
+                        .classList
+                        .toggle('dark');
+                    if (document.documentElement.classList.contains('dark')) {
+                        localStorage.setItem('gmtNightMode', true);
+                        return;
                     }
-                })
-                .open();
-        }
-    </script>
+                    localStorage.removeItem('gmtNightMode');
+                }, false);
 
-    <!--파일미리보기 -->
-    <script>
-        //input태그 가져오기	
-        let fileTag = document.querySelector("input[name=file]");
-        // 파일 있는지 확인
-        fileTag.onchange = function () {
-            let imgTag = document.querySelector("#profileImg");
-            if (fileTag.files.length > 0) {
-                //파일을 선택한 경우, 미리보기 생성 == 이미지 태그 src에 데이터(파일태그에서 선택한 파일)넣어주기
-                let reader = new FileReader();
-                //reader읽어드리기
-                reader.onload = function (data) {
-                    console.log(data);
-                    imgTag.src = data.target.result;
-                    imgTag.width = 250;
-                    imgTag.height = 150;
-                }
-                reader.readAsDataURL(fileTag.files[0]);
-            } else {
-                //취소버튼 누를 경우
-                imgTag.src = "";
+            })(window, document);
+        </script>
+
+        <!-- 우편번호 API -->
+        <script>
+            function execDaumPostcode() {
+                new daum
+                    .Postcode({
+                        oncomplete: function (data) {
+                            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분. 각 주소의 노출 규칙에 따라 주소를 조합한다. 내려오는 변수가 값이 없는
+                            // 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                            var addr = ''; // 주소 변수
+                            var extraAddr = ''; // 참고항목 변수
+
+                            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                                addr = data.roadAddress;
+                            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                                addr = data.jibunAddress;
+                            }
+
+                            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                            if (data.userSelectedType === 'R') {
+                                // 법정동명이 있을 경우 추가한다. (법정리는 제외) 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                                    extraAddr += data.bname;
+                                }
+                                // 건물명이 있고, 공동주택일 경우 추가한다.
+                                if (data.buildingName !== '' && data.apartment === 'Y') {
+                                    extraAddr += (
+                                        extraAddr !== ''
+                                            ? ', ' + data.buildingName
+                                            : data.buildingName
+                                    );
+                                }
+                                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                                if (extraAddr !== '') {
+                                    extraAddr = ' (' + extraAddr + ')';
+                                }
+                                // 조합된 참고항목을 해당 필드에 넣는다.
+                                document
+                                    .getElementById("extraAddress")
+                                    .value = extraAddr;
+
+                            } else {
+                                document
+                                    .getElementById("extraAddress")
+                                    .value = '';
+                            }
+
+                            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                            document
+                                .getElementById('zipcode')
+                                .value = data.zonecode;
+                            document
+                                .getElementById("addr")
+                                .value = addr;
+
+                            // 커서를 상세주소 필드로 이동한다.
+                            $("#extraAddress").focus();
+                        }
+                    })
+                    .open();
             }
-        }
-    </script>
+        </script>
 
-</body>
+        <!--파일미리보기 -->
+        <script>
+            //input태그 가져오기
+            let fileTag = document.querySelector("input[name=file]");
+            // 파일 있는지 확인
+            fileTag.onchange = function () {
+                let imgTag = document.querySelector("#profileImg");
+                if (fileTag.files.length > 0) {
+                    //파일을 선택한 경우, 미리보기 생성 == 이미지 태그 src에 데이터(파일태그에서 선택한 파일)넣어주기
+                    let reader = new FileReader();
+                    //reader읽어들이기
+                    reader.onload = function (data) {
+                        imgTag.src = data.target.result;
+                        imgTag.width = 200;
+                        imgTag.height = 200;
+                    }
+                    reader.readAsDataURL(fileTag.files[0]);
+                } else {
+                    //취소버튼 누를 경우
+                    imgTag.src = "";
+                }
+            }
+        </script>
+
+    </body>
 
 </html>
