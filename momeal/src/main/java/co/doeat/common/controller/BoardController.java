@@ -59,9 +59,8 @@ public class BoardController<UserVO> {
 	public String adminFaq(Model model, UserSearchVO svo, Paging paging) {
 		svo.setFirst(paging.getFirst());
 		svo.setLast(paging.getLast());
-		paging.setTotalRecord(userService.getCountTotal(svo));
+		paging.setTotalRecord(boardService.cntTotal(svo));
 
-		
 		model.addAttribute("adminFaqList", boardService.faqList());
 		return "admin/adminFaq";
 	}

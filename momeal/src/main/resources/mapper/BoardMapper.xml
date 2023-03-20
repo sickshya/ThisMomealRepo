@@ -2,11 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.common.mapper.BoardMapper">
 
+	<!-- 페이징 -->
+	<sql id="creiteria">
+		<choose>
+			<when test="type == 'T'.toString()">
+				title like '%'||#{keyword}||'%'
+			</when>
+			<when test="type == 'S'.toString()">
+				subject like '%'||#{keyword}||'%'
+			</when>
+		</choose>
+	</sql>
+
 	<!-- faq 전체리스트 출력 -->
 	<select id="faqList"
-		resultType="co.doeat.common.service.BoardVO">
-		SELECT * FROM BOARD
-		WHERE BOARD_CODE = 'BD02'
+		resultType="co.doeat.common.service.BoardVO" parameterType="co.doeat.community.service.UsersVO">
+		SELECT * 
+		  FROM( SELECT 	ROWNUM RN, 
+		  				A.* 
+		  		  FROM( SELECT * 
+		  		  		FROM BOARD
+		  		  <where>
+		  		  	<include refid="creiteria"></include>
+		  		  	 BOARD_CODE = 'BD02'
+		  		  </where>
+					ORDER BY NO
+					<![CDATA[
+	 		)A WHERE ROWNUM <= #{last}) B 
+ 		 WHERE RN >= #{first} 
+ 		 ]]>
+	</select>
+	
+	<!-- 전제 수 계산 -->
+	<select id="cntTotal" parameterType="co.doeat.community.service.UsersVO" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD
+		<where>
+			<include refid="creiteria"></include>
+		</where>
 	</select>
 
 	<select id="faqSelect"
