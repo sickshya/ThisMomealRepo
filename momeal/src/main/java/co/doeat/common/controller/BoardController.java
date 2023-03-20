@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import co.doeat.Paging;
 import co.doeat.common.service.BoardService;
 import co.doeat.common.service.BoardVO;
+import co.doeat.community.service.UserSearchVO;
 import co.doeat.community.service.UserService;
 import co.doeat.management.service.ChallengeVO;
 
@@ -41,6 +43,7 @@ public class BoardController<UserVO> {
 	
 	@Autowired
 	UserService userService;
+	
 
 	// 자주묻는질문 FAQ
 
@@ -53,7 +56,12 @@ public class BoardController<UserVO> {
 
 	// Faq 전체리스트 보기
 	@RequestMapping("/admin/adminFaq")
-	public String adminFaq(Model model) {
+	public String adminFaq(Model model, UserSearchVO svo, Paging paging) {
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		paging.setTotalRecord(userService.getCountTotal(svo));
+
+		
 		model.addAttribute("adminFaqList", boardService.faqList());
 		return "admin/adminFaq";
 	}

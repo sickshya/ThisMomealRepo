@@ -25,7 +25,7 @@ public class LikesRestController {
 	LikesService likesService;
 
 	// 마이페이지 - 식단 좋아요 리스트 출력
-	@RequestMapping("/usr/myLikeListAjax")
+	@RequestMapping("/myLikeListAjax")
 	public List<Map<String, Object>> myLikeListAjax(Model model, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
@@ -37,7 +37,7 @@ public class LikesRestController {
 	}
 
 	// 마이페이지 - 챌린지 좋아요 리스트 출력
-	@RequestMapping("/usr/challLikeAjax")
+	@RequestMapping("/challLikeAjax")
 	public List<Map<String, Object>> challLikeAjax(Model model, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
