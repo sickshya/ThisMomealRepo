@@ -26,6 +26,7 @@ public class MealRestController {
 	ServletContext servletContext;
 	@Autowired
 	MealService mealService;
+	
 	@Value("${momeal.saveImg}")
 	private String saveImg;
 
