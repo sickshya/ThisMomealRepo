@@ -64,9 +64,7 @@
                     <input type="password" id="password" name="password" placeholder="***********"
                         class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800"
                         style="border: 1px solid #d3d5d8 !important;">
-                    <div th:if="${param.error}" class="form-group">
-                        <span id="valid" class="alert alert-danger" th:text="${exception}"></sapn>
-                    </div>
+                   
                     <div class="flex justify-between my-4">
                         <div class="checkbox">
                             <input type="checkbox" id="remember-me" name="remember-me" checked="checked">
