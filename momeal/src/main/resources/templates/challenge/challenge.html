@@ -86,13 +86,11 @@
 											<div class="item-price">
 												<br>
 											</div>
-											<a th:text="${rec.TITLE}"></a>
-											<div class="item-title">Brown headphones</div>
-											<div class="item-statistic">
-												<span> <span class="count">4</span> likes
-												</span> <span> <span class="count">106</span> views
-												</span>
-											</div>
+											<a style="font-weight:bold;" th:text="${rec.TITLE}"></a>
+											<div class="item-title" style="font-size:13px">[[${#dates.format(rec.CHAL_START_DATE,
+															'MM-dd')}]]([[${#dates.dayOfWeekName(rec.CHAL_START_DATE)}]])
+															~ [[${#dates.format(rec.CHAL_END_DATE,
+															'MM-dd')}]]([[${#dates.dayOfWeekName(rec.CHAL_END_DATE)}]])</div>
 										</div>
 									</div>
 									<!-- 								</a> -->
@@ -193,12 +191,10 @@
 									<div class="item-price">
 										<br> <a>${item.TITLE}</a>
 									</div>
-									<div class="item-title">Brown headphones</div>
-									<div class="item-statistic">
-										<span> <span class="count">4</span> likes
-										</span> <span> <span class="count">106</span> views
-										</span>
-									</div>
+									<div class="item-title">${#dates.format(item.CHAL_START_DATE, 'MM-dd')}
+									(${#dates.dayOfWeekName(item.CHAL_START_DATE)})
+									  ~ ${#dates.format(item.CHAL_END_DATE, 'MM-dd')}
+									(${#dates.dayOfWeekName(item.CHAL_END_DATE)})</div>
 								</div>
 							</div>
 					</div>

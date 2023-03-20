@@ -65,14 +65,9 @@
 					<div class="col-lg-6 col-md-6">
 						<div class="product__details__text">
 							<h3>[[ ${chall.title} ]]</h3>
-							<div class="product__details__rating">
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star-half-o"></i> <span>(18 reviews)</span>
-							</div>
 							<p th:if="${chall.startDay == '0'}" style="color: red;">오늘부터
 								시작</p>
-							<p th:unless="${chall.startDay <= '0'}" style="color: red;">[[
+							<p th:if="${chall.startDay > '0'}" style="color: red;">[[
 								${chall.startDay} ]]일 뒤 시작</p>
 								<p th:if="${chall.startDay < '0'}" style="color: red;">모집 마감</p>
 							<p>[[${#dates.format(chall.chalStartDate,
@@ -98,11 +93,15 @@
 							</ul>
 							<br> <br>
 							<div style="position: relative;">
-								<div style="float: left; transform: translate(0, -50%);" th:if="${session.userId != null}">
+								<th:block th:if="${chall.startDay <= '0'}">
+								</th:block>
+								<th:block th:unless="${chall.startDay <= '0'}">
+									<div style="float: left; transform: translate(0, -50%);" th:if="${session.userId != null}">
 									<a href="" class="primary-btn" data-target="#Modal-2"
 										onclick="loginChk()" id="attendBtn">참여하기</a>&nbsp;&nbsp;&nbsp;
 									<!-- data-toggle="modal" -->
 								</div>
+								</th:block>
 								&nbsp;&nbsp;
 
 								<!-- 좋아요 처리 -->
@@ -174,10 +173,11 @@
 											<div class="modal-works" align="right"></div>
 											<br>
 											<p>
-												<b>[[${chall.deductPoint}]]포인트</b>를 지불하고 챌린지에 참여하시겠습니까?
+												<b>[[${#numbers.formatInteger(chall.deductPoint, 3, 'COMMA')}]]포인트</b>를 지불하고 챌린지에 참여하시겠습니까?
 											</p>
 											<p>참여 신청시 취소가 불가능합니다.</p>
 											<br>
+											<p>현재 보유 포인트 : <span style="color:red;"><b>[[${#numbers.formatInteger(chall.totalPoint, 3, 'COMMA')}]]</b>포인트</span></p>
 										</div>
 										<div class="modal-footer">
 											<button type="button" onclick="attedChall()"
@@ -188,6 +188,10 @@
 												th:value="${session.userId}" name="userId" id="userId">
 											<input type="hidden" th:value="${chall.attendNo}"
 												name="attendNo" id="attendNo">
+											<input type="hidden" th:value="${chall.deductPoint}"
+												name="deductPoint" id="deductPoint">
+											<input type="hidden" th:value="${chall.totalPoint}"
+												name="totalPoint" id="totalPoint">
 										</div>
 									</div>
 								</div>
@@ -224,15 +228,20 @@
      
         // 챌린지 참여신청
         function attedChall() {
-//            debugger
+        	let userId = $('#userId').val();
+        	let deductPoint = $('#deductPoint').val();
+        	let totalPoint = $('#totalPoint').val();
+        	
+        	if(totalPoint < deductPoint) {
+        		alert("참여에 필요한 포인트가 부족합니다.")
+        		$('#Modal-2').modal('hide');
+        	}else{
               $('#attendfrm').submit();
-//                   location.replace("/user/mypageForm.jsp");
+        	}
                }
-               
-//            // 모달창 닫기
-//            $('#attend').attr('data-dismiss', 'modal');
 
-// 챌린지 리뷰 조회
+        
+		// 챌린지 리뷰 조회
 		function reviewList(no) {
 			$("#review").empty()
 			

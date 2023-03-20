@@ -38,8 +38,9 @@ public class MealRestController {
 	
 	//상세조회
 	@RequestMapping("/mealSelect/{no}")
-	public MealVO mealSelect(@PathVariable int no, MealVO vo, Model model) {
+	public MealVO mealSelect(@PathVariable int no, MealVO vo, Model model, HttpSession session) {
 		//model.addAttribute("selects", mealService.mealSelect(no));
+//		vo.setUserId((String)session.getAttribute("userId"));
 		return mealService.mealSelect(no);
 	}
 	
