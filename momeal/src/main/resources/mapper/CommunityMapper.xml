@@ -2,29 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.doeat.community.mapper.CommunityMapper">
 	
+	<!-- 메인페이지 식단 인기관련 최신 조회 -->
 	<select id="hmCtyList" resultType="co.doeat.activity.service.MealVO">
 		WITH LIKE_COUNT  AS
 		(SELECT POST_NO, 
 		        COUNT(*) CN
 		   FROM LIKES
+		  WHERE BOARD_CODE = 'CT04'
 		  GROUP BY POST_NO
 		  ORDER BY CN DESC, 
 		        POST_NO)
-SELECT  mls.no,
-        mls.user_id,
-        mls.subject,
-        mls.post_date,
-        mls.type_code,
-        mls.file_dir,
-        NVL(LC.CN, 0) AS CN, 
-       NVL((SELECT L.NO 
-              FROM LIKES L
-             WHERE  L.POST_NO = mls.NO 
-               AND L.BOARD_CODE = 'CT04'),0) AS LIKE_NO
-  FROM meals mls
- LEFT JOIN LIKE_COUNT lc ON mls.no = lc.post_no
- WHERE mls.post_date > TRUNC(current_date-7)
- ORDER BY mls.post_date DESC 
+		SELECT  mls.no,
+		        mls.user_id,
+		        mls.subject,
+		        mls.post_date,
+		        mls.type_code,
+		        mls.file_dir,
+		        NVL(LC.CN, 0) AS CN, 
+		        NVL((SELECT L.NO 
+		              FROM LIKES L
+		             WHERE  L.POST_NO = mls.NO 
+		               AND L.BOARD_CODE = 'CT04'),0) AS LIKE_NO
+		 FROM meals mls
+		 LEFT JOIN LIKE_COUNT lc ON mls.no = lc.post_no
+		 WHERE mls.post_date - TRUNC(current_date) <![CDATA[ < 7 ]]>
+		 ORDER BY mls.post_date DESC 
 	</select>
 
 	<!-- 검색 -->

@@ -19,6 +19,11 @@ public class ExperienceServiceImpl implements ExperienceService {
 	@Autowired
 	private ExperienceMapper experienceMapper;
 
+	@Override
+	public List<ExperienceVO> hmExprList() { // 메인에 뿌려줄 체험단 전체 조회
+		return experienceMapper.hmExprList();
+	}
+
 	// 전체보기
 	@Override
 	public List<ExperienceVO> getExperList() {
@@ -55,7 +60,7 @@ public class ExperienceServiceImpl implements ExperienceService {
 		return experienceMapper.expUpdate(vo);
 
 	}
-		
+
 	@Override
 	public List<ExprParticipantsVO> expOrderList(String userId, int no) {
 		return experienceMapper.expOrderList(userId, no);
@@ -93,17 +98,13 @@ public class ExperienceServiceImpl implements ExperienceService {
 		return experienceMapper.adminEXUpdate(vo);
 	}
 
+	// ---- 체험단 리뷰
 
-	
-	//---- 체험단 리뷰
-	
 //	// 전체조회
 //	@Override
 //	public List<ExpReviewVO> ExpReviewList(String userId, int no) {
 //		return experienceMapper.ExpReviewList(userId, no);
 //	}
 //	
-
-	
 
 }

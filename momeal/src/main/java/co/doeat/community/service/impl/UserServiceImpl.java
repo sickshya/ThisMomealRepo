@@ -1,16 +1,14 @@
 package co.doeat.community.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.doeat.Paging;
-import co.doeat.common.service.CommonCodeVO;
 import co.doeat.community.mapper.UserMapper;
-import co.doeat.community.service.UserService;
 import co.doeat.community.service.UserSearchVO;
+import co.doeat.community.service.UserService;
 import co.doeat.community.service.UsersVO;
 import co.doeat.record.service.PointLogVO;
 
@@ -19,7 +17,13 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
-	
+
+	// 메인
+	@Override
+	public UsersVO hmUserInfo(String id) { // 메인에 뿌려줄, 로그인한 유저의 식단,팔로잉,팔로워 수
+		return userMapper.hmUserInfo(id);
+	}
+
 	@Override
 	public boolean isIdCheck(String id) {
 		return userMapper.isIdCheck(id);
@@ -61,6 +65,7 @@ public class UserServiceImpl implements UserService {
 	public List<UsersVO> adminUserList() {
 		return userMapper.adminUserList();
 	}
+
 //===============================================================포인트==========================
 	@Override
 	public int updateATPoint(UsersVO uvo) {
@@ -71,7 +76,6 @@ public class UserServiceImpl implements UserService {
 	public UsersVO grpSelect(String userId) {
 		return userMapper.grpSelect(userId);
 	}
-
 
 	@Override
 	public UsersVO myFeedUserSelect(String id) {
@@ -92,13 +96,5 @@ public class UserServiceImpl implements UserService {
 	public int getCountTotals(Paging paging, String userId) {
 		return userMapper.getCountTotals(paging, userId);
 	}
-
-
-
-	
-
-
-
-
 
 }

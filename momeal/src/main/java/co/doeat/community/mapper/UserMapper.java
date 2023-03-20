@@ -9,6 +9,10 @@ import co.doeat.community.service.UsersVO;
 import co.doeat.record.service.PointLogVO;
 
 public interface UserMapper {
+	// 메인
+	UsersVO hmUserInfo(String id); // 메인에 뿌려줄, 로그인한 유저의 식단,팔로잉,팔로워 수
+
+	// 회원가입
 	boolean isIdCheck(String id); // 아이디 중복 체크
 
 	// 유저
@@ -20,7 +24,7 @@ public interface UserMapper {
 	int updateWithdraw(UsersVO vo); // 회원탈퇴 업데이트
 
 	UsersVO userSelect(String userId); // 로그인, 회원정보수정폼 호출시
-	
+
 	// 그룹 상세(글하나, 이미지 다수) select
 	UsersVO grpSelect(String userId);
 
@@ -32,21 +36,20 @@ public interface UserMapper {
 
 	int getCountTotal(UserSearchVO svo);
 
-	//포인트=========================================================
+	// 포인트=========================================================
 	// 출석체크 포인트 업데이트
 	int updateATPoint(UsersVO uvo);
 
-	
-	//myFeed회원정보
+	// myFeed회원정보
 	UsersVO myFeedUserSelect(String id);
-	
-	//포인트로그
+
+	// 포인트로그
 	List<PointLogVO> pointList(PointLogVO pvo);
-	
-	//누적포인트
+
+	// 누적포인트
 	UsersVO myPoint(String userId);
-	
-	//갯수
-	int getCountTotals(Paging paging,String userId);
-	
+
+	// 갯수
+	int getCountTotals(Paging paging, String userId);
+
 }
