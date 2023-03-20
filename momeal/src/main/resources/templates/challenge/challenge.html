@@ -177,13 +177,11 @@
 
                      $("#allList").append(
                         `
-                        <div class="oneChall" data-challno="${item.NO}" data-likeno="${item.LIKE_NO}"
-						onclick="location.href='challenge/${item.NO}'">
+                        <div class="oneChall" data-challno="${item.NO}" data-likeno="${item.LIKE_NO}">
 							<div class="bg-red-400 max-w-full lg:h-56 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
-								<img src="${item.THUMBNAIL_IMG_PATH}" class="w-full h-full absolute object-cover inset-0 scale-150">
+								<img src="${item.THUMBNAIL_IMG_PATH}" class="w-full h-full absolute object-cover inset-0 scale-150" onclick="location.href='challenge/${item.NO}'">
 								<div class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white">
 									<div>
-
 										${heart}
 									</div>
 								</div>
@@ -274,7 +272,6 @@
 										<img src="${item.THUMBNAIL_IMG_PATH}" class="w-full h-full absolute object-cover inset-0 scale-150">
 										<div class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white">
 											<div>
-		
 												${heart}
 											</div>
 										</div>
@@ -308,12 +305,13 @@
 			
 			// 좋아요 인서트
 			$(".heart").on("click", ".emptyHeart", function(){
+				event.preventDefault() // a, submit (페이지 이동 막음)
+				event.stopPropagation()
+				
 				let oneChall = $(this).closest(".oneChall")
 				let no = $(this).closest(".oneChall").data("challno");
 				let heart = $(this).parent(".heart")
 				
-				event.preventDefault() // a, submit (페이지 이동 막음)
-				event.stopPropagation()
 				console.log(no);
 				
 				$.ajax({
@@ -326,7 +324,7 @@
 							heart.html(`<a href="#" class="fullHeart">
 									<img src="/assets/images/heart.svg">
 									</a>`) // 빨간하트
-				    location.reload();
+			//	    location.reload();
 					
 					});
 				});
@@ -335,11 +333,12 @@
 			
 			// 좋아요 삭제
 			$(".heart").on("click", ".fullHeart", function(){
+				event.preventDefault()
+				event.stopPropagation()
+				
 				let no = $(this).closest(".oneChall").data("likeno");
 				let heart = $(this).parent(".heart")
 				
-				event.preventDefault()
-				event.stopPropagation()
 
 				$.ajax({
 					type: 'POST',
@@ -350,7 +349,7 @@
 						heart.html(`<a href="#" class="emptyHeart">
 								<img src="/assets/images/emptyHeart.svg">
 						</a>`)// 빈 하트
-                   location.reload();
+             //      location.reload();
 					});
 				});
 			});

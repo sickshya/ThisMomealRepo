@@ -85,7 +85,7 @@ public class GroupsRestController {
 	}
 	
 	// 그룹코드로 초대
-	@PostMapping("/grps/compareInsert")
+	@PostMapping("/compareInsert")
 	public void compareInsert(GroupsVO vo, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		vo.setUserId(userId);
