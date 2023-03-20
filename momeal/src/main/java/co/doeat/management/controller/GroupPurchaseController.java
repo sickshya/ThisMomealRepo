@@ -218,7 +218,7 @@ public class GroupPurchaseController {
 				e.printStackTrace();
 			}
 			vo.setThumbnailImg(tfile.getOriginalFilename());// 원본파일명
-			vo.setThumbnailImgPath("/mm_images/" + fileName);// 디렉토리 포함 원본파일
+			vo.setThumbnailImgPath("/home/mm_images/" + fileName);// 디렉토리 포함 원본파일
 		}
 		groupPurchaseService.adminGPUpdate(vo);
 		String boardCode = "CT03";
