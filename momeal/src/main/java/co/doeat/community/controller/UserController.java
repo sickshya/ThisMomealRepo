@@ -95,7 +95,7 @@ public class UserController {
 	}
 
 	// 마이페이지 포인트
-	@RequestMapping("/myPoint")
+	@RequestMapping("/usr/myPoint")
 	public String myPoint(CommonCodeVO cvo, PointLogVO pvo, UsersVO uvo, Model model, HttpSession session,
 			Paging paging) {
 		String userId = (String) session.getAttribute("userId");
