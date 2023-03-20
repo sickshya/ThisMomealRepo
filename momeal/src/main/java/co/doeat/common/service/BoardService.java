@@ -10,8 +10,12 @@ import co.doeat.community.service.UsersVO;
 import co.doeat.management.service.GroupPurchaseSearchVO;
 
 public interface BoardService{
+	
+	List<BoardVO> userFaq(); // 유저 faq 리스트
 
-	List<BoardVO> faqList(); // faq 리스트
+	List<BoardVO> faqList(BoardSearchVO svo); // 관리자 faq 리스트
+	
+	int cntTotal(BoardSearchVO svo); // 전체 수 계산
 	
 	BoardVO faqSelect(BoardVO vo); // faq 상세
 

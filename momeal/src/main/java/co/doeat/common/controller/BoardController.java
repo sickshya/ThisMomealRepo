@@ -23,7 +23,6 @@ import co.doeat.Paging;
 import co.doeat.common.service.BoardSearchVO;
 import co.doeat.common.service.BoardService;
 import co.doeat.common.service.BoardVO;
-import co.doeat.community.service.UserSearchVO;
 import co.doeat.community.service.UserService;
 
 @Controller
@@ -50,19 +49,18 @@ public class BoardController<UserVO> {
 	// Faq user가 보는 전체리스트
 	@RequestMapping("/faq")
 	public String faq(Model model) {
-		model.addAttribute("faqAllList", boardService.faqList());
+		model.addAttribute("faqAllList", boardService.userFaq());
 		return "board/faq";
 	}
 
 	// Faq 전체리스트 보기
 	@RequestMapping("/admin/adminFaq")
-	public String adminFaq(Model model, UserSearchVO svo, Paging paging) {
+	public String adminFaq(Model model, @ModelAttribute("esvo") BoardSearchVO svo, Paging paging) {
 		svo.setFirst(paging.getFirst());
 		svo.setLast(paging.getLast());
-		paging.setTotalRecord(userService.getCountTotal(svo));
+		paging.setTotalRecord(boardService.cntTotal(svo));
 
-		
-		model.addAttribute("adminFaqList", boardService.faqList());
+		model.addAttribute("adminFaqList", boardService.faqList(svo));
 		return "admin/adminFaq";
 	}
 

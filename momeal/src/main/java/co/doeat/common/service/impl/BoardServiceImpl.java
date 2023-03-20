@@ -20,10 +20,14 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
 
 	// FAQ
+	@Override
+	public List<BoardVO> userFaq() {
+		return boardMapper.userFaq();
+	}
 
 	@Override
-	public List<BoardVO> faqList() {
-		return boardMapper.faqList();
+	public List<BoardVO> faqList(BoardSearchVO svo) {
+		return boardMapper.faqList(svo);
 	}
 
 	@Override
@@ -45,7 +49,12 @@ public class BoardServiceImpl implements BoardService {
 	public BoardVO faqSelect(BoardVO vo) {
 		return boardMapper.faqSelect(vo);
 	}
-	
+
+	@Override
+	public int cntTotal(BoardSearchVO svo) {
+		return boardMapper.cntTotal(svo);
+	}
+
 	// NOTICE
 
 
@@ -61,9 +70,9 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.noticeSelect(no);
 	}
 
-	@Override //보류
+	@Override // 보류
 	public void noticeHitUpdate(String userId) {
-		return;		
+		return;
 	}
 
 	// 등록
@@ -83,8 +92,7 @@ public class BoardServiceImpl implements BoardService {
 	public int noticeDelete(BoardVO vo) {
 		return boardMapper.noticeDelete(vo);
 	}
-
-
+  
 	@Override
 	public List<BoardVO> noticeList(BoardSearchVO svo) {
 		return boardMapper.noticeList(svo);
@@ -99,11 +107,5 @@ public class BoardServiceImpl implements BoardService {
 	public int cntTotal(BoardSearchVO svo) {
 		return boardMapper.cntTotal(svo);
 	}
-
-
-
-
-	
-	
 
 }

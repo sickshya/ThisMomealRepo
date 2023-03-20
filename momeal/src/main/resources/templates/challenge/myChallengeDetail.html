@@ -172,7 +172,8 @@
 													<div class="skillbar" id="myPercentBar" th:data-percent="${chall.percent}">
 														<!-- 여기... 달성률 %로 해야해.. -->
 														<div class="skillbar-bar">
-															<div class="skillbar-percent" style="width:90%;">
+															<div class="skillbar-percent" th:style="|width:${chall.percent}%|"> 
+															[[${chall.percent}]]
 																<!-- 여기... 달성률 %로 해야해.. -->
 															</div>
 														</div>
@@ -571,6 +572,7 @@
 				console.log(result)
 				$("#oneImg").attr("src", result.fileDir);
 				$("#imgDate").text(result.vldDate);
+				console.log(result.vldDate)
 				$("#userNickName").text(result.nickName);
 			})
 		}
