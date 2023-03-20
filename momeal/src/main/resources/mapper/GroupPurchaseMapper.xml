@@ -4,6 +4,7 @@
 	namespace="co.doeat.management.mapper.GroupPurchaseMapper">
 
 
+
 	<!-- 현재 진행중인 공구리스트 출력 -->
 	<select id="pchIngList" resultType="GroupPurchaseListVO">
 		SELECT PL.NO
@@ -13,7 +14,7 @@
 				,PL.SUBJECT
 				,PL.MIN_GD
 				,(PL.SPLY_GD - TRUNC(COUNT(PST.LIST_NO))) as pchOrdCnt
-				,(PL.GRP_START_DATE - TRUNC(SYSDATE)) as StartDate
+				,(PL.GRP_START_DATE - TRUNC(SYSDATE)) as startDate
 				,PL.GRP_END_DATE
 				,PL.THUMBNAIL_IMG
 				,PL.THUMBNAIL_IMG_PATH
@@ -131,9 +132,10 @@
 		FROM GROUP_PURCHASE_SETTLEMENT S LEFT JOIN
 		USERS U ON (U.USER_ID = S.USER_ID)
 		LEFT JOIN
-		GROUP_PURCHASE_LISTS G ON (S.NO = G.NO)
-		WHERE S.NO = #{no}
+		GROUP_PURCHASE_LISTS G ON (S.LIST_NO = G.NO)
+		WHERE S.LIST_NO = #{no} AND U.USER_ID= #{userId}
 	</select>
+
 
 
 	<!-- +++++++++++++++++마이페이지+++++++++++++++++++++++++++++++ -->
