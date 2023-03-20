@@ -84,7 +84,7 @@ public class ChallengeController {
 //	}
 
 	// 단건조회
-	@GetMapping("/challenge/{no}")
+	@GetMapping("/chlg/challenge/{no}")
 	public String challenge(Model model, Map<String, Object> map, HttpSession session, @PathVariable int no) {
 		String userId = (String) session.getAttribute("userId");
 		String boardCode = "CT01";
@@ -100,13 +100,13 @@ public class ChallengeController {
 		
 		// 프로시저 결과값에 따라 페이지 이동
 		if (vo.getResult().equals("success"))
-			return "redirect:/myChallenge";
-		else return "redirect:/challenge/" + vo.getNo();
+			return "redirect:/chlg/myChallenge";
+		else return "redirect:/chlg/challenge/" + vo.getNo();
 	}
 
 	// ▶ 나의 챌린지 - 진행중 ◀
 	// 진행중, 종료 - 전체조회(챌린지 참여신청 후 이동)
-	@RequestMapping("/myChallenge")
+	@RequestMapping("/chlg/myChallenge")
 	public String myChallengeList(Model model, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		// 진행중
@@ -117,7 +117,7 @@ public class ChallengeController {
 	}
 
 	// 진행중 - 단건조회
-	@GetMapping("/myChallenge/{chalNo}")
+	@GetMapping("/chlg/myChallenge/{chalNo}")
 	public String myChallengOne(Model model, @PathVariable int chalNo, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 
