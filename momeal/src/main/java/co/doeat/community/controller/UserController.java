@@ -63,7 +63,7 @@ public class UserController {
 		vo.setPassword(bcryptEncoder.encode(vo.getPassword()));
 		userService.updateUserInfo(vo);
 
-		return "redirect:/main";
+		return "redirect:/userEditForm";
 	}
 
 	// 회원탈퇴신청폼 호출
