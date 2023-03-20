@@ -109,24 +109,20 @@ public class GroupPurchaseController {
 	@RequestMapping("/usr/myPurchaseList")
 	public String myPurchaseList(Model model, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
-
 		String userId = (String) session.getAttribute("userId");
+		
+		
 		model.addAttribute("myPrList", groupPurchaseService.getPurchaseList(userId));
 		
-		model.addAttribute("pchInfo", groupPurchaseService.pchAllList());
-		
-		System.out.println(groupPurchaseService.pchAllList() + "여희주");
-
 		return "myPages/myPurchaseList";
 	}
 
 	// 마이페이지 공동구매상세내역
-	@RequestMapping("/usr/myPurchaseSelect/{prdtNo}")
+	@RequestMapping("/myPurchaseSelect/{prdtNo}")
 	public String myPurchaseSelect(Model model, @PathVariable int prdtNo, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		int no = prdtNo;
 		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(userId, no));
-		// model.addAttribute("pchInfo",groupPurchaseService.pchAllList());
 		return "myPages/myPurchaseSelect";
 	}
 

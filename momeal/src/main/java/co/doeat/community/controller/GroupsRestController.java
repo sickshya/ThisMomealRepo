@@ -86,13 +86,10 @@ public class GroupsRestController {
 	
 	// 그룹코드로 초대
 	@PostMapping("/grps/compareInsert")
-	public void compareInsert(GroupsVO vo, HttpSession session, @RequestParam("grpCode") String grpCode) {
+	public void compareInsert(GroupsVO vo, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		vo.setUserId(userId);
-		
-		vo.setGrpCode(grpCode);
-		
-		System.out.println("===========================================" + vo.getGrpCode());
+	
 		
 		groupsService.compareInsert(vo);
 	}
