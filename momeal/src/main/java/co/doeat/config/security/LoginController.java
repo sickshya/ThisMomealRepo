@@ -34,6 +34,6 @@ public class LoginController {
         model.addAttribute("exception", exception);
         
         log.info("loginForm view resolve");
-        return "/users/loginFrm";
+        return "users/loginFrm";
     }
 }
