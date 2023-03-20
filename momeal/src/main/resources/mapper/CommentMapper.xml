@@ -24,7 +24,7 @@
 	<!-- 그룹 번호는 no 번호랑 동일하게 넣어주면 됨 -->
 	<insert id="commentInsert" parameterType="co.doeat.community.service.CommentVO">
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
-			SELECT MAX(NO)+1
+			SELECT NVL(MAX(NO)+1, 1)
 			FROM COMMENTS
 		</selectKey>
 		INSERT INTO COMMENTS
@@ -34,7 +34,7 @@
 	<!-- 대댓글 등록 -->
 	<insert id="replyInsert" parameterType="co.doeat.community.service.CommentVO">
 		<selectKey keyProperty="no,cmmtOrder" resultType="co.doeat.community.service.CommentVO" order="BEFORE">
-			SELECT MAX(no)+1 AS no, MAX(cmmt_order)+1 AS cmmt_order
+			SELECT NVL(MAX(NO)+1, 1) AS no, NVL(MAX(CMMT_ORDER)+1, 1) AS CMMT_ORDER
 			FROM COMMENTS
 		</selectKey>
 		INSERT INTO COMMENTS

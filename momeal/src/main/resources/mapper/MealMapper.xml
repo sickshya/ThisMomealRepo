@@ -6,8 +6,6 @@
 		<selectKey keyProperty="no" resultType="int" order="BEFORE">
 			SELECT
 			NVL(MAX (NO)+1,1) FROM MEALS
-			
-		
 		</selectKey>
 		insert into Meals(
 		no,
