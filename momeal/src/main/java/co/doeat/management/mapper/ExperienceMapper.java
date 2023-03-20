@@ -3,12 +3,16 @@ package co.doeat.management.mapper;
 import java.util.List;
 import java.util.Map;
 
+import co.doeat.management.service.ChallengeVO;
 import co.doeat.management.service.ExpReviewVO;
 import co.doeat.management.service.ExperienceSearchVO;
 import co.doeat.management.service.ExperienceVO;
 import co.doeat.management.service.ExprParticipantsVO;
 
 public interface ExperienceMapper {
+
+	// 메인
+	public List<ExperienceVO> hmExprList(); // 메인에 뿌려줄 체험단 전체 조회
 
 	// 체험단-메인
 	public List<ExperienceVO> getExperList(); // 전체조회
@@ -24,11 +28,9 @@ public interface ExperienceMapper {
 	public Map<String, Object> expSelect(int no); // 체험단 select
 
 	public int expUpdate(ExperienceVO vo); // 체험단 Update
-	
+
 	// 체험단-조회
 	public List<ExprParticipantsVO> expOrderList(String userId, int no); // 체험단 참여내역 조회
-	
-	
 
 	// 관리자 +++++++++++++++++++++++++++++++++++
 	List<ExperienceVO> adminExperienceGroupList(ExperienceSearchVO svo);
@@ -46,10 +48,9 @@ public interface ExperienceMapper {
 
 	// 체험단 update
 	int adminEXUpdate(ExperienceVO vo);
-	
-	
+
 	// 체험단 리뷰
-	
-	//public List<ExpReviewVO> ExpReviewList(String userId, int no); // 리뷰 전체조회
-	
+
+	// public List<ExpReviewVO> ExpReviewList(String userId, int no); // 리뷰 전체조회
+
 }
