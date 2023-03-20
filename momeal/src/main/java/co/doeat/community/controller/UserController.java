@@ -1,14 +1,19 @@
 package co.doeat.community.controller;
 
+import java.io.File;
+import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import co.doeat.Paging;
 import co.doeat.common.service.CommonCodeVO;
@@ -16,9 +21,7 @@ import co.doeat.community.service.UserSearchVO;
 import co.doeat.community.service.UserService;
 import co.doeat.community.service.UsersVO;
 import co.doeat.record.service.PointLogVO;
-import lombok.extern.log4j.Log4j2;
 
-@Log4j2
 @Controller
 public class UserController {
 
@@ -28,10 +31,34 @@ public class UserController {
 	@Autowired
 	BCryptPasswordEncoder bcryptEncoder;
 
+	@Value("${momeal.saveImg}")
+	private String saveImg;
+
 	// 회원가입 폼 호출
 	@RequestMapping("/signup/signupFrm")
 	public String userJoinForm() {
 		return "users/signupFrm";
+	}
+
+	// 폼에 입력된 값들로 회원가입
+	@PostMapping("/signup/register.do")
+	public String userJoin(UsersVO uvo, Model model, MultipartFile file) {
+		uvo.setPassword(bcryptEncoder.encode(uvo.getPassword()));
+
+//		if (!file.isEmpty()) {// 첨부파일이 존재하면
+//			String fileName = UUID.randomUUID().toString();
+//			fileName = fileName + file.getOriginalFilename();
+//			File uploadFile = new File(saveImg, fileName);
+//			try {
+//				file.transferTo(uploadFile); // 파일저장하긴
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			uvo.setProfileImgPath("/mm_images/" + fileName);// 디렉토리 포함 원본파일
+//		}
+
+		userService.insertUserInfo(uvo);
+		return "redirect:/login";
 	}
 
 	// 마이페이지 접근을 위해서, 본인확인용 비밀번호 입력창 호출
@@ -46,15 +73,6 @@ public class UserController {
 		model.addAttribute("userInfo", userService.userSelect((String) session.getAttribute("userId")));
 		return "users/userEditForm";
 	}
-
-//	// 회원정보 수정시
-//	@RequestMapping("/userEdit")
-//	public String userEdit(UsersVO vo) {
-//
-//		userService.updateUserInfo(vo);
-//
-//		return "redirect:/userEditForm";
-//	}
 
 	// 회원정보 수정시
 	@PostMapping("/userEdit")

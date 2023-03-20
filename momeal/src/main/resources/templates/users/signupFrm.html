@@ -110,23 +110,31 @@
                         class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
                         style="border: 1px solid #d3d5d8 !important;">
                     <div class="flex lg:flex-row flex-col lg:space-x-2">
-                        <input id="postcode" name="zipcode" type="text" placeholder="우편번호"
+                        <input id="zipcode" name="zipcode" type="text" placeholder="우편번호"
                             class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
                             style="border: 1px solid #d3d5d8 !important;">
                         <input type="button"
                             class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800 bg-gradient-to-br from-green-500 py-3 rounded-md text-white text-xl to-yellow-400 w-full"
                             style="border: 1px solid #d3d5d8 !important;" onclick="execDaumPostcode()" value="우편번호 찾기">
                     </div>
-                    <input id="address" type="address" placeholder="주소"
+                    <input id="addr" name="addr" type="address" placeholder="주소"
                         class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
                         style="border: 1px solid #d3d5d8 !important;">
-                    <input id="extraAddress" type="address" placeholder="상세주소"
+                    <input id="extraAddress" name="extraAddress" type="address" placeholder="상세주소"
                         class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
                         style="border: 1px solid #d3d5d8 !important;">
-                    <input id="detailAddress" type="address" placeholder="나머지주소"
-                        class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                        style="border: 1px solid #d3d5d8 !important;">
-                    <input type="hidden" id="addr" name="addr" value="">
+
+                    <!--파일업로드-->
+                    <!-- <div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">썸네일 등록</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="file" type="file" name="file" onchange="preview()"><br>
+                                <img id="profileImg">
+                            </div>
+                        </div>
+                    </div>
+                -->
                     <div class="flex justify-start my-4 space-x-1">
                         <div class="checkbox">
                             <input type="checkbox" id="chekcbox1" checked="checked">
@@ -269,17 +277,43 @@
                         }
 
                         // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                        $("#postcode").val(data.zonecode);
-                        $('#address').val(addr + extraAddr);
-                        $('#extraAddress').val(extraAddr);
+                        document
+                            .getElementById('zipcode')
+                            .value = data.zonecode;
+                        document
+                            .getElementById("addr")
+                            .value = addr;
 
                         // 커서를 상세주소 필드로 이동한다.
-                        $("detailAddress").focus();
-
-                        $('#addr').val() = addr + ' ' + extraAddr + ' ' + $('detailAddress').val();
+                        $("#extraAddress").focus();
                     }
                 })
                 .open();
+        }
+    </script>
+
+    <!--파일미리보기 -->
+    <script>
+        //input태그 가져오기	
+        let fileTag = document.querySelector("input[name=file]");
+        // 파일 있는지 확인
+        fileTag.onchange = function () {
+            let imgTag = document.querySelector("#profileImg");
+            if (fileTag.files.length > 0) {
+                //파일을 선택한 경우, 미리보기 생성 == 이미지 태그 src에 데이터(파일태그에서 선택한 파일)넣어주기
+                let reader = new FileReader();
+                //reader읽어드리기
+                reader.onload = function (data) {
+                    console.log(data);
+                    imgTag.src = data.target.result;
+                    imgTag.width = 250;
+                    imgTag.height = 150;
+                }
+                reader.readAsDataURL(fileTag.files[0]);
+            } else {
+                //취소버튼 누를 경우
+                imgTag.src = "";
+            }
         }
     </script>
 
