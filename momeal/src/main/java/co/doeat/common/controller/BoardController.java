@@ -143,8 +143,12 @@ public class BoardController<UserVO> {
 
 	// NOTICE(ADMIN) 전체리스트
 	@RequestMapping("/admin/adminNotice")
-	public String adminNotice(Model model) {
-		model.addAttribute("noticeList", boardService.userNotice());
+	public String adminNotice(Model model, @ModelAttribute("esvo") BoardSearchVO svo, Paging paging) {
+		svo.setFirst(paging.getFirst());
+		svo.setLast(paging.getLast());
+		paging.setTotalRecord(boardService.cntTotal(svo));
+
+		model.addAttribute("noticeList", boardService.noticeList(svo));
 		return "admin/adminNotice";
 	}
 
