@@ -60,7 +60,7 @@ public class GroupPurchaseController {
 	@GetMapping("/pch/pchDetail/{no}")
 	public String pchDetail(Model model, @PathVariable int no, HttpSession session, GroupPurchaseSettlementVO pvo) {
 		String userId = (String) session.getAttribute("userId");
-		System.out.println(session +"=============================================");
+		System.out.println(session + "=============================================");
 		String boardCode = "CT03";
 		model.addAttribute("pchDetail", groupPurchaseService.pchDetail(no));
 		model.addAttribute("detailImg", imageService.imageList(boardCode, no));
@@ -99,28 +99,34 @@ public class GroupPurchaseController {
 		String boardCode = "CT03";
 		model.addAttribute("pchDetail", groupPurchaseService.pchOrderList(no));
 		model.addAttribute("detailImg", imageService.imageList(boardCode, no));
-		System.out.println(groupPurchaseService.pchOrderList(no) +"뭘까"+imageService.imageList(boardCode, no) +"이미지?");
+		System.out
+				.println(groupPurchaseService.pchOrderList(no) + "뭘까" + imageService.imageList(boardCode, no) + "이미지?");
 		model.addAttribute("no", no);
 		return "purchase/pchOrderList";
 	}
 
 	// 마이페이지 공동구매내역 리스트
-	@RequestMapping("/myPurchaseList")
+	@RequestMapping("/usr/myPurchaseList")
 	public String myPurchaseList(Model model, HttpSession session, HttpServletRequest request) {
 		session = request.getSession();
 
 		String userId = (String) session.getAttribute("userId");
 		model.addAttribute("myPrList", groupPurchaseService.getPurchaseList(userId));
+		
+		model.addAttribute("pchInfo", groupPurchaseService.pchAllList());
+		
+		System.out.println(groupPurchaseService.pchAllList() + "여희주");
+
 		return "myPages/myPurchaseList";
 	}
 
 	// 마이페이지 공동구매상세내역
-	@RequestMapping("/myPurchaseSelect/{prdtNo}")
+	@RequestMapping("/usr/myPurchaseSelect/{prdtNo}")
 	public String myPurchaseSelect(Model model, @PathVariable int prdtNo, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		int no = prdtNo;
 		model.addAttribute("myPurchase", groupPurchaseService.purchaseSelect(userId, no));
-		System.out.println("결과 ==========" + groupPurchaseService.purchaseSelect(userId, no));
+		// model.addAttribute("pchInfo",groupPurchaseService.pchAllList());
 		return "myPages/myPurchaseSelect";
 	}
 
@@ -182,15 +188,16 @@ public class GroupPurchaseController {
 
 	// 관리자 공동구매 delete
 	@RequestMapping("/admin/adminGPDelete/{no}")
-	public String adminGPDelete(@PathVariable int no, RedirectAttributes redirectAttributes, GroupPurchaseListVO vo, ImageVO ivo) {
+	public String adminGPDelete(@PathVariable int no, RedirectAttributes redirectAttributes, GroupPurchaseListVO vo,
+			ImageVO ivo) {
 		String boardCode = "CT03";
 		int postNo = vo.getNo();
 		imageService.adminGPIDelete(postNo, boardCode);
-		int delCnt=groupPurchaseService.adminGPDelete(no);
+		int delCnt = groupPurchaseService.adminGPDelete(no);
 		if (delCnt == 0) {
 			redirectAttributes.addFlashAttribute("msg", "신청자가있는 공동구매는 삭제할 수 없습니다");
 		}
-		return "redirect:/admin/adminGroupPurchase";	
+		return "redirect:/admin/adminGroupPurchase";
 	}
 
 	// 관리자 공동구매 update
