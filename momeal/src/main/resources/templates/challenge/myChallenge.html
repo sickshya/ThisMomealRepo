@@ -93,7 +93,7 @@
 									<div class="col-lg-5">
 										<ul>
 											<li th:each="chall : ${myChall}"
-												th:onclick="'location.href=\''+ @{/myChallenge/{chalNo}(chalNo = ${chall.NO})} + '\''">
+												th:onclick="'location.href=\''+ @{/chlg/myChallenge/{chalNo}(chalNo = ${chall.NO})} + '\''">
 												<div align="left">
 												</div> <a href="#"
 												class="block flex items-center py-3 px-4 space-x-3">
@@ -142,7 +142,7 @@
 									<div class="col-lg-5">
 										<ul>
 											<li th:each="end : ${endChall}"
-												th:onclick="'location.href=\''+ @{/myChallenge/{chalNo}(chalNo = ${end.NO})} + '\''">
+												th:onclick="'location.href=\''+ @{/chlg/myChallenge/{chalNo}(chalNo = ${end.NO})} + '\''">
 												<div align="left"></div> <a href="#"
 												class="block flex items-center py-3 px-4 space-x-3">
 													<div class="w-13 h-13 rounded-full relative flex-shrink-0">

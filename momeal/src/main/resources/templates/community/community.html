@@ -222,7 +222,7 @@
         console.log("찾아왔나????? " + feedNo);
 
 	      $.ajax({
-	    	  url: "/communityList",
+	    	  url: "/cty/communityList",
 	    	  type: "post",
 	    	  dataType: "json",
 	    	  data: {"no" : feedNo},
@@ -287,7 +287,7 @@
 // 	    	}
 	    	
 	    	$.ajax({
-	    		url: "/communityList",
+	    		url: "/cty/communityList",
 	    		type: "post",
 	    		data : searchData,
 	    		success: function(result) {
@@ -372,7 +372,7 @@
          
          // ajax 처리
          $.ajax({
-            url: "/community/" + no
+            url: "/cty/community/" + no
          })
          .then(obj => { // 넘어오는 결과값 자체가 json 타입
         	console.log("결과 ======" + obj.followeeId)
