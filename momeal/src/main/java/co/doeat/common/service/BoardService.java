@@ -4,9 +4,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import co.doeat.community.service.UserSearchVO;
+
 public interface BoardService{
 
 	List<BoardVO> faqList(); // faq 리스트
+	
+	int cntTotal(UserSearchVO svo); // 전체 수 계산
 	
 	BoardVO faqSelect(BoardVO vo); // faq 상세
 

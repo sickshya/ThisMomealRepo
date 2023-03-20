@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import co.doeat.common.mapper.BoardMapper;
 import co.doeat.common.service.BoardService;
 import co.doeat.common.service.BoardVO;
+import co.doeat.community.service.UserSearchVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -16,12 +17,11 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
 
 	// FAQ
-
 	@Override
 	public List<BoardVO> faqList() {
 		return boardMapper.faqList();
 	}
-
+	
 	@Override
 	public int faqInsert(BoardVO vo) {
 		return boardMapper.faqInsert(vo);
@@ -84,7 +84,11 @@ public class BoardServiceImpl implements BoardService {
 	public int noticeDelete(BoardVO vo) {
 		return boardMapper.noticeDelete(vo);
 	}
-	
-	
+
+	@Override
+	public int cntTotal(UserSearchVO svo) {
+		return boardMapper.cntTotal(svo);
+	}
+
 
 }
