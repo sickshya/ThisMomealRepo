@@ -63,7 +63,7 @@
 							<h5 class="text-black font-semibold dark:text-white">상품명 : [[${myPurchase.NAME}]]</h5>
 							<span class="absolute right-0 top-1 text-xs">회사명 : [[${myPurchase.CO_NAME}]]</span>
 							<p class="truncate">상품설명 : [[${myPurchase.SUBJECT}]]</p>
-							<p class="text-black font-semibold dark:text-white">가격 : [[${myPurchase.PRICE}]]</p>
+							<p class="text-black font-semibold dark:text-white">가격 : [[${#numbers.formatInteger(myPurchase.PRICE, 3, 'COMMA')}]]</p>
 							<p class="truncate">수량 : [[${myPurchase.TOTAL_GD}]]</p>
 						</div>
 					</div>
@@ -82,7 +82,7 @@
 					<div class="three">
 					<br>
 						<div class="flex-1 min-w-0 relative text-gray-500">
-							<p class="truncate">총 금액 : [[${myPurchase.TOTAL_PRICE}]]</p>
+							<p class="truncate">총 금액 : [[${#numbers.formatInteger(myPurchase.TOTAL_PRICE, 3, 'COMMA')}]]</p>
 						</div>
 					</div>
 					<br><br>
