@@ -69,7 +69,7 @@
 				    <where>
 					<if test="no > 0">
 						<![CDATA[
-				            M.NO <= #{no}
+				            M.NO < #{no}
 						]]>
 					</if>
 						<include refid="search"></include>

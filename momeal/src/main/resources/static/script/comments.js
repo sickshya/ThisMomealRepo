@@ -2,15 +2,13 @@
     // ▶ 댓글, 대댓글 리스트 출력 ajax
     function commentList(postNo) {
 
-        console.log("글번호 =========" + postNo)
         $.ajax({
-                url: "/comment/" + postNo,
+                url: "/contentsDetail/comment/" + postNo,
                 type: 'post',
                 dataType: 'json', // 데이터 타입을 Json으로 변경
                 contentType: 'application/json' // Content-Type을 Json으로 변경
             })
             .then(data => {
-                console.log("댓글 ======== " + data);
                 
                 // 댓글창 비우기
                 $("#reply").empty()
@@ -195,7 +193,6 @@
         commentBox.empty()
 
         let cmmtClass = $('#cmmtClass' + no).val();
-        console.log("댓글 클래스 =====" + cmmtClass);
 
         // 버튼 지우기
         if ($('#cmmtClass' + no).val() == 0) {

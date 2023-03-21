@@ -20,7 +20,7 @@ public class CommentController {
 	private CommentService commentService;
 	
 	// 댓글 출력
-	@PostMapping("/comment/{postNo}")
+	@PostMapping("/contentsDetail/comment/{postNo}")
 	@ResponseBody
 	public List<CommentVO> commentList(CommentVO vo, @PathVariable int postNo) {
 		
