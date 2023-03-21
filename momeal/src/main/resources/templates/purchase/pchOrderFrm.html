@@ -247,17 +247,18 @@
 
 	<script type="text/javascript">
 	
-	function totalCal() {
-		let totalGd = document.getElementById("totalGd").value;
-		let price = document.getElementById("price").innerText;
-		let total = (parseInt(totalGd) * parseInt(price.replace(",", ""))) +'원' //콤마제거
-		total= total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); //콤마생성
-		document.getElementById('totalSum').value = total
-		let cal = document.getElementById('totalSum').value;
-		console.log(totalSum);
-		console.log(totalGd);
-	}
-</script>
+		function totalCal() {
+			let totalGd = document.getElementById("totalGd").value;
+			let price = document.getElementById("price").innerText;
+			let total = (parseInt(totalGd) * parseInt(price.replace(",", ""))) +'원' //콤마제거
+			total= total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); //콤마생성
+			document.getElementById('totalSum').value = total
+			let cal = document.getElementById('totalSum').value;
+			console.log(totalSum);
+			console.log(totalGd);
+		}
+		
+	</script>
 	
 	
 
