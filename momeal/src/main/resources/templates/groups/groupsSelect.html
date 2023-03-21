@@ -163,10 +163,14 @@
 	                    <img src="${item.profileImgPath}"
 	                          class="rounded-full w-8 h-8"></a>
 	                       <div class="flex-1" id="one${item.no}">
-	                       <p id="p${item.no}"><b>${item.nickName}</b> 
+	                       <p id="p${item.no}" style="float:left;"><b>${item.nickName}</b> 
 	                       		<span style="font-size:10px;">${item.writeDate}</span>
 	                       ${commentBtn}</p>
-	                       <div id="subject${item.no}"><p>${item.subject}</p></div></div>
+	                       <div id="subject${item.no}">
+		                       <br><br>
+		                       <p style="float:left;">${item.subject}</p>
+		                       <br><br>
+	                       </div></div>
 	                       <input type="hidden" id="cmmtClass${item.no}" value="0">
 	                       <input type="hidden" id="cmmtOrder${item.no}" value="${item.cmmtOrder}">
 	                    </div>`
@@ -180,11 +184,17 @@
 	                            `<div class="flex flex-1 space-x-2" style="padding-left:25px;">
 			                       <img src="${item.profileImgPath}"
 			                          class="rounded-full w-8 h-8">
-			                       <div class="flex-1" id="replyOne${item.no}"><p id="p${item.no}"><b>${item.nickName}</b> <span style="font-size:10px;">${item.writeDate}</span>
+			                       <div class="flex-1" id="replyOne${item.no}">
+			                       <p id="p${item.no}" style="float:left;"><b>${item.nickName}</b> 
+			                       <span style="font-size:10px;">${item.writeDate}</span>
 			                       ${item.userId == sessionId ? 
 			                          `<button type="button" style="float: right; font-size:12px;" onclick="cmmtDelete(${item.no})">삭제</button>&nbsp;
 			                          <button type="button" style="float: right; font-size:12px;" onclick="updateBox('${item.subject}', ${item.cmmtGroup}, ${item.no})">수정</button>` : ``}</p>
-			                          <div id="subject${item.no}"><p>${item.subject}</p></div></div>
+			                          <div id="subject${item.no}">
+			                          	<br><br>
+			                          	<p style="float:left;">${item.subject}</p>
+			                          	<br><br>
+			                          </div></div>
 			                          <input type="hidden" id="cmmtClass${item.no}" value="1">
 			                          <input type="hidden" id="cmmtOrder${item.no}" value="${item.cmmtOrder}">
 	                    		 </div> `
