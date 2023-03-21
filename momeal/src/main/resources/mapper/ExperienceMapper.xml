@@ -68,7 +68,7 @@
 		FROM EXPERIENCE_GROUP EG
 		JOIN EXPERIENCE_PARTICIPANTS EP
 		<![CDATA[
-		ON EG.NO = EP.NO
+		ON EG.NO = #{no}
 		WHERE TRUNC(expe_start_date) <= sysdate AND sysdate < expe_end_date
 		]]>
 		GROUP BY EG.NO
