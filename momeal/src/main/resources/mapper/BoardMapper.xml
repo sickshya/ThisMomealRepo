@@ -33,7 +33,7 @@
 		FROM BOARD
 		WHERE BOARD_CODE = 'BD02'
 		<include refid="creiteria"></include>
-		ORDER BY NO
+		ORDER BY NO DESC
 					<![CDATA[
 	 		)A WHERE ROWNUM <= #{last}) B 
  		 WHERE RN >= #{first} 
