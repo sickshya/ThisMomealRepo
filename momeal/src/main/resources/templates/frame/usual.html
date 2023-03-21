@@ -83,11 +83,11 @@
 			</div>
 			<div class="right-side uk-visible@s">
 				<ul class="header_menu" uk-scrollspy-nav="closest: li; scroll: true">
-					<li><a th:href="@{/usr/myFeed/{userId}(userId = ${session.userId})}"> MY STORY </a></li>
-					<li><a href="/contentsMain/cty"> COMMUNITY </a></li>
-					<li><a href="/contentsMain/chlg"> CHALLENGE </a></li>
-					<li><a href="/contentsMain/pch/"> GROUP-PURCHASE </a></li>
-					<li><a href="/contentsMain/expr/"> EXPERIENCE-DAN </a></li>
+					<li><a th:href="@{/usr/myFeed/{userId}(userId = ${session.userId})}"> STORY </a></li>
+					<li><a href="/contentsMain/community"> COMMUNITY </a></li>
+					<li><a href="/contentsMain/challenge"> CHALLENGE </a></li>
+					<li><a href="/contentsMain/pch/"> PURCHASE </a></li>
+					<li><a href="/contentsMain/expr/"> EXPERIENCE </a></li>
 					<li><a href="/notice"> BOARD </a></li>
 					<li><a href="/usr/enterMypage"> MY PAGE </a></li>
 					<li th:if="${session.userId == null}"><a href="/login"> LOGIN </a></li>
