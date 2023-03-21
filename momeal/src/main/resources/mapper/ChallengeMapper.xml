@@ -5,7 +5,7 @@
 	<!-- 메인, 챌린지 전체리스트 조회 -->
 	<select id="hmChlgList" resultType="co.doeat.management.service.ChallengeVO">
 		<![CDATA[
-		SELECT  no,
+		SELECT  NVL(no,0),
 		        title,
 		        subject,
 		        deduct_point, 
