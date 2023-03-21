@@ -32,7 +32,6 @@ public class LikesRestController {
 
 		model.addAttribute("myPageLike", likesService.myLikeList(userId));
 
-		// model.addAttribute("challLike", likesService.myChallList(userId));
 		return likesService.myLikeList(userId);
 	}
 
