@@ -72,7 +72,7 @@
 				<div class="block flex items-center py-3 px-4 space-x-3">
 					<br>
 					<div th:each="meals : ${mealImg}" class="three">
-						<img th:src="${meals.fileDir}" alt="" class="card-img-top" style="width: 170px; height: 200px;">
+						<img th:src="${meals.fileDir}" alt="" class="card-img-top" style="width: 100%; height: 200px;">
 						<div class="flex-1 min-w-0 relative text-gray-500 four">
 							<span class="text-black dark:text-white">[[${meals.typeCode}]]  [[${meals.mealTime}]]</span>
 							<p class="truncate text-black">[[${meals.mealAmount}]]</p>
