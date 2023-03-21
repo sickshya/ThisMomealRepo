@@ -67,7 +67,7 @@
 										th:each="pch : ${pchIngList}">
 										<div class="card text-center card-product">
 											<div class="card-product__img">
-												<img class="card-img" th:src="${pch.thumbnailImgPath}">
+												<img class="card-img" th:src="${pch.thumbnailImgPath}" style=" height: 180px;">
 												<!--  썸네일(상세보기,좋아요) -->
 												<ul class="card-product__imgOverlay">
 													<li><button
@@ -106,7 +106,7 @@
 											th:each="pch : ${pchAllList}">
 											<div class="card text-center card-product">
 												<div class="card-product__img">
-													<img class="card-img" th:src="${pch.thumbnailImgPath}">
+													<img class="card-img" th:src="${pch.thumbnailImgPath}" style=" height: 180px;">
 													<!--  썸네일(상세보기,좋아요) -->
 													<ul class="card-product__imgOverlay">
 														<li><button
