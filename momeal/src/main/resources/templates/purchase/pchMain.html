@@ -84,7 +84,7 @@
 										<div class="card-body">
 											<div th:text="${pch.coName}"></div>
 											<h4 class="card-product__title">
-												<a href="#" th:text="${pch.name}"></a>
+												<a th:text="${pch.name}" style="font-size: medium;"></a>
 											</h4>
 											<span th:text="${#numbers.formatInteger(pch.price, 3, 'COMMA') + '원'}" ></span>
 											<p style="color: red;"><b> 👆 [[${pch.ordCnt}]]명이 참여</b></p>
@@ -122,7 +122,7 @@
 												<div class="card-body">
 													<div th:text="${pch.coName}"></div>
 													<h4 class="card-product__title">
-														<a href="#" th:text="${pch.name}"></a>
+														<a th:text="${pch.name}" style="font-size: medium;"></a>
 													</h4>
 													<span th:text="${#numbers.formatInteger(pch.price, 3, 'COMMA') + '원'}"></span>
 													<p style="color: red;"><b>👆[[${pch.ordCnt}]]명이 참여</b></p>
