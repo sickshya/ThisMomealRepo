@@ -35,7 +35,7 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((requests) -> requests
-				.antMatchers("/", "/index*", "/home", "/main", "/notice**",
+				.antMatchers("/", "/index*", "/home", "/main", "/notice**", "/mm_images/**",
 						"/login*", "/logout*", "/error", "/signup/**", 
 						"/contentsMain/**", "/contentsDetail/**")
 				.permitAll()
