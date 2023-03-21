@@ -6,7 +6,7 @@
 	<select id="hmExprList" resultType="co.doeat.management.service.ExperienceVO">
 		SELECT  title,
 		        subject,
-		        lmt_aplyt - now_aplyt aplytCnt
+		        NVL(lmt_aplyt - now_aplyt,0) aplytCnt
 		  FROM experience_group
 		 WHERE expe_start_date <![CDATA[ <= ]]>TRUNC(current_date)
 		   AND TRUNC(current_date) <![CDATA[ < ]]> expe_end_date
