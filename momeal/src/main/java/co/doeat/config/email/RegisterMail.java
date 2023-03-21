@@ -13,9 +13,6 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import lombok.extern.log4j.Log4j2;
-
-@Log4j2
 @Service
 public class RegisterMail {
 
@@ -26,8 +23,6 @@ public class RegisterMail {
 
 	// 메일 내용 작성
 	public MimeMessage createMessage(String to) throws MessagingException, UnsupportedEncodingException {
-		log.info("받을 대상 ?? : " + to);
-		log.info("인증 번호 : " + ePw);
 		MimeMessage message = emailsender.createMimeMessage();
 
 		message.addRecipients(RecipientType.TO, to); // 보내는 대상
@@ -57,8 +52,6 @@ public class RegisterMail {
 	
 	// 그룹 초대 메일 내용 작성
 	public MimeMessage grpInviteMessage(String to) throws MessagingException, UnsupportedEncodingException {
-		log.info("받을 대상 ?? : " + to);
-		log.info("인증 번호 : " + ePw);
 		MimeMessage message = emailsender.createMimeMessage();
 
 		message.addRecipients(RecipientType.TO, to); // 보내는 대상

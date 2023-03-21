@@ -1,9 +1,5 @@
 package co.doeat.config.security;
 
-import java.net.http.HttpRequest;
-
-import javax.servlet.RequestDispatcher;
-
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
