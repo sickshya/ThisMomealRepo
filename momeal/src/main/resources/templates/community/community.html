@@ -219,10 +219,9 @@
     	 
     	  
         var feedNo = $("#allList .oneCmnt").last().data("cmntno");
-        console.log("찾아왔나????? " + feedNo);
 
 	      $.ajax({
-	    	  url: "/cty/communityList",
+	    	  url: "/contentsMain/communityList",
 	    	  type: "post",
 	    	  dataType: "json",
 	    	  data: {"no" : feedNo},
@@ -274,20 +273,13 @@
 	    function getSearchList() {
 	    	event.stopPropagation()
 	    	
-// 	    	let feedNo = $("#allList .oneCmnt").first().data("cmntno") + 1;
 	    	let feedNo = $("#allList").data("maxno");
 	    	console.log("맥스번호 " + feedNo)
 	    	let searchData = $("#searchForm").serialize() + "&no=" + feedNo;
 	    	console.log(searchData)
-// 	    	searchData += "&no=" + feedNo;
-	    	
-// 	    	if($("#keyword").val() == '') {
-// 	    		alert("검색어를 입력해주세요.")
-// 	    		return;
-// 	    	}
 	    	
 	    	$.ajax({
-	    		url: "/cty/communityList",
+	    		url: "/contentsMain/communityList",
 	    		type: "post",
 	    		data : searchData,
 	    		success: function(result) {
@@ -354,12 +346,6 @@
       $(document).on("click", ".oneCmnt", function() {
     	  console.log($(event.target))
       
-//     	  if( $(event.target).hasClass("fullHeart") || $(event.target).hasClass("emptyHeart") ){
-//     		  return
-//     	  }
-//     	  event.preventDefault() // a, submit (페이지 이동 막음)
-// 		  event.stopPropagation()
-//     	 debugger
          console.log($(this));
          let no = $(this).data("cmntno"); // 대소문자 구분 안됨. cmntno는 변수가 아니니까(?) ""안에 넣어주기
 
@@ -372,7 +358,7 @@
          
          // ajax 처리
          $.ajax({
-            url: "/cty/community/" + no
+            url: "/contentsDetail/community/" + no
          })
          .then(obj => { // 넘어오는 결과값 자체가 json 타입
         	console.log("결과 ======" + obj.followeeId)
@@ -395,9 +381,6 @@
             }
             
             if(obj.userId == sessionId) {
-//                $(".follow").attr("id", "myBtn");
-//                $(".follow").attr("value", obj.userId);
-//                $(".follow").text("내스토리");   
                $(".follow").empty();   
             }else {
                if(obj.userId == obj.followeeId) {
@@ -443,7 +426,6 @@
             contentType: 'application/json'   // Content-Type을 Json으로 변경
          })
          .then(result => {
-            console.log("팔로우 신청 결과 ===== " + result.followeeId)
             $(".follow").remove();
             $("#userProfile").append(
             `
@@ -453,7 +435,6 @@
             $(".follow").attr("id", "unfollowBtn");
             $(".follow").attr("value", result.followeeId);
             $(".follow").attr("onclick", "unfollow('" + result.followeeId + "')");
-//             $(".follow").removeClass("btn btn-outline-success");
             $(".follow").addClass("btn btn-outline-secondary");
             $(".follow").text("언팔로우");
          })
@@ -462,7 +443,6 @@
       
       // ▶ 언팔로우 처리
       function unfollow(userId) {
-         console.log("언팔할 아이디 가져왔어? ===== " + userId);
          
          // ajax 처리
          $.ajax ({
@@ -471,7 +451,6 @@
             contentType: 'application/json'   // Content-Type을 Json으로 변경
          })
          .then(result => {
-            console.log("언팔로우 결과 ===== " + result.followeeId)
             $(".follow").remove();
             $("#userProfile").append(
             `
@@ -481,7 +460,6 @@
             $(".follow").attr("id", "followBtn");
             $(".follow").attr("value", result.followeeId);
             $(".follow").attr("onclick", "follow('" + result.followeeId + "')");
-//             $(".follow").removeClass("btn btn-outline-secondary");
             $(".follow").addClass("btn btn-outline-success");
             $(".follow").text("팔로우");
          })

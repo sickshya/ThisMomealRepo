@@ -40,6 +40,7 @@
 		SELECT *
 		FROM MEALS
 		WHERE TRUNC(post_date) = TO_DATE(#{postDate},'yyyyMMdd') AND user_id = #{userId}
+		order by meal_Time
 	</select>
 	
  	<!-- 개인 식단 단건조회 -->

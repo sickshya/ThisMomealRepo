@@ -25,7 +25,7 @@ public class CommunityController {
 
 
 	// 전체조회
-	@RequestMapping("/cty/community")
+	@RequestMapping("/contentsMain/community")
 	public String community(Model model, HttpSession session) {
 		
 		String id = (String) session.getAttribute("userId");
@@ -40,7 +40,7 @@ public class CommunityController {
 	}
 	
 	// 전체조회 + 페이징
-	@RequestMapping("/cty/communityList")
+	@RequestMapping("/contentsMain/communityList")
 	@ResponseBody
 	public List<Map<String, Object>> communityList(MealVO vo, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
@@ -49,7 +49,7 @@ public class CommunityController {
 	}
 	
 	// 단건조회(ajax)
-	@GetMapping("/cty/community/{no}")
+	@GetMapping("/contentsDetail/community/{no}")
 	@ResponseBody
 	public MealVO challengeOne(Model model, Map<String, Object>map, HttpSession session, @PathVariable int no) {
 		
@@ -58,10 +58,4 @@ public class CommunityController {
 		
 		return communityService.getCommunity(map);
 	}
-	
-//	// 커뮤니티 검색결과창
-//	@RequestMapping("/communitySearch")
-//	public String communitySearch() {
-//		return "content/community_search";
-//	}
 }
