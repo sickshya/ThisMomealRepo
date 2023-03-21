@@ -69,7 +69,7 @@ public class GroupPurchaseController {
 	private String saveImg;
 	
 	// 공동구매(전체조회) 리스트 폼 호출
-	@RequestMapping("/pch/pchMain")
+	@RequestMapping("/contentsMain/pch")
 	public String pchMain(Model model) {
 		model.addAttribute("pchAllList", groupPurchaseService.pchAllList()); // 전체 공동구매 리스트 조회
 		model.addAttribute("pchIngList", groupPurchaseService.pchIngList()); // 진행 중인 공동구매 리스트 조회
@@ -77,7 +77,7 @@ public class GroupPurchaseController {
 	}
 
 	// 공동구매 리스트에서 단건조회를 하면 그 상품에 대한 상세페이지 (단건조회)
-	@GetMapping("/pch/pchDetail/{no}")
+	@GetMapping("/contentsDetail/pch/{no}")
 	public String pchDetail(Model model, 
 							@PathVariable int no) {
 		String boardCode = "CT03";
