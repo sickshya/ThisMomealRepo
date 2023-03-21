@@ -26,7 +26,6 @@ import co.doeat.common.service.ImageVO;
 import co.doeat.community.service.UserService;
 import co.doeat.community.service.UsersVO;
 import co.doeat.management.service.ChallengeReviewVO;
-import co.doeat.management.service.ExpReviewVO;
 import co.doeat.management.service.ExperienceSearchVO;
 import co.doeat.management.service.ExperienceService;
 import co.doeat.management.service.ExperienceVO;
