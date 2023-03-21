@@ -50,7 +50,7 @@
 
                     <div class="flex items-center lg:justify-between justify-around">
 
-                        <a href="trending.html">
+                        <a href="/home">
                             <img src="/assets/images/logo.png" alt="" class="w-32">
                         </a>
 
@@ -110,21 +110,23 @@
                         <label for="pwdconfirm" id="pwdconfirmchk">
                             &nbsp;&nbsp;:&nbsp;&nbsp;비밀번호를 입력해주세요
                         </label>
-                        <input
-                            id="userName"
-                            name="userName"
-                            type="text"
-                            placeholder="Your name"
-                            class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                            style="border: 1px solid #d3d5d8 !important;">
-                        <input
-                            id="nickName"
-                            name="nickName"
-                            type="text"
-                            placeholder="Nickname"
-                            class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                            style="border: 1px solid #d3d5d8 !important;">
 
+                        <div class="flex lg:flex-row flex-col lg:space-x-2">
+                            <input
+                                id="userName"
+                                name="userName"
+                                type="text"
+                                placeholder="Your name"
+                                class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
+                                style="border: 1px solid #d3d5d8 !important;">
+                            <input
+                                id="nickName"
+                                name="nickName"
+                                type="text"
+                                placeholder="Nickname"
+                                class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
+                                style="border: 1px solid #d3d5d8 !important;">
+                        </div>
                         <!-- 이메일 입력과 인증 -->
                         <input
                             id="memail"
@@ -133,27 +135,31 @@
                             placeholder="E-mail"
                             class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
                             style="border: 1px solid #d3d5d8 !important;">
-                        <label for="memail" id="mailTxt">이메일을 입력해주세요</label>
-                        <input
-                            id="checkEmail"
-                            name="checkEmail"
-                            type="button"
-                            value="이메일인증"
-                            class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800 bg-gradient-to-br from-green-500 py-3 rounded-md text-white text-xl to-yellow-400 w-full"
-                            style="border: 1px solid #d3d5d8 !important;">
-                        <input
-                            id="memailconfirm"
-                            name="memailconfirm"
-                            type="text"
-                            placeholder="인증번호"
-                            class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
-                            style="border: 1px solid #d3d5d8 !important;">
-                        <label for="memailconfirm" id="memailconfirmTxt">인증번호를 입력해주세요</label>
+                        <label for="memail" id="mailTxt">
+                            &nbsp;&nbsp;:&nbsp;&nbsp;이메일을 입력해주세요</label>
+                        <div class="flex lg:flex-row flex-col lg:space-x-2">
+                            <input
+                                id="memailconfirm"
+                                name="memailconfirm"
+                                type="text"
+                                placeholder="인증번호"
+                                class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
+                                style="border: 1px solid #d3d5d8 !important;">
+                            <input
+                                id="checkEmail"
+                                name="checkEmail"
+                                type="button"
+                                value="이메일인증"
+                                class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800 bg-gradient-to-br from-green-500 py-3 rounded-md text-white text-xl to-yellow-400 w-full"
+                                style="border: 1px solid #d3d5d8 !important;">
+                        </div>
+                        <label for="memailconfirm" id="memailconfirmTxt">
+                            &nbsp;&nbsp;:&nbsp;&nbsp;인증번호를 입력해주세요</label>
 
                         <input
                             id="tel"
                             name="tel"
-                            type="tel"
+                            type="text"
                             placeholder="Contact Number"
                             class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
                             style="border: 1px solid #d3d5d8 !important;">
@@ -178,26 +184,23 @@
                             id="addr"
                             name="addr"
                             type="address"
-                            placeholder="주소"
+                            placeholder="   주소"
                             class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
                             style="border: 1px solid #d3d5d8 !important;">
                         <input
                             id="extraAddress"
                             name="extraAddress"
                             type="address"
-                            placeholder="상세주소"
+                            placeholder="   상세주소"
                             class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800"
                             style="border: 1px solid #d3d5d8 !important;">
 
                         <!--파일업로드-->
-                        <div class="flex lg:flex-row flex-col lg:space-x-2">
-                            <div class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800">
-                                <img id="profileImg"></div>
-                            <div class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800">
-                                <label class="col-sm-3 col-form-label">썸네일 등록</label>
-                                <div>
-                                    <input id="file" type="file" name="file" onchange="preview()"><br>
-                                </div>
+                        <div class="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800">
+                            <img class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" id="profileImg">
+                            <label class="col-sm-3 col-form-label">썸네일 등록</label>
+                            <div class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800">
+                                <input id="file" type="file" name="file" onchange="preview()"><br>
                             </div>
                         </div>
 
@@ -253,7 +256,8 @@
                             Privacy</a>
                     </div>
                     <p class="capitalize">
-                        © copyright 2023 by MO : MEAL </p>
+                        © copyright 2023 by MO : MEAL
+                    </p>
                 </div>
             </div>
 
