@@ -208,7 +208,7 @@
 		parameterType="co.doeat.management.service.GroupPurchaseListVO"
 		resultType="co.doeat.management.service.GroupPurchaseListVO">
 		SELECT * FROM( SELECT rownum rn, a.*
-		from(
+		FROM(
 
 		SELECT
 		no,name,co_name,grp_start_date,grp_end_date,
@@ -224,7 +224,7 @@
 		<where>
 		<include refid="creiteria"></include>
 		</where>
-		order by no desc
+		ORDER BY NO DESC
 		
 		<![CDATA[
 		)a where rownum <= #{last}) b where rn  >= #{first} 
