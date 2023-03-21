@@ -119,8 +119,8 @@
 	<!-- 페이징 -->
 	<sql id="creite">
 		<choose>
-			<when test="type == 'A'.toString()">
-			AND	ALL like '%'||#{keyword}||'%'
+			<when test="type == ''and keyword != null">
+			AND	(board_title like '%'||#{keyword}||'%' or board_subject like '%'||#{keyword}||'%')
 			</when>
 			<when test="type == 'N'.toString()">
 			AND	board_title like '%'||#{keyword}||'%'
