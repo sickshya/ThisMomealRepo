@@ -51,7 +51,7 @@
 										th:text="${exp.title}">체험단명</span>
 									<p class="text-black font-semibold dark:text-white"
 										th:text="${exp.subject}">내용</p>
-									<p style="color: red;">리뷰기한 : [[ ${#dates.format(exp.reviewStartDate,'yy년 M월 d일 ~')} ]] [[ ${#dates.format(exp.reviewEndDate,'yy년 M월 d일')} ]]</p>
+									<p style="color: red;">체험참여기간 : [[ ${#dates.format(exp.expeStartDate,'yy년 M월 d일 ~')} ]] [[ ${#dates.format(exp.expeEndDate,'yy년 M월 d일')} ]]</p>
 									<br>
 									
 									<div align="right"></div>
@@ -63,7 +63,7 @@
 					</ul>
 					<br>
 					<br> <input type="button" value="체험단 홈으로" 
-						style="width: 130px; height: 40px;" th:onclick="|location.href='@{/expr/experienceList}'|">
+						style="width: 130px; height: 40px;" th:onclick="|location.href='@{/contentsMain/expr}'|">
 				</div>
 			</div>
 		</form>
