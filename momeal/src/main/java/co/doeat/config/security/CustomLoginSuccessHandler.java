@@ -21,7 +21,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		session.setAttribute("userId", authentication.getName());
 		
 		List<String> roleNames = new ArrayList<>();
-
 		authentication.getAuthorities().forEach(authority -> {
 			roleNames.add(authority.getAuthority());
 		});
@@ -30,12 +29,10 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			response.sendRedirect("admin/adminChallenge");
 			return;
 		}
-
 		if (roleNames.contains("ROLE_USER")) {
 			response.sendRedirect("/usr/myFeed/" + authentication.getName());
 			return;
 		}
-
 		response.sendRedirect("/");
 	}
 

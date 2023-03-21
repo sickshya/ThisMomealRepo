@@ -61,7 +61,7 @@ public class WebSecurityConfig {
 						.maxSessionsPreventsLogin(true)
 //						.expiredUrl("/main")
 						) 
-				.exceptionHandling((denied) -> denied.accessDeniedPage("/users/accessError"))
+				.exceptionHandling((denied) -> denied.accessDeniedPage("/error/error"))
 				.logout(
 						(logout) -> logout
 						.permitAll()
