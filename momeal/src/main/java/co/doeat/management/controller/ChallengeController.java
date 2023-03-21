@@ -73,6 +73,7 @@ public class ChallengeController {
 	public List<Map<String, Object>> challengeList(ChallengeVO vo, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		vo.setUserId(userId);
+		System.out.println("대체 어케 옴?????????" + challengeService.getChallList(vo));
 		return challengeService.getChallList(vo);
 	}
 	

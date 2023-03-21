@@ -39,7 +39,12 @@
 
 	<!-- 마이페이지 - 식단 좋아요 상세 -->
 	<select id="mylikeSelect" resultType="map">
-		SELECT U.*, L.*, M.*
+		SELECT U.*, L.*, M.*,
+			   (SELECT F.FOLLOWEE_ID
+				  FROM FOLLOW F JOIN MEALS M
+					ON (F.FOLLOWEE_ID = M.USER_ID 
+						AND F.FOLLOWER_ID = #{userId} 
+						AND M.NO = #{postNo})) AS FOLLOWEE_ID
 		FROM
 		USERS U LEFT JOIN MEALS M ON (U.USER_ID = M.USER_ID)
 		LEFT JOIN LIKES L

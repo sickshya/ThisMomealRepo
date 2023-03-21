@@ -123,9 +123,14 @@
 	                            <p>[[ ${chall.totalDay} ]]일간 진행</p>
 	                            <br><br>
 							<br>
-								<a href="#" class="heart-icon" data-toggle="modal"
-									data-target="#Modal-1">인증방법</a> <a href="" class="primary-btn"
-									data-toggle="modal" data-target="" onclick="modal()">인증하기</a> <!-- data-target="#Modal-2" -->
+								<a th:href="@{/chlg/challenge/{no}(no = ${chall.no})}" class="heart-icon">상세보기</a> 
+							<th:block th:if="${chall.startDay > '0'}">		
+							&nbsp;&nbsp;&nbsp;
+							<span style="color: red;"><b>챌린지 시작까지 [[${chall.startDay}]]일 남았습니다!</b></span>
+							</th:block>
+							<th:block th:unless="${chall.startDay > '0'}">		
+							<a href="" class="primary-btn"
+								data-toggle="modal" data-target="" onclick="modal()">인증하기</a></th:block> <!-- data-target="#Modal-2" -->
 							</th:block>
 							<th:block th:unless="${chall.codeId == '0'}">
 								<th:block th:if="${chall.reviewCheck == 0}">
@@ -170,11 +175,9 @@
 												<!-- skill bar item -->
 												<div class="skillbar-item">
 													<div class="skillbar" id="myPercentBar" th:data-percent="${chall.percent}">
-														<!-- 여기... 달성률 %로 해야해.. -->
 														<div class="skillbar-bar">
 															<div class="skillbar-percent" th:style="|width:${chall.percent}%|"> 
 															[[${chall.percent}]]
-																<!-- 여기... 달성률 %로 해야해.. -->
 															</div>
 														</div>
 													</div>
@@ -251,25 +254,25 @@
 													</table>
 												</div>
 											</div>
-											<div class="col-md-6">
-												<p style="color: gray;">
-													<b>평균 예상 달성률</b>
-												</p>
-												<h4>
-													<b>원형 그래프가 낫나..?</b>
-												</h4>
-												<br>
-												<!-- skill bar item -->
-												<div class="skillbar-item">
-													<div class="skillbar" data-percent="70%">
-														<h3>Marketing</h3>
-														<div class="skillbar-bar">
-															<div class="skillbar-percent" style="width: 70%;">
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
+<!-- 											<div class="col-md-6"> -->
+<!-- 												<p style="color: gray;"> -->
+<!-- 													<b>평균 예상 달성률</b> -->
+<!-- 												</p> -->
+<!-- 												<h4> -->
+<!-- 													<b>원형 그래프가 낫나..?</b> -->
+<!-- 												</h4> -->
+<!-- 												<br> -->
+<!-- 												skill bar item -->
+<!-- 												<div class="skillbar-item"> -->
+<!-- 													<div class="skillbar" data-percent="70%"> -->
+<!-- 														<h3>Marketing</h3> -->
+<!-- 														<div class="skillbar-bar"> -->
+<!-- 															<div class="skillbar-percent" style="width: 70%;"> -->
+<!-- 															</div> -->
+<!-- 														</div> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
+<!-- 											</div> -->
 										</div>
 										<br>
 										<br>
@@ -298,32 +301,30 @@
 							</div>
 
 							<!-- 인증방법 모달 -->
-							<div class="modal fade" id="Modal-1" tabindex="-1" role="dialog"
-								aria-labelledby="Modal-label-1">
-								<div class="modal-dialog" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h4 class="modal-title" id="Modal-label-1">챌린지 인증방법</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											<p>인증방법 컬럼이 있어야 할 거 같은데........?</p>
-											<br>
-											<p>
-												<b>✅ 이렇게 찍어주세요</b>
-											</p>
-											<div align="center">
-												<img th:src="${chall.thumbnailImgPath}" alt="img01"
-													class="img-responsive" style="width: 300px; height: 300px;" />
-											</div>
-											<p>요렇게 찍어달라는 인증방법 컬럼도 있어야 할 것 같은데..?🤦‍</p>
-										</div>
-									</div>
-								</div>
-							</div>
+<!-- 							<div class="modal fade" id="Modal-1" tabindex="-1" role="dialog" -->
+<!-- 								aria-labelledby="Modal-label-1"> -->
+<!-- 								<div class="modal-dialog" role="document"> -->
+<!-- 									<div class="modal-content"> -->
+<!-- 										<div class="modal-header"> -->
+<!-- 											<h4 class="modal-title" id="Modal-label-1">챌린지 인증방법</h4> -->
+<!-- 											<button type="button" class="close" data-dismiss="modal" -->
+<!-- 												aria-label="Close"> -->
+<!-- 												<span aria-hidden="true">&times;</span> -->
+<!-- 											</button> -->
+<!-- 										</div> -->
+<!-- 										<div class="modal-body"> -->
+<!-- 											<p>인증방법 컬럼이 있어야 할 거 같은데........?</p> -->
+<!-- 											<br> -->
+<!-- 											<p> -->
+<!-- 												<b>✅ 이렇게 찍어주세요</b> -->
+<!-- 											</p> -->
+<!-- 											<div align="center"> -->
+<!-- 											</div> -->
+<!-- 											<p>요렇게 찍어달라는 인증방법 컬럼도 있어야 할 것 같은데..?🤦‍</p> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							<!-- 인증방법 모달 끝 -->
 
 							<!-- 인증창 모달 -->

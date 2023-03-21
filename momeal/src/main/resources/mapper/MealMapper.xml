@@ -45,7 +45,8 @@
  	<!-- 개인 식단 단건조회 -->
 	<select id="mealSelect"
 		resultType="co.doeat.activity.service.MealVO">
-		SELECT * FROM MEALS
+		SELECT *
+		FROM MEALS
 		WHERE NO = #{no}
 	</select>
 	

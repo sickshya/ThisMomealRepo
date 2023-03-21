@@ -290,9 +290,9 @@ img {
 
                <!-- post header-->
                <div
-                  class="border-b flex items-center justify-between px-5 py-3 dark:border-gray-600">
+                  class="border-b flex items-center justify-between px-5 py-3 dark:border-gray-600" id="userProfile">
                   <div class="flex flex-1 items-center space-x-4">
-                     <a href="#">
+                     <a href="" id="feedUserId">
                         <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
                            <img th:src=${selects.profileImgPath}
                               class="bg-gray-200 border border-white rounded-full w-8 h-8">
@@ -300,9 +300,10 @@ img {
                      </a> <span class="block text-lg font-semibold"> [[${selects.nickName}]]
                      </span>
                   </div>
-                  <a href="#"> <i
-                     class="icon-feather-more-horizontal text-2xl rounded-full p-2 transition -mr-1"></i>
-                  </a>
+                      <th:block th:if="${session.userId != null}">
+								<!-- 팔로우  -->
+								<button type="button" class="follow" style="font-size:12px"></button>
+							</th:block>
                </div>
                <div class="story-content p-4 oneFeed" data-simplebar id="scrollDiv">
 <!--                      <span>식단점수<p id="mealScore"></p></span> <span>식사<p id="typeCode">식단점수</p></span> -->
@@ -339,19 +340,24 @@ img {
 
                </div>
                <div class="p-3 border-t dark:border-gray-600">
-                 <div
-								class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
-								<input type="text" placeholder="댓글을 입력하세요."
-									class="bg-transparent max-h-8 shadow-none" id="cmmtSubject">
-								<div
-									class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
-									<a href=""><button type="button" style="font-size: 10px;"
-											onclick="cmmtInsert()">등록</button></a> 
-											<input type="hidden" id="postNo">
-											<input type="hidden" th:value="${session.userId}" id="sessionId">
-								</div>
-							</div>
-               </div>
+                  <th:block th:if="${session.userId != null}">
+                     <div
+                        class="bg-gray-200 dark:bg-gray-700 rounded-full rounded-md relative">
+                        <input type="text" placeholder="댓글을 입력하세요."
+                           class="bg-transparent max-h-8 shadow-none" id="cmmtSubject">
+                        <div
+                           class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
+                           <a href=""><button type="button" style="font-size: 10px;"
+                                 onclick="cmmtInsert()">등록</button></a> 
+                                 <input type="hidden" id="postNo">
+                                 <input type="hidden" th:value="${session.userId}" id="sessionId">
+                        </div>
+                     </div>
+                  </th:block>
+                  <th:block th:unless="${session.userId != null}">
+                     <div><p style="color:gray; text-align:center;">로그인 후 댓글을 작성해보세요.</p></div>
+                  </th:block>
+            </div>
 
             </div>
 
@@ -573,6 +579,33 @@ $('#tbd').on("click",".show",function(){
       $('#mealTime').text(obj.mealTime);
 	  $('#mealAmount').text(obj.mealAmount);  
 	  $('#subject').text(obj.subject);
+
+     if(sessionId != null) {
+         $("#feedUserId").attr("href", "/usr/myFeed/" + obj.userId);
+      }else {
+         $("#feedUserId").attr("href", "#");
+      }
+
+//       if(obj.userId == sessionId) {
+// //       $(".follow").attr("id", "myBtn");
+// //       $(".follow").attr("value", obj.userId);
+// //       $(".follow").text("내스토리");   
+//          $(".follow").empty();   
+//       }else {
+//          if(obj.userId == obj.followeeId) {
+//             $(".follow").attr("id", "unfollowBtn");
+//             $(".follow").attr("value", obj.userId);
+//             $(".follow").attr("onclick", "unfollow('" + obj.userId + "')");
+//             $(".follow").addClass("btn btn-outline-secondary");
+//             $(".follow").text("언팔로우");
+//          }if(obj.userId != obj.followeeId){
+//             $(".follow").attr("id", "followBtn");
+//             $(".follow").attr("value", obj.userId);
+//             $(".follow").attr("onclick", "follow('" + obj.userId + "')");
+//             $(".follow").addClass("btn btn-outline-success");
+//             $(".follow").text("팔로우");
+//          }
+//       }
 	  
    // 모달안에 좋아요
       if(obj.likeNo != 0) {     
@@ -583,8 +616,7 @@ $('#tbd').on("click",".show",function(){
       	$(".modalHeart").closest(".oneFeed").data("no", no);
       }
    
-      
-   
+      // 댓글 리스트 출력 함수 호출
       commentList(no);
    
    });
@@ -697,6 +729,11 @@ function feedUpdteForm(){
             <button type="button" class="follow" style="font-size:17px; padding:auto 30px auto 30px"></button>
             `		
             )
+            $("#userProfile").append(
+            `
+            <button type="button" class="follow" style="font-size:12px"></button>
+            `		
+            )
             $(".follow").attr("id", "unfollowBtn");
             $(".follow").attr("value", result.followeeId);
             $(".follow").attr("onclick", "unfollow('" + result.followeeId + "')");
@@ -704,6 +741,8 @@ function feedUpdteForm(){
             $(".follow").text("언팔로우");
             followeeCnt = Number(followeeCnt) + 1;
             $("#followee").html(followeeCnt + '<strong class="lg:pl-2">팔로워</strong>')
+
+
          })
       }
       
@@ -724,6 +763,11 @@ function feedUpdteForm(){
             $("#followButton").prepend(
             `
             <button type="button" class="follow" style="font-size:17px; padding:auto 30px auto 30px"></button>
+            `		
+            )
+            $("#userProfile").append(
+            `
+            <button type="button" class="follow" style="font-size:12px"></button>
             `		
             )
             $(".follow").attr("id", "followBtn");
