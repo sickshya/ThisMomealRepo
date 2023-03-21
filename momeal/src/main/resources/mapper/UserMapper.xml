@@ -167,7 +167,7 @@
 		<where>
 		p.reason_code=c.cd_nm and user_id=#{userId}
 		</where>
-		order by p.save_date
+		order by p.save_date desc
 		
 		<![CDATA[
 		)a where rownum <= #{last}) b where rn  >= #{first} 
