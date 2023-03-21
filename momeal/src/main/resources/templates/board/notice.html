@@ -68,29 +68,30 @@
 							<!-- 							<div class="row"> -->
 
 							<!--공지시항 -->
- 							<form id="searchFrm" >
- 								<select name="type" 
-									style="width: 110px; float: left; margin-right: 10px; font-size:15px;">
- 									<option value="A" th:selected="${paging.type == 'A'}">전체</option>
- 									<option value="N" th:selected="${paging.type == 'N'}">제목</option>
- 									<option value="S" th:selected="${paging.type == 'S'}">내용</option>
- 								</select> <input type="text" name="keyword" th:value="${paging.keyword}"
- 									style="width: 200px;">
- 								<button type="submit" class="btn btn-outline-success" style="float: right;">검색</button>
- 							</form>
 
 							<!-- 표 시작 Striped rows -->
 							<div class="col-md-20 my-4">
 								<div class="card shadow">
 									<div class="card-body">
+									<br>
 										<h3 class="card-title" align="center">NOTICE</h3>
 										<p class="card-text">
+										
+										<form id="searchFrm">
+											<select name="type"
+												style="width: 110px; float: left; margin-right: 10px; font-size: 15px;">
+												<option value="A" th:selected="${paging.type == 'A'}">전체</option>
+												<option value="N" th:selected="${paging.type == 'N'}">제목</option>
+												<option value="S" th:selected="${paging.type == 'S'}">내용</option>
+											</select> 
+											<input type="text" name="keyword" th:value="${paging.keyword}" style="width: 200px; float:left;  ">
+											&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-outline-success" style="margin: 8px; padding: 8, 15, 8, 15;">검색</button>
+										</form>
 										<div class="container"></div>
 										</p>
 										<table class="table table-hover">
 											<thead>
 												<tr>
-													<th><input type="checkbox"></th>
 													<th>번호</th>
 													<th>제목</th>
 													<th>내용</th>
@@ -101,7 +102,6 @@
 											<tbody>
 
 												<tr th:each="n : ${noticeList}">
-													<td><input type="checkbox"></td>
 													<td th:text="${n.no}"></td>
 													<td th:text="${n.boardTitle}"></td>
 													<td><a th:href="@{/noticeSel/{no}(no=${n.no})}"> <span
