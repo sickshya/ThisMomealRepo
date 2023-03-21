@@ -15,9 +15,9 @@
 		parameterType="co.doeat.community.service.UsersVO">
 		INSERT INTO
 		USERS(
-			user_id, user_name, nick_name, password, addr, zipcode, tel, email, profile_img_path)
+			user_id, user_name, nick_name, password, addr, zipcode, tel, email, profile_img, profile_img_path)
 		VALUES(
-			#{userId}, #{userName}, #{nickName}, #{password}, #{addr}, #{zipcode}, #{tel}, #{email}, #{profileImgPath})
+			#{userId}, #{userName}, #{nickName}, #{password}, #{addr}, #{zipcode}, #{tel}, #{email}, #{profileImg}, #{profileImgPath})
 	</insert>
 
 	<!-- id 중복체크 -->
