@@ -192,10 +192,13 @@
 			</script>
 			<script>
 		function MealInsert(){
+			let nfile = $("#file").val()
+			console.log(nfile)
 			let userId = $("#feedUserId").val()
-			
-			console.log("클릭")
-			
+			if(nfile.length==0){
+				alert("ㅈㅂ")
+				
+			}else{
 			var formData = new FormData($('#frm')[0])
 			$.ajax({
 				url:"/insertMeal",
@@ -213,6 +216,7 @@
 				}
 				
 			})
+			}
 		}
 		
 		</script> 
