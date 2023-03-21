@@ -51,7 +51,7 @@ public class ExperienceController {
 	private String saveImg;
 
 	// 체험단(전체조회) 리스트 폼 호출
-	@RequestMapping("/experienceList")
+	@RequestMapping("/contentsMain/expr")
 	public String experienceList(Model model, 
 								 UsersVO userVO) {
 		model.addAttribute("ExpList", experienceService.getExperList()); // 전체
@@ -60,7 +60,7 @@ public class ExperienceController {
 	}
 
 	// 체험단 리스트에서 단건조회를 하면 그 상품에 대한 상세페이지 (단건조회)
-	@GetMapping("/experienceDetail/{no}")
+	@GetMapping("/contentsDetail/expr/{no}")
 	public String experienceDetail(Model model, 
 				  @PathVariable int no) {
 		String boardCode = "CT02";
