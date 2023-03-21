@@ -57,7 +57,7 @@
 		JOIN GROUP_LISTS GL
 		  ON (GM.NO = GL.NO)
 		  
-	   WHERE TRUNC(post_date) = TO_DATE(#{postDate},'yyyyMMdd') 
+	   WHERE TRUNC(post_date) = TRUNC(#{postDate}) 
 		 AND M.USER_ID = #{userId}
 	</select>
 

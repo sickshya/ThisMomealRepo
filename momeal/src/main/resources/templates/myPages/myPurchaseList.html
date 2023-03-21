@@ -47,7 +47,7 @@
                               <h4 class="text-black font-semibold dark:text-white">[[${pur.name}]]</h4>
                               <span class="absolute right-0 top-1 text-xs">[[${pur.coName}]]</span>
                               <p class="truncate">[[${pur.subject}]]</p>
-                              <p class="text-black font-semibold dark:text-white">[[${pur.price}]]</p>
+                              <p class="text-black font-semibold dark:text-white">[[${#numbers.formatInteger(pur.price, 3, 'COMMA')}]]</p>
                               <!--    <p class="truncate">수량</p>   -->
                            </div>
                         </a>
