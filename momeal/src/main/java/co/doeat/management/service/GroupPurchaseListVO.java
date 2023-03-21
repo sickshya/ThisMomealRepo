@@ -13,13 +13,13 @@ import lombok.Data;
 @Data
 public class GroupPurchaseListVO extends ImageVO {
 
-	private Integer no; // 상품번호
+	private int no; // 상품번호
 	private String name; // 상품이름
 	private String coName; // 업체명
-	private Integer price; // 상품가격
+	private int price; // 상품가격
 	private String subject; // 상세설명
-	private Integer minGd; // 최소주문수량
-	private Integer splyGd; // 공급한계수량
+	private int minGd; // 최소주문수량
+	private int splyGd; // 공급한계수량
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date grpStartDate; // 공동구매시작일자

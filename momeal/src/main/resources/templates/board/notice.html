@@ -94,21 +94,19 @@
 												<tr>
 													<th>번호</th>
 													<th>제목</th>
-													<th>내용</th>
 													<th>작성일자</th>
 													<th>작성자</th>
 												</tr>
 											</thead>
 											<tbody>
 
-												<tr th:each="n : ${noticeList}">
+												<tr th:each="n : ${noticeList}" >
 													<td th:text="${n.no}"></td>
-													<td th:text="${n.boardTitle}"></td>
 													<td><a th:href="@{/noticeSel/{no}(no=${n.no})}"> <span
-															th:text="${n.boardSubject != null and
-															#strings.length(n.boardSubject)> 10 ?
-																#strings.substring(n.boardSubject, 0, 10) + '.....' :
-																(n.boardSubject != null ? n.boardSubject : '')}"></span>
+															th:text="${n.boardTitle != null and
+															#strings.length(n.boardTitle)> 15 ?
+																#strings.substring(n.boardTitle, 0, 15) + '.....' :
+																(n.boardTitle != null ? n.boardTitle : '')}"></span>
 													</a></td>
 													<td th:text="${#dates.format(n.boardDate,'yyyy-MM-dd')}"></td>
 													<td th:text="${n.userId}"></td>
@@ -142,8 +140,8 @@
 
 	<script>
 		var titleCell = document.getElementById("title-cell");
-		if (titleCell.innerHTML.length > 10) {
-			titleCell.innerHTML = titleCell.innerHTML.substr(0, 10) + "...";
+		if (titleCell.innerHTML.length > 15) {
+			titleCell.innerHTML = titleCell.innerHTML.substr(0, 15) + "...";
 		}
 	</script>
 
