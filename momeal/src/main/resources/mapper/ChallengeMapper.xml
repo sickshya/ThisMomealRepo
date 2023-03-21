@@ -277,7 +277,7 @@
 	<!-- 종료 - 후기 등록 -->
 	<insert id="insertReview">
 		INSERT INTO CHALLENGE_REVIEW
-		VALUES(#{userId}, #{no}, TRUNC(CURRENT_DATE,'YYYY-MM-DD'), #{subject}, #{star})
+		VALUES(#{userId}, #{no}, TRUNC(SYSDATE), #{subject}, #{star})
 	</insert>
 	
 	<!-- 종료 - 후기 수정 -->
