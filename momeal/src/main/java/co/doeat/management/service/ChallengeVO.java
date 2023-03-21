@@ -16,10 +16,10 @@ public class ChallengeVO extends ImageVO {
 	private String title; // 챌린지 제목
 	private String subject; // 챌린지 내용
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone="Asia/Seoul")
 	private Date chalStartDate; // 챌린지 시작일자
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone="Asia/Seoul")
 	private Date chalEndDate; // 챌린지 종료일자
 	private int chalRound; // 챌린지 진행회차(같은 챌린지 반복진행시 사용)
 	private int particir; // 현재 참여자 수
@@ -58,6 +58,7 @@ public class ChallengeVO extends ImageVO {
 
 	
 	// 검색 필터
+	private int rn; // rownum
 	private String type; // 검색 타입
 	private String keyword; // 검색 내용
 }

@@ -45,7 +45,17 @@
 	<select id="getChallList" resultType="map">
 		SELECT *
 		  FROM(SELECT ROWNUM RN, A.*
-		         FROM(SELECT C.*,
+		         FROM(SELECT C.NO,
+						     C.TITLE,
+						     C.SUBJECT,
+						     TRUNC(C.CHAL_START_DATE) AS CHAL_START_DATE,
+					  	     TRUNC(C.CHAL_END_DATE) AS CHAL_END_DATE,
+						     C.CHAL_ROUND,
+						     C.PARTICIR,
+						     C.SUM_PARTICIR,
+						     C.DEDUCT_POINT,
+						     C.THUMBNAIL_IMG,
+						     C.THUMBNAIL_IMG_PATH,
 		                     NVL((SELECT L.NO
 		                            FROM LIKES L
 		                           WHERE L.POST_NO = C.NO 
@@ -77,7 +87,17 @@
 		  ORDER BY CN DESC, 
 		        POST_NO)
 		
-		SELECT C.*, 
+		SELECT C.NO,
+			   C.TITLE,
+			   C.SUBJECT,
+			   TRUNC(C.CHAL_START_DATE) AS CHAL_START_DATE,
+			   TRUNC(C.CHAL_END_DATE) AS CHAL_END_DATE,
+			   C.CHAL_ROUND,
+			   C.PARTICIR,
+			   C.SUM_PARTICIR,
+			   C.DEDUCT_POINT,
+			   C.THUMBNAIL_IMG,
+			   C.THUMBNAIL_IMG_PATH, 
 		       NVL(LC.CN, 0) AS CN, 
 		       NVL((SELECT L.NO 
 		              FROM LIKES L
@@ -95,7 +115,17 @@
 	<!-- 챌린지 단건조회 -->
 	<select id="getChallenge"
 		resultType="co.doeat.management.service.ChallengeVO">
-		SELECT C.*,
+		SELECT C.NO,
+			   C.TITLE,
+			   C.SUBJECT,
+			   TRUNC(C.CHAL_START_DATE) AS CHAL_START_DATE,
+			   TRUNC(C.CHAL_END_DATE) AS CHAL_END_DATE,
+			   C.CHAL_ROUND,
+			   C.PARTICIR,
+			   C.SUM_PARTICIR,
+			   C.DEDUCT_POINT,
+			   C.THUMBNAIL_IMG,
+			   C.THUMBNAIL_IMG_PATH,
 		       (C.PARTICIR * C.DEDUCT_POINT) AS SUM_POINT,
 		       (C.CHAL_START_DATE - TRUNC(CURRENT_DATE)) AS START_DAY,
 		       (C.CHAL_END_DATE - C.CHAL_START_DATE) AS TOTAL_DAY,
