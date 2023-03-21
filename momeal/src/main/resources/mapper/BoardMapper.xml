@@ -102,7 +102,7 @@
 		FROM BOARD
 		WHERE BOARD_CODE = 'BD01'
 		<include refid="creite"></include>
-		ORDER BY NO
+		ORDER BY NO DESC
 					<![CDATA[
 	 		)A WHERE ROWNUM <= #{last}) B 
  		 WHERE RN >= #{first} 
