@@ -42,9 +42,9 @@
 
     <!-- 하트, 댓글 말풍선 아이콘 -->
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-    
+
     <!-- ▶ 댓글 스크립트 -->
-	<script src="../../script/comments.js"></script>
+    <script src="../../script/comments.js"></script>
 
     <!-- Basic Page Needs ================================================== -->
     <title>Instello Sharing Photos</title>
@@ -112,7 +112,7 @@
             <div class="left-side">
                 <!-- Logo -->
                 <div id="logo">
-                    <a href="index.html">
+                    <a href="/home">
                         <img src="/assets/images/momeal.png" alt="">
                     </a>
                 </div>
@@ -124,18 +124,17 @@
 
             </div>
             <div class="right-side uk-visible@s">
-
-				<ul class="header_menu" uk-scrollspy-nav="closest: li; scroll: true">
-					<li><a th:href="@{/usr/myFeed/{userId}(userId = ${session.userId})}">STORY </a></li>
-					<li><a href="/contentsMain/community"> COMMUNITY </a></li>
-					<li><a href="/contentsMain/challenge"> CHALLENGE </a></li>
-					<li><a href="/pch/pchMain"> STORE </a></li>
-					<li><a href="/notice"> BOARD </a></li>
-					<li><a href="/usr/enterMypage"> MYPAGE </a></li>
-					<li th:if="${session.userId == null}"><a href="/login"> LOGIN </a></li>
-					<li th:if="${session.userId != null}"><a href="/logout"> LOGOUT </a></li>
-				</ul>
-
+                <ul class="header_menu" uk-scrollspy-nav="closest: li; scroll: true">
+                    <li><a th:href="@{/usr/myFeed/{userId}(userId = ${session.userId})}"> STORY </a></li>
+                    <li><a href="/contentsMain/community"> COMMUNITY </a></li>
+                    <li><a href="/contentsMain/challenge"> CHALLENGE </a></li>
+                    <li><a href="/contentsMain/pch/"> PURCHASE </a></li>
+                    <li><a href="/contentsMain/expr/"> EXPERIENCE </a></li>
+                    <li><a href="/notice"> BOARD </a></li>
+                    <li><a href="/usr/enterMypage"> MY PAGE </a></li>
+                    <li th:if="${session.userId == null}"><a href="/login"> LOGIN </a></li>
+                    <li th:if="${session.userId != null}"><a href="/logout"> LOGOUT </a></li>
+                </ul>
                 <!-- 크기조절용 -->
                 <!-- <div class="right-side lg:pr-4"> -->
 
