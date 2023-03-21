@@ -116,7 +116,7 @@
 		WHERE BOARD_CODE = 'BD01'
 	</select>
 
-	<!-- 페이징 -->
+	<!-- 검색 -->
 	<sql id="creite">
 		<choose>
 			<when test="type == ''and keyword != null">

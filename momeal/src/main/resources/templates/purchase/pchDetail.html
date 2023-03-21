@@ -62,8 +62,8 @@ textarea {
 						
 						<p th:if="${pchDetail[0].grpStartDate == '0'}" style="color: red;"></p>
 						<p th:unless="${pchDetail[0].grpStartDate == '0'}"
-							style="color: red;">[[${#dates.format(pchDetail[0].grpStartDate,'MM월
-							dd일')}]] 에 시작해요!</p>
+							style="color: red;">
+							[[${#dates.format(pchDetail[0].grpStartDate,'MM월 dd일')}]] 에 시작해요!</p>
 							
 						<div class="product__details__price">
 							<span id="price"
