@@ -260,9 +260,9 @@
 	                    $("#allList").append(
 	                       `
 	                       <div class="oneChall" data-challno="${item.NO}" data-likeno="${item.LIKE_NO}"
-								onclick="location.href='contentsDetail/challenge/${item.NO}'">
+								onclick="location.href='/contentsDetail/challenge/${item.NO}'">
 									<div class="bg-red-400 max-w-full lg:h-56 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
-										<img src="${item.THUMBNAIL_IMG_PATH}" class="w-full h-full absolute object-cover inset-0 scale-150">
+										<img src="${item.THUMBNAIL_IMG_PATH}" class="w-full h-full absolute object-cover inset-0 scale-150" onclick="location.href='/contentsDetail/challenge/${item.NO}'">
 										<div class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white">
 											<div>
 												${heart}
@@ -272,14 +272,9 @@
 									<div class="market-list">
 										<div class="item-inner">
 											<div class="item-price">
-												<br> <a>${item.TITLE}</a>
+												<br> <a style="font-size:15px;">${item.TITLE}</a>
 											</div>
-											<div class="item-title">Brown headphones</div>
-											<div class="item-statistic">
-												<span> <span class="count">4</span> likes
-												</span> <span> <span class="count">106</span> views
-												</span>
-											</div>
+											 <p style="font-size:13px;">${item.CHAL_START_DATE} ~ ${item.CHAL_END_DATE} </p>
 										</div>
 									</div>
 							</div>
