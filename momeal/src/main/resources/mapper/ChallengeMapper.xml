@@ -48,8 +48,8 @@
 		         FROM(SELECT C.NO,
 						     C.TITLE,
 						     C.SUBJECT,
-						     TRUNC(C.CHAL_START_DATE) AS CHAL_START_DATE,
-					  	     TRUNC(C.CHAL_END_DATE) AS CHAL_END_DATE,
+						     TO_CHAR(C.CHAL_START_DATE, 'MM-dd(DAY)', 'NLS_DATE_LANGUAGE=korean') AS CHAL_START_DATE,
+					  	     TO_CHAR(C.CHAL_END_DATE, 'MM-dd(DAY)', 'NLS_DATE_LANGUAGE=korean') AS CHAL_END_DATE,
 						     C.CHAL_ROUND,
 						     C.PARTICIR,
 						     C.SUM_PARTICIR,
@@ -128,7 +128,7 @@
 			   C.THUMBNAIL_IMG_PATH,
 		       (C.PARTICIR * C.DEDUCT_POINT) AS SUM_POINT,
 		       (C.CHAL_START_DATE - TRUNC(CURRENT_DATE)) AS START_DAY,
-		       (C.CHAL_END_DATE - C.CHAL_START_DATE) AS TOTAL_DAY,
+		       (C.CHAL_END_DATE - C.CHAL_START_DATE + 1) AS TOTAL_DAY,
 		       NVL((SELECT L.NO 
 		              FROM LIKES L
 		             WHERE L.POST_NO = C.NO 
@@ -164,7 +164,7 @@
 			   U.NICK_NAME, 
 			   U.GRADE, 
 			   U.PROFILE_IMG_PATH,
-			   (C.CHAL_END_DATE - C.CHAL_START_DATE) AS TOTAL_DAY
+			   (C.CHAL_END_DATE - C.CHAL_START_DATE + 1) AS TOTAL_DAY
 		  FROM CHALLENGE_PARTICIPATION P 
 		  JOIN CHALLENGES C
 		    ON (P.NO = C.NO)
@@ -192,9 +192,9 @@
 			   C.SUM_PARTICIR, 
 			   C.DEDUCT_POINT, 
 			   C.THUMBNAIL_IMG_PATH,
-			   CEIL((FIND_SUCCESS(P.USER_ID, P.NO) / (C.CHAL_END_DATE - C.CHAL_START_DATE)) * 100) AS PERCENT,
+			   CEIL((FIND_SUCCESS(P.USER_ID, P.NO) / (C.CHAL_END_DATE - C.CHAL_START_DATE + 1)) * 100) AS PERCENT,
 			   (C.CHAL_START_DATE - TRUNC(CURRENT_DATE)) AS START_DAY,
-               (C.CHAL_END_DATE - C.CHAL_START_DATE) AS TOTAL_DAY,
+               (C.CHAL_END_DATE - C.CHAL_START_DATE + 1) AS TOTAL_DAY,
  			   FIND_SUCCESS(P.USER_ID, P.NO) AS SUCCESS,
 			   (SELECT COUNT(*) 
 			      FROM CHALLENGE_REVIEW R 
@@ -269,11 +269,11 @@
 	<!-- ▶ 나의 챌린지 - 종료 -->
 	<!-- 종료 - 전체조회 -->
 	<select id="getMyEndChallList" resultType="map">
-		SELECT p.code_id, 
-			   c.*, 
-			   u.nick_name, 
-			   u.grade, 
-			   u.profile_img_path
+		SELECT P.CODE_ID, 
+			   C.*, 
+			   U.NICK_NAME, 
+			   U.GRADE, 
+			   U.PROFILE_IMG_PATH
 		  FROM CHALLENGE_PARTICIPATION P 
 		  JOIN CHALLENGES C
 		    ON (P.NO = C.NO)
