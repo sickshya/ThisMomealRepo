@@ -33,8 +33,7 @@
 		resultType="co.doeat.activity.service.MealVO">
 		SELECT M.*
 		FROM MEALS M
-		WHERE TRUNC(post_date) =
-		TO_DATE(#{postDate}, 'yyyyMMdd')
+		WHERE TRUNC(post_date) = TO_DATE(#{postDate}, 'yyyyMMdd')
 		AND M.USER_ID = #{userId}
 		ORDER BY M.NO
 	</select>
