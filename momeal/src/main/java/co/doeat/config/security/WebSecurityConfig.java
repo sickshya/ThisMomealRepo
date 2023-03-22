@@ -56,11 +56,11 @@ public class WebSecurityConfig {
 						.failureUrl("/login?error") // 로그인 실패시 url
 						.failureHandler(new CustomLoginFailureHandler()) // 로그인 실패시 실행되는 핸들러
 				)
-				.sessionManagement(session -> session
-						.maximumSessions(1) // 동일 아이디 동시 접속자 수 제한 1
-						.maxSessionsPreventsLogin(true)
+//				.sessionManagement(session -> session
+//						.maximumSessions(1) // 동일 아이디 동시 접속자 수 제한 1
+//						.maxSessionsPreventsLogin(true)
 //						.expiredUrl("/main")
-						) 
+//						) 
 				.exceptionHandling((denied) -> denied.accessDeniedPage("/error/error"))
 				.logout(
 						(logout) -> logout
