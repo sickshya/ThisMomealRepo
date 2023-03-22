@@ -4,7 +4,6 @@
 
 	<!-- 메인, 챌린지 전체리스트 조회 -->
 	<select id="hmChlgList" resultType="co.doeat.management.service.ChallengeVO">
-		<![CDATA[
 		SELECT  NVL(no,0),
 		        title,
 		        subject,
@@ -14,10 +13,9 @@
 		        thumbnail_img,
 		        thumbnail_img_path
 		 FROM CHALLENGES
-		WHERE TRUNC(chal_start_date) <= TRUNC(current_date) 
-		  AND TRUNC(current_date) <= chal_end_date
-		ORDER BY particir DESC, no DESC
-         ]]> 
+		WHERE TRUNC(chal_start_date) <![CDATA[ <= ]]> TRUNC(current_date) 
+		  AND TRUNC(current_date) <![CDATA[ <= ]]> chal_end_date
+		ORDER BY particir DESC, no DESC 
 	</select>
 	
 	<!-- 검색 -->
