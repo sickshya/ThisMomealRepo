@@ -2,20 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{frame/usual}">
 
-<body>
-  <!-- 踰좊꼫 �뱾�뼱媛� 遺�遺�-->
-  <!-- 踰좊꼫 �걹 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
 
-  <!-- 硫붿씤�뿉 異쒕젰�븷 而⑦뀗痢좊뱶�뱾 �떆�옉 -->
+<body>
+   <!-- 베너 들어갈 부분-->
+  <!-- 베너 끝 -->
+
+  <!-- 메인에 출력할 컨텐츠드들 시작 -->
   <div layout:fragment="content">
     <div class="container-fluid search_box">
 
-      <!-- 1) 梨뚮┛吏� 由ъ뒪�듃 異쒕젰-->
+      <!-- 1) 챌린지 리스트 출력-->
       <div id="chlgList">
         <h1 class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">
-          �뒿愿�留뚮뱾湲곕��꽣 �빐蹂쇨퉴�삤 !
+          습관만들기부터 해볼까오 !
         </h1>
-        <!-- �뒳�씪�씠�뱶 �떆�옉 -->
+        <!-- 슬라이드 시작 -->
         <div class="relative" uk-slider="finite: true">
           <div class="uk-slider-container pb-3 -ml-3">
             <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-5@m uk-grid-small">
@@ -28,7 +33,7 @@
                       class="w-full h-full absolute object-cover inset-0 scale-150">
                   </div>
 
-                  <!-- �젣紐⑸�遺� -->
+                  <!-- 제목부분 -->
                   <div class="market-list">
                     <div class="item-inner">
                       <div class="item-price">
@@ -39,11 +44,11 @@
                       <div class="item-statistic">
                         <span>
                           <span class="count">[[${chlg.chalRound}]]</span>
-                          �쉶李� ||
+                          회차 ||
                         </span>
                         <span>
-                          �쁽�옱
-                          <span class="count">[[${chlg.particir}]]</span>紐� 李멸�以�
+                          현재
+                          <span class="count">[[${chlg.particir}]]</span>명 참가중
                         </span>
                       </div>
                     </div>
@@ -60,27 +65,26 @@
           </div>
         </div>
       </div>
-      <!-- �뒳�씪�씠�뱶 �걹 -->
+      <!-- 슬라이드 끝 -->
     </div>
 
-    <!-- 2) �씤湲곗엳�뒗 而ㅻ�ㅻ땲�떚 湲� 由ъ뒪�듃 �떆�옉-->
+    <!-- 2) 인기있는 커뮤니티 글 리스트 시작-->
     <div id="ctyList">
       <h1 class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">
-        �굹�쓽 �떎�씠�뼱�듃 �떇�떒�쓣 �옄�옉�빐蹂댁옄�슂 !
+        나의 다이어트 식단을 자랑해보자요 !
       </h1>
-      <!-- �뒳�씪�씠�뱶 �떆�옉 -->
+      <!-- 슬라이드 시작 -->
       <div class="relative" uk-slider="finite: true">
         <div class="uk-slider-container pb-3 -ml-3">
           <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-5@m uk-grid-small">
-            <li th:each="cty : ${hmCtyList}"
-              th:onclick="'location.href=\''+ @{/contents/{no}(no = ${cty.no})} + '\''">
+            <li th:each="cty : ${hmCtyList}" th:onclick="'location.href=\''+ @{/contents/{no}(no = ${cty.no})} + '\''">
               <div th:data-challno="${cty.no}" class="oneChall" th:data-sessionid="${session.userId}">
                 <div
                   class="bg-red-400 max-w-full lg:h-56 h-48 rounded-lg relative overflow-hidden uk-transition-toggle">
                   <img th:src="${cty.fileDir}" class="w-full h-full absolute object-cover inset-0 scale-150">
                 </div>
 
-                <!-- �젣紐⑸�遺� -->
+                <!-- 제목부분 -->
                 <div class="market-list">
                   <div class="item-inner">
                     <div class="item-price">
@@ -93,7 +97,7 @@
                       </span>
                     </div>
                   </div>
-                </div> 
+                </div>
                 <!-- </a> -->
               </div>
             </li>
@@ -106,14 +110,14 @@
         </div>
       </div>
     </div>
-    <!-- �씤湲곗엳�뒗 而ㅻ�ㅻ땲�떚 湲� 由ъ뒪�듃 �걹-->
+    <!-- 인기있는 커뮤니티 글 리스트 끝-->
 
-    <!-- 3) 泥댄뿕�떒 由ъ뒪�듃 異쒕젰-->
+    <!-- 3) 체험단 리스트 출력-->
     <div id="exprList">
       <h1 class="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight">
-        �떎�씠�뼱�듃 �긽�뭹�씠 �굹�삤湲곗쟾�뿉 癒쇱��젒�빐蹂댁븘�삤 !
+        다이어트 상품이 나오기전에 먼저접해보아오 !
       </h1>
-      <!-- �뒳�씪�씠�뱶 �떆�옉 -->
+      <!-- 슬라이드 시작 -->
       <div class="relative" uk-slider="finite: true">
         <div class="uk-slider-container pb-3 -ml-3">
           <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-5@m uk-grid-small">
@@ -122,11 +126,10 @@
               <div th:data-challno="${expr.no}" class="oneChall" th:data-sessionid="${session.userId}">
                 <div
                   class="bg-red-400 max-w-full lg:h-56 h-48 rounded-lg relative overflow-hidden uk-transition-toggle">
-                  <img th:src="${expr.thumbnailImgPath}"
-                    class="w-full h-full absolute object-cover inset-0 scale-150">
+                  <img th:src="${expr.thumbnailImgPath}" class="w-full h-full absolute object-cover inset-0 scale-150">
                 </div>
 
-                <!-- �젣紐⑸�遺� -->
+                <!-- 제목부분 -->
                 <div class="market-list">
                   <div class="item-inner">
                     <div class="item-price">
@@ -136,13 +139,14 @@
                     <div class="item-title">[[${expr.title}]]</div>
                     <div class="item-statistic">
                       <span>
-                        醫낅즺�궇吏� 
+                        종료날짜 
                         <span class="count">[[${expr.expeEndDate}]]</span>
                         ||
                       </span>
                       <span>
-                        留덇컧源뚯�
-                        <span class="count">[[${expr.aplytCnt}]]</span>紐� !
+                        마감까지
+                        <span class="count">[[${expr.aplytCnt}]]</span>명 !
+                      </span>
                       </span>
                     </div>
                   </div>
@@ -151,7 +155,7 @@
               </div>
             </li>
           </ul>
-          <!-- 泥댄뿕�떒 由ъ뒪�듃 醫낅즺 -->
+         <!-- 체험단 리스트 종료 -->
 
           <a class="uk-position-center-left uk-position-small p-3.5 bg-white rounded-full w-10 h-10 flex justify-center items-center -mx-4 mb-6 shadow-md dark:bg-gray-800 dark:text-white"
             href="#" uk-slidenav-previous="uk-slidenav-previous" uk-slider-item="previous"></a>
@@ -160,11 +164,11 @@
         </div>
       </div>
     </div>
-    <!-- �뒳�씪�씠�뱶 �걹 -->
+    <!-- 슬라이드 끝 -->
   </div>
 
   </div>
-  <!-- 硫붿씤�뿉 異쒕젰�븷 而⑦뀗痢좊뱾 �걹 -->
+  <!-- 메인에 출력할 컨텐츠들 끝 -->
   <script>
     $(function () {});
   </script>
