@@ -17,73 +17,72 @@
 	<!-- 전체 체험단 리스트 출력 -->
 	<select id="getExperList" resultType="ExperienceVO">
 		SELECT  EG.NO
-		        ,EG.TITLE
-		        ,EG.SUBJECT
-		        ,(EG.NOW_APLYT - TRUNC(EG.LMT_APLYT)) as aplytCnt
-		        ,EG.LMT_APLYT
-		        ,EG.NESS_GRD
-		        ,EG.SAVE_POINT
-		        ,(EG.EXPE_START_DATE - TRUNC(SYSDATE)) as START_DATE 
-		        ,EG.EXPE_END_DATE
-		        ,EG.REVIEW_START_DATE
-		        ,EG.REVIEW_END_DATE
-		        ,EG.THUMBNAIL_IMG
-		        ,EG.THUMBNAIL_IMG_PATH
-		        ,COUNT(EP.NO) AS ordCnt
-		FROM EXPERIENCE_GROUP EG
-		JOIN EXPERIENCE_PARTICIPANTS EP
-		ON EG.NO = EP.NO
-		GROUP BY EG.NO
-		        ,EG.TITLE
-		        ,EG.SUBJECT
-		        ,EG.NOW_APLYT
-		        ,EG.LMT_APLYT
-		        ,EG.NESS_GRD
-		        ,EG.SAVE_POINT
-		        ,EG.EXPE_START_DATE
-		        ,EG.EXPE_END_DATE
-		        ,EG.REVIEW_START_DATE
-		        ,EG.REVIEW_END_DATE
-		        ,EG.THUMBNAIL_IMG
-		        ,EG.THUMBNAIL_IMG_PATH
+              ,EG.TITLE
+              ,EG.SUBJECT
+              ,(EG.NOW_APLYT - TRUNC(EG.LMT_APLYT)) as aplytCnt
+              ,EG.LMT_APLYT
+              ,EG.NESS_GRD
+              ,EG.SAVE_POINT
+              ,EG.EXPE_START_DATE
+              ,EG.EXPE_END_DATE
+              ,EG.REVIEW_START_DATE
+              ,EG.REVIEW_END_DATE
+              ,EG.THUMBNAIL_IMG
+              ,EG.THUMBNAIL_IMG_PATH
+              ,COUNT(EP.NO) AS ordCnt
+      FROM EXPERIENCE_GROUP EG
+      JOIN EXPERIENCE_PARTICIPANTS EP
+      ON EG.NO = EG.NO
+      GROUP BY EG.NO
+              ,EG.TITLE
+              ,EG.SUBJECT
+              ,EG.NOW_APLYT
+              ,EG.LMT_APLYT
+              ,EG.NESS_GRD
+              ,EG.SAVE_POINT
+              ,EG.EXPE_START_DATE
+              ,EG.EXPE_END_DATE
+              ,EG.REVIEW_START_DATE
+              ,EG.REVIEW_END_DATE
+              ,EG.THUMBNAIL_IMG
+              ,EG.THUMBNAIL_IMG_PATH
 	</select>
 
 	<!-- 현재 진행중 체험단 리스트 출력 -->
 	<select id="getExperiencing" resultType="ExperienceVO">
 		SELECT  EG.NO
-		        ,EG.TITLE
-		        ,EG.SUBJECT
-		        ,EG.NOW_APLYT
-		        ,EG.LMT_APLYT
-		        ,EG.NESS_GRD
-		        ,EG.SAVE_POINT
-		        
-		        ,(EG.EXPE_START_DATE - TRUNC(current_date)) as START_DATE 
-		        ,EG.EXPE_END_DATE
-		        ,EG.REVIEW_START_DATE
-		        ,EG.REVIEW_END_DATE
-		        ,EG.THUMBNAIL_IMG
-		        ,EG.THUMBNAIL_IMG_PATH
-		        ,COUNT(EP.NO) AS ordCnt
-		FROM EXPERIENCE_GROUP EG
-		JOIN EXPERIENCE_PARTICIPANTS EP
-		<![CDATA[
-		ON EG.NO = #{no}
-		WHERE TRUNC(expe_start_date) <= current_date AND current_date < expe_end_date
-		]]>
-		GROUP BY EG.NO
-		        ,EG.TITLE
-		        ,EG.SUBJECT
-		        ,EG.NOW_APLYT
-		        ,EG.LMT_APLYT
-		        ,EG.NESS_GRD
-		        ,EG.SAVE_POINT
-		        ,EG.EXPE_START_DATE
-		        ,EG.EXPE_END_DATE
-		        ,EG.REVIEW_START_DATE
-		        ,EG.REVIEW_END_DATE
-		        ,EG.THUMBNAIL_IMG
-		        ,EG.THUMBNAIL_IMG_PATH
+              ,EG.TITLE
+              ,EG.SUBJECT
+              ,EG.NOW_APLYT
+              ,EG.LMT_APLYT
+              ,EG.NESS_GRD
+              ,EG.SAVE_POINT
+              ,EG.EXPE_START_DATE
+              ,EG.EXPE_END_DATE
+              ,EG.REVIEW_START_DATE
+              ,EG.REVIEW_END_DATE
+              ,EG.THUMBNAIL_IMG
+              ,EG.THUMBNAIL_IMG_PATH
+              ,COUNT(EP.NO) AS ordCnt
+      FROM EXPERIENCE_GROUP EG
+      JOIN EXPERIENCE_PARTICIPANTS EP
+      ON EG.NO = EG.NO
+      <![CDATA[
+      WHERE TRUNC(EG.EXPE_START_DATE) <= current_date AND current_date < EG.EXPE_END_DATE
+      ]]>
+      GROUP BY EG.NO
+              ,EG.TITLE
+              ,EG.SUBJECT
+              ,EG.NOW_APLYT
+              ,EG.LMT_APLYT
+              ,EG.NESS_GRD
+              ,EG.SAVE_POINT
+              ,EG.EXPE_START_DATE
+              ,EG.EXPE_END_DATE
+              ,EG.REVIEW_START_DATE
+              ,EG.REVIEW_END_DATE
+              ,EG.THUMBNAIL_IMG
+              ,EG.THUMBNAIL_IMG_PATH
 	</select>
 	
 	<!-- 단건조회 -->
