@@ -434,14 +434,14 @@ window.onload = function () {
 	url: '/followCheck/' + storyUserId
 	})
 	.then (result => {
-		if(sessionId != storyUserId) {
-			if(result == 0) {
+		if(sessionId != storyUserId) { // 로그인 한 회원과 스토리 회원이 다를 때
+			if(result == 0) { // 결과가 0 = 팔로우 중이 아님
 				$(".follow").attr("id", "followBtn");
                 $(".follow").attr("value", storyUserId);
                 $(".follow").attr("onclick", "follow('" + storyUserId + "')");
                 $(".follow").addClass("btn btn-outline-success");
                 $(".follow").text("팔로우");
-			}else {
+			}else { // 결과가 1 = 팔로우 중임
 				$(".follow").attr("id", "unfollowBtn");
                 $(".follow").attr("value", storyUserId);
                 $(".follow").attr("onclick", "unfollow('" + storyUserId + "')");
