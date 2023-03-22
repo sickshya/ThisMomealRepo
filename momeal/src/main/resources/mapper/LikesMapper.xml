@@ -31,10 +31,8 @@
 		FROM
 		USERS U
 		LEFT JOIN LIKES L ON (U.USER_ID = L.USER_ID)
-		LEFT JOIN MEALS M
-		ON (L.POST_NO = M.NO)
-		WHERE U.USER_ID = #{userId} AND L.BOARD_CODE =
-		'CT04'
+		LEFT JOIN MEALS M ON (L.POST_NO = M.NO)
+		WHERE U.USER_ID = #{userId} AND L.BOARD_CODE = 'CT04'
 	</select>
 
 	<!-- 마이페이지 - 식단 좋아요 상세 -->
@@ -47,12 +45,9 @@
 						AND M.NO = #{postNo})) AS FOLLOWEE_ID
 		FROM
 		USERS U LEFT JOIN MEALS M ON (U.USER_ID = M.USER_ID)
-		LEFT JOIN LIKES L
-		ON (L.POST_NO = M.NO AND L.BOARD_CODE = 'CT04')
-		WHERE L.USER_ID =
-		#{userId}
-		AND
-		L.POST_NO = #{postNo}
+		LEFT JOIN LIKES L ON (L.POST_NO = M.NO AND L.BOARD_CODE = 'CT04')
+		WHERE L.USER_ID = #{userId}
+		AND L.POST_NO = #{postNo}
 	</select>
 
 	<!-- 마이페이지 - 챌린지 좋아요 리스트 출력 -->
