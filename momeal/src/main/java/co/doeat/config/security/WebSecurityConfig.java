@@ -54,13 +54,14 @@ public class WebSecurityConfig {
 						.successHandler(new CustomLoginSuccessHandler()) // 로그인 성공시 실행되는 핸들러
 						.failureUrl("/login?error") // 로그인 실패시 url
 						.failureHandler(new CustomLoginFailureHandler())) // 로그인 실패시 실행되는 핸들러
-//				.sessionManagement(session -> session
-//						.maximumSessions(1) // 동일 아이디 동시 접속자 수 제한 1
-//						.maxSessionsPreventsLogin(false) // 기존 사용자의 세션 만료, true : 신규 사용자의 인증 실패
-//						.invalidSessionUrl("/error") // 세션이 유효하지않을 경우 이동 할 페이지
-//						.expiredUrl("/main")) // 세션이 만료된 이후 이동될 페이지
-//						 
-				.exceptionHandling((denied) -> denied.accessDeniedPage("/error/error")) // 접근비허용시, 인가 실패시 처리될페이지
+				.sessionManagement(session -> session
+						.maximumSessions(1) // 동일 아이디 동시 접속자 수 제한 1
+						.maxSessionsPreventsLogin(false) // 기존 사용자의 세션 만료, true : 신규 사용자의 인증 실패
+						.expiredUrl("/main")) // 세션이 만료된 이후 이동될 페이지
+//				.invalidSessionUrl("/error/error") // 세션이 유효하지않을 경우 이동 할 페이지
+						 
+				.exceptionHandling((denied) -> 
+				denied.accessDeniedPage("/error/error")) // 인가 비허용시 처리될페이지
 				.logout((logout) -> logout
 						.permitAll()
 						.logoutUrl("/logout") // 로그아웃 시 맵핑되는 url
