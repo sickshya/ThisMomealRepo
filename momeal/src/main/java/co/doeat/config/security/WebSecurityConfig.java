@@ -38,8 +38,7 @@ public class WebSecurityConfig {
 				.antMatchers("/", "/index*", "/home", "/main", "/notice**", "/mm_images/**",
 						"/login*", "/logout*", "/error", "/signup/**", 
 						"/contentsMain/**", "/contentsDetail/**")
-				.permitAll()
-				// ▲ 비로그인 유저까지 허가되는 접근 url
+				.permitAll() // 비로그인 유저까지 허가되는 접근 url
 				.antMatchers("/usr/**", "/chlg/**", "/pch/**", "/exp/**", "/fllw/**", "/cmt/**", "/cty/**")
 				.hasAnyAuthority("ROLE_USER","ROLE_ADMIN") // 일반유저 접근 허용 경로( + 관리자 허용 )
 				.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // 관리자권한 접근 허용 경로
@@ -51,19 +50,18 @@ public class WebSecurityConfig {
 						.loginProcessingUrl("/doLogin") // 로그인동작 시 매핑되는 url
 						.usernameParameter("userId") // 로그인 view 내의 form 태그 내에 로그인 할 때 username에 매핑되는 태그의 name
 						.passwordParameter("password") // 로그인 view 내의 form 태그 내에 로그인 할 때 password에 매핑되는 태그의 name
-						.defaultSuccessUrl("/home")
+						.defaultSuccessUrl("/home") // 로그인 성공이후 이동될 페이지
 						.successHandler(new CustomLoginSuccessHandler()) // 로그인 성공시 실행되는 핸들러
 						.failureUrl("/login?error") // 로그인 실패시 url
-						.failureHandler(new CustomLoginFailureHandler()) // 로그인 실패시 실행되는 핸들러
-				)
+						.failureHandler(new CustomLoginFailureHandler())) // 로그인 실패시 실행되는 핸들러
 //				.sessionManagement(session -> session
 //						.maximumSessions(1) // 동일 아이디 동시 접속자 수 제한 1
-//						.maxSessionsPreventsLogin(true)
-//						.expiredUrl("/main")
-//						) 
-				.exceptionHandling((denied) -> denied.accessDeniedPage("/error/error"))
-				.logout(
-						(logout) -> logout
+//						.maxSessionsPreventsLogin(false) // 기존 사용자의 세션 만료, true : 신규 사용자의 인증 실패
+//						.invalidSessionUrl("/error") // 세션이 유효하지않을 경우 이동 할 페이지
+//						.expiredUrl("/main")) // 세션이 만료된 이후 이동될 페이지
+//						 
+				.exceptionHandling((denied) -> denied.accessDeniedPage("/error/error")) // 접근비허용시, 인가 실패시 처리될페이지
+				.logout((logout) -> logout
 						.permitAll()
 						.logoutUrl("/logout") // 로그아웃 시 맵핑되는 url
 						.logoutSuccessUrl("/login") // 로그아웃 성공 시 리다이렉트 주소
@@ -76,8 +74,8 @@ public class WebSecurityConfig {
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer() {
 		// Spring Security를 적용하지 않을 리소스를 설정
-		return web -> {
-			web.ignoring()
+		return web -> {web
+			.ignoring()
 			.antMatchers(
 					"/css/**", "/assets/**", "/data/**", "/fonts/**", "/js/**", "/massets/**",
 					"/modal-template/**", "/second-template/**");
