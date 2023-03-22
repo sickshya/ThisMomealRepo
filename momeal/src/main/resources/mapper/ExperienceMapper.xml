@@ -58,7 +58,7 @@
 		        ,EG.NESS_GRD
 		        ,EG.SAVE_POINT
 		        
-		        ,(EG.EXPE_START_DATE - TRUNC(current_date)) as START_DATE 
+		        ,(EG.EXPE_START_DATE - TRUNC(current_date)) as expeStartDate 
 		        ,EG.EXPE_END_DATE
 		        ,EG.REVIEW_START_DATE
 		        ,EG.REVIEW_END_DATE
