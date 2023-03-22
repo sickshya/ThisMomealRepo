@@ -45,18 +45,19 @@ public class UserController {
 	public String userJoin(UsersVO uvo, Model model, MultipartFile file) {
 		uvo.setPassword(bcryptEncoder.encode(uvo.getPassword()));
 
-		if (!file.isEmpty()) {// 첨부파일이 존재하면
-			String fileName = UUID.randomUUID().toString();
-			fileName = fileName + file.getOriginalFilename();
-			File uploadFile = new File(saveImg, fileName);
-			try {
-				file.transferTo(uploadFile); // 파일저장하긴
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			uvo.setProfileImg(file.getOriginalFilename());// 원본파일명
-			uvo.setProfileImgPath("/mm_images/" + fileName);// 디렉토리 포함 원본파일
-		}
+//		if (!file.isEmpty()) {// 첨부파일이 존재하면
+//			String fileName = UUID.randomUUID().toString();
+//			fileName = fileName + file.getOriginalFilename();
+//			File uploadFile = new File(saveImg, fileName);
+//			try {
+//				file.transferTo(uploadFile); // 파일저장하긴
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			uvo.setProfileImg(file.getOriginalFilename());// 원본파일명
+//			uvo.setProfileImgPath("/mm_images/" + fileName);// 디렉토리 포함 원본파일
+//		}
+		
 		userService.insertUserInfo(uvo);
 		return "redirect:/login";
 	}

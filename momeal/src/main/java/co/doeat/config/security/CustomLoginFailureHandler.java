@@ -33,13 +33,13 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
 		} else if (exception instanceof AuthenticationCredentialsNotFoundException) {
 			errorMessage = "인증 요청이 거부되었습니다. 관리자에게 문의하세요.";
 		} else if (exception instanceof DisabledException) {
-			errorMessage = "탈퇴한 아이디 입니다.";
+			errorMessage = "탈퇴후 이용할 수 없는 아이디입니다.";
 		} else {
 			errorMessage = "알 수 없는 오류로 로그인 요청을 처리할 수 없습니다. 관리자에게 문의하세요.";
 		}
 
 		errorMessage = URLEncoder.encode(errorMessage, "UTF-8"); /* 한글 인코딩 깨진 문제 방지 */
-		setDefaultFailureUrl("/login?error=true&exception=" + errorMessage);
+		setDefaultFailureUrl("/login?error=true&exception=" + errorMessage); // 실패시 이동할 url
 
 		request.setAttribute("exception", exception.getMessage());
 		request.setAttribute("errorMessage", errorMessage);

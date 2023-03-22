@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addViewController("/home").setViewName("/base/home");
 		registry.addViewController("/main").setViewName("/base/home");
 		
-		registry.addRedirectViewController("/logout", "/login");
+		registry.addRedirectViewController("/logout", "/login"); // 로그아웃시 로그인페이지로 리다이렉트
 	}
 
 }
