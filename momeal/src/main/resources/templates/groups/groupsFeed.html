@@ -235,17 +235,21 @@ img {
 							let tr = `
 							<tr>
 				        		<td colspan="6">
-				        	    <div class="card" style="font-color: black; height: 250px;" data-userid="${re.userId}">				        	   
+				        	    <div class="card" style="font-color: black; height: 250px;" 
+				        	         data-userid="${re.userId}">				        	   
 				    				<a href="/groupsSelect/${re.userId}/${re.postDate}" onclick="grpSelect(event)">
 				    					<div style="padding: 10px; text-align: left;">
-				    				     <img src="${re.profileImgPath}" class= "rounded-full" style="width:30px; display: inline-block">&nbsp;&nbsp;<b>${re.nickName}</b>
+				    				     <img src="${re.profileImgPath}" 
+				    				        class= "rounded-full" 
+				    				        style="width:30px; display: inline-block">&nbsp;&nbsp;<b>${re.nickName}</b>
 				    				</div>
 				    				`			
 				    				
 				    		if(re.mealsImg.length != 0){		
 							$(re.mealsImg).each(function(i, img){
 								
-								tr += ` <img src="${img.fileDir}" style="width:150px; height:150px; display: inline-block">`
+								tr += ` <img src="${img.fileDir}" 
+									       style="width:150px; height:150px; display: inline-block">`
 								
 							 })
 				    		} else {

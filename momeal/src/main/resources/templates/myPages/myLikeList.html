@@ -186,23 +186,24 @@
 					 console.log(result)
 					$.each(result, function(index, list){
 						console.log(list)
-						$("#mealLike").append( // ``으로 할때는 each 돌아야하는 div의 바로 위 div에 id나 class 하나주고 스크립트에서 $().append -> ``안에 만들거 넣어주면됨
-											   // th 같은거 다 빼줘야함
+						$("#mealLike").append( 
 							`					
-									<div class="likeOne" data-postno="${list.POST_NO}" id="${list.NO}">
-										<div class="lg:h-56 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
-											<div href="#storyModal" uk-toggle>
-												<img src="${list.FILE_DIR}" class="w-full h-full absolute object-cover inset-0 scale-150 transform">
-											</div>
-											<div class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white">
-												<div class="flex space-x-2 flex-1 lg:flex-initial justify-around">
-													<a href="#" class="heart-click heart_icon fullHeart" data-no="${list.NO}"> 
-														<img src="/assets/images/heart.svg">
-													</a>
-												</div>
-											</div>
+							<div class="likeOne" data-postno="${list.POST_NO}" id="${list.NO}">
+								<div class="lg:h-56 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
+									<div href="#storyModal" uk-toggle>
+										<img src="${list.FILE_DIR}" 
+										   class="w-full h-full absolute object-cover inset-0 scale-150 transform">
+									</div>
+									<div class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white">
+										<div class="flex space-x-2 flex-1 lg:flex-initial justify-around">
+											<a href="#" class="heart-click heart_icon fullHeart" 
+											           data-no="${list.NO}"> 
+												<img src="/assets/images/heart.svg">
+											</a>
 										</div>
 									</div>
+								</div>
+							</div>
 							`	
 						)
 					}) 
