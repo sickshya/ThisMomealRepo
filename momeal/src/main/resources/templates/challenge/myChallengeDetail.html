@@ -127,17 +127,15 @@
 							<span style="color: red;"><b>챌린지 시작까지 [[${chall.startDay}]]일 남았습니다!</b></span>
 							</th:block>
 							<th:block th:unless="${chall.startDay > '0'}">		
-							<a href="" class="primary-btn"
-								data-toggle="modal" data-target="" onclick="modal()">인증하기</a></th:block> <!-- data-target="#Modal-2" -->
+								<a href="" class="primary-btn" data-toggle="modal" data-target="" onclick="modal()">인증하기</a>
+							</th:block>
 							</th:block>
 							<th:block th:unless="${chall.codeId == '0'}">
 								<th:block th:if="${chall.reviewCheck == 0}">
-									<a href="#" class="primary-btn"
-										data-toggle="modal" data-target="#review" th:id="|reviewBtn${chall.no}|">후기쓰기</a>
+									<a href="#" class="primary-btn" data-toggle="modal" data-target="#review" th:id="|reviewBtn${chall.no}|">후기쓰기</a>
 								</th:block>
 								<th:block th:unless="${chall.reviewCheck == 0}">
-									<a href="#" class="primary-btn"
-										data-toggle="modal" data-target="#review" id="reviewBtn" th:onclick="reviewModal([[${chall.no}]])">후기관리</a>
+									<a href="#" class="primary-btn" data-toggle="modal" data-target="#review" id="reviewBtn" th:onclick="reviewModal([[${chall.no}]])">후기관리</a>
 								</th:block>
 							</th:block>
 						</div>
@@ -145,20 +143,18 @@
 					<div class="col-lg-12">
 						<div class="product__details__tab">
 							<ul class="nav nav-tabs" role="tablist">
-								<li class="nav-item"><a class="nav-link active"
-									data-toggle="tab" href="#myAuthentication" role="tab"
-									aria-selected="true">나의 인증 현황</a></li>
-								<li class="nav-item"><a class="nav-link" data-toggle="tab"
-									href="#authentication" role="tab" aria-selected="false">참가자
-										인증 현황</a></li>
-
+								<li class="nav-item">
+									<a class="nav-link active" data-toggle="tab" href="#myAuthentication" role="tab" aria-selected="true">나의 인증 현황</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" data-toggle="tab" href="#authentication" role="tab" aria-selected="false">참가자 인증 현황</a>
+								</li>
 							</ul>
 
 							<!-- 탭 내용들 -->
 							<div class="tab-content">
 								<!-- 나의 챌린지 탭 시작 -->
-								<div class="tab-pane active" id="myAuthentication"
-									role="tabpanel">
+								<div class="tab-pane active" id="myAuthentication" role="tabpanel">
 									<div class="product__details__tab__desc">
 										<div id="myPercent">
 											<p>달성률</p>
@@ -193,8 +189,12 @@
 												</thead>
 												<tbody>
 													<tr id="imageCount" th:data-challno="${chall.no}">
-														<td><h4 id="successCheck"><b>[[ ${chall.success} ]]회</b></h4></td>
-														<td><h4 id="totalCheck"><b>[[ ${chall.totalDay} ]]회</b></h4></td>
+														<td>
+															<h4 id="successCheck"><b>[[ ${chall.success} ]]회</b></h4>
+														</td>
+														<td>
+															<h4 id="totalCheck"><b>[[ ${chall.totalDay} ]]회</b></h4>
+														</td>
 													<tr>
 												</tbody>
 											</table>
@@ -229,14 +229,15 @@
 											<div class="col-md-6">
 												<div>
 													<table>
-
 														<tr>
 															<th>현재 참가자 수</th>
 														</tr>
 														<tr>
-															<td><h4>
+															<td>
+																<h4>
 																	<b>[[ ${chall.particir} ]]명</b>
-																</h4></td>
+																</h4>
+															</td>
 														<tr>
 														<tr>
 															<td><br></td>
@@ -247,7 +248,8 @@
 														<tr>
 															<td><h4>
 																	<b>[[ ${chall.sumParticir} ]]명</b>
-																</h4></td>
+																</h4>
+															</td>
 														<tr>
 													</table>
 												</div>
@@ -287,8 +289,7 @@
 										<div class="modal-content">
 											<div class="modal-header">
 												<h4 class="modal-title" id="Modal-label-1">인증하기</h4>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
@@ -307,26 +308,23 @@
 							<!-- 인증창 모달 끝 -->
 							
 							<!-- 인증 이미지 상세 확인 모달 -->
-							<div class="modal fade" id="imgDetail" tabindex="-1" role="dialog"
-								aria-labelledby="Modal-label-1">
+							<div class="modal fade" id="imgDetail" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
 											<h4 class="modal-title" id="Modal-label-1">인증사진</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
 										<div class="modal-body">
 											<p id="imgDate"></p>
 											<p id="userNickName"></p>
-											<img src="" alt="img01" id="oneImg"
-												class="img-responsive" style="width: 500px; height: 500px;" />
+											<img src="" alt="img01" id="oneImg" class="img-responsive" style="width: 500px; height: 500px;" />
 											<th:block th:if="${session.userId} != ${chall.userId}">
-											<div class="modal-works" align="right">
-												<span>신고</span>
-											</div>
+												<div class="modal-works" align="right">
+													<span>신고</span>
+												</div>
 											</th:block>
 										</div>
 									</div>
@@ -337,14 +335,12 @@
 							
 							<!-- 후기 등록 모달 -->
 							<form id="reviewForm" method="post">
-								<div class="modal fade" id="review" tabindex="-1" role="dialog"
-									aria-labelledby="Modal-label-1" align="center">
+								<div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1" align="center">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
 												<h4 class="modal-title" id="Modal-label-1">후기</h4>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
@@ -406,9 +402,7 @@
 			// 계산한 오늘 날짜 출력하기
 			$("#date").text(year + '년 ' + month + '월 ' + date + '일')
 			
-			
 			imgCheck()
-			
 		}
 		
 		
@@ -435,6 +429,7 @@
             }
 		}
 			
+		
 		// ▶ 인증사진 등록
 		function myChallImgInsert() {
 
@@ -457,8 +452,6 @@
 				processData:false,
 			})
 			.then(result => {
-				console.log(result);
-				
 				// 모달창 닫기
 				$('#Modal-2').modal('hide');
 				
@@ -486,32 +479,28 @@
 				
 				$('#myPercent').children().last().remove();
 				$('#myPercent').append(
-						`<h4><b>${percent}%</b></h4>`
+					`<h4><b>${percent}%</b></h4>`
 				)
 				$('#myPercentBar').data("percent", percent + "%")
-				
-				
 				$('#imageCount').children().first().remove();
 				$('#imageCount').prepend(
 					`<td><h4 id="successCheck"><b>${success}회</b></h4></td>`
 				)
-				
 			})
-			
 		}
+		
 		
 		// ▶ 인증사진 상세
 		function imgDetail(no) {
 			
+			// ajax 처리
 			$.ajax({
 				url: "/myChallImg/" + no,
 				type: "post",
 			})
 			.then(result => {
-				console.log(result)
 				$("#oneImg").attr("src", result.fileDir);
 				$("#imgDate").text(result.vldDate);
-				console.log(result.vldDate)
 				$("#userNickName").text(result.nickName);
 			})
 		}
@@ -520,6 +509,7 @@
 		function imgCheck() {
 			let chalNo = $("#imageCount").data("challno");
 			
+			// ajax 처리
 		   $.ajax({
 			url: "/valImgCheck",
 			type: "post",
@@ -527,20 +517,15 @@
 			data: {chalNo: chalNo}
 		   })
 		   .then(result => {
-			   console.log(result)
-			   
 			   checkResult(result)
 		   })
-		   }
+	   }
 		
 		// 중복 여부에 따라 보여줄 것
 		function checkResult(data) {
 		   if(data == true) {
 			   alert("오늘 인증을 이미 완료했습니다.")
-			   
-			   
 		   }else if(data == false){
-		      console.log(data)
 		      $('#Modal-2').modal('show');
 		   }
 		}
@@ -571,6 +556,7 @@
 				return;
 			}
 			
+			// ajax 처리
 			$.ajax({
 				url: "/insertReview",
 				type: "post",
@@ -652,7 +638,6 @@
 // 				// 모달창 닫기
 // 				$('#review').modal('hide');
 				
-
 				location.reload();
 				
 				// 후기관리 버튼 삭제 후 후기쓰기 버튼 달기
@@ -663,15 +648,10 @@
 // 						data-toggle="modal" data-target="#review" id="reviewBtn${no}">후기쓰기</a>
 // 					`		
 // 				)
-				
 			})
 		}
 		
-
-		
 		</script>
-<!-- 		</section> -->
-
 
 		<!-- Js Plugins -->
 <!-- 		<script src="/ogani-master/js/jquery-3.3.1.min.js"></script> -->

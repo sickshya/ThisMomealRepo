@@ -64,7 +64,7 @@
 						<if test='no > 0'>
 							<![CDATA[
 		 		             C.NO < #{no}
-		 		             AND C.CHAL_START_DATE >= TRUNC(CURRENT_DATE)
+		 		             AND C.CHAL_START_DATE > TRUNC(CURRENT_DATE)
 				            ]]> 
 						</if>
 							<include refid="search"></include>
