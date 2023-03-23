@@ -51,8 +51,6 @@
 
     <body>
         <div layout:fragment="content" align="center">
-            <!-- Product Details Section Begin -->
-            <!-- <section class="product-details spad"> -->
             <div class="row">
                 <h4>
                     <b>나의 챌린지</b>
@@ -61,20 +59,12 @@
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a
-                                    class="nav-link active"
-                                    data-toggle="tab"
-                                    href="#myChallenge"
-                                    role="tab"
-                                    aria-selected="true">진행중</a>
+                                <a class="nav-link active" data-toggle="tab" href="#myChallenge"
+                                    role="tab" aria-selected="true">진행중</a>
                             </li>
                             <li class="nav-item">
-                                <a
-                                    class="nav-link"
-                                    data-toggle="tab"
-                                    href="#myEndChallenge"
-                                    role="tab"
-                                    aria-selected="false">종료</a>
+                                <a class="nav-link" data-toggle="tab" href="#myEndChallenge"
+                                    role="tab" aria-selected="false">종료</a>
                             </li>
                         </ul>
 
@@ -84,48 +74,33 @@
                             <div class="tab-pane active" id="myChallenge" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                     <br>
-                                    <button
-                                        type="button"
-                                        style="border: 1; border: solid; border-color: lightgray; border-radius: 20px; font-size: 15px; margin: 10px; background: white; padding: 10px 20px 10px 20px;">
+                                    <button type="button" style="border: 1; border: solid; border-color: lightgray; border-radius: 20px; font-size: 15px; margin: 10px; background: white; padding: 10px 20px 10px 20px;">
                                         <b>[[ ${#lists.size(myChall)} ]]개</b></button>
 								<br> <br> <br>
 								<div id="wrapper">
 									<div class="col-lg-5">
 										<ul>
-											<li th:each="chall : ${myChall}"
-												th:onclick="'location.href=\''+ @{/chlg/myChallenge/{chalNo}(chalNo = ${chall.NO})} + '\''">
+											<li th:each="chall : ${myChall}" th:onclick="'location.href=\''+ @{/chlg/myChallenge/{chalNo}(chalNo = ${chall.NO})} + '\''">
 												<div align="left">
-												</div> <a href="#"
-												class="block flex items-center py-3 px-4 space-x-3">
+												</div> 
+												<a href="#" class="block flex items-center py-3 px-4 space-x-3">
 													<div class="w-13 h-13 rounded-full relative flex-shrink-0">
-														<img th:src="${chall.THUMBNAIL_IMG_PATH}" alt=""
-															style="width: 100px; height: 110px;">
+														<img th:src="${chall.THUMBNAIL_IMG_PATH}" alt="" style="width: 100px; height: 110px;">
 													</div>
-													<div class="flex-1 min-w-0 relative text-gray-500"
-														align="left">
+													<div class="flex-1 min-w-0 relative text-gray-500" align="left">
 														<h4 class="text-black font-semibold dark:text-white"></h4>
-														<!-- <span class="absolute right-0 top-1 text-xs">상세내역 링크?모달?</span>  -->
-<!-- 														<span class="absolute right-0 top-1 text-xs">주문일자</span> -->
-														<p class="text-black font-semibold dark:text-white"
-															style="font-size: 18px">[[ ${chall.TITLE} ]]</p>
+														<p class="text-black font-semibold dark:text-white" style="font-size: 18px">[[ ${chall.TITLE} ]]</p>
 														<p class="truncate" style="font-size: 13px">
-															<b>진행기간</b> [[${#dates.format(chall.CHAL_START_DATE,
-															'MM-dd')}]]([[${#dates.dayOfWeekName(chall.CHAL_START_DATE)}]])
-															~ [[${#dates.format(chall.CHAL_END_DATE,
-															'MM-dd')}]]([[${#dates.dayOfWeekName(chall.CHAL_END_DATE)}]])
+															<b>진행기간</b> [[${#dates.format(chall.CHAL_START_DATE, 'MM-dd')}]]([[${#dates.dayOfWeekName(chall.CHAL_START_DATE)}]])
+															~ [[${#dates.format(chall.CHAL_END_DATE, 'MM-dd')}]]([[${#dates.dayOfWeekName(chall.CHAL_END_DATE)}]])
 														</p>
-<!-- 														<div align="right"> -->
-<!-- 															<input type="button" value="인증하기" -->
-<!-- 																style="width: 100px; height: 40px;"> -->
-<!-- 														</div> -->
 													</div>
-											</a>
+												</a>
 												<hr>
 											</li>
 										</ul>
 									</div>
 								</div>
-
 							</div>
 						</div>
 						<!-- 진행중인 챌린지 탭 끝 -->
@@ -134,8 +109,7 @@
 						<div class="tab-pane" id="myEndChallenge" role="tabpanel">
 							<div class="product__details__tab__desc">
 								<br>
-								<button type="button"
-									style="border: 1; border: solid; border-color: lightgray; border-radius: 20px; font-size: 15px; margin: 10px; background: white; padding: 10px 20px 10px 20px;">
+								<button type="button" style="border: 1; border: solid; border-color: lightgray; border-radius: 20px; font-size: 15px; margin: 10px; background: white; padding: 10px 20px 10px 20px;">
 									<b>[[ ${#lists.size(endChall)} ]]개</b></button>
 								<br> <br> <br>
 								<div id="wrapper">
