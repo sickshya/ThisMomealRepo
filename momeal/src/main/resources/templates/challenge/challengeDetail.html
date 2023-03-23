@@ -47,8 +47,6 @@
 
 <body>
 	<div layout:fragment="content">
-		<!-- Product Details Section Begin -->
-		<!--       <section class="product-details spad"> -->
 		<div class="container">
 			<form id="attendfrm" th:action="@{/attendChallenge}" method="post">
 				<div class="row">
@@ -59,47 +57,48 @@
 									th:src="${chall.thumbnailImgPath}" alt=""
 									style="width: 100%; height: 100%;">
 							</div>
-
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6">
 						<div class="product__details__text">
 							<h3>[[ ${chall.title} ]]</h3>
-							<p th:if="${chall.startDay == '0'}" style="color: red;">오늘부터
-								시작</p>
-							<p th:if="${chall.startDay > '0'}" style="color: red;">[[
-								${chall.startDay} ]]일 뒤 시작</p>
-								<p th:if="${chall.startDay < '0'}" style="color: red;">모집 마감</p>
-							<p>[[${#dates.format(chall.chalStartDate,
-								'MM-dd')}]]([[${#dates.dayOfWeekName(chall.chalStartDate)}]]) ~
-								[[${#dates.format(chall.chalEndDate,
-								'MM-dd')}]]([[${#dates.dayOfWeekName(chall.chalEndDate)}]])</p>
+							<p th:if="${chall.startDay == '0'}" style="color: red;">오늘부터 시작</p>
+							<p th:if="${chall.startDay > '0'}" style="color: red;">[[ ${chall.startDay} ]]일 뒤 시작</p>
+							<p th:if="${chall.startDay < '0'}" style="color: red;">모집 마감</p>
+							<p>[[${#dates.format(chall.chalStartDate, 'MM-dd')}]]([[${#dates.dayOfWeekName(chall.chalStartDate)}]]) 
+								~ [[${#dates.format(chall.chalEndDate, 'MM-dd')}]]([[${#dates.dayOfWeekName(chall.chalEndDate)}]])</p>
 							<ul>
-								<li><b>참여비</b> <span><samp>
+								<li>
+									<b>참여비</b> 
+									<span>
+										<samp>
 											<b>[[${#numbers.formatInteger(chall.deductPoint, 3, 'COMMA')}]]포인트</b>
-										</samp></span></li>
+										</samp>
+									</span>
+								</li>
 								<br>
-								<li><b>참여인원</b> <span>[[${chall.particir}]]명</span></li>
-								<li><b>현재까지 모인 참여비</b> <span>총
-										[[${#numbers.formatInteger(chall.sumPoint, 3, 'COMMA')}]]포인트 </span></li>
+								<li>
+									<b>참여인원</b> 
+									<span>[[${chall.particir}]]명</span>
+								</li>
+								<li>
+									<b>현재까지 모인 참여비</b> 
+									<span>총 [[${#numbers.formatInteger(chall.sumPoint, 3, 'COMMA')}]]포인트 </span>
+								</li>
 								<br>
-								<li><span>80% 이상 성공시 </span><b> 참여비 페이백 + 상금</b></li>
-								<!--                            <div class="share"> -->
-								<!--                               <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i -->
-								<!--                                  class="fa fa-twitter"></i></a> <a href="#"><i -->
-								<!--                                  class="fa fa-instagram"></i></a> <a href="#"><i -->
-								<!--                                  class="fa fa-pinterest"></i></a> -->
-								<!--                            </div> -->
+								<li>
+									<span>80% 이상 성공시 </span>
+									<b> 참여비 페이백 + 상금</b>
+								</li>
 							</ul>
 							<br> <br>
 							<div style="position: relative;">
-								<th:block th:if="${chall.startDay <= '0'}">
+								<th:block th:if="${chall.startDay < '0'}">
 								</th:block>
-								<th:block th:unless="${chall.startDay <= '0'}">
+								<th:block th:unless="${chall.startDay < '0'}">
 									<div style="float: left; transform: translate(0, -50%);" th:if="${session.userId != null}">
 									<a href="" class="primary-btn" data-target="#Modal-2"
 										onclick="loginChk()" id="attendBtn">참여하기</a>&nbsp;&nbsp;&nbsp;
-									<!-- data-toggle="modal" -->
 								</div>
 								</th:block>
 								&nbsp;&nbsp;
@@ -118,7 +117,7 @@
 									</th:block>
 									<!-- 좋아요 안 한 챌린지는 빨간 하트 -->
 									<th:block th:unless="${chall.likeNo != 0}">
-										<a href="#" class="emptyHeart"> <!-- class="heart-click heart_icon${rec.LIKE_NO }" -->
+										<a href="#" class="emptyHeart">
 											<img src="/assets/images/emptyHeart.svg">
 										</a>
 									</th:block>
@@ -129,13 +128,14 @@
 					<div class="col-lg-12">
 						<div class="product__details__tab">
 							<ul class="nav nav-tabs" role="tablist">
-								<li class="nav-item"><a class="nav-link active"
-									data-toggle="tab" href="#detail" role="tab"
-									aria-selected="true">상세설명</a></li>
-								<li class="nav-item"><a class="nav-link" data-toggle="tab"
-									href="#review" role="tab" aria-selected="false"
-									th:onclick="reviewList([[${chall.no}]])">후기</a></li>
-
+								<li class="nav-item">
+									<a class="nav-link active" data-toggle="tab" href="#detail" role="tab" aria-selected="true">
+									상세설명</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" data-toggle="tab" href="#review" role="tab" aria-selected="false" th:onclick="reviewList([[${chall.no}]])">
+									후기</a>
+								</li>
 							</ul>
 
 							<!-- 탭 내용들 -->
@@ -144,7 +144,7 @@
 								<div class="tab-pane active" id="detail" role="tabpanel">
 									<div class="product__details__tab__desc">
 										<th:block th:each="img : ${detailImg}">
-										<img th:src="${img.atchPath}" style="width:100%; height:100%;">
+											<img th:src="${img.atchPath}" style="width:100%; height:100%;">
 										</th:block>
 									</div>
 								</div>
@@ -156,20 +156,16 @@
 							</div>
 
 							<!-- 참여하기 모달 -->
-							<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog"
-								aria-labelledby="Modal-label-1">
+							<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
 											<h4 class="modal-title" id="Modal-label-1">참여하기</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
 										<div class="modal-body">
-	<!--                                  <img src="" alt="img01" -->
-	<!--                                     class="img-responsive" style="width: 500px; height: 500px;" /> -->
 											<div class="modal-works" align="right"></div>
 											<br>
 											<p>
@@ -180,18 +176,13 @@
 											<p>현재 보유 포인트 : <span style="color:red;"><b>[[${#numbers.formatInteger(chall.totalPoint, 3, 'COMMA')}]]</b>포인트</span></p>
 										</div>
 										<div class="modal-footer">
-											<button type="button" onclick="attedChall()"
-												class="btn btn-default" id="attend">참여하기</button>
+											<button type="button" onclick="attedChall()" class="btn btn-default" id="attend">참여하기</button>
 											<input type="hidden" th:value="${chall.no}" name="no" id="no">
-											<input type="hidden" th:value="${chall.chalRound}" name="chalRound"
-												id="chalRound"> <input type="hidden"
-												th:value="${session.userId}" name="userId" id="userId">
-											<input type="hidden" th:value="${chall.attendNo}"
-												name="attendNo" id="attendNo">
-											<input type="hidden" th:value="${chall.deductPoint}"
-												name="deductPoint" id="deductPoint">
-											<input type="hidden" th:value="${chall.totalPoint}"
-												name="totalPoint" id="totalPoint">
+											<input type="hidden" th:value="${chall.chalRound}" name="chalRound" id="chalRound"> 
+											<input type="hidden" th:value="${session.userId}" name="userId" id="userId">
+											<input type="hidden" th:value="${chall.attendNo}" name="attendNo" id="attendNo">
+											<input type="hidden" th:value="${chall.deductPoint}" name="deductPoint" id="deductPoint">
+											<input type="hidden" th:value="${chall.totalPoint}" name="totalPoint" id="totalPoint">
 										</div>
 									</div>
 								</div>
@@ -204,16 +195,12 @@
 		</div>
 
 		<script>
-		// 로그인 유무 & 챌린지 참여 여부 판단 후 모달 띄우기
+		// ▶ 로그인 유무 & 챌린지 참여 여부 판단 후 모달 띄우기
         function loginChk() {
            let userId = $('#userId').val();
            let attendNo = $('#attendNo').val();
-           
-            console.log("유저 아이디 들어오나요 ================ " + userId);
-
                if(userId == ""){ 
                   alert("로그인 한 회원만 신청 가능합니다. \n로그인 후에 다시 시도해주세요."); 
-//                   $('#attend').attr('data-dismiss', 'modal');
                   return false;
                }
                else {
@@ -226,25 +213,27 @@
         }
      
      
-        // 챌린지 참여신청
+        // ▶ 챌린지 참여신청
         function attedChall() {
         	let userId = $('#userId').val();
         	let deductPoint = $('#deductPoint').val();
         	let totalPoint = $('#totalPoint').val();
         	
-        	if(totalPoint < deductPoint) {
-        		alert("참여에 필요한 포인트가 부족합니다.")
-        		$('#Modal-2').modal('hide');
-        	}else{
+//         	if(totalPoint < deductPoint) {
+//         		alert("참여에 필요한 포인트가 부족합니다.")
+//         		$('#Modal-2').modal('hide');
+//         	}else{
+			  alert("참여 신청이 완료되었습니다.")
               $('#attendfrm').submit();
-        	}
-               }
+//         	}
+         }
 
         
-		// 챌린지 리뷰 조회
+		// ▶ 챌린지 리뷰 조회
 		function reviewList(no) {
 			$("#review").empty()
 			
+			// ajax 처리
 			$.ajax({
 				url: "/challengeReview/" + no,
 				type: "post"
@@ -329,8 +318,6 @@
 		});
 			
 		</script>
-		<!-- 		</section> -->
-
 
 		<!-- Js Plugins -->
 		<!-- 		<script src="/ogani-master/js/jquery-3.3.1.min.js"></script> -->

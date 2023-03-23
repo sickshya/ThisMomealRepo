@@ -64,11 +64,12 @@
 						<if test='no > 0'>
 							<![CDATA[
 		 		             C.NO < #{no}
+		 		             AND C.CHAL_START_DATE >= TRUNC(CURRENT_DATE)
 				            ]]> 
 						</if>
 							<include refid="search"></include>
 						</where>
-			            ORDER BY C.NO DESC) A
+			            ORDER BY C.CHAL_START_DATE, C.CHAL_END_DATE) A 
 		<![CDATA[
  		 WHERE ROWNUM <= 10) b
  		]]> 
@@ -107,6 +108,7 @@
 		   ON C.NO = LC.POST_NO
 		<![CDATA[
 		WHERE rownum < 8
+		AND C.CHAL_START_DATE >= TRUNC(CURRENT_DATE)
 		]]>
 	</select>
 
