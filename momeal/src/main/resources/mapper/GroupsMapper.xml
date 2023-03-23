@@ -11,7 +11,7 @@
 	</resultMap>
 
 
-	<!-- 내가 속한 그룹 전체 멤버리스트 출력 / 그룹 단건조회 -->
+	<!-- 내가 속한 그룹 전체 리스트 출력  -->
 	<select id="grpSelect" resultMap="groupsImg">
 		SELECT U.USER_ID,
 		U.USER_NAME,
