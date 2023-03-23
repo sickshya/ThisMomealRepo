@@ -115,24 +115,18 @@
 								<div id="wrapper">
 									<div class="col-lg-5">
 										<ul>
-											<li th:each="end : ${endChall}"
-												th:onclick="'location.href=\''+ @{/chlg/myChallenge/{chalNo}(chalNo = ${end.NO})} + '\''">
-												<div align="left"></div> <a href="#"
-												class="block flex items-center py-3 px-4 space-x-3">
+											<li th:each="end : ${endChall}" th:onclick="'location.href=\''+ @{/chlg/myChallenge/{chalNo}(chalNo = ${end.NO})} + '\''">
+												<div align="left"></div> 
+												<a href="#" class="block flex items-center py-3 px-4 space-x-3">
 													<div class="w-13 h-13 rounded-full relative flex-shrink-0">
-														<img th:src="${end.THUMBNAIL_IMG_PATH}" alt=""
-															style="width: 100px; height: 110px;">
+														<img th:src="${end.THUMBNAIL_IMG_PATH}" alt="" style="width: 100px; height: 110px;">
 													</div>
-													<div class="flex-1 min-w-0 relative text-gray-500"
-														align="left">
+													<div class="flex-1 min-w-0 relative text-gray-500" align="left">
 														<h4 class="text-black font-semibold dark:text-white"></h4>
-														<p class="text-black font-semibold dark:text-white"
-															style="font-size: 18px">[[ ${end.TITLE} ]]</p>
+														<p class="text-black font-semibold dark:text-white" style="font-size: 18px">[[ ${end.TITLE} ]]</p>
 														<p class="truncate" style="font-size: 13px">
-															<b>진행기간</b> [[${#dates.format(end.CHAL_START_DATE,
-															'MM-dd')}]]([[${#dates.dayOfWeekName(end.CHAL_START_DATE)}]])
-															~ [[${#dates.format(end.CHAL_END_DATE,
-															'MM-dd')}]]([[${#dates.dayOfWeekName(end.CHAL_END_DATE)}]])
+															<b>진행기간</b> [[${#dates.format(end.CHAL_START_DATE, 'MM-dd')}]]([[${#dates.dayOfWeekName(end.CHAL_START_DATE)}]])
+															~ [[${#dates.format(end.CHAL_END_DATE, 'MM-dd')}]]([[${#dates.dayOfWeekName(end.CHAL_END_DATE)}]])
 														</p>
 														<th:block th:if="${end.CODE_ID == 'CL01'}">
 															<p style="color: red; padding-left: 10px;">
@@ -146,7 +140,7 @@
 														</th:block>
 														<div align="right"></div>
 													</div>
-											</a>
+												</a>
 												<hr>
 											</li>
 										</ul>
@@ -160,13 +154,6 @@
 				</div>
 			</div>
 		</div>
-
-
-		<script>
-			
-		</script>
-		<!-- 		</section> -->
-
 
 		<!-- Js Plugins -->
 		<!-- 		<script src="/ogani-master/js/jquery-3.3.1.min.js"></script> -->
