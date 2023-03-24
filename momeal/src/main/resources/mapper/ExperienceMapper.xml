@@ -4,7 +4,8 @@
 
 	<!-- 메인페이지 체험단 최신등록, 마감임박 리스트-->
 	<select id="hmExprList" resultType="co.doeat.management.service.ExperienceVO">
-		SELECT  title,
+		SELECT  no,
+				title,
 		        subject,
 		        NVL(lmt_aplyt - now_aplyt,0) aplytCnt,
 		        thumbnail_img_path
