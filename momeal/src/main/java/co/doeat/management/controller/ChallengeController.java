@@ -276,7 +276,7 @@ public class ChallengeController {
 	public String adminCHDelete(@PathVariable int no, Model model, RedirectAttributes redirectAttributes, ChallengeVO vo, ImageVO evo) {
 		String boardCode = "CT01";
 		int postNo = vo.getNo();
-		imageService.adminGPIDelete(postNo, boardCode);
+		imageService.adminCHIDelete(postNo, boardCode);
 		int delCnt=challengeService.adminCHDelete(no);
 		if (delCnt == 0) {
 			redirectAttributes.addFlashAttribute("msg", "신청자가있는 첼린지는 삭제할 수 없습니다");
